@@ -1,0 +1,9 @@
+proc button {args} {
+    eval "tk::button $args -padx 10 -pady 3"
+}
+
+destroy .frame.quit
+button .frame.quit -text "Quit" -command "exit"
+pack .frame.quit -side top -expand 1 -padx 100 -pady 20
+
+puts "hello"
