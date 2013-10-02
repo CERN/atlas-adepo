@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 #include "header/bdd.h"
 #include "header/read_input.h"
 #include "header/read_lwdaq_output.h"
@@ -12,21 +16,28 @@
 #include <QApplication>
 #include <QtGui>
 #include "header/atlas_bcam.h"
+<<<<<<< HEAD
 #include <QApplication>
 #include <QTranslator>
 #include <QLocale>
 #include <QLibraryInfo>
+=======
+>>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 int main(int argc, char *argv[])
 {
 
 QApplication app(argc, argv);
+<<<<<<< HEAD
 QString locale = QLocale::system().name().section('_', 0, 0);
 QTranslator translator;
 translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 app.installTranslator(&translator);
 ATLAS_BCAM fenetre;
 //system("mkdir Archive");
+=======
+ATLAS_BCAM fenetre;
+>>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 fenetre.show();
 return app.exec();
 /*

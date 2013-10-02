@@ -1290,7 +1290,14 @@ var bc:coordinates_type;
 begin
 	bc:=bcam_coordinates_from_mount(mount);
 	global_from_bcam_vector:=
+<<<<<<< HEAD
 		xyz_transform(xyz_matrix_inverse(xyz_matrix_from_points(bc.x_axis,bc.y_axis,bc.z_axis)),p);
+=======
+		xyz_transform(
+			xyz_matrix_inverse(
+				xyz_matrix_from_points(bc.x_axis,bc.y_axis,bc.z_axis)),
+			p);
+>>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 end;
 
 {

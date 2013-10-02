@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "header/write_file_obs_mount_system.h"
 #include "header/changement_repere.h"
 #include "eigen-eigen-ffa86ffb5570/Eigen/Eigen"
@@ -8,6 +9,10 @@
 #include "sstream"
 
 #define um2m 0.000001
+=======
+
+#include "header/write_file_obs_mount_system.h"
+>>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_donnees)
 {
@@ -17,6 +22,7 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
 
     if(fichier)
     {
+<<<<<<< HEAD
         fichier<<"********** Fichier qui contient une sauvegarde des coordonnees images + coordonnees images transformees dans le repere BCAM (MOUNT) + coordonnees des prismes dans le repere MOUNT********** \n"
                <<"********************************************************************** Unite en metres (m)************************************************************************************************** \n"
                <<"\n";
@@ -194,15 +200,35 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
                 std::cout<<delta_z<<std::endl;
                 //enregistrement dans le fichier de resultats
                 fichier<<name_bcam_atlas<<"_"<<name_prism_atlas<<" "<<year<<"."<<month<<"."<<day<<"."<<hour<<"."<<min<<"."<<sec<<" "<<result_mean(0,0)+delta_x<<" "<<result_mean(0,1)+delta_y<<" "<<result_mean(0,2)+delta_z<<" "<<result_std(0,0)<<" "<<result_std(0,1)<<" "<<result_std(0,2)<<" "<<"VRAI \n";
+=======
+        fichier<<"********** Fichier qui contient une sauvegarde des coordonnees images transformees dans le repere BCAM (MOUNT) ********** \n"
+              <<"**************************************************** Unite en metres (m)************************************************** \n";
+
+
+
+            for(int j=0; j<base_donnees.Get_liste_mount_coord_spots().size(); j++)
+            {
+                    fichier<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_id()<<"\n";
+                    fichier<<"Spot 1"<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord1().Get_X()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord1().Get_Y()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord1().Get_Z()<<"\n";
+                    fichier<<"Spot 2"<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord2().Get_X()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord2().Get_Y()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord2().Get_Z()<<"\n";
+
+>>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
             }
 
         fichier.close();
         return 1;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
     else
     {
            return 0;
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
