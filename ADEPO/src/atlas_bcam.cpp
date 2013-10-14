@@ -9,37 +9,24 @@
 #include "header/read_lwdaq_output.h"
 #include "header/img_coord_to_bcam_coord.h"
 #include "header/write_file_obs_mount_system.h"
-<<<<<<< HEAD
 #include "header/calcul_coord_bcam_system.h"
 #include "header/helmert.h"
 #include "header/mythread.h"
 #include "header/mount_prism_to_global_prism.h"
-=======
-
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 
 #include <iostream>
 #include <QtGui>
 #include "QWidget"
-<<<<<<< HEAD
 #include "QtTest/QTest"
 #include <time.h>
 
 #define NBR_DETECTORS 8
-=======
-
-#define NBR_DETECTORS 7
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 #define ID_LENGTH_BCAM 14
 
 /********************************************************************************************/
 #define NAME_CONFIGURATION_FILE "configuration_file.txt"
-<<<<<<< HEAD
 #define NAME_CALIBRATION_FILE "BCAM_Parameters.txt"
-=======
-#define NAME_CALIBRATION_FILE "calibration_file.txt"
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 #define NAME_LWDAQ_FOLDER "LWDAQ"
 /********************************************************************************************/
 
@@ -47,7 +34,6 @@
 //declaration des variables globales
 std::string path_lwdaq;
 QString path_input_folder;
-<<<<<<< HEAD
 //valeur par defaut si l'utilisateur ne touche pas au spinbox
 QString time_value = "30";
 //valeur par defaut du mode d'utilisation est CLOSURE
@@ -57,9 +43,6 @@ QString mode_airpad = "OFF";
 
 //nom du fichier script qui va lancer l'acquisition que sur les detecteurs selectionnes
 std::string fichier_script = "Acquisifier_script_file.tcl";
-=======
-QString time_value;
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 //bool pour savoir si le programme est entrain d'acquerir des obs
 //action = 0 --> pas d'observations
@@ -76,7 +59,6 @@ int tab_bcam=0;
 //format_input = 0 --> il y a une erreur et on ne charge pas le fichier
 int format_input=1;
 
-<<<<<<< HEAD
 //compteur pour savoir combien de fois l'utilisateur a charge un fichier d'input
 int compteur_chargement = 0;
 
@@ -86,11 +68,6 @@ QTimer *timer = new QTimer();
 ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ATLAS_BCAM)                                                                        //[---> ok
-=======
-ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::ATLAS_BCAM)
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 {
         ui->setupUi(this);
         //ouverture de l'input file
@@ -110,18 +87,13 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)),this, SLOT(affiche_liste_BCAMs(int,int)));
 
         //lancer les acquisitions (arret automoatique)
-<<<<<<< HEAD
         QObject::connect(ui->Boutton_lancer,SIGNAL(clicked()), this,SLOT(startCalcul()));
 
         //QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));
-=======
-        QObject::connect(ui->Boutton_lancer,SIGNAL(clicked()), this,SLOT(lancer_acquisition()));
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
         //stopper l'acquisition (arret force)
         QObject::connect(ui->boutton_arreter,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
 
-<<<<<<< HEAD
         //recuperer la valeur du temps d'acquisition
         QObject::connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(save_time_value()));
 
@@ -130,13 +102,6 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         //recuperer la valeur des airpads : ON ou OFF
         QObject::connect(ui->comboBox_2, SIGNAL(currentIndexChanged(int)), this, SLOT(get_airpad_state()));
-=======
-        //calcul des coordonnees du Prisme
-        //QObject::connect(ui->boutton_calculer,SIGNAL(clicked()),this,SLOT(calcul_coord()));
-
-        //recuperer la valeur du temps d'acquisition
-        QObject::connect(ui->lineEdit_value_seconds, SIGNAL(textEdited(QString)), this, SLOT(save_time_value()));
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 }
 
@@ -145,7 +110,6 @@ ATLAS_BCAM::~ATLAS_BCAM()
     delete ui;
 }
 
-<<<<<<< HEAD
 //ouverture d'une boite de dialogue                                                                 [----> ok
 void ATLAS_BCAM::ouvrirDialogue()
 {
@@ -158,11 +122,6 @@ void ATLAS_BCAM::ouvrirDialogue()
         m_bdd.vidage_complet(); //on vide tout car nouveau fichier
         compteur_chargement = 1; //comme si c'etait le premier chargement
     }
-=======
-void ATLAS_BCAM::ouvrirDialogue()
-{
-    path_input_folder = QFileDialog::getExistingDirectory(this, "Chemin du dossier", QString());
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
     //chemin du fichier d'entree
     //path_input_folder = fenetre_ouverture->Get_path_fich();
@@ -170,23 +129,16 @@ void ATLAS_BCAM::ouvrirDialogue()
     //appel pour la lecture de fichier
     read_input(path_input_folder.toStdString().append("/").append(NAME_CONFIGURATION_FILE),m_bdd);
 
-<<<<<<< HEAD
     //estimation des 6 parametres pour chaque BCAM
     helmert(m_bdd);
 
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
     //verification des infos du fichier d'entree
     //check_input_data();
 
     //activation du boutton pour lancer les acquisitions
     enable_PushButton();
 
-<<<<<<< HEAD
     //remplissage tableau detectors que si le format du fichier input est bon !
-=======
-    //remplissage tableau detectors
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
     if(format_input == 1)
     {
         remplir_tableau_detectors();
@@ -195,17 +147,13 @@ void ATLAS_BCAM::ouvrirDialogue()
     //lecture du fichier de calibration
     read_calibration_database(path_input_folder.toStdString().append("/").append(NAME_CALIBRATION_FILE),m_bdd);
 
-<<<<<<< HEAD
     //recuperation de la partie qui nous interesse du fichier de calibration
     //clean_calib(m_bdd);
 
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
     // chemin d'acces a l'emplacement de LWDAQ
     path_lwdaq = path_input_folder.toStdString().append("/").append(NAME_LWDAQ_FOLDER).append("/").append("lwdaq");
 }
 
-<<<<<<< HEAD
 //fonction qui enregistre la valeur du temps d'acquisition entree par l'utilisateur                 [----> ok
 void ATLAS_BCAM::save_time_value()
 {
@@ -213,16 +161,6 @@ void ATLAS_BCAM::save_time_value()
 }
 
 //fonction d'ouverture de la fenêtre d'aide de l'outil ARCAPA                                       [----> not yet]
-=======
-//fonction qui enregistre la valeur du temps d'acquisition entree par l'utilisateur
-void ATLAS_BCAM::save_time_value()
-{
-    time_value = ui->lineEdit_value_seconds->text();
-    enable_PushButton();
-}
-
-//fonction d'ouverture de la fenêtre d'aide de l'outil ARCAPA
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 void ATLAS_BCAM::aide_atlas_bcam()
 {
     QDialog *aideatlasbcam = new QDialog(this);
@@ -243,11 +181,7 @@ void ATLAS_BCAM::aide_atlas_bcam()
 
 }
 
-<<<<<<< HEAD
 //fonction permettant de charger la liste des detectors après ouverture d'un projet                 [---> ok
-=======
-//fonction permettant de charger la liste des detectors après ouverture d'un projet
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 void ATLAS_BCAM::remplir_tableau_detectors()
 {
     //recuperation de la liste des nom des detecteurs
@@ -259,68 +193,40 @@ void ATLAS_BCAM::remplir_tableau_detectors()
 
     for(int i=0; i<nb_lignes; i++)
     {
-<<<<<<< HEAD
 
         //ajout du numero id du detetcteur
         QTableWidgetItem *item_num = new QTableWidgetItem();
         item_num->setData(0,detectors_data.at(i).Get_num_id_detector());
         ui->tableWidget_liste_detectors->setItem(i,0,item_num);
 
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
         //ajout du nom du detecteur
         QTableWidgetItem *item_nom = new QTableWidgetItem();
         item_nom->setText(QString::fromStdString(detectors_data.at(i).Get_nom_detector()));
         ui->tableWidget_liste_detectors->setItem(i,1,item_nom);
 
-<<<<<<< HEAD
         //ajout de la constante de aipad
         QTableWidgetItem *item_dist_const = new QTableWidgetItem();
         item_dist_const->setData(0,detectors_data.at(i).Get_airpad_on_add_dist());
         ui->tableWidget_liste_detectors->setItem(i,2,item_dist_const);
-=======
-        //ajout du numero id du detetcteur
-        QTableWidgetItem *item_num = new QTableWidgetItem();
-        item_num->setData(0,detectors_data.at(i).Get_num_id_detector());
-        ui->tableWidget_liste_detectors->setItem(i,0,item_num);
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
     }
 
 
 }
 
-<<<<<<< HEAD
 //fonction permettant de charger la liste des BCAMs qui appartiennent a un detector                 [---> ok
 void ATLAS_BCAM::affiche_liste_BCAMs(int ligne, int colonne)
 {
     //recuperation du nombre de detecteurs
     int nb_detetctors = ui->tableWidget_liste_detectors->selectedItems().size()/3;
-=======
-//fonction permettant de charger la liste des BCAMs qui appartiennent a un detector
-void ATLAS_BCAM::affiche_liste_BCAMs(int ligne, int colonne)
-{
-    //recuperation du nombre de detecteurs
-    int nb_detetctors = ui->tableWidget_liste_detectors->selectedItems().size()/2;
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
     //vecteur qui va contenir la liste des BCAMs temporaires selectionnees dans le tableau
     std::vector<BCAM> *liste_bcam = new std::vector<BCAM>;
 
-<<<<<<< HEAD
-=======
-    //nom du fichier script qui va lancer l'acquisition que sur les detecteurs selectionnes
-    std::string fichier_script = "Acquisifier_script_file.tcl";
-
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
     //recuperation des donnees a afficher
     for(int i=0; i<nb_detetctors; i++)
     {
         //recuperation de l'identifiant du detecteur
-<<<<<<< HEAD
         QString id_detector = ui->tableWidget_liste_detectors->selectedItems().at(i*3)->text();
-=======
-        QString id_detector = ui->tableWidget_liste_detectors->selectedItems().at(i*2)->text();
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
         //recuperation des donnes a afficher
         std::vector<BCAM> *m_liste_bcam = new std::vector<BCAM>(liste_bcam_from_id_detector(m_bdd, id_detector.toInt()));
@@ -358,26 +264,15 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int ligne, int colonne)
       num_port_mux->setData(0,liste_bcam->at(i).Get_num_Port_Mux());
       ui->tableWidget_liste_bcams->setItem(i,3,num_port_mux);
 
-<<<<<<< HEAD
       QTableWidgetItem *objet_vise = new QTableWidgetItem();
       objet_vise->setText(QString::fromStdString(liste_bcam->at(i).Get_objet_vise()));
       ui->tableWidget_liste_bcams->setItem(i,4,objet_vise);
-=======
-      QTableWidgetItem *type_bcam = new QTableWidgetItem();
-      type_bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_type_bool_BCAM()));
-      ui->tableWidget_liste_bcams->setItem(i,4,type_bcam);
-
-      QTableWidgetItem *objet_vise = new QTableWidgetItem();
-      objet_vise->setText(QString::fromStdString(liste_bcam->at(i).Get_objet_vise()));
-      ui->tableWidget_liste_bcams->setItem(i,5,objet_vise);
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
     }
     tab_bcam =1;
     enable_PushButton();
 }
 
-<<<<<<< HEAD
 //fonction qui lance les acquisitions LWDAQ                                                         ----> ok mais qu'est ce qui se passe apres les acquisitions ?
 void ATLAS_BCAM::lancer_acquisition()
 {
@@ -481,79 +376,6 @@ void ATLAS_BCAM::calcul_coord()
 }
 
 //fonction qui verifie qu'il n'y a pas d'erreurs dans le fichier de configuration                   [----> ok mais peut etre amelioree
-=======
-//fonction qui lance les acquisitions LWDAQ
-void ATLAS_BCAM::lancer_acquisition()
-{
-    //le programme est en mode acquisition
-    action = 1;
-
-    // activation du boutton pour arreter l'acquisition
-    enable_PushButton();
-
-    //creation d'un repertoire qui va contenir les scripts en Tcl
-    system("mkdir scripts_lwdaq");
-
-    //input : startup pour LWDAQ
-    std::string startup_file = "Acquisifier_params.tcl";
-    write_input_script(startup_file);
-
-    //input : startup pour les settings de l'acquisifier
-    std::string acquisifier_settings = "Acquisifier_Settings.tcl";
-    write_settings_file(acquisifier_settings);
-
-    //input : le bash pour copier les fichiers + lancer l'acquisition de LWDAQ
-    std::string bash_script = "bash_script.sh";
-    ecriture_script_bash(bash_script);
-
-    //deplacer les fichiers en Tcl dans le repertoire scripta_lwdaq
-    system("mv Acquisifier_* scripts_lwdaq");
-
-    //lancement du programme LWDAQ par commande systeme
-    if(system(("bash "+bash_script).c_str()))
-        std::cout << "ACCESS_SUCCESS"<<std::endl;
-    else
-    {
-        std::cout << "ACCESS_FAILURE"<<std::endl;
-    }
-
-    //creation d'un dossier qui va contenir les resultats
-    system("mkdir Resultats");
-
-    //copie des observations lwdaq en coordonnees images
-    //system("cp ../LWDAQ/Tools/Data/Acquisifier_Results.txt /home/cern-mehdi/Documents/Projet_BCAM/Resultats");
-
-}
-
-//fonction qui permet d'arreter l'acquisition LWDAQ (seuleuement en mode monitoring ?)
-void ATLAS_BCAM::stop_acquisition()
-{
-    std::string nom_fichier_bash_stop = "bash_script_stop_acquisition.sh";
-    ecriture_script_bash_stop(nom_fichier_bash_stop);
-}
-
-//fonction qui calcule les coordonnees de chaque prisme dans le repere BCAM
-void ATLAS_BCAM::calcul_coord()
-{
-
-
-   //je lis le fichier de sortie de LWDAQ qui contient les observations
-   std::string fichier_obs_brutes = "Resultats/Acquisifier_Results.txt";
-   read_lwdaq_output(fichier_obs_brutes, m_bdd);
-
-   //je fais la transformation du capteur CCD au systeme MOUNT
-   img_coord_to_bcam_coord(m_bdd);
-
-   //enregistrement du fichier qui contient les observations dans le repere MOUNT
-   std::string fichier_obs_mount = "Resultats/Observations_MOUNT_System.txt";
-   write_file_obs_mount_system(fichier_obs_mount, m_bdd);
-
-   //je calcule les coordonnees du prisme en 3D dans le repere MOUNT
-
-}
-
-//fonction qui verifie qu'il n'y a pas d'erreurs dans le fichier de configuration
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 void ATLAS_BCAM::check_input_data()
 {
     //test des numéros des ports driver : sur les driver les numéros de ports possibles sont compris entre 1 et 8
@@ -582,22 +404,6 @@ void ATLAS_BCAM::check_input_data()
         }
     }
 
-<<<<<<< HEAD
-=======
-    //test sur le type booléen d'une BCAM : single ou double ?
-    for (int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
-    {
-        if(m_bdd.Get_liste_BCAM().at(i).Get_type_bool_BCAM() != "S" && m_bdd.Get_liste_BCAM().at(i).Get_type_bool_BCAM() != "D")
-        {
-            QMessageBox::warning(this,"Attention","Les BCAMs ne peuvent être que Single ou Double");
-            //mauvais format
-            format_input = 0;
-            //arrêt du programme
-            std::exit(EXIT_FAILURE);
-        }
-    }
-
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
     //test sur le nombre de détecteurs (ce nombre == 7 )
     if (m_bdd.Get_liste_detector().size() != NBR_DETECTORS)
     {
@@ -680,11 +486,7 @@ void ATLAS_BCAM::check_input_data()
     }
 }
 
-<<<<<<< HEAD
 //fonction qui verifie si toutes les BCAMS sont contenues dans le fichier de calibration            [----> not yet, on suppose que le fichier de calibration est correct
-=======
-//fonction qui verifie si toutes les BCAMS sont contenues dans le fichier de calibration
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 void ATLAS_BCAM::check_calibration_database()
 {
     /*int exist_l1 = 0;
@@ -717,7 +519,6 @@ void ATLAS_BCAM::check_calibration_database()
     QMessageBox::critical(this,"Attention","Il manque des donnees de calibration pour au moins 1 BCAM");*/
 }
 
-<<<<<<< HEAD
 //fonction permettant d'activer les boutons                                                         [----> ok
 void ATLAS_BCAM::enable_PushButton()
 {
@@ -732,29 +533,6 @@ void ATLAS_BCAM::enable_PushButton()
 }
 
 //fonction qui permet de generer un script d'acquisition                                            [---> ok
-=======
-//fonction permettant d'activer les boutons
-void ATLAS_BCAM::enable_PushButton()
-{
-
-    //si le chemin du fichier d'entree a ete specifie
-    if(!path_input_folder.isEmpty() && !time_value.isEmpty() && tab_bcam == 1)
-    {
-        // activation du boutton pour charger le fichier de calibration
-        ui->Boutton_lancer->setEnabled(true);
-    }
-
-    //si le logiciel est en mode acquisition
-    if(action == 1)
-    {
-        // activation du boutton qui permet de stopper l'acquisition
-        ui->boutton_arreter->setEnabled(true);
-    }
-
-}
-
-//fonction qui permet de generer un script d'acquisition
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acquisition, std::vector<BCAM> &liste_temp_bcam)
 {
     //écriture dans un fichier
@@ -763,12 +541,8 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
     if(fichier)
     {
         //écriture la partie du script qui gère l'enregistrement dans un fichier externe
-<<<<<<< HEAD
         fichier<<"acquisifier: \n"
                <<"config: \n"
-=======
-        fichier<<"config: \n"
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                <<"\t cycle_period_seconds 0 \n"
                <<"end. \n"
                <<"\n"
@@ -786,7 +560,6 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
                <<" close $f \n"
                <<" LWDAQ_print $info(text) \"Appended modified result to [file tail $config(run_results)].\" blue ;  \n"
                <<" set fn [file join [file dirname $config(run_results)] $name\.lwdaq] \n"
-<<<<<<< HEAD
                <<" # LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
                <<" LWDAQ_print $info(text) \"Saved raw image to [file tail $fn]\" blue ; \n"
                <<" } \n"
@@ -802,26 +575,10 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
                <<"\t intensify exact \n"
                <<"end. \n"
                <<"\n";
-=======
-               <<" LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
-               <<" LWDAQ_print $info(text) \"Saved raw image to [file tail $fn]\" blue ; \n"
-               <<" } \n"
-               <<"config: \n"
-               <<"\t image_source daq \n"
-               <<"\t analysis_enable 1 \n"
-               <<"\t daq_adjust_flash 1 \n"
-              <<"\t daq_flash_seconds 0.05 \n"
-               <<"\t daq_ip_addr 10.0.0.37 \n"
-               <<"\t daq_source_ip_addr * \n"
-               <<"\t ambient_exposure_seconds 0 \n"
-               <<"\t intensify exact \n"
-               <<"end. \n";
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
         //écriture dans le fichier de la partie acquisition du script : un paragraphe par BCAM
         for(int i=0; i<liste_temp_bcam.size(); i++)
         {
-<<<<<<< HEAD
             // on separe les visees BCAM-Prisme des visees BCAM-BCAM
             if(liste_temp_bcam.at(i).Get_objet_vise().length() == 14) //configuration de visee BCAM-BCAM
             {
@@ -953,73 +710,6 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
             }
 
 
-=======
-         fichier<<"acquire: \n"
-                <<"name: "<<liste_temp_bcam.at(i).Get_nom_BCAM().append("_").append(liste_temp_bcam.at(i).Get_objet_vise())<<"\n"
-                <<"instrument: BCAM \n"
-                <<"result: None \n"
-                <<"time: 0 \n"
-                <<"config: \n";
-
-         if(liste_temp_bcam.at(i).Get_objet_vise().length() == 8)
-                {
-                    fichier<<"\t analysis_num_spots 2 \n"
-                           <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n"
-                           <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n"
-                           <<"\t daq_device_element 2 \n"
-                           <<"\t daq_source_device_element \"3 4\" \n";
-                }
-         else if(liste_temp_bcam.at(i).Get_objet_vise().length() == 17)
-                {
-                    fichier<<"\t analysis_num_spots 4 \n"
-                           <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n"
-                           <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n"
-                           <<"\t daq_device_element "<<liste_temp_bcam.at(i).Get_num_chip()<<"\n";
-                    if(liste_temp_bcam.at(i).Get_num_chip() == 2)
-                    {
-                        fichier<<"\t daq_source_device_element \"3 4\" \n";
-                    }
-                    else
-                    {
-                         fichier<<"\t daq_source_device_element \"1 2\" \n";
-                    }
-
-                }
-         else
-                {
-                    fichier<<"\t analysis_num_spots 2 \n"
-                           <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n";
-
-                    for(int j=0; j<liste_temp_bcam.size(); j++)
-                    {
-                        if(liste_temp_bcam.at(i).Get_nom_BCAM() == liste_temp_bcam.at(j).Get_objet_vise())
-                        {
-                            fichier<<"\t daq_source_mux_socket "<<liste_temp_bcam.at(j).Get_num_Port_Mux()<<"\n";
-                            if(liste_temp_bcam.at(i).Get_num_chip() == 2)
-                            {
-                                fichier<<"\t daq_device_element 2 \n"
-                                       <<"\t daq_source_device_element \"1 2\" \n";
-                            }
-                            else
-                            {
-                                fichier<<"\t daq_device_element 1 \n"
-                                       <<"\t daq_source_device_element \"3 4\" \n";
-                            }
-                        }
-                    }
-
-
-                }
-
-                fichier<<"\t daq_driver_socket "<<liste_temp_bcam.at(i).Get_num_Port_Driver()<<"\n"
-                        <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).Get_num_Port_Driver()<<"\n"
-                        <<"\t daq_image_left 20 \n"
-                        <<"\t daq_image_top 1 \n"
-                        <<"\t daq_image_right 343 \n"
-                        <<"\t daq_image_bottom 243 \n";
-
-                fichier<<"end. \n";
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
         }
 
         fichier.close();
@@ -1032,18 +722,13 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
     }
 }
 
-<<<<<<< HEAD
 //fonction qui permet de generer un bash en shell pour lancer et arreter LWDAQ                      [---> ok
-=======
-//fonction qui permet de generer un bash en shell pour lancer et arreter LWDAQ
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 int ATLAS_BCAM::ecriture_script_bash(std::string nom_fichier_bash)
 {
     //écriture dans un fichier
     std::ofstream fichier((char*)nom_fichier_bash.c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
     if(fichier)
     {
-<<<<<<< HEAD
         std::string chemin_lWDAQ_startup = path_input_folder.toStdString().append("/").append(NAME_LWDAQ_FOLDER).append("/").append("LWDAQ.app").append("/").append("Contents").append("/").append("LWDAQ").append("/").append("Startup/");
         std::string chemin_lwdaq_data = path_input_folder.toStdString().append("/").append(NAME_LWDAQ_FOLDER).append("/").append("Tools").append("/").append("Data/");
         fichier<<"#!/bin/bash \n"
@@ -1058,17 +743,6 @@ int ATLAS_BCAM::ecriture_script_bash(std::string nom_fichier_bash)
        else
            fichier<<"sleep 10s"<<"\n";          //en mode monitoring l'operateur choisit la frequence, le temps d'acquisition sera de 3 min pour etre sur de passer par chaque capteur
            fichier<<"kill \"$pid\" \n";
-=======
-       fichier<<"#!/bin/bash \n"
-               //<<"cp "<</home/cern-mehdi/Documents/Projet_BCAM/scripts_lwdaq/Acquisifier_params.tcl /home/cern-mehdi/Documents/LWDAQ/LWDAQ.app/Contents/LWDAQ/Startup \n"
-               //<<"cp /home/cern-mehdi/Documents/Projet_BCAM/scripts_lwdaq/Acquisifier_Settings.tcl /home/cern-mehdi/Documents/LWDAQ/Tools/Data \n"
-               //<<"cp /home/cern-mehdi/Documents/Projet_BCAM/scripts_lwdaq/Acquisifier_script.tcl /home/cern-mehdi/Documents/LWDAQ/Tools/Data \n"
-               <<path_lwdaq<<" --no-console"<<" \n"
-               <<"ps -eH | grep tclsh8.5 > PID.txt \n"
-               <<"read pid reste < PID.txt \n"
-              <<"sleep "<<time_value.toStdString()<<"s"<<"\n"
-               <<"kill \"$pid\" \n";
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
            fichier.close();
            return 1;
@@ -1079,32 +753,7 @@ int ATLAS_BCAM::ecriture_script_bash(std::string nom_fichier_bash)
     }
 }
 
-<<<<<<< HEAD
 //fonction qui ecrit un fichier tcl avec les parametres par defaut pour la fenetre Acquisifier      [---> ok
-=======
-//fonction qui permet de generer un bash en shell pour arreter instantanement LWDAQ
-int ATLAS_BCAM::ecriture_script_bash_stop(std::string nom_fichier_bash_stop)
-{
-    //écriture dans un fichier
-    std::ofstream fichier((char*)nom_fichier_bash_stop.c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
-    if(fichier)
-    {
-       fichier<<"#!/bin/bash \n"
-               <<"ps -eH | grep tclsh8.5 > PID_stop.txt \n"
-               <<"read pid reste < PID_stop.txt \n"
-               <<"kill \"$pid\" \n";
-
-           fichier.close();
-           return 1;
-    }
-    else
-    {
-           return 0;
-    }
-}
-
-//fonction qui ecrit un fichier tcl avec les parametres par defaut pour la fenetre Acquisifier de LWDAQ et lance automatiquement l'auto-run
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 int ATLAS_BCAM::write_settings_file(std::string setting_name_file)
 {
     //écriture dans un fichier
@@ -1120,11 +769,7 @@ int ATLAS_BCAM::write_settings_file(std::string setting_name_file)
                <<"set Acquisifier_config(analyze) \"0\" \n"
                <<"set Acquisifier_config(auto_run) \"1\" \n"
                <<"set Acquisifier_config(cycle_period_seconds) \"0\" \n"
-<<<<<<< HEAD
                <<"set Acquisifier_config(daq_script) \""<<path_input_folder.toStdString().append("/").append("LWDAQ").append("/Tools").append("/Data/").append(fichier_script)<<"\" \n"
-=======
-               <<"set Acquisifier_config(daq_script) \"/home/cern-mehdi/Documents/LWDAQ/Tools/Data/Acquisifier_script.tcl\" \n"
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                <<"set Acquisifier_config(analysis_color) \"green\" \n"
                <<"set Acquisifier_config(upload_target) \"stdout\" \n"
                <<"set Acquisifier_config(auto_quit) \"0\" \n"
@@ -1143,11 +788,7 @@ int ATLAS_BCAM::write_settings_file(std::string setting_name_file)
       }
 }
 
-<<<<<<< HEAD
 //fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ   [----> ok
-=======
-//fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 int ATLAS_BCAM::write_input_script(std::string startup_lwdaq_script_file)
 {
     //écriture dans un fichier
@@ -1196,11 +837,7 @@ int ATLAS_BCAM::write_input_script(std::string startup_lwdaq_script_file)
                <<"set LWDAQ_info_BCAM(flash_seconds_transition) \"0.000030\" \n"
                <<"set LWDAQ_info_BCAM(daq_extended) \"0\" \n"
                <<"set LWDAQ_config_BCAM(analysis_threshold) \"10 #\" \n"
-<<<<<<< HEAD
                <<"set LWDAQ_config_BCAM(daq_ip_addr) \" "<<m_bdd.Get_driver_ip_adress()<<" \" \n"
-=======
-               <<"set LWDAQ_config_BCAM(daq_ip_addr) \"10.0.0.37\" \n"
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                <<"set LWDAQ_config_BCAM(daq_flash_seconds) \"0.000010\" \n"
                <<"set LWDAQ_config_BCAM(daq_driver_socket) \"5\" \n"
                <<"set LWDAQ_config_BCAM(analysis_num_spots) \"2\" \n"
@@ -1226,7 +863,6 @@ int ATLAS_BCAM::write_input_script(std::string startup_lwdaq_script_file)
            return 0;
     }
 }
-<<<<<<< HEAD
 
 //fonction qui gere les selections dans les checkbox                                                [----> ok
 void ATLAS_BCAM::get_mode()
@@ -1312,5 +948,3 @@ void ATLAS_BCAM::startCalcul()
 
     }
 }
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518

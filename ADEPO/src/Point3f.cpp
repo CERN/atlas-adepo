@@ -2,11 +2,7 @@
 #include <iostream>
 using namespace std;
 
-<<<<<<< HEAD
 Point3f::Point3f(float X,float Y,float Z):m_X(X),m_Y(Y),m_Z(Z)
-=======
-Point3f::Point3f(double X,double Y,double Z):m_X(X),m_Y(Y),m_Z(Z)
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 {
     //ctor
 }

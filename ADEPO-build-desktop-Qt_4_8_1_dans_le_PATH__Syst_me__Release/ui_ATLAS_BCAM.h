@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ATLAS_BCAM.ui'
 **
-** Created: Wed Oct 2 10:36:02 2013
+** Created: Wed Oct 2 15:43:35 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

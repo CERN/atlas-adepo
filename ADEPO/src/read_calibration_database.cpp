@@ -1,8 +1,4 @@
 #include "header/read_calibration_database.h"
-<<<<<<< HEAD
-=======
-#include "header/converting_time_calibration.h"
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 int read_calibration_database(std::string nom_fichier, bdd & base_donnees)
 {
@@ -14,26 +10,15 @@ int read_calibration_database(std::string nom_fichier, bdd & base_donnees)
 
            while(std::getline(fichier,ligne)) // tant que l'on arrive pas a la fin du fichier
            {
-<<<<<<< HEAD
                if(!ligne.empty())
                 {
                     // pivot + focale + axis + ccd rotation
-=======
-                //std::cout<<ligne.size()<<std::endl;
-                if(!ligne.empty())
-                {
-                    //detector
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                     if(ligne.size() == 91)
                     {
                         etape_calcul = 1;
                     }
 
-<<<<<<< HEAD
                     // sources
-=======
-                    //BCAM
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                     if(ligne.size() == 70)
                     {
                         etape_calcul = 2;
@@ -48,10 +33,6 @@ int read_calibration_database(std::string nom_fichier, bdd & base_donnees)
                             char *buffer1 = strdup((char*)ligne.c_str());
                             std::string id_BCAM = strtok(buffer1," ");
                             std::string tps_calib = strtok( NULL, " " );
-<<<<<<< HEAD
-=======
-                            double temps_calib = converting_time_calibration(tps_calib);
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                             char *x_pivot = strtok( NULL, " " );
                             char *y_pivot = strtok( NULL, " " );
                             char *z_pivot = strtok( NULL, " " );
@@ -65,11 +46,7 @@ int read_calibration_database(std::string nom_fichier, bdd & base_donnees)
                             Point3f ax(atof(x_axis), atof(y_axis),atof(z_axis));
                             float focale = atof(dist_ccd_pivot);
                             float angle_rotation = atof(ccd_rotation);
-<<<<<<< HEAD
                             calib1 cal1(id_BCAM, tps_calib, pv, ax, focale, angle_rotation);
-=======
-                            calib1 cal1(id_BCAM, temps_calib, pv, ax, focale, angle_rotation);
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                             base_donnees.Add_calib1(cal1);
                         }
                         break;
@@ -89,11 +66,6 @@ int read_calibration_database(std::string nom_fichier, bdd & base_donnees)
                             Point3f spt2(atof(x2_flash), atof(y2_flash), atof(z_flash));
                             calib2 cal2(id_BCAM_2, spt1, spt2);
                             base_donnees.Add_calib2(cal2);
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                         }
                         break;
 
@@ -101,7 +73,6 @@ int read_calibration_database(std::string nom_fichier, bdd & base_donnees)
 
                     }
                 }
-<<<<<<< HEAD
           }
            //affichage du contenu de la base de donnees qui contient le fichier de calibration
            /*for(int i=0; i<base_donnees.Get_liste_calib1().size(); i++)
@@ -112,10 +83,6 @@ int read_calibration_database(std::string nom_fichier, bdd & base_donnees)
            {
                   base_donnees.Get_liste_calib2().at(j).Affiche();
            }*/
-=======
-
-          }
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
            fichier.close();
            return 1;

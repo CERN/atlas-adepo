@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'atlas_bcam.h'
 **
-** Created: Wed Oct 2 10:36:25 2013
+** Created: Wed Oct 2 15:43:57 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

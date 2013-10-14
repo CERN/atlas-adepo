@@ -5,10 +5,7 @@
 #include "bdd.h"
 #include "QWidget"
 #include <QLineEdit>
-<<<<<<< HEAD
 #include "header/mythread.h"
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 namespace Ui {
 class ATLAS_BCAM;
@@ -52,11 +49,8 @@ public:
     int write_input_script(std::string startup_lwdaq_script_file);
 
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 public slots:
     //fonction qui recupere la valeur du temps d'acqusiition specifiee par l'utilisateur
     void save_time_value();
@@ -76,7 +70,6 @@ public slots:
     //fonction qui permet l'arret des acquisitions lorsqu'on clicke sur le boutton correspondant
     void stop_acquisition();
 
-<<<<<<< HEAD
     //fonction qui gere les selections dans les checkbox
     void get_mode();
 
@@ -86,8 +79,6 @@ public slots:
     //fonction qui agit apres un press bouton sur "Lancer"
     void startCalcul();
 
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 
 signals:
@@ -97,10 +88,7 @@ private:
     Ui::ATLAS_BCAM *ui;
     bdd m_bdd;
     QString path_fich;
-<<<<<<< HEAD
     mythread *thread; // this is our thread
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 };
 

@@ -8,11 +8,7 @@ class BCAM
 public:
     //constructeurs et destructeurs
     BCAM();
-<<<<<<< HEAD
     BCAM(std::string nom_BCAM, int id_detector, int num_Port_Driver, int num_Port_Mux, int num_chip, std::string objet_vise);
-=======
-    BCAM(std::string nom_BCAM, int id_detector, int num_Port_Driver, int num_Port_Mux, std::string type_bool_BCAM, int num_chip, std::string objet_vise);
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
     virtual ~BCAM();
 
     //setter et getter
@@ -34,35 +30,17 @@ public:
     std::string Get_objet_vise() const { return m_objet_vise; }
     void Set_objet_vise(std::string val) {m_objet_vise = val; }
 
-<<<<<<< HEAD
-=======
-    std::string Get_type_bool_BCAM() const { return m_type_bool_BCAM; }
-    void Set_type_bool_BCAM(std::string val) {m_type_bool_BCAM = val; }
-
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
     //methodes
     void Affiche();
 
 protected:
 private:
     std::string m_nom_BCAM;
-<<<<<<< HEAD
     int m_id_detector;
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
     int m_num_Port_Driver;
     int m_num_Port_Mux;
     int m_num_chip;
     std::string m_objet_vise;
-<<<<<<< HEAD
-=======
-    std::string m_type_bool_BCAM;
-    int m_id_detector;
-
-
-
-
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 
 };

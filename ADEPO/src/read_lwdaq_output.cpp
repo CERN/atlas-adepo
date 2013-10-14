@@ -1,8 +1,5 @@
 #include "header/read_lwdaq_output.h"
-<<<<<<< HEAD
 #include "algorithm"
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 int read_lwdaq_output(std::string nom_fichier, bdd & base_donnees)
 {
@@ -16,31 +13,21 @@ int read_lwdaq_output(std::string nom_fichier, bdd & base_donnees)
         {
             if(!ligne.empty())
             {
-<<<<<<< HEAD
                 int nb_colonnes = std::count(ligne.begin(), ligne.end(), ' '); //je compte le nombre de colonnes dans le fichier
                 std::cout<<nb_colonnes<<std::endl;
                 std::cout<<ligne<<std::endl;
                 //2 spots
                 if(nb_colonnes == 12)
-=======
-                //2 spots
-                if(ligne.size() == 86)
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                 {
                     etape_calcul = 1;
                 }
 
                 //4 spots
-<<<<<<< HEAD
                 if(nb_colonnes == 24)
-=======
-                if(ligne.size() == 157)
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                 {
                     etape_calcul = 2;
                 }
 
-<<<<<<< HEAD
                 //6 spots
                 if(nb_colonnes == 36)
                 {
@@ -53,8 +40,6 @@ int read_lwdaq_output(std::string nom_fichier, bdd & base_donnees)
                     etape_calcul = 4;
                 }
 
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                 if(!ligne.empty())
                 {
                     switch(etape_calcul)
@@ -85,13 +70,8 @@ int read_lwdaq_output(std::string nom_fichier, bdd & base_donnees)
                         char *buffer = strdup((char*)ligne.c_str());
                         //recuperation du nom de la BCAM_Objet(S) + coordonnées images du premier spot
                         std::string nom_BCAM_Objets = strtok(buffer," ");
-<<<<<<< HEAD
                         std::string nom_BCAM_Objet1 = nom_BCAM_Objets.substr(0,14).append("_").append(nom_BCAM_Objets.substr(15,5));
                         std::string nom_BCAM_Objet2 = nom_BCAM_Objets.substr(0,14).append("_").append(nom_BCAM_Objets.substr(21,5));
-=======
-                        std::string nom_BCAM_Objet1 = nom_BCAM_Objets.substr(0,23);
-                        std::string nom_BCAM_Objet2 = nom_BCAM_Objets.substr(0,14).append(nom_BCAM_Objets.substr(23,32));
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                         char *coord1_i_ccd = strtok( NULL, " " );
                         char *coord1_j_ccd = strtok( NULL, " " );
                         //sauter les 4 prochaines valeurs
@@ -127,7 +107,6 @@ int read_lwdaq_output(std::string nom_fichier, bdd & base_donnees)
                     }
                     break;
 
-<<<<<<< HEAD
                     case 3:
                     {
                         char *buffer = strdup((char*)ligne.c_str());
@@ -194,26 +173,17 @@ int read_lwdaq_output(std::string nom_fichier, bdd & base_donnees)
                        return 0;
                     }
                     break;
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
                     }
 
                 }
             }
         }
 
-<<<<<<< HEAD
         //affichage de la base de donnees qui contient les coordonnees image
         /*for(int i=0; i<base_donnees.Get_liste_spots().size(); i++)
         {
             base_donnees.Get_liste_spots().at(i).Affiche();
         }*/
-=======
-        for(int i=0; i<base_donnees.Get_liste_spots().size(); i++)
-        {
-            base_donnees.Get_liste_spots().at(i).Affiche();
-        }
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
         fichier.close();
         return 1;

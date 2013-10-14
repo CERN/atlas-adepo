@@ -20,15 +20,12 @@
 #include "header/calib2.h"
 #include "header/mount_coord_spots.h"
 #include "header/mount_coord_prism.h"
-<<<<<<< HEAD
 #include "header/bcam_adaptateur.h"
 #include "header/absolutes_distances.h"
 #include "header/atlas_coordinates.h"
 #include "header/bcam_params.h"
 #include "header/table_names.h"
 #include "header/prism_correction.h"
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 /////////////////////////////////////////////
 
 class bdd
@@ -40,13 +37,9 @@ public:
     virtual ~bdd();
 
     //getter
-<<<<<<< HEAD
     //gestion des bcams dans le terrain a partir du fichier de configuration
     std::vector<BCAM> Get_liste_BCAM() const {return m_liste_BCAM;}
     //gestion des detecteurs dans le fichier de configuration
-=======
-    std::vector<BCAM> Get_liste_BCAM() const {return m_liste_BCAM;}
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
     std::vector<detector> Get_liste_detector() const {return m_liste_detector;}
     std::vector<calib1> Get_liste_calib1() const {return m_liste_calib1;}
     std::vector<calib1> Get_liste_calib1_clean() const {return m_liste_calib1_clean;}
@@ -55,7 +48,6 @@ public:
     std::vector<spot> Get_liste_spots() const {return m_liste_spots;}
     std::vector<mount_coord_spots> Get_liste_mount_coord_spots() const {return m_liste_mount_coord_spots;}
     std::vector<mount_coord_prism> Get_liste_mount_coord_prism() const {return m_liste_mount_coord_prism;}
-<<<<<<< HEAD
     //gestion de l'adresse IP
     std::string Get_driver_ip_adress() const {return m_driver_ip_adress;}
     //gestion des coordonnees mount de l'adaptateur
@@ -72,9 +64,6 @@ public:
     std::vector<table_names> Get_liste_names_cta_su() const {return m_liste_names_cta_su;}
     //gestion des corrections d'excentrement
     std::vector<prism_correction> Get_liste_correction_excentrement() const {return m_liste_correction_excentrement;}
-=======
-
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 
    //methodes d'ajout
@@ -87,7 +76,6 @@ public:
     void Add_spots(spot val) {m_liste_spots.push_back(val);}
     void Add_mount_coord_spots(mount_coord_spots val) {m_liste_mount_coord_spots.push_back(val);}
     void Add_mount_coord_prism(mount_coord_prism val) {m_liste_mount_coord_prism.push_back(val);}
-<<<<<<< HEAD
     //gestion de l'adresse IP
     void Add_driver_ip_adress(std::string val) {m_driver_ip_adress = val;}
     //gestion de l'adaptateur
@@ -108,8 +96,6 @@ public:
     void vidage();
     //vidage complet de la bdd si on charge un second fichier
     void vidage_complet();
-=======
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 
 protected:
 private:
@@ -122,7 +108,6 @@ private:
     std::vector<spot> m_liste_spots;
     std::vector<mount_coord_spots> m_liste_mount_coord_spots;
     std::vector<mount_coord_prism> m_liste_mount_coord_prism;
-<<<<<<< HEAD
     std::string m_driver_ip_adress;
     std::vector<bcam_adaptateur> m_liste_bcam_adaptateur;
     std::vector<absolutes_distances> m_liste_absolutes_distances;
@@ -131,9 +116,6 @@ private:
     std::vector<mount_coord_prism> m_liste_global_coord_prism;
     std::vector<table_names> m_liste_names_cta_su;
     std::vector<prism_correction> m_liste_correction_excentrement;
-=======
-
->>>>>>> 149068ee3d8f20229540571d3a3e0dc42df9b518
 };
 
 #endif // BDD_H
