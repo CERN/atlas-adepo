@@ -14,3 +14,22 @@ Version 1.0 du logiciel ADEPO
 -----------> l'executable "ADEPO" qui lance le programme
 
 Pour une recompilation, le fichier "MAKEFILE" se trouve dans le second dossier : ADEPO-build-desktop-Qt_4_8_1_dans_le_PATH__Syst_me__Release.
+
+
+
+--
+For compilation and installation on SLC6, 64 bits and 32 bits on vm-atlas-posmov-01 (64 bits vm) 
+the following packages are needed:
+
+- qt-devel
+- qt-devel.i686
+- g++, gcc
+- glibc.i686
+- glibc-devel.i686
+- libgcc.i686
+- make
+
+(all i686 needed to cross-compile for 32 bit on a 64 bit machine)
+
+Refer to https://atd-sysadmins.cern.ch/redmine/issues/2443 and https://atd-sysadmins.cern.ch/redmine/issues/2303 for more info.
+Mark Donszelmann (duns@cern.ch)
