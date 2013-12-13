@@ -27,9 +27,18 @@ the following packages are needed:
 - glibc.i686
 - glibc-devel.i686
 - libgcc.i686
+- dejavu-lgc-sans-fonts-2.30-2.el6.noarch fonts
 - make
 
 (all i686 needed to cross-compile for 32 bit on a 64 bit machine)
 
+--
+to create an executable for a new architecture:
+- mkdir <new-dir>
+- cd <new-dir>
+- qmake -spec <macx-g++> -o Makefile ../ADEPO/ADEPO.pro
+- make
+
+--
 Refer to https://atd-sysadmins.cern.ch/redmine/issues/2443 and https://atd-sysadmins.cern.ch/redmine/issues/2303 for more info.
 Mark Donszelmann (duns@cern.ch)
