@@ -32,6 +32,15 @@ the following packages are needed:
 
 (all i686 needed to cross-compile for 32 bit on a 64 bit machine)
 
+MacOS X
+-------
+on macosx you need to install d-bus via homebrew
+http://brew.sh
+brew install d-bus
+<follow first time instructions to start d-bus>
+<download source tar of QT5>
+
+
 --
 to create an executable for a new architecture:
 - mkdir <new-dir>

@@ -1,7 +1,7 @@
 #include "header/atlas_bcam.h"
 #include "header/ouverture_projet.h"
 #include "header/read_input.h"
-#include "header/ui_ATLAS_BCAM.h"
+#include "ui_ATLAS_BCAM.h"
 #include "header/read_calibration_database.h"
 #include "header/liste_bcam_from_id_detector.h"
 #include "header/write_aquisifier_script.h"
