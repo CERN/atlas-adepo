@@ -34,7 +34,9 @@ the following packages are needed:
 
 MacOS X
 -------
-- qt version 4.8.5
+- qt version 4.8.5 (libs and dev-libs)
+- qt creator version 3.0.0
+-> install libqxt (configure, make, make install)
 
 --
 to create an executable for a new architecture:
