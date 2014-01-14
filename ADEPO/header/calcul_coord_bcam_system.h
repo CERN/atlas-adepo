@@ -5,4 +5,4 @@
 
 #include "bdd.h"
 
-int calcul_coord_bcam_system(bdd & base_donnees);
+void calcul_coord_bcam_system(bdd & base_donnees);

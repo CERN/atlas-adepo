@@ -2,15 +2,15 @@
 
 #define mm2m 0.001
 
-int calcul_coord_bcam_system(bdd & base_donnees)
+void calcul_coord_bcam_system(bdd & base_donnees)
 {
-    for (int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++) // je parcours la database qui contient les coord des observation dans le system MOUNT
+    for (unsigned int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++) // je parcours la database qui contient les coord des observation dans le system MOUNT
     {
-        for (int j=0; j<base_donnees.Get_liste_calib1().size(); j++) //je parcours la base de donnee de calibration 1
+        for (unsigned int j=0; j<base_donnees.Get_liste_calib1().size(); j++) //je parcours la base de donnee de calibration 1
         {
-            for(int k=0; k<base_donnees.Get_liste_calib2().size(); k++) //je parcours la base de donnee de calibration 2
+            for(unsigned int k=0; k<base_donnees.Get_liste_calib2().size(); k++) //je parcours la base de donnee de calibration 2
             {
-                for(int l=0; l<base_donnees.Get_liste_absolutes_distances().size(); l++) //je parcours la base de donnee des distances absolues
+                for(unsigned int l=0; l<base_donnees.Get_liste_absolutes_distances().size(); l++) //je parcours la base de donnee des distances absolues
                 {
                     if(base_donnees.Get_liste_mount_coord_spots().at(i).Get_id().substr(0,14) == base_donnees.Get_liste_calib1().at(j).Get_id_BCAM() && base_donnees.Get_liste_mount_coord_spots().at(i).Get_id().substr(0,14) == base_donnees.Get_liste_calib2().at(k).Get_id_BCAM() && base_donnees.Get_liste_mount_coord_spots().at(i).Get_id() == base_donnees.Get_liste_absolutes_distances().at(l).Get_id_BCAM_prisme())
                     {

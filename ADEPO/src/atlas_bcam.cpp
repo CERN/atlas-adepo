@@ -214,7 +214,7 @@ void ATLAS_BCAM::remplir_tableau_detectors()
 }
 
 //fonction permettant de charger la liste des BCAMs qui appartiennent a un detector                 [---> ok
-void ATLAS_BCAM::affiche_liste_BCAMs(int ligne, int colonne)
+void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
 {
     //recuperation du nombre de detecteurs
     int nb_detetctors = ui->tableWidget_liste_detectors->selectedItems().size()/3;
@@ -245,7 +245,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int ligne, int colonne)
     int nb_lignes = liste_bcam->size();
     ui->tableWidget_liste_bcams->setRowCount(nb_lignes);
 
-    for(int i=0; i<liste_bcam->size(); i++)
+    for(unsigned int i=0; i<liste_bcam->size(); i++)
     {
       //ajout dans la tableWidget qui affiche les BCAMs
       QTableWidgetItem *nom_bcam = new QTableWidgetItem();
@@ -379,7 +379,7 @@ void ATLAS_BCAM::calcul_coord()
 void ATLAS_BCAM::check_input_data()
 {
     //test des numéros des ports driver : sur les driver les numéros de ports possibles sont compris entre 1 et 8
-    for (int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
         if(m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Driver()>8 || m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Driver()<1)
         {
@@ -392,7 +392,7 @@ void ATLAS_BCAM::check_input_data()
     }
 
     //test des numéros des ports multiplexer : sur les multiplexer les numéros des ports possibles sont compris entre 1 et 10
-    for (int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
         if(m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Mux()>10 || m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Mux()<1)
         {
@@ -415,10 +415,10 @@ void ATLAS_BCAM::check_input_data()
     }
 
     //test pour vérifier si dans le fichier d'entrée, il y a un seul et unique détecteur avec un seul et unique identifiant
-    for (int i=0; i<m_bdd.Get_liste_detector().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_detector().size(); i++)
     {
 
-         for (int j=0; j<m_bdd.Get_liste_detector().size(); j++)
+         for (unsigned int j=0; j<m_bdd.Get_liste_detector().size(); j++)
         {
              if( j != i && m_bdd.Get_liste_detector().at(i).Get_nom_detector() == m_bdd.Get_liste_detector().at(j).Get_nom_detector())
              {
@@ -440,7 +440,7 @@ void ATLAS_BCAM::check_input_data()
     }
 
     //test sur la longueur des chaînes de caractères (identifiant des BCAMs)
-    for (int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
         if(m_bdd.Get_liste_BCAM().at(i).Get_nom_BCAM().size() != ID_LENGTH_BCAM)
         {
@@ -454,9 +454,9 @@ void ATLAS_BCAM::check_input_data()
 
 
     //test pour vérifier si dans le fichier d'entrée, il y a une seule et unique BCAM (vu la structure du fichier elle appartient à un unique detecteur)
-    for (int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
-        for (int j=0; j<m_bdd.Get_liste_BCAM().size(); j++)
+        for (unsigned int j=0; j<m_bdd.Get_liste_BCAM().size(); j++)
         {
             if(j != i && m_bdd.Get_liste_BCAM().at(i).Get_nom_BCAM() == m_bdd.Get_liste_BCAM().at(j).Get_nom_BCAM())
             {
@@ -470,9 +470,9 @@ void ATLAS_BCAM::check_input_data()
     }
 
     //test pour éviter que 2 BCAMs ne soient branchées sur le même port multiplexer et même port driver à la fois
-    for (int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
-        for (int j=0; j<m_bdd.Get_liste_BCAM().size(); j++)
+        for (unsigned int j=0; j<m_bdd.Get_liste_BCAM().size(); j++)
         {
             if((i != j) && (m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Driver() == m_bdd.Get_liste_BCAM().at(j).Get_num_Port_Driver()) && (m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Mux() == m_bdd.Get_liste_BCAM().at(j).Get_num_Port_Mux()))
             {
@@ -559,7 +559,7 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
                <<" puts $f $result \n"
                <<" close $f \n"
                <<" LWDAQ_print $info(text) \"Appended modified result to [file tail $config(run_results)].\" blue ;  \n"
-               <<" set fn [file join [file dirname $config(run_results)] $name\.lwdaq] \n"
+               <<" set fn [file join [file dirname $config(run_results)] $name.lwdaq] \n"
                <<" # LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
                <<" LWDAQ_print $info(text) \"Saved raw image to [file tail $fn]\" blue ; \n"
                <<" } \n"
@@ -577,7 +577,7 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
                <<"\n";
 
         //écriture dans le fichier de la partie acquisition du script : un paragraphe par BCAM
-        for(int i=0; i<liste_temp_bcam.size(); i++)
+        for(unsigned int i=0; i<liste_temp_bcam.size(); i++)
         {
             // on separe les visees BCAM-Prisme des visees BCAM-BCAM
             if(liste_temp_bcam.at(i).Get_objet_vise().length() == 14) //configuration de visee BCAM-BCAM
@@ -593,7 +593,7 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
                        <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).Get_num_Port_Driver()<<"\n"
                        <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n";
 
-                for(int j=0; j<liste_temp_bcam.size(); j++)
+                for(unsigned int j=0; j<liste_temp_bcam.size(); j++)
                 {
                     if(liste_temp_bcam.at(i).Get_objet_vise() == liste_temp_bcam.at(j).Get_nom_BCAM())
                     {
@@ -893,13 +893,13 @@ void ATLAS_BCAM::get_airpad_state()
     mode_airpad = ui->comboBox_2->currentText();
     if(mode_airpad == "ON")
     {
-        for(int i=0; i<m_bdd.Get_liste_absolutes_distances().size(); i++)
+        for(unsigned int i=0; i<m_bdd.Get_liste_absolutes_distances().size(); i++)
         {
             float val_x = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances().Get_X();
             float val_y = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances().Get_Y();
             float val_z = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances().Get_Z();
 
-            Point3f pt(val_x+0.003, val_y+0.003, val_y+0.003);
+            Point3f pt(val_x+0.003, val_y+0.003, val_z+0.003);
             //Point3f val_temp = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances();
             //m_bdd.Get_liste_absolutes_distances().at(i).Set_distances(pt);
         }

@@ -6,7 +6,7 @@ std::vector<BCAM> liste_bcam_from_id_detector(bdd & base_donnees, int id_detecto
     std::vector<BCAM> liste_bcam;
 
 
-    for(int i=0; i<base_donnees.Get_liste_BCAM().size(); i++)
+    for(unsigned int i=0; i<base_donnees.Get_liste_BCAM().size(); i++)
     {
         if(base_donnees.Get_liste_BCAM().at(i).Get_id_detector() == id_detector)
         {
@@ -78,7 +78,7 @@ std::vector<BCAM> liste_bcam_from_id_detector(bdd & base_donnees, int id_detecto
     }
 
     //affichage de la liste temporaire de BCAMs
-    for(int i=0; i<liste_bcam.size(); i++)
+    for(unsigned int i=0; i<liste_bcam.size(); i++)
     {
         //liste_bcam.at(i).Affiche();
     }
