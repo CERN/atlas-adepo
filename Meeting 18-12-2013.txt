@@ -1,0 +1,16 @@
+ADEPO meeting
+
+
+4 BCam prism (readouts) per detector. 
+50 prism or so in total. 
+Max readout every 5 mins. Readout takes 30 seconds (seems a lot, no async I guess)
+Some way to exclude wrong prisms based on sigma
+
+Closure mode and Running mode. Dip every 30 minutes or so. 50 records.
+
+- Write instructions for X-Win32 and login
+- Ask sysadmin for generic account or allow all to read/write detector area
+- Try out system
+- Need relative (resetable) floating position, and relative position from target (last closure).
+
+
