@@ -559,7 +559,7 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
                <<" puts $f $result \n"
                <<" close $f \n"
                <<" LWDAQ_print $info(text) \"Appended modified result to [file tail $config(run_results)].\" blue ;  \n"
-               <<" set fn [file join [file dirname $config(run_results)] $name.lwdaq] \n"
+               <<" set fn [file join [file dirname $config(run_results)] $name\.lwdaq] \n"
                <<" # LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
                <<" LWDAQ_print $info(text) \"Saved raw image to [file tail $fn]\" blue ; \n"
                <<" } \n"
@@ -871,7 +871,7 @@ void ATLAS_BCAM::get_mode()
     if(mode_adepo == "MONITORING")
     {
         //changement du texte
-        ui->textEdit_function_mode->setHtml("</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Frequence d\'acquisition (s) :</span></p></body></html>");
+        ui->textEdit_function_mode->setText("</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Frequence d\'acquisition (s) :</span></p></body></html>");
         //changement des valeurs d'interval pour le temps
         ui->spinBox->setMinimum(900);  //frequence maxi : 1 mesure toutes les 15 min
         ui->spinBox->setMaximum(86400); //frequence mini ; 1 mesure par jour
@@ -879,7 +879,7 @@ void ATLAS_BCAM::get_mode()
     else
     {
         //changement du text
-        ui->textEdit_function_mode->setHtml("</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Temps d\'acquisition (s) :</span></p></body></html>");
+        ui->textEdit_function_mode->setText("</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Temps d\'acquisition (s) :</span></p></body></html>");
         //changement des valeurs d'interval pour le temps
         ui->spinBox->setMinimum(11);
         ui->spinBox->setMaximum(300);
