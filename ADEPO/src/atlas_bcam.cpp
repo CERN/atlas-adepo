@@ -217,13 +217,13 @@ void ATLAS_BCAM::remplir_tableau_detectors()
 void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
 {
     //recuperation du nombre de detecteurs
-    int nb_detetctors = ui->tableWidget_liste_detectors->selectedItems().size()/3;
+    int nb_detectors = ui->tableWidget_liste_detectors->selectedItems().size()/3;
 
     //vecteur qui va contenir la liste des BCAMs temporaires selectionnees dans le tableau
     std::vector<BCAM> *liste_bcam = new std::vector<BCAM>;
 
     //recuperation des donnees a afficher
-    for(int i=0; i<nb_detetctors; i++)
+    for(int i=0; i<nb_detectors; i++)
     {
         //recuperation de l'identifiant du detecteur
         QString id_detector = ui->tableWidget_liste_detectors->selectedItems().at(i*3)->text();
@@ -244,6 +244,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
     // nombre de lignes dans la table
     int nb_lignes = liste_bcam->size();
     ui->tableWidget_liste_bcams->setRowCount(nb_lignes);
+    ui->tableWidget_results->setRowCount(nb_lignes);
 
     for(unsigned int i=0; i<liste_bcam->size(); i++)
     {
@@ -251,6 +252,10 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
       QTableWidgetItem *nom_bcam = new QTableWidgetItem();
       nom_bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
       ui->tableWidget_liste_bcams->setItem(i,0,nom_bcam);
+
+      QTableWidgetItem *name_bcam = new QTableWidgetItem();
+      name_bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
+      ui->tableWidget_results->setItem(i, 0, name_bcam);
 
       QTableWidgetItem *num_detector = new QTableWidgetItem();
       num_detector->setData(0,liste_bcam->at(i).Get_id_detector());
