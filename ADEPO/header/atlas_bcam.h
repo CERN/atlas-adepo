@@ -90,6 +90,9 @@ private:
     QString path_fich;
     mythread *thread; // this is our thread
 
+    void openInputDir();
+    void setResult(int row, Point3f point, bool delta = false);
+
 };
 
 #endif // ATLAS_BCAM_H

@@ -32,8 +32,12 @@
 
 
 //declaration des variables globales
+QSettings settings;
+
 std::string path_lwdaq;
 QString path_input_folder;
+bool input_folder_read = false;
+
 //valeur par defaut si l'utilisateur ne touche pas au spinbox
 QString time_value = "30";
 //valeur par defaut du mode d'utilisation est CLOSURE
@@ -60,7 +64,6 @@ int tab_bcam=0;
 int format_input=1;
 
 //compteur pour savoir combien de fois l'utilisateur a charge un fichier d'input
-int compteur_chargement = 0;
 
 //timer pour le mode monitoring
 QTimer *timer = new QTimer();
@@ -103,6 +106,10 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         //recuperer la valeur des airpads : ON ou OFF
         QObject::connect(ui->comboBox_2, SIGNAL(currentIndexChanged(int)), this, SLOT(get_airpad_state()));
 
+        path_input_folder = settings.value("input_folder").toString();
+        if (path_input_folder != NULL) {
+            openInputDir();
+        }
 }
 
 ATLAS_BCAM::~ATLAS_BCAM()
@@ -114,14 +121,16 @@ ATLAS_BCAM::~ATLAS_BCAM()
 void ATLAS_BCAM::ouvrirDialogue()
 {
     path_input_folder = QFileDialog::getExistingDirectory(this, "Chemin du dossier", QString());
-    compteur_chargement++;
-    std::cout<<compteur_chargement<<std::endl;
+}
 
-    if(compteur_chargement > 1) //gestion du probleme lorsqu'on charge un fichier par dessus l'autre
+void ATLAS_BCAM::openInputDir() {
+    settings.setValue("input_folder", path_input_folder);
+
+    if(input_folder_read) //gestion du probleme lorsqu'on charge un fichier par dessus l'autre
     {
         m_bdd.vidage_complet(); //on vide tout car nouveau fichier
-        compteur_chargement = 1; //comme si c'etait le premier chargement
     }
+    input_folder_read = true;
 
     //chemin du fichier d'entree
     //path_input_folder = fenetre_ouverture->Get_path_fich();
@@ -216,8 +225,10 @@ void ATLAS_BCAM::remplir_tableau_detectors()
 //fonction permettant de charger la liste des BCAMs qui appartiennent a un detector                 [---> ok
 void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
 {
+    int noColumn = ui->tableWidget_liste_detectors->columnCount();
+
     //recuperation du nombre de detecteurs
-    int nb_detectors = ui->tableWidget_liste_detectors->selectedItems().size()/3;
+    int nb_detectors = ui->tableWidget_liste_detectors->selectedItems().size()/noColumn;
 
     //vecteur qui va contenir la liste des BCAMs temporaires selectionnees dans le tableau
     std::vector<BCAM> *liste_bcam = new std::vector<BCAM>;
@@ -226,7 +237,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
     for(int i=0; i<nb_detectors; i++)
     {
         //recuperation de l'identifiant du detecteur
-        QString id_detector = ui->tableWidget_liste_detectors->selectedItems().at(i*3)->text();
+        QString id_detector = ui->tableWidget_liste_detectors->selectedItems().at(i*noColumn)->text();
 
         //recuperation des donnes a afficher
         std::vector<BCAM> *m_liste_bcam = new std::vector<BCAM>(liste_bcam_from_id_detector(m_bdd, id_detector.toInt()));
@@ -257,6 +268,9 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
       name_bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
       ui->tableWidget_results->setItem(i, 0, name_bcam);
 
+      setResult(i, Point3f());
+      setResult(i, Point3f(), true);
+
       QTableWidgetItem *num_detector = new QTableWidgetItem();
       num_detector->setData(0,liste_bcam->at(i).Get_id_detector());
       ui->tableWidget_liste_bcams->setItem(i,1,num_detector);
@@ -276,6 +290,17 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
     }
     tab_bcam =1;
     enable_PushButton();
+}
+
+void ATLAS_BCAM::setResult(int row, Point3f point, bool delta) {
+    QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X()));
+    ui->tableWidget_results->setItem(row, 1 + (delta * 3), x);
+
+    QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y()));
+    ui->tableWidget_results->setItem(row, 2 + (delta * 3), y);
+
+    QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z()));
+    ui->tableWidget_results->setItem(row, 3 + (delta * 3), z);
 }
 
 //fonction qui lance les acquisitions LWDAQ                                                         ----> ok mais qu'est ce qui se passe apres les acquisitions ?
