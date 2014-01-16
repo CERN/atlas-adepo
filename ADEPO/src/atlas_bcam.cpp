@@ -564,7 +564,7 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
                <<" puts $f $result \n"
                <<" close $f \n"
                <<" LWDAQ_print $info(text) \"Appended modified result to [file tail $config(run_results)].\" blue ;  \n"
-               <<" set fn [file join [file dirname $config(run_results)] $name\.lwdaq] \n"
+               <<" set fn [file join [file dirname $config(run_results)] $name.lwdaq] \n"
                <<" # LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
                <<" LWDAQ_print $info(text) \"Saved raw image to [file tail $fn]\" blue ; \n"
                <<" } \n"
