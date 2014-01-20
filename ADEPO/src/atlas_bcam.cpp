@@ -393,7 +393,7 @@ void ATLAS_BCAM::calcul_coord()
    //on recupere la date dans une variable
    time_t t = time(NULL);
    std::string tps_calcul = asctime(localtime(&t));
-   //std::cout<<tps_calcul<<std::endl;
+   std::cout<<tps_calcul<<std::endl;
 
    std::string file_name = "Archive/Observations_MOUNT_System";
 
