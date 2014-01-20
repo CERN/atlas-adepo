@@ -26,7 +26,7 @@ config:
 	 analysis_enable 1 
 	 daq_flash_seconds 0.0000033 
 	 daq_adjust_flash 1 
-	 daq_ip_addr 10.0.0.37
+	 daq_ip_addr 10.144.33.26
 	 daq_source_ip_addr * 
 	 ambient_exposure_seconds 0 
 	 intensify exact 
