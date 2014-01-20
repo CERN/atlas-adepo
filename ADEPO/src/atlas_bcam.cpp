@@ -969,6 +969,8 @@ void ATLAS_BCAM::startCalcul()
             QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));
             //boucle selon la frequence precisee par le user
             timer->start((time_value.toInt())*1000); //en mode monitoring time_value est utilisee comme frequence et non pas comme temps d'acquisition
+            // fire initial time
+            lancer_acquisition();
         }
         //si la reponse est negative
         else if (reponse == QMessageBox::No)
