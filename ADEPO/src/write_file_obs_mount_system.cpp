@@ -26,13 +26,13 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
 
             //sauvegarde des coordonnees images
             fichier<<"*******************************************************************coordonnees images dans le repere CCD *********************************************************************************** \n";
-            for(int i=0; i<base_donnees.Get_liste_spots().size(); i++)
+            for(unsigned int i=0; i<base_donnees.Get_liste_spots().size(); i++)
             {
                 if(i>0 && base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet() == premier_objet_img) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
                 fichier<<base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet()<<"\n";
-                for(int j=0; j<base_donnees.Get_liste_spots().size(); j++)
+                for(unsigned int j=0; j<base_donnees.Get_liste_spots().size(); j++)
                 {
                     if(base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet() == base_donnees.Get_liste_spots().at(j).Get_nom_BCAM_Objet())
                     {
@@ -48,13 +48,13 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
             std::string premier_objet_mount = base_donnees.Get_liste_mount_coord_spots().at(0).Get_id();
 
             //sauvegarde des coordonnees images transformees dans le repere MOUNT
-            for(int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++)
+            for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++)
             {
                 if(i>0 && base_donnees.Get_liste_mount_coord_spots().at(i).Get_id() == premier_objet_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
                 fichier<<base_donnees.Get_liste_mount_coord_spots().at(i).Get_id()<<"\n";
-                for(int j=0; j<base_donnees.Get_liste_mount_coord_spots().size(); j++)
+                for(unsigned int j=0; j<base_donnees.Get_liste_mount_coord_spots().size(); j++)
                 {
                     if(base_donnees.Get_liste_mount_coord_spots().at(i).Get_id() == base_donnees.Get_liste_mount_coord_spots().at(j).Get_id())
                     {
@@ -70,13 +70,13 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
             //sauvegarde des coordonnees du prisme dans le repere MOUNT pour chaque paire de spots
             std::string premier_prisme_mount = base_donnees.Get_liste_mount_coord_prism().at(0).Get_id();
 
-            for(int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
+            for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
             {
                 if(i>0 && base_donnees.Get_liste_mount_coord_prism().at(i).Get_id() == premier_prisme_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
                 fichier<<base_donnees.Get_liste_mount_coord_prism().at(i).Get_id()<<"\n";
-                for(int j=0; j<base_donnees.Get_liste_mount_coord_prism().size(); j++)
+                for(unsigned int j=0; j<base_donnees.Get_liste_mount_coord_prism().size(); j++)
                 {
                     if(base_donnees.Get_liste_mount_coord_prism().at(i).Get_id() == base_donnees.Get_liste_mount_coord_prism().at(j).Get_id())
                     {
@@ -91,13 +91,13 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
             //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
             std::string premier_prisme_atlas = base_donnees.Get_liste_global_coord_prism().at(0).Get_id();
 
-            for(int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
+            for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
             {
                 if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == premier_prisme_atlas)
                     break;
 
                 fichier<<base_donnees.Get_liste_global_coord_prism().at(i).Get_id()<<"\n";
-                for(int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
+                for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
                 {
                     if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == base_donnees.Get_liste_global_coord_prism().at(j).Get_id())
                     {
@@ -120,7 +120,7 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
             float min = ltm->tm_min;
             float sec = ltm->tm_sec;
 
-            for(int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
+            for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
             {
                 if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == premier_prisme_atlas)
                     break;
@@ -128,7 +128,7 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
                 Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
                 int ligne=0;
 
-                for(int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
+                for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
                 {
                     if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == base_donnees.Get_liste_global_coord_prism().at(j).Get_id())
                     {
@@ -162,7 +162,7 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
                 std::string name_bcam_atlas;
                 std::string name_prism_atlas;
 
-                for(int l=0; l<base_donnees.Get_liste_names_cta_su().size(); l++) //on parcourt la base de donnee de la table des noms
+                for(unsigned int l=0; l<base_donnees.Get_liste_names_cta_su().size(); l++) //on parcourt la base de donnee de la table des noms
                 {
                     if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id().substr(0,14) == base_donnees.Get_liste_names_cta_su().at(l).Get_name_su())
                     {
@@ -180,7 +180,7 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
                 float delta_y=0;
                 float delta_z=0;
                 //ajout de la constante de prisme
-                for(int n=0; n<base_donnees.Get_liste_correction_excentrement().size(); n++)
+                for(unsigned int n=0; n<base_donnees.Get_liste_correction_excentrement().size(); n++)
                 {
                     if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id().substr(15,5) == base_donnees.Get_liste_correction_excentrement().at(n).Get_id_prism())
                     {

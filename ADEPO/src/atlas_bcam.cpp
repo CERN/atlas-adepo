@@ -1,7 +1,7 @@
 #include "header/atlas_bcam.h"
 #include "header/ouverture_projet.h"
 #include "header/read_input.h"
-#include "header/ui_ATLAS_BCAM.h"
+#include "ui_ATLAS_BCAM.h"
 #include "header/read_calibration_database.h"
 #include "header/liste_bcam_from_id_detector.h"
 #include "header/write_aquisifier_script.h"
@@ -32,8 +32,12 @@
 
 
 //declaration des variables globales
+QSettings settings;
+
 std::string path_lwdaq;
 QString path_input_folder;
+bool input_folder_read = false;
+
 //valeur par defaut si l'utilisateur ne touche pas au spinbox
 QString time_value = "30";
 //valeur par defaut du mode d'utilisation est CLOSURE
@@ -60,7 +64,6 @@ int tab_bcam=0;
 int format_input=1;
 
 //compteur pour savoir combien de fois l'utilisateur a charge un fichier d'input
-int compteur_chargement = 0;
 
 //timer pour le mode monitoring
 QTimer *timer = new QTimer();
@@ -103,6 +106,10 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         //recuperer la valeur des airpads : ON ou OFF
         QObject::connect(ui->comboBox_2, SIGNAL(currentIndexChanged(int)), this, SLOT(get_airpad_state()));
 
+        path_input_folder = settings.value("input_folder").toString();
+        if (path_input_folder != NULL) {
+            openInputDir();
+        }
 }
 
 ATLAS_BCAM::~ATLAS_BCAM()
@@ -114,14 +121,16 @@ ATLAS_BCAM::~ATLAS_BCAM()
 void ATLAS_BCAM::ouvrirDialogue()
 {
     path_input_folder = QFileDialog::getExistingDirectory(this, "Chemin du dossier", QString());
-    compteur_chargement++;
-    std::cout<<compteur_chargement<<std::endl;
+}
 
-    if(compteur_chargement > 1) //gestion du probleme lorsqu'on charge un fichier par dessus l'autre
+void ATLAS_BCAM::openInputDir() {
+    settings.setValue("input_folder", path_input_folder);
+
+    if(input_folder_read) //gestion du probleme lorsqu'on charge un fichier par dessus l'autre
     {
         m_bdd.vidage_complet(); //on vide tout car nouveau fichier
-        compteur_chargement = 1; //comme si c'etait le premier chargement
     }
+    input_folder_read = true;
 
     //chemin du fichier d'entree
     //path_input_folder = fenetre_ouverture->Get_path_fich();
@@ -214,19 +223,21 @@ void ATLAS_BCAM::remplir_tableau_detectors()
 }
 
 //fonction permettant de charger la liste des BCAMs qui appartiennent a un detector                 [---> ok
-void ATLAS_BCAM::affiche_liste_BCAMs(int ligne, int colonne)
+void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
 {
+    int noColumn = ui->tableWidget_liste_detectors->columnCount();
+
     //recuperation du nombre de detecteurs
-    int nb_detetctors = ui->tableWidget_liste_detectors->selectedItems().size()/3;
+    int nb_detectors = ui->tableWidget_liste_detectors->selectedItems().size()/noColumn;
 
     //vecteur qui va contenir la liste des BCAMs temporaires selectionnees dans le tableau
     std::vector<BCAM> *liste_bcam = new std::vector<BCAM>;
 
     //recuperation des donnees a afficher
-    for(int i=0; i<nb_detetctors; i++)
+    for(int i=0; i<nb_detectors; i++)
     {
         //recuperation de l'identifiant du detecteur
-        QString id_detector = ui->tableWidget_liste_detectors->selectedItems().at(i*3)->text();
+        QString id_detector = ui->tableWidget_liste_detectors->selectedItems().at(i*noColumn)->text();
 
         //recuperation des donnes a afficher
         std::vector<BCAM> *m_liste_bcam = new std::vector<BCAM>(liste_bcam_from_id_detector(m_bdd, id_detector.toInt()));
@@ -244,13 +255,21 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int ligne, int colonne)
     // nombre de lignes dans la table
     int nb_lignes = liste_bcam->size();
     ui->tableWidget_liste_bcams->setRowCount(nb_lignes);
+    ui->tableWidget_results->setRowCount(nb_lignes);
 
-    for(int i=0; i<liste_bcam->size(); i++)
+    for(unsigned int i=0; i<liste_bcam->size(); i++)
     {
       //ajout dans la tableWidget qui affiche les BCAMs
       QTableWidgetItem *nom_bcam = new QTableWidgetItem();
       nom_bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
       ui->tableWidget_liste_bcams->setItem(i,0,nom_bcam);
+
+      QTableWidgetItem *name_bcam = new QTableWidgetItem();
+      name_bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
+      ui->tableWidget_results->setItem(i, 0, name_bcam);
+
+      setResult(i, Point3f());
+      setResult(i, Point3f(), true);
 
       QTableWidgetItem *num_detector = new QTableWidgetItem();
       num_detector->setData(0,liste_bcam->at(i).Get_id_detector());
@@ -271,6 +290,17 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int ligne, int colonne)
     }
     tab_bcam =1;
     enable_PushButton();
+}
+
+void ATLAS_BCAM::setResult(int row, Point3f point, bool delta) {
+    QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X()));
+    ui->tableWidget_results->setItem(row, 1 + (delta * 3), x);
+
+    QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y()));
+    ui->tableWidget_results->setItem(row, 2 + (delta * 3), y);
+
+    QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z()));
+    ui->tableWidget_results->setItem(row, 3 + (delta * 3), z);
 }
 
 //fonction qui lance les acquisitions LWDAQ                                                         ----> ok mais qu'est ce qui se passe apres les acquisitions ?
@@ -340,7 +370,7 @@ void ATLAS_BCAM::calcul_coord()
 
    if(lecture_output_result == 0 )
    {
-       QMessageBox::critical(this,"Attention","le fichier de resultats et inexistant ou illisible. Verifiez la connextion avec le dirver.");
+       QMessageBox::critical(this,"Attention","le fichier de resultats est inexistant ou illisible. Verifiez la connexion avec le driver.");
    }
    /*else if(lecture_output_result == 2)
    {
@@ -379,7 +409,7 @@ void ATLAS_BCAM::calcul_coord()
 void ATLAS_BCAM::check_input_data()
 {
     //test des numéros des ports driver : sur les driver les numéros de ports possibles sont compris entre 1 et 8
-    for (int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
         if(m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Driver()>8 || m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Driver()<1)
         {
@@ -392,7 +422,7 @@ void ATLAS_BCAM::check_input_data()
     }
 
     //test des numéros des ports multiplexer : sur les multiplexer les numéros des ports possibles sont compris entre 1 et 10
-    for (int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
         if(m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Mux()>10 || m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Mux()<1)
         {
@@ -415,10 +445,10 @@ void ATLAS_BCAM::check_input_data()
     }
 
     //test pour vérifier si dans le fichier d'entrée, il y a un seul et unique détecteur avec un seul et unique identifiant
-    for (int i=0; i<m_bdd.Get_liste_detector().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_detector().size(); i++)
     {
 
-         for (int j=0; j<m_bdd.Get_liste_detector().size(); j++)
+         for (unsigned int j=0; j<m_bdd.Get_liste_detector().size(); j++)
         {
              if( j != i && m_bdd.Get_liste_detector().at(i).Get_nom_detector() == m_bdd.Get_liste_detector().at(j).Get_nom_detector())
              {
@@ -440,7 +470,7 @@ void ATLAS_BCAM::check_input_data()
     }
 
     //test sur la longueur des chaînes de caractères (identifiant des BCAMs)
-    for (int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
         if(m_bdd.Get_liste_BCAM().at(i).Get_nom_BCAM().size() != ID_LENGTH_BCAM)
         {
@@ -454,9 +484,9 @@ void ATLAS_BCAM::check_input_data()
 
 
     //test pour vérifier si dans le fichier d'entrée, il y a une seule et unique BCAM (vu la structure du fichier elle appartient à un unique detecteur)
-    for (int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
-        for (int j=0; j<m_bdd.Get_liste_BCAM().size(); j++)
+        for (unsigned int j=0; j<m_bdd.Get_liste_BCAM().size(); j++)
         {
             if(j != i && m_bdd.Get_liste_BCAM().at(i).Get_nom_BCAM() == m_bdd.Get_liste_BCAM().at(j).Get_nom_BCAM())
             {
@@ -470,9 +500,9 @@ void ATLAS_BCAM::check_input_data()
     }
 
     //test pour éviter que 2 BCAMs ne soient branchées sur le même port multiplexer et même port driver à la fois
-    for (int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
+    for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
-        for (int j=0; j<m_bdd.Get_liste_BCAM().size(); j++)
+        for (unsigned int j=0; j<m_bdd.Get_liste_BCAM().size(); j++)
         {
             if((i != j) && (m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Driver() == m_bdd.Get_liste_BCAM().at(j).Get_num_Port_Driver()) && (m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Mux() == m_bdd.Get_liste_BCAM().at(j).Get_num_Port_Mux()))
             {
@@ -559,7 +589,7 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
                <<" puts $f $result \n"
                <<" close $f \n"
                <<" LWDAQ_print $info(text) \"Appended modified result to [file tail $config(run_results)].\" blue ;  \n"
-               <<" set fn [file join [file dirname $config(run_results)] $name\.lwdaq] \n"
+               <<" set fn [file join [file dirname $config(run_results)] $name.lwdaq] \n"
                <<" # LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
                <<" LWDAQ_print $info(text) \"Saved raw image to [file tail $fn]\" blue ; \n"
                <<" } \n"
@@ -577,7 +607,7 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
                <<"\n";
 
         //écriture dans le fichier de la partie acquisition du script : un paragraphe par BCAM
-        for(int i=0; i<liste_temp_bcam.size(); i++)
+        for(unsigned int i=0; i<liste_temp_bcam.size(); i++)
         {
             // on separe les visees BCAM-Prisme des visees BCAM-BCAM
             if(liste_temp_bcam.at(i).Get_objet_vise().length() == 14) //configuration de visee BCAM-BCAM
@@ -593,7 +623,7 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
                        <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).Get_num_Port_Driver()<<"\n"
                        <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n";
 
-                for(int j=0; j<liste_temp_bcam.size(); j++)
+                for(unsigned int j=0; j<liste_temp_bcam.size(); j++)
                 {
                     if(liste_temp_bcam.at(i).Get_objet_vise() == liste_temp_bcam.at(j).Get_nom_BCAM())
                     {
@@ -871,7 +901,7 @@ void ATLAS_BCAM::get_mode()
     if(mode_adepo == "MONITORING")
     {
         //changement du texte
-        ui->textEdit_function_mode->setHtml("</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Frequence d\'acquisition (s) :</span></p></body></html>");
+        ui->textEdit_function_mode->setText("</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Frequence d\'acquisition (s) :</span></p></body></html>");
         //changement des valeurs d'interval pour le temps
         ui->spinBox->setMinimum(900);  //frequence maxi : 1 mesure toutes les 15 min
         ui->spinBox->setMaximum(86400); //frequence mini ; 1 mesure par jour
@@ -879,7 +909,7 @@ void ATLAS_BCAM::get_mode()
     else
     {
         //changement du text
-        ui->textEdit_function_mode->setHtml("</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Temps d\'acquisition (s) :</span></p></body></html>");
+        ui->textEdit_function_mode->setText("</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Temps d\'acquisition (s) :</span></p></body></html>");
         //changement des valeurs d'interval pour le temps
         ui->spinBox->setMinimum(11);
         ui->spinBox->setMaximum(300);
@@ -893,13 +923,13 @@ void ATLAS_BCAM::get_airpad_state()
     mode_airpad = ui->comboBox_2->currentText();
     if(mode_airpad == "ON")
     {
-        for(int i=0; i<m_bdd.Get_liste_absolutes_distances().size(); i++)
+        for(unsigned int i=0; i<m_bdd.Get_liste_absolutes_distances().size(); i++)
         {
             float val_x = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances().Get_X();
             float val_y = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances().Get_Y();
             float val_z = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances().Get_Z();
 
-            Point3f pt(val_x+0.003, val_y+0.003, val_y+0.003);
+            Point3f pt(val_x+0.003, val_y+0.003, val_z+0.003);
             //Point3f val_temp = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances();
             //m_bdd.Get_liste_absolutes_distances().at(i).Set_distances(pt);
         }

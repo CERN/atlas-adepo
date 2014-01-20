@@ -6,9 +6,9 @@
 #include "eigen-eigen-ffa86ffb5570/Eigen/Householder"
 #include "eigen-eigen-ffa86ffb5570/Eigen/QR"
 
-int helmert(bdd & base_donnees)
+void helmert(bdd & base_donnees)
 {
-    for(int i=0; i<base_donnees.Get_liste_BCAM().size(); i++) //je parcours la liste des BCAMs dont je dispose
+    for(unsigned int i=0; i<base_donnees.Get_liste_BCAM().size(); i++) //je parcours la liste des BCAMs dont je dispose
     {
         //definition de 2 sous-vecteurs d'observations
         Eigen::VectorXd l_terrain(12); l_terrain.setZero();
@@ -17,7 +17,7 @@ int helmert(bdd & base_donnees)
         if(base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "A" || base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "L") //si la bcam est noire
         {
             int cmpt=0;
-            for(int j=0; j<base_donnees.Get_liste_bcam_adatateur().size(); j++) //je parcours la liste des coordonnees modele
+            for(unsigned int j=0; j<base_donnees.Get_liste_bcam_adatateur().size(); j++) //je parcours la liste des coordonnees modele
             {
                 if(base_donnees.Get_liste_bcam_adatateur().at(j).Get_type_bcam() == "Black")
                 {
@@ -32,7 +32,7 @@ int helmert(bdd & base_donnees)
         if(base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "B" || base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "M")
         {
             int cmpt=0;
-            for(int j=0; j<base_donnees.Get_liste_bcam_adatateur().size(); j++) //je parcours la liste des coordonnees modele
+            for(unsigned int j=0; j<base_donnees.Get_liste_bcam_adatateur().size(); j++) //je parcours la liste des coordonnees modele
             {
                 if(base_donnees.Get_liste_bcam_adatateur().at(j).Get_type_bcam() == "Blue")
                 {
@@ -47,7 +47,7 @@ int helmert(bdd & base_donnees)
         //std::cout<<"----------------------"<<std::endl;
         //je remplie le vecteur des mesures terrain
         int cmpt=0;
-        for(int j=0; j<base_donnees.Get_liste_ATLAS_coordinates().size(); j++)
+        for(unsigned int j=0; j<base_donnees.Get_liste_ATLAS_coordinates().size(); j++)
         {
             if(base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM() == base_donnees.Get_liste_ATLAS_coordinates().at(j).Get_id_BCAM())
             {
@@ -76,7 +76,7 @@ int helmert(bdd & base_donnees)
         //std::cout<<"-----------------------------------"<<std::endl;
 
           //facteur unitaire de variance a priori
-          int sigma_0=1;
+ //         int sigma_0=1;
 
           //matrice des co-facteurs
           Eigen::MatrixXd Qll(24,24); Qll.setIdentity();
@@ -89,7 +89,7 @@ int helmert(bdd & base_donnees)
           float phi0=0; float teta0=0; float psi0=0;
 
           //valeur aberrante pour le critere d'arret
-          float sigma_test=1e15;
+        //  float sigma_test=1e15;
 
           for (int m=0; m<50; m++) //iterations pour la convergence
           {

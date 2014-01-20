@@ -1,11 +1,11 @@
 #include "header/mount_prism_to_global_prism.h"
 #include "header/changement_repere.h"
 
-int mount_prism_to_global_prism(bdd & base_donnees)
+void mount_prism_to_global_prism(bdd & base_donnees)
 {
-    for(int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
+    for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
     {
-        for(int j=0; j<base_donnees.Get_liste_BCAM_params().size(); j++)
+        for(unsigned int j=0; j<base_donnees.Get_liste_BCAM_params().size(); j++)
         {
             if(base_donnees.Get_liste_mount_coord_prism().at(i).Get_id().substr(0,14) == base_donnees.Get_liste_BCAM_params().at(j).Get_id_bcam())
             {

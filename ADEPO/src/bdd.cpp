@@ -9,7 +9,7 @@ bdd::~bdd()
 {
     //dtor
 }
-bdd::bdd(const bdd& copie)
+bdd::bdd(const bdd& /* copie */)
 {
 
 }
