@@ -121,6 +121,7 @@ ATLAS_BCAM::~ATLAS_BCAM()
 void ATLAS_BCAM::ouvrirDialogue()
 {
     path_input_folder = QFileDialog::getExistingDirectory(this, "Chemin du dossier", QString());
+    openInputDir();
 }
 
 void ATLAS_BCAM::openInputDir() {
@@ -341,7 +342,7 @@ void ATLAS_BCAM::lancer_acquisition()
            std::cout << "ACCESS_ENDED_to_LWDAQ"<<std::endl;
 
         //je calcule les coordonnees des prismes dans le repere lie a chaque BCAM (la lecture du fichier de coordonnees images se fait dans la fonction "calcul_coord()"
-        calcul_coord();
+	calcul_coord();
 }
 
 //fonction qui permet d'arreter l'acquisition LWDAQ (seuleuement en mode monitoring)                [----> ok
@@ -362,7 +363,6 @@ void ATLAS_BCAM::stop_acquisition()
 //fonction qui calcule les coordonnees de chaque prisme dans le repere BCAM + suavegarde            [----> ok
 void ATLAS_BCAM::calcul_coord()
 {
-
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
    std::string fichier_obs_brutes = path_input_folder.toStdString().append("/").append("LWDAQ").append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
 
@@ -393,7 +393,6 @@ void ATLAS_BCAM::calcul_coord()
    //on recupere la date dans une variable
    time_t t = time(NULL);
    std::string tps_calcul = asctime(localtime(&t));
-   std::cout<<tps_calcul<<std::endl;
 
    std::string file_name = "Archive/Observations_MOUNT_System";
 
@@ -766,7 +765,7 @@ int ATLAS_BCAM::ecriture_script_bash(std::string nom_fichier_bash)
               <<"cp scripts_lwdaq/Acquisifier_Settings.tcl "<<chemin_lwdaq_data<<"\n"
                <<"cp scripts_lwdaq/Acquisifier_script_file.tcl "<<chemin_lwdaq_data<<"\n"
                <<path_lwdaq<<" --no-console"<<" \n"
-               <<"ps -eH | grep tclsh8.5 > PID.txt \n"
+               <<"ps -e | grep tclsh | grep -v grep > PID.txt \n"
                <<"read pid reste < PID.txt \n";
        if(mode_adepo == "CLOSURE")
            fichier<<"sleep "<<time_value.toStdString()<<"s"<<"\n";    //en mode closure c'est directement le temps donnees par l'operateur
