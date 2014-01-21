@@ -392,11 +392,11 @@ void ATLAS_BCAM::calcul_coord()
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
    //on recupere la date dans une variable
    time_t t = time(NULL);
-   std::string tps_calcul = asctime(localtime(&t));
+   char* tps_calcul = asctime(localtime(&t));
 
    std::string file_name = "Archive/Observations_MOUNT_System";
 
-   std::string fichier_obs_mount = file_name.append("_").append(tps_calcul).append(".txt");
+   std::string fichier_obs_mount = file_name.append("_").append(tps_calcul, strlen(tps_calcul)-1).append(".txt");
    write_file_obs_mount_system(fichier_obs_mount, m_bdd);
 
    //vidage des acquisitions
@@ -902,7 +902,7 @@ void ATLAS_BCAM::get_mode()
         //changement du texte
         ui->textEdit_function_mode->setText("</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Frequence d\'acquisition (s) :</span></p></body></html>");
         //changement des valeurs d'interval pour le temps
-        ui->spinBox->setMinimum(900);  //frequence maxi : 1 mesure toutes les 15 min
+        ui->spinBox->setMinimum(240);  //frequence maxi : 1 mesure toutes les 15 min: 900
         ui->spinBox->setMaximum(86400); //frequence mini ; 1 mesure par jour
     }
     else
