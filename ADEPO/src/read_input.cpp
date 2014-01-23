@@ -264,11 +264,9 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                         case 8:
                         {
                             char *buffer = strdup((char*)ligne.c_str());
-                            std::string name_cta = strtok(buffer, " " );
-                            std::string name_su = strtok( NULL, " " );
-                            table_names paire_noms(name_cta, name_su);
-                            //paire_noms.Affiche();
-                            base_donnees.Add_names_cta_su(paire_noms);
+                            std::string name = strtok(buffer, " " );
+                            std::string id = strtok( NULL, " " );
+                            base_donnees.addName(id, name);
                         }
                         break;
 

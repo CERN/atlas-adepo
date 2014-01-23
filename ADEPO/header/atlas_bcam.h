@@ -3,9 +3,11 @@
 
 #include <QMainWindow>
 #include "bdd.h"
+#include "result.h"
 #include "QWidget"
 #include <QLineEdit>
 #include "header/mythread.h"
+#include "eigen-eigen-ffa86ffb5570/Eigen/Eigen"
 
 namespace Ui {
 class ATLAS_BCAM;
@@ -91,8 +93,9 @@ private:
     mythread *thread; // this is our thread
 
     void openInputDir();
-    void setResult(int row, Point3f point, bool delta = false);
-
+    void setResult(int row, Point3f point, int columnSet);
+    void calculateResults(bdd &base_donnees, std::map<std::string, result> &results);
+    void updateResults(std::map<std::string, result> &results);
 };
 
 #endif // ATLAS_BCAM_H

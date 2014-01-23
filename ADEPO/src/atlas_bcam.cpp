@@ -265,13 +265,6 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
       nom_bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
       ui->tableWidget_liste_bcams->setItem(i,0,nom_bcam);
 
-      QTableWidgetItem *name_bcam = new QTableWidgetItem();
-      name_bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
-      ui->tableWidget_results->setItem(i, 0, name_bcam);
-
-      setResult(i, Point3f());
-      setResult(i, Point3f(), true);
-
       QTableWidgetItem *num_detector = new QTableWidgetItem();
       num_detector->setData(0,liste_bcam->at(i).Get_id_detector());
       ui->tableWidget_liste_bcams->setItem(i,1,num_detector);
@@ -288,20 +281,27 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
       objet_vise->setText(QString::fromStdString(liste_bcam->at(i).Get_objet_vise()));
       ui->tableWidget_liste_bcams->setItem(i,4,objet_vise);
 
+      QTableWidgetItem *name_prism = new QTableWidgetItem();
+      name_prism->setText(QString::fromStdString(m_bdd.getName(liste_bcam->at(i).Get_objet_vise())));
+      ui->tableWidget_results->setItem(i, 0, name_prism);
+
+      setResult(i, Point3f(), 0);
+      setResult(i, Point3f(), 1);
+      setResult(i, Point3f(), 2);
     }
     tab_bcam =1;
     enable_PushButton();
 }
 
-void ATLAS_BCAM::setResult(int row, Point3f point, bool delta) {
+void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet) {
     QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X()));
-    ui->tableWidget_results->setItem(row, 1 + (delta * 3), x);
+    ui->tableWidget_results->setItem(row, 1 + (columnSet * 3), x);
 
     QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y()));
-    ui->tableWidget_results->setItem(row, 2 + (delta * 3), y);
+    ui->tableWidget_results->setItem(row, 2 + (columnSet * 3), y);
 
     QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z()));
-    ui->tableWidget_results->setItem(row, 3 + (delta * 3), z);
+    ui->tableWidget_results->setItem(row, 3 + (columnSet * 3), z);
 }
 
 //fonction qui lance les acquisitions LWDAQ                                                         ----> ok mais qu'est ce qui se passe apres les acquisitions ?
@@ -389,6 +389,12 @@ void ATLAS_BCAM::calcul_coord()
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mount_prism_to_global_prism(m_bdd);
 
+   std::map<std::string, result> results;
+
+   calculateResults(m_bdd, results);
+
+   updateResults(results);
+
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
    //on recupere la date dans une variable
    time_t t = time(NULL);
@@ -402,6 +408,94 @@ void ATLAS_BCAM::calcul_coord()
    //vidage des acquisitions
    m_bdd.vidage();
    }
+}
+
+void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, result> &results) {
+
+    //on parcourt tous les points transformes dans le repere global : moyenne + dispersion
+    // current date/time based on current system
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+
+    //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
+    std::string premier_prisme_atlas = base_donnees.Get_liste_global_coord_prism().at(0).Get_id();
+
+    for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
+    {
+        if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == premier_prisme_atlas)
+            break;
+
+        mount_coord_prism prism = base_donnees.Get_liste_global_coord_prism().at(i);
+
+        //nomenclature dans le repere ATLAS
+        std::string name_prism_atlas = base_donnees.getName(prism.Get_id().substr(15,5));
+
+        result& result = results[name_prism_atlas];
+        result.name = name_prism_atlas;
+        result.ltm = ltm;
+
+        Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
+        int ligne=0;
+
+        for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
+        {
+            if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == base_donnees.Get_liste_global_coord_prism().at(j).Get_id())
+            {
+                coord(ligne,0)=base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_X();
+                coord(ligne,1)=base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_Y();
+                coord(ligne,2)=base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_Z();
+                ligne=ligne+1;
+            }
+        }
+        result.mean=coord.colwise().sum()/ligne; //somme de chaque colonne / par le nombre de lignes
+
+        Eigen::MatrixXd result_var(ligne,3); //calcul de la variance
+        for(int k=0; k<ligne; k++)
+        {
+            result_var(k,0)=(coord(k,0)-result.mean(0,0))*(coord(k,0)-result.mean(0,0));
+            result_var(k,1)=(coord(k,1)-result.mean(0,1))*(coord(k,1)-result.mean(0,1));
+            result_var(k,2)=(coord(k,2)-result.mean(0,2))*(coord(k,2)-result.mean(0,2));
+        }
+
+        Eigen::MatrixXd result_std_square(1,3); //calcul de l'ecart-type au carre
+        result_std_square=result_var.colwise().sum()/ligne;
+
+        for(int m=0; m<3; m++)
+        {
+            result.std(0,m) = sqrt(result_std_square(0,m));
+        }
+
+        //delta selon composantes axiales
+        result.dx=0;
+        result.dy=0;
+        result.dz=0;
+        //ajout de la constante de prisme
+        for(unsigned int n=0; n<base_donnees.Get_liste_correction_excentrement().size(); n++)
+        {
+            if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id().substr(15,5) == base_donnees.Get_liste_correction_excentrement().at(n).Get_id_prism())
+            {
+                result.dx = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_X();
+                result.dy = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_Y();
+                result.dz = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_Z();
+            }
+        }
+    }
+}
+
+void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
+    for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
+        std::string prism = ui->tableWidget_results->item(row, 0)->text().toStdString();
+        std::cout << prism << std::endl;
+
+        result& r = results[prism];
+        setResult(row, Point3f(r.mean(0,0) + r.dx, r.mean(0,1) + r.dy, r.mean(0,2) + r.dz), 0);
+        setResult(row, Point3f(r.std(0,0), r.std(0,1), r.std(0,2)), 1);
+    }
+
+    for (std::map<std::string, result>::iterator i = results.begin(); i != results.end(); i++) {
+           std::cout<<i->first<<std::endl;
+           i->second.toString();
+    }
 }
 
 //fonction qui verifie qu'il n'y a pas d'erreurs dans le fichier de configuration                   [----> ok mais peut etre amelioree

@@ -2,6 +2,7 @@
 #define BDD_H
 //////////////////////////////////////////
 #include <vector>
+#include <map>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -24,7 +25,6 @@
 #include "header/absolutes_distances.h"
 #include "header/atlas_coordinates.h"
 #include "header/bcam_params.h"
-#include "header/table_names.h"
 #include "header/prism_correction.h"
 /////////////////////////////////////////////
 
@@ -60,11 +60,12 @@ public:
     std::vector<BCAM_params> Get_liste_BCAM_params() const {return m_liste_bcam_params;}
     //gestion de la liste des coordonnees du prisme dans le repre global
     std::vector<mount_coord_prism> Get_liste_global_coord_prism() const {return m_liste_global_coord_prism;}
-    //gestion des nomenclatures
-    std::vector<table_names> Get_liste_names_cta_su() const {return m_liste_names_cta_su;}
     //gestion des corrections d'excentrement
     std::vector<prism_correction> Get_liste_correction_excentrement() const {return m_liste_correction_excentrement;}
 
+    std::string getName(std::string id) {
+        return names[id];
+    }
 
    //methodes d'ajout
     void Add_BCAM(BCAM val) {m_liste_BCAM.push_back(val);}
@@ -89,9 +90,12 @@ public:
     //gestion de la liste des coordonnees du prisme dans le repre global
     void Add_global_coord_prism(mount_coord_prism val) {m_liste_global_coord_prism.push_back(val);}
     //gestion des nomenclatures
-    void Add_names_cta_su(table_names val) {m_liste_names_cta_su.push_back(val);}
+    void addName(std::string id, std::string name) {
+        names[id] = name;
+    }
     //gestion des correctiosn d'excentrement
     void Add_correction_excentrement(prism_correction val) {m_liste_correction_excentrement.push_back(val);}
+
     //vidage partiel de la bdd
     void vidage();
     //vidage complet de la bdd si on charge un second fichier
@@ -114,8 +118,9 @@ private:
     std::vector<ATLAS_coordinates> m_liste_ATLAS_coordinates;
     std::vector<BCAM_params> m_liste_bcam_params;
     std::vector<mount_coord_prism> m_liste_global_coord_prism;
-    std::vector<table_names> m_liste_names_cta_su;
     std::vector<prism_correction> m_liste_correction_excentrement;
+
+    std::map<std::string, std::string> names;
 };
 
 #endif // BDD_H

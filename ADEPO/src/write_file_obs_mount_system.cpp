@@ -159,21 +159,9 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
                 }
 
                 //nomenclature dans le repere ATLAS
-                std::string name_bcam_atlas;
-                std::string name_prism_atlas;
-
-                for(unsigned int l=0; l<base_donnees.Get_liste_names_cta_su().size(); l++) //on parcourt la base de donnee de la table des noms
-                {
-                    if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id().substr(0,14) == base_donnees.Get_liste_names_cta_su().at(l).Get_name_su())
-                    {
-                        name_bcam_atlas = base_donnees.Get_liste_names_cta_su().at(l).Get_name_cta();
-                    }
-
-                    if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id().substr(15,5) == base_donnees.Get_liste_names_cta_su().at(l).Get_name_su())
-                    {
-                        name_prism_atlas = base_donnees.Get_liste_names_cta_su().at(l).Get_name_cta();
-                    }
-                }
+                mount_coord_prism prism = base_donnees.Get_liste_global_coord_prism().at(i);
+                std::string name_bcam_atlas = base_donnees.getName(prism.Get_id().substr(0,14));
+                std::string name_prism_atlas = base_donnees.getName(prism.Get_id().substr(15,5));
 
                 //delta selon composantes axiales
                 float delta_x=0;

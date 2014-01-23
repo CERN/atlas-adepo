@@ -24,8 +24,8 @@ HEADERS += \
     header/bcam_params.h \
     header/changement_repere.h \
     header/mount_prism_to_global_prism.h \
-    header/table_names.h \
-    header/prism_correction.h
+    header/prism_correction.h \
+    header/result.h
 
 SOURCES += \
     src/write_file_obs_mount_system.cpp \
@@ -54,7 +54,6 @@ SOURCES += \
     src/bcam_params.cpp \
     src/changement_repere.cpp \
     src/mount_prism_to_global_prism.cpp \
-    src/table_names.cpp \
     src/prism_correction.cpp
 
 FORMS += \
