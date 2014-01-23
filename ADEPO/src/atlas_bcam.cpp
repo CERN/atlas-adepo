@@ -13,7 +13,7 @@
 #include "header/helmert.h"
 #include "header/mythread.h"
 #include "header/mount_prism_to_global_prism.h"
-
+#include "eigen-eigen-ffa86ffb5570/Eigen/Eigen"
 
 #include <iostream>
 #include <QtGui>
@@ -91,11 +91,15 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         //lancer les acquisitions (arret automoatique)
         QObject::connect(ui->Boutton_lancer,SIGNAL(clicked()), this,SLOT(startCalcul()));
+        QObject::connect(ui->nextMeasurement,SIGNAL(clicked()), this,SLOT(startCalcul()));
 
         //QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));
 
         //stopper l'acquisition (arret force)
         QObject::connect(ui->boutton_arreter,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
+        QObject::connect(ui->stop,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
+
+        QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
 
         //recuperer la valeur du temps d'acquisition
         QObject::connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(save_time_value()));
@@ -360,6 +364,13 @@ void ATLAS_BCAM::stop_acquisition()
     ui->boutton_arreter->setEnabled(false);
 }
 
+void ATLAS_BCAM::resetDelta() {
+    for (std::map<std::string, result>::iterator i = results.begin(); i != results.end(); i++) {
+        i->second.setOffset();
+    }
+    updateResults(results);
+}
+
 //fonction qui calcule les coordonnees de chaque prisme dans le repere BCAM + suavegarde            [----> ok
 void ATLAS_BCAM::calcul_coord()
 {
@@ -388,8 +399,6 @@ void ATLAS_BCAM::calcul_coord()
 
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mount_prism_to_global_prism(m_bdd);
-
-   std::map<std::string, result> results;
 
    calculateResults(m_bdd, results);
 
@@ -447,38 +456,38 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
                 ligne=ligne+1;
             }
         }
-        result.mean=coord.colwise().sum()/ligne; //somme de chaque colonne / par le nombre de lignes
+        Eigen::MatrixXd mean(1,3);
+        mean = coord.colwise().sum()/ligne; //somme de chaque colonne / par le nombre de lignes
 
         Eigen::MatrixXd result_var(ligne,3); //calcul de la variance
         for(int k=0; k<ligne; k++)
         {
-            result_var(k,0)=(coord(k,0)-result.mean(0,0))*(coord(k,0)-result.mean(0,0));
-            result_var(k,1)=(coord(k,1)-result.mean(0,1))*(coord(k,1)-result.mean(0,1));
-            result_var(k,2)=(coord(k,2)-result.mean(0,2))*(coord(k,2)-result.mean(0,2));
+            result_var(k,0)=(coord(k,0)-mean(0,0))*(coord(k,0)-mean(0,0));
+            result_var(k,1)=(coord(k,1)-mean(0,1))*(coord(k,1)-mean(0,1));
+            result_var(k,2)=(coord(k,2)-mean(0,2))*(coord(k,2)-mean(0,2));
         }
 
         Eigen::MatrixXd result_std_square(1,3); //calcul de l'ecart-type au carre
         result_std_square=result_var.colwise().sum()/ligne;
 
-        for(int m=0; m<3; m++)
-        {
-            result.std(0,m) = sqrt(result_std_square(0,m));
-        }
+        result.std = Point3f(sqrt(result_std_square(0,0)),sqrt(result_std_square(0,1)),sqrt(result_std_square(0,2)));
 
         //delta selon composantes axiales
-        result.dx=0;
-        result.dy=0;
-        result.dz=0;
+        float dx=0;
+        float dy=0;
+        float dz=0;
         //ajout de la constante de prisme
         for(unsigned int n=0; n<base_donnees.Get_liste_correction_excentrement().size(); n++)
         {
             if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id().substr(15,5) == base_donnees.Get_liste_correction_excentrement().at(n).Get_id_prism())
             {
-                result.dx = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_X();
-                result.dy = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_Y();
-                result.dz = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_Z();
+                dx = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_X();
+                dy = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_Y();
+                dz = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_Z();
             }
         }
+
+        result.value = Point3f(mean(0,0) + dx, mean(0,1) + dy, mean(0,2) + dz);
     }
 }
 
@@ -488,13 +497,9 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
         std::cout << prism << std::endl;
 
         result& r = results[prism];
-        setResult(row, Point3f(r.mean(0,0) + r.dx, r.mean(0,1) + r.dy, r.mean(0,2) + r.dz), 0);
-        setResult(row, Point3f(r.std(0,0), r.std(0,1), r.std(0,2)), 1);
-    }
-
-    for (std::map<std::string, result>::iterator i = results.begin(); i != results.end(); i++) {
-           std::cout<<i->first<<std::endl;
-           i->second.toString();
+        setResult(row, r.value, 0);
+        setResult(row, r.std, 1);
+        setResult(row, Point3f(r.value.Get_X() - r.offset.Get_X(), r.value.Get_Y() - r.offset.Get_Y(), r.value.Get_Z() - r.offset.Get_Z()), 2);
     }
 }
 

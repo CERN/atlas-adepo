@@ -7,7 +7,6 @@
 #include "QWidget"
 #include <QLineEdit>
 #include "header/mythread.h"
-#include "eigen-eigen-ffa86ffb5570/Eigen/Eigen"
 
 namespace Ui {
 class ATLAS_BCAM;
@@ -66,7 +65,7 @@ public slots:
     //fonction qui affiche les BCAMs qui qppqrtiennent a la liste de detecteurs selectionnes
     void affiche_liste_BCAMs(int ligne, int colonne);
 
-    //fonction qui lqnce les acquisitions lorsqu'on clicke sur le boutton correspondant
+    //fonction qui lance les acquisitions lorsqu'on clicke sur le boutton correspondant
     void lancer_acquisition();
 
     //fonction qui permet l'arret des acquisitions lorsqu'on clicke sur le boutton correspondant
@@ -81,6 +80,7 @@ public slots:
     //fonction qui agit apres un press bouton sur "Lancer"
     void startCalcul();
 
+    void resetDelta();
 
 
 signals:
@@ -91,6 +91,7 @@ private:
     bdd m_bdd;
     QString path_fich;
     mythread *thread; // this is our thread
+    std::map<std::string, result> results;
 
     void openInputDir();
     void setResult(int row, Point3f point, int columnSet);

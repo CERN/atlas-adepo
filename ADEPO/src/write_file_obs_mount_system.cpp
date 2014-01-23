@@ -177,9 +177,6 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
                         delta_z = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_Z();
                     }
                 }
-                std::cout<<delta_x<<std::endl;
-                std::cout<<delta_y<<std::endl;
-                std::cout<<delta_z<<std::endl;
                 //enregistrement dans le fichier de resultats
                 fichier<<name_bcam_atlas<<"_"<<name_prism_atlas<<" "<<year<<"."<<month<<"."<<day<<"."<<hour<<"."<<min<<"."<<sec<<" "<<result_mean(0,0)+delta_x<<" "<<result_mean(0,1)+delta_y<<" "<<result_mean(0,2)+delta_z<<" "<<result_std(0,0)<<" "<<result_std(0,1)<<" "<<result_std(0,2)<<" "<<"VRAI \n";
             }

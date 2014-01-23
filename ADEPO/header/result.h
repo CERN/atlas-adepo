@@ -2,29 +2,35 @@
 #define RESULT_H
 
 #include "ctime"
-#include "eigen-eigen-ffa86ffb5570/Eigen/Eigen"
+#include "Point3f.h"
 
 class result
 {
 public:
     result() {
-        mean = Eigen::MatrixXd(1,3);
-        std = Eigen::MatrixXd(1,3);
+        value = Point3f();
+        std = Point3f();
+        setOffset();
     }
     ~result() {};
 
+    void setOffset() {
+        offset = value;
+    }
+
     void toString() {
         std::cout << name << " "
-                  << mean(0,0) << " " << mean(0,1) << " " << mean(0,2) << " "
-                  << std(0,0) << " " << std(0,1) << " " << std(0,2) << " "
-                  << dx << " " << dy << " " << dz << std::endl;
+                  << value.Get_X() << " " << value.Get_Y() << " " << value.Get_Z() << " "
+                  << std.Get_X() << " " << std.Get_Y() << " " << std.Get_Z() << ""
+                  << offset.Get_X() << " " << offset.Get_Y() << " " << offset.Get_Z() <<
+                     std::endl;
     }
 
     std::string name;
     tm *ltm;
-    Eigen::MatrixXd mean;
-    Eigen::MatrixXd std;
-    float dx, dy, dz;
+    Point3f value;
+    Point3f std;
+    Point3f offset;
 };
 
 #endif // RESULT_H
