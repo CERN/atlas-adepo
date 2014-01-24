@@ -285,27 +285,39 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
       objet_vise->setText(QString::fromStdString(liste_bcam->at(i).Get_objet_vise()));
       ui->tableWidget_liste_bcams->setItem(i,4,objet_vise);
 
-      QTableWidgetItem *name_prism = new QTableWidgetItem();
-      name_prism->setText(QString::fromStdString(m_bdd.getName(liste_bcam->at(i).Get_objet_vise())));
-      ui->tableWidget_results->setItem(i, 0, name_prism);
+      QTableWidgetItem *name = new QTableWidgetItem();
+      name->setText(QString::fromStdString(m_bdd.getName(liste_bcam->at(i).Get_objet_vise())));
+      ui->tableWidget_results->setItem(i, 0, name);
+
+      QTableWidgetItem *bcam = new QTableWidgetItem();
+      bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
+      ui->tableWidget_results->setItem(i, 1, bcam);
+
+      QTableWidgetItem *prism = new QTableWidgetItem();
+      prism->setText(QString::fromStdString(liste_bcam->at(i).Get_objet_vise()));
+      ui->tableWidget_results->setItem(i, 2, prism);
 
       setResult(i, Point3f(), 0);
       setResult(i, Point3f(), 1);
       setResult(i, Point3f(), 2);
     }
+    ui->tableWidget_results->resizeColumnsToContents();
+
     tab_bcam =1;
     enable_PushButton();
 }
 
 void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet) {
+    int firstColumn = 3;
+
     QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X()));
-    ui->tableWidget_results->setItem(row, 1 + (columnSet * 3), x);
+    ui->tableWidget_results->setItem(row, firstColumn + (columnSet * 3), x);
 
     QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y()));
-    ui->tableWidget_results->setItem(row, 2 + (columnSet * 3), y);
+    ui->tableWidget_results->setItem(row, firstColumn + 1 + (columnSet * 3), y);
 
     QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z()));
-    ui->tableWidget_results->setItem(row, 3 + (columnSet * 3), z);
+    ui->tableWidget_results->setItem(row, firstColumn + 2 + (columnSet * 3), z);
 }
 
 //fonction qui lance les acquisitions LWDAQ                                                         ----> ok mais qu'est ce qui se passe apres les acquisitions ?
@@ -448,11 +460,12 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
 
         for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
         {
-            if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == base_donnees.Get_liste_global_coord_prism().at(j).Get_id())
+            mount_coord_prism checkedPrism = base_donnees.Get_liste_global_coord_prism().at(j);
+            if(prism.Get_id() == checkedPrism.Get_id())
             {
-                coord(ligne,0)=base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_X();
-                coord(ligne,1)=base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_Y();
-                coord(ligne,2)=base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_Z();
+                coord(ligne,0)=checkedPrism.Get_coord_prism_mount_sys().Get_X();
+                coord(ligne,1)=checkedPrism.Get_coord_prism_mount_sys().Get_Y();
+                coord(ligne,2)=checkedPrism.Get_coord_prism_mount_sys().Get_Z();
                 ligne=ligne+1;
             }
         }
@@ -501,6 +514,7 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
         setResult(row, r.std, 1);
         setResult(row, Point3f(r.value.Get_X() - r.offset.Get_X(), r.value.Get_Y() - r.offset.Get_Y(), r.value.Get_Z() - r.offset.Get_Z()), 2);
     }
+    ui->tableWidget_results->resizeColumnsToContents();
 }
 
 //fonction qui verifie qu'il n'y a pas d'erreurs dans le fichier de configuration                   [----> ok mais peut etre amelioree
@@ -650,14 +664,13 @@ void ATLAS_BCAM::check_calibration_database()
 //fonction permettant d'activer les boutons                                                         [----> ok
 void ATLAS_BCAM::enable_PushButton()
 {
-
     //si le chemin du fichier d'entree a ete specifie et un detecteur non vide selectionne
     if(!path_input_folder.isEmpty() && tab_bcam == 1)
     {
         // activation du boutton pour lancer l'acquisition et le calcul
         ui->Boutton_lancer->setEnabled(true);
+        ui->nextMeasurement->setEnabled(true);
     }
-
 }
 
 //fonction qui permet de generer un script d'acquisition                                            [---> ok

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1137</width>
-    <height>701</height>
+    <width>1309</width>
+    <height>747</height>
    </rect>
   </property>
   <property name="sizeIncrement">
@@ -96,7 +96,7 @@
                   <bool>true</bool>
                  </property>
                  <attribute name="horizontalHeaderVisible">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </attribute>
                  <attribute name="horizontalHeaderCascadingSectionResizes">
                   <bool>false</bool>
@@ -323,7 +323,7 @@
                 <bool>true</bool>
                </property>
                <attribute name="horizontalHeaderVisible">
-                <bool>true</bool>
+                <bool>false</bool>
                </attribute>
                <attribute name="horizontalHeaderDefaultSectionSize">
                 <number>160</number>
@@ -377,7 +377,7 @@
                </column>
                <column>
                 <property name="text">
-                 <string>ITEM MEASURED</string>
+                 <string>PRISM</string>
                 </property>
                </column>
               </widget>
@@ -453,7 +453,17 @@
             </attribute>
             <column>
              <property name="text">
-              <string>BCAM Name</string>
+              <string>Name</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>BCAM</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Prism</string>
              </property>
             </column>
             <column>
@@ -516,7 +526,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1137</width>
+     <width>1309</width>
      <height>22</height>
     </rect>
    </property>
