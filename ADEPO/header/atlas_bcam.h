@@ -6,6 +6,7 @@
 #include "result.h"
 #include "QWidget"
 #include <QLineEdit>
+#include <QTextEdit>
 #include "header/mythread.h"
 
 namespace Ui {

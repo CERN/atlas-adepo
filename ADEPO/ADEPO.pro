@@ -59,4 +59,4 @@ SOURCES += \
 FORMS += \
     ATLAS_BCAM.ui \
 
-QT += testlib
+QT += core gui widgets testlib
