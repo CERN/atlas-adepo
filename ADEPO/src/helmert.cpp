@@ -62,14 +62,14 @@ void helmert(bdd & base_donnees)
         Eigen::VectorXd l(24); l.setZero();
         //remplissage du vecteur des observations
         int compt=0;
-        for(int i=0; i<4; i++)
+        for(int k=0; k<4; k++)
         {
-            l(3*i+compt)=l_terrain(3*i);
-            l(3*i+1+compt)=l_terrain(3*i+1);
-            l(3*i+2+compt)=l_terrain(3*i+2);
-            l(3*i+3+compt)=l_modele(3*i);
-            l(3*i+4+compt)=l_modele(3*i+1);
-            l(3*i+5+compt)=l_modele(3*i+2);
+            l(3*k+compt)=l_terrain(3*k);
+            l(3*k+1+compt)=l_terrain(3*k+1);
+            l(3*k+2+compt)=l_terrain(3*k+2);
+            l(3*k+3+compt)=l_modele(3*k);
+            l(3*k+4+compt)=l_modele(3*k+1);
+            l(3*k+5+compt)=l_modele(3*k+2);
             compt=compt+3;
         }
         //std::cout<<l<<std::endl;
