@@ -60,3 +60,4 @@ FORMS += \
     ATLAS_BCAM.ui \
 
 QT += core gui widgets testlib
+
