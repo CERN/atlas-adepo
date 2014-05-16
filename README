@@ -4,7 +4,7 @@ Version 1.1+
 For compilation and installation on SLC6, 64 bits virtual machine and 32 bits compilation on vm-atlas-posmov-01 (64 bits vm) 
 the following packages are needed:
 
-QT 5.2.1 in the /det/ti/PosMov directory
+QT 5.2.1 x86 (32 bit version) in the /det/ti/PosMov directory
 setup the path to bin to make sure you have the correct qmake
 
 ?4.8.1- qt-devel
