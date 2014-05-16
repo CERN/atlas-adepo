@@ -512,7 +512,7 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
         result& r = results[prism];
         setResult(row, r.value, 0);
         setResult(row, r.std, 1);
-        setResult(row, Point3f(r.value.Get_X() - r.offset.Get_X(), r.value.Get_Y() - r.offset.Get_Y(), r.value.Get_Z() - r.offset.Get_Z()), 2);
+        setResult(row, Point3f(Point3f(r.value, r.offset), 1000), 2);
     }
     ui->tableWidget_results->resizeColumnsToContents();
 }

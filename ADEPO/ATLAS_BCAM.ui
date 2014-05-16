@@ -28,7 +28,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -96,7 +96,7 @@
                   <bool>true</bool>
                  </property>
                  <attribute name="horizontalHeaderVisible">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </attribute>
                  <attribute name="horizontalHeaderCascadingSectionResizes">
                   <bool>false</bool>
@@ -323,7 +323,7 @@
                 <bool>true</bool>
                </property>
                <attribute name="horizontalHeaderVisible">
-                <bool>true</bool>
+                <bool>false</bool>
                </attribute>
                <attribute name="horizontalHeaderDefaultSectionSize">
                 <number>160</number>
@@ -468,17 +468,17 @@
             </column>
             <column>
              <property name="text">
-              <string>X</string>
+              <string>X (m)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Y</string>
+              <string>Y (m)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Z</string>
+              <string> Z (m)</string>
              </property>
             </column>
             <column>
@@ -498,17 +498,17 @@
             </column>
             <column>
              <property name="text">
-              <string>delta X</string>
+              <string>delta X (mm)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>delta Y</string>
+              <string>delta Y (mm)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>delta Z</string>
+              <string>delta Z (mm)</string>
              </property>
             </column>
            </widget>

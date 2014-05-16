@@ -11,6 +11,8 @@ class Point3f
         Point3f(float X,float Y,float Z);
         virtual ~Point3f();
         Point3f(const Point3f& copie);
+        Point3f(const Point3f& value, const Point3f& ref);
+        Point3f(const Point3f& value, float multiplier);
 
         //setter et getter
         float Get_X() const { return m_X; }
