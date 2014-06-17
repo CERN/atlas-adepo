@@ -50,6 +50,7 @@ public:
     std::vector<mount_coord_prism> Get_liste_mount_coord_prism() const {return m_liste_mount_coord_prism;}
     //gestion de l'adresse IP
     std::string Get_driver_ip_adress() const {return m_driver_ip_adress;}
+    std::string Get_driver_ip_port() const {return m_driver_ip_port;}
     //gestion des coordonnees mount de l'adaptateur
     std::vector<bcam_adaptateur> Get_liste_bcam_adatateur() const {return m_liste_bcam_adaptateur;}
     //gestion des distances absolues
@@ -79,6 +80,7 @@ public:
     void Add_mount_coord_prism(mount_coord_prism val) {m_liste_mount_coord_prism.push_back(val);}
     //gestion de l'adresse IP
     void Add_driver_ip_adress(std::string val) {m_driver_ip_adress = val;}
+    void Add_driver_ip_port(std::string val) {m_driver_ip_port = val;}
     //gestion de l'adaptateur
     void Add_bcam_adaptateur(bcam_adaptateur val) {m_liste_bcam_adaptateur.push_back(val);}
     //gestion des distances absolues
@@ -113,6 +115,7 @@ private:
     std::vector<mount_coord_spots> m_liste_mount_coord_spots;
     std::vector<mount_coord_prism> m_liste_mount_coord_prism;
     std::string m_driver_ip_adress;
+    std::string m_driver_ip_port;
     std::vector<bcam_adaptateur> m_liste_bcam_adaptateur;
     std::vector<absolutes_distances> m_liste_absolutes_distances;
     std::vector<ATLAS_coordinates> m_liste_ATLAS_coordinates;

@@ -38,6 +38,13 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                         etape_calcul = 3;
                 }
 
+                //driver_ip_port
+                if(ligne.substr(0,16).compare("//DRIVER_IP_PORT")==0)
+                {
+                        getline(fichier, ligne);
+                        etape_calcul = 10;
+                }
+
                 //adaptateur_bcam_bleu
                 if(ligne.substr(0,30).compare("//MODELE_COORDINATES_BLUE_BCAM")==0)
                 {
@@ -136,6 +143,15 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                             //recuperation de l'adresse ip du driver
                             std::string driver_ip_adress = strtok(buffer," ");
                             base_donnees.Add_driver_ip_adress(driver_ip_adress);
+                        }
+                        break;
+
+                        case 10:
+                        {
+                            char *buffer = strdup((char*)ligne.c_str());
+                            //recuperation de l'port ip du driver
+                            std::string driver_ip_port = strtok(buffer," ");
+                            base_donnees.Add_driver_ip_port(driver_ip_port);
                         }
                         break;
 
