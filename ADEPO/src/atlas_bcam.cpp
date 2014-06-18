@@ -359,7 +359,7 @@ void ATLAS_BCAM::lancer_acquisition()
            std::cout << "ACCESS_ENDED_to_LWDAQ"<<std::endl;
 
         //je calcule les coordonnees des prismes dans le repere lie a chaque BCAM (la lecture du fichier de coordonnees images se fait dans la fonction "calcul_coord()"
-	calcul_coord();
+        calcul_coord();
 }
 
 //fonction qui permet d'arreter l'acquisition LWDAQ (seuleuement en mode monitoring)                [----> ok
@@ -405,29 +405,38 @@ void ATLAS_BCAM::calcul_coord()
    }*/
    else
    {
+       std::cout << "*" << std::endl;
    //je fais la transformation du capteur CCD au systeme MOUNT. Attention, la lecture du fichier de calibration est deja faite !
    img_coord_to_bcam_coord(m_bdd);
 
+   std::cout << "*" << std::endl;
    //je calcule les coordonnees du prisme en 3D dans le repere MOUNT
    calcul_coord_bcam_system(m_bdd);
 
+   std::cout << "*" << std::endl;
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mount_prism_to_global_prism(m_bdd);
 
+   std::cout << "*" << std::endl;
    calculateResults(m_bdd, results);
 
+   std::cout << "*" << std::endl;
    updateResults(results);
 
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
    //on recupere la date dans une variable
+   std::cout << "*" << std::endl;
    time_t t = time(NULL);
    char* tps_calcul = asctime(localtime(&t));
 
+   std::cout << "*" << std::endl;
    std::string file_name = "Archive/Observations_MOUNT_System";
 
+   std::cout << "*" << std::endl;
    std::string fichier_obs_mount = file_name.append("_").append(tps_calcul, strlen(tps_calcul)-1).append(".txt");
    write_file_obs_mount_system(fichier_obs_mount, m_bdd);
 
+   std::cout << "*" << std::endl;
    //vidage des acquisitions
    m_bdd.vidage();
    }
