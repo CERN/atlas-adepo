@@ -405,19 +405,15 @@ void ATLAS_BCAM::calcul_coord()
    }*/
    else
    {
-       std::cout << "*" << std::endl;
    //je fais la transformation du capteur CCD au systeme MOUNT. Attention, la lecture du fichier de calibration est deja faite !
    img_coord_to_bcam_coord(m_bdd);
 
-   std::cout << "*" << std::endl;
    //je calcule les coordonnees du prisme en 3D dans le repere MOUNT
    calcul_coord_bcam_system(m_bdd);
 
-   std::cout << "*" << std::endl;
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mount_prism_to_global_prism(m_bdd);
 
-   std::cout << "*" << std::endl;
    calculateResults(m_bdd, results);
 
    std::cout << "*" << std::endl;
@@ -449,9 +445,11 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
     time_t now = time(0);
     tm* ltm = localtime(&now);
 
+    std::cout << "*" << std::endl;
     //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
     std::string premier_prisme_atlas = base_donnees.Get_liste_global_coord_prism().at(0).Get_id();
 
+    std::cout << "*" << std::endl;
     for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
     {
         if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == premier_prisme_atlas)
