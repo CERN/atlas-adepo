@@ -11,6 +11,7 @@ int read_lwdaq_output(std::string nom_fichier, bdd & base_donnees)
 
         while(std::getline(fichier,ligne)) // tant que l'on arrive pas a la fin du fichier
         {
+            std::cout << ligne << std::endl;
             if(!ligne.empty())
             {
                 int nb_colonnes = std::count(ligne.begin(), ligne.end(), ' '); //je compte le nombre de colonnes dans le fichier
