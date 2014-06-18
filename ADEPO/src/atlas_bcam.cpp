@@ -394,7 +394,7 @@ void ATLAS_BCAM::calcul_coord()
 
    if(lecture_output_result == 0 )
    {
-       QMessageBox::critical(this,"Attention","le fichier de resultats est inexistant ou illisible. Verifiez la connexion avec le driver.");
+       QMessageBox::critical(this,"Attention","le fichier de resultats est inexistant ou illisible. Verifiez la connexion avec le driver. "+lecture_output_result);
    }
    /*else if(lecture_output_result == 2)
    {
