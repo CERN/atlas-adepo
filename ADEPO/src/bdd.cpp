@@ -35,7 +35,6 @@ void bdd::vidage_complet()
     m_liste_mount_coord_prism.clear();
     m_liste_global_coord_prism.clear();
     m_driver_ip_adress.clear();
-    m_driver_ip_port.clear();
     m_liste_bcam_adaptateur.clear();
     m_liste_absolutes_distances.clear();
     m_liste_ATLAS_coordinates.clear();

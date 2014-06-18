@@ -711,7 +711,6 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
                <<"\t daq_flash_seconds 0.0000033 \n"
                <<"\t daq_adjust_flash 1 \n"
                <<"\t daq_ip_addr "<<m_bdd.Get_driver_ip_adress()<<"\n"
-               <<"\t daq_ip_port "<<m_bdd.Get_driver_ip_port()<<"\n"
                <<"\t daq_source_ip_addr * \n"
                <<"\t ambient_exposure_seconds 0 \n"
                <<"\t intensify exact \n"
