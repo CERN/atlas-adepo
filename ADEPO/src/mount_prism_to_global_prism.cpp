@@ -5,6 +5,7 @@ void mount_prism_to_global_prism(bdd & base_donnees)
 {
     for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
     {
+        std::cout << "x" << std::endl;
         for(unsigned int j=0; j<base_donnees.Get_liste_BCAM_params().size(); j++)
         {
             std::cout << "=" << std::endl;
