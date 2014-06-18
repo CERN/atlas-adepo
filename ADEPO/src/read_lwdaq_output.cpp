@@ -63,8 +63,8 @@ int read_lwdaq_output(std::string nom_fichier, bdd & base_donnees)
                         //ajout dans la base de donnees
                         spot sp(nom_BCAM_Objet, atof(coord1_i_ccd), atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
                         base_donnees.Add_spots(sp);
+                        break;
                     }
-                    break;
 
                     case 2:
                     {
@@ -105,8 +105,8 @@ int read_lwdaq_output(std::string nom_fichier, bdd & base_donnees)
                         //ajout dans la base de donnees
                         spot sp2(nom_BCAM_Objet2, atof(coord3_i_ccd), atof(coord3_j_ccd), atof(coord4_i_ccd), atof(coord4_j_ccd));
                         base_donnees.Add_spots(sp2);
+                        break;
                     }
-                    break;
 
                     case 3:
                     {
@@ -167,15 +167,14 @@ int read_lwdaq_output(std::string nom_fichier, bdd & base_donnees)
                         //ajout dans la base de donnees
                         spot sp3(nom_BCAM_Objet3, atof(coord5_i_ccd), atof(coord5_j_ccd), atof(coord6_i_ccd), atof(coord6_j_ccd));
                         base_donnees.Add_spots(sp3);
+                        break;
                     }
 
                     case 4:
                     {
                        return 0;
                     }
-                    break;
-                    }
-
+                    } // switch
                 }
             }
         }
