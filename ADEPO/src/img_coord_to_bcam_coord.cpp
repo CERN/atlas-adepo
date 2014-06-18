@@ -11,13 +11,17 @@
 //fonction de transformation du repere ccd au repere BCAM (MOUNT)
 void img_coord_to_bcam_coord(bdd & base_donnees)
 {
+    std::cout << "*1" << std::endl;
 
     for(unsigned int i=0; i<base_donnees.Get_liste_spots().size(); i++) //je parcours la base de donnees des coordonnees images
     {
+        std::cout << "*2" << std::endl;
         for (unsigned int j=0; j<base_donnees.Get_liste_calib1().size(); j++) //je parcours la base de donnees qui contient les informations de calibration
         {
+            std::cout << "*3" << std::endl;
             if(base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet().substr(0,14) == base_donnees.Get_liste_calib1().at(j).Get_id_BCAM())
             {
+                std::cout << "*4" << std::endl;
                 //transformation des coordonnees IMAGE vers le repere MOUNT
 
                 Eigen::MatrixXd ccd1(1,3);       //vecteur des coordonnees images1
