@@ -3,6 +3,7 @@
 
 void mount_prism_to_global_prism(bdd & base_donnees)
 {
+    std::cout << "y" << std::endl;
     for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
     {
         std::cout << "x" << std::endl;
