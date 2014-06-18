@@ -352,6 +352,7 @@ void ATLAS_BCAM::lancer_acquisition()
         system(("rm -rf "+name_file_result).c_str());
 
         //lancement du programme LWDAQ + arret apres nombre de secondes specifiees par le user
+        std::cout << "Starting LWDAQ on " << m_bdd.Get_driver_ip_adress() << std::endl;
         if(system(("bash "+bash_script).c_str()))
            std::cout << "ACCESS_SUCCESS_to_LWDAQ"<<std::endl;
         else
