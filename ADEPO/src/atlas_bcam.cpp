@@ -441,11 +441,9 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
     time_t now = time(0);
     tm* ltm = localtime(&now);
 
-    std::cout << "*" << std::endl;
     //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
     std::string premier_prisme_atlas = base_donnees.Get_liste_global_coord_prism().at(0).Get_id();
 
-    std::cout << "*" << std::endl;
     for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
     {
         if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == premier_prisme_atlas)
