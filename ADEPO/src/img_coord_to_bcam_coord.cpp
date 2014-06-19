@@ -11,18 +11,13 @@
 //fonction de transformation du repere ccd au repere BCAM (MOUNT)
 void img_coord_to_bcam_coord(bdd & base_donnees)
 {
-    std::cout << "*1" << std::endl;
-
+    bool found = false;
     for(unsigned int i=0; i<base_donnees.Get_liste_spots().size(); i++) //je parcours la base de donnees des coordonnees images
     {
-        std::cout << "*2" << std::endl;
         for (unsigned int j=0; j<base_donnees.Get_liste_calib1().size(); j++) //je parcours la base de donnees qui contient les informations de calibration
         {
-            std::cout << "*3 " << base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet() << std::endl;
-            std::cout << "   " << base_donnees.Get_liste_calib1().at(j).Get_id_BCAM() << std::endl;
             if(base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet().substr(0,14) == base_donnees.Get_liste_calib1().at(j).Get_id_BCAM())
             {
-                std::cout << "*4" << std::endl;
                 //transformation des coordonnees IMAGE vers le repere MOUNT
 
                 Eigen::MatrixXd ccd1(1,3);       //vecteur des coordonnees images1
@@ -97,6 +92,8 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
                 Point3f mount_sp2(coord_mount2(0,0), coord_mount2(0,1), coord_mount2(0,2));
                 mount_coord_spots mount_couple_spots(base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet(), mount_sp1, mount_sp2);
                 base_donnees.Add_mount_coord_spots(mount_couple_spots);
+
+                found = true;
             }
         }
     }
@@ -106,4 +103,8 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
     {
         base_donnees.Get_liste_mount_coord_spots().at(i).Affiche();
     }*/
+
+    if (!found) {
+        std::cout << "WARNING: no img_coord_to_bcam_coord found, some setup file may be missing..." << std::endl;
+    }
 }

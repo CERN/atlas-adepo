@@ -4,19 +4,15 @@
 
 void calcul_coord_bcam_system(bdd & base_donnees)
 {
-    std::cout << "u" << std::endl;
+    bool found = false;
     for (unsigned int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++) // je parcours la database qui contient les coord des observation dans le system MOUNT
     {
-        std::cout << "v" << std::endl;
         for (unsigned int j=0; j<base_donnees.Get_liste_calib1().size(); j++) //je parcours la base de donnee de calibration 1
         {
-            std::cout << "w" << std::endl;
             for(unsigned int k=0; k<base_donnees.Get_liste_calib2().size(); k++) //je parcours la base de donnee de calibration 2
             {
-                std::cout << "s" << std::endl;
                 for(unsigned int l=0; l<base_donnees.Get_liste_absolutes_distances().size(); l++) //je parcours la base de donnee des distances absolues
                 {
-                    std::cout << "t" << std::endl;
                     if(base_donnees.Get_liste_mount_coord_spots().at(i).Get_id().substr(0,14) == base_donnees.Get_liste_calib1().at(j).Get_id_BCAM() && base_donnees.Get_liste_mount_coord_spots().at(i).Get_id().substr(0,14) == base_donnees.Get_liste_calib2().at(k).Get_id_BCAM() && base_donnees.Get_liste_mount_coord_spots().at(i).Get_id() == base_donnees.Get_liste_absolutes_distances().at(l).Get_id_BCAM_prisme())
                     {
                         std::cout << "d" << std::endl;
@@ -83,13 +79,17 @@ void calcul_coord_bcam_system(bdd & base_donnees)
                         Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z);
                         mount_coord_prism xyz_prism(base_donnees.Get_liste_mount_coord_spots().at(i).Get_id(), xyz);
                         base_donnees.Add_mount_coord_prism(xyz_prism);
-
+                        found = true;
                     }
                 }
 
             }
 
         }
+    }
+
+    if (!found) {
+        std::cout << "WARNING: No calcul_coord_bcam_system found, some setup file may be missing." << std::endl;
     }
 
     //affichage base donnee des coordonnees des prismes dans le systeme MOUNT
