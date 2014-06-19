@@ -15,8 +15,6 @@ void calcul_coord_bcam_system(bdd & base_donnees)
                 {
                     if(base_donnees.Get_liste_mount_coord_spots().at(i).Get_id().substr(0,14) == base_donnees.Get_liste_calib1().at(j).Get_id_BCAM() && base_donnees.Get_liste_mount_coord_spots().at(i).Get_id().substr(0,14) == base_donnees.Get_liste_calib2().at(k).Get_id_BCAM() && base_donnees.Get_liste_mount_coord_spots().at(i).Get_id() == base_donnees.Get_liste_absolutes_distances().at(l).Get_id_BCAM_prisme())
                     {
-                        std::cout << "d" << std::endl;
-
                         //calcul du mileu de la distance entre les 2 spots sur le ccd
                         float milieu_x = (base_donnees.Get_liste_mount_coord_spots().at(i).Get_coord1().Get_X() + base_donnees.Get_liste_mount_coord_spots().at(i).Get_coord2().Get_X())/2;
                         float milieu_y = (base_donnees.Get_liste_mount_coord_spots().at(i).Get_coord1().Get_Y() + base_donnees.Get_liste_mount_coord_spots().at(i).Get_coord2().Get_Y())/2;

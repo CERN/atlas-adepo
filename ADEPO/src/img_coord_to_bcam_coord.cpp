@@ -14,10 +14,8 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
     bool found = false;
     for(unsigned int i=0; i<base_donnees.Get_liste_spots().size(); i++) //je parcours la base de donnees des coordonnees images
     {
-        std::cout << "Looking for: " << base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet().substr(0,14) << std::endl;
         for (unsigned int j=0; j<base_donnees.Get_liste_calib1().size(); j++) //je parcours la base de donnees qui contient les informations de calibration
         {
-             std::cout << "Checking: " << base_donnees.Get_liste_calib1().at(j).Get_id_BCAM() << std::endl;
             if(base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet().substr(0,14) == base_donnees.Get_liste_calib1().at(j).Get_id_BCAM())
             {
                 //transformation des coordonnees IMAGE vers le repere MOUNT
