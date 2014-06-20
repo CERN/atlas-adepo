@@ -149,7 +149,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                            char *buffer = strdup((char*)ligne.c_str());
                            //recuperation des donnees de la BCAM
                            int nb_string = std::count(ligne.begin(), ligne.end(), ' '); //nombre de colonne dans la ligne
-                           std::cout<<nb_string << ":" << ligne << ":" << std::endl;
+//                           std::cout<<nb_string << ":" << ligne << ":" << std::endl;
 
                            if(nb_string == 5) //cas ou une BCAM simple ou double vise un prisme
                            {

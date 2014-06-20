@@ -10,6 +10,9 @@ int read_calibration_database(std::string nom_fichier, bdd & base_donnees)
 
            while(std::getline(fichier,ligne)) // tant que l'on arrive pas a la fin du fichier
            {
+               // take ending off the line
+               ligne.erase(ligne.find_last_not_of(" \n\r\t")+1);
+
                if(!ligne.empty())
                 {
                     // pivot + focale + axis + ccd rotation
