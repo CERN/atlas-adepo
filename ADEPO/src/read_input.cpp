@@ -17,8 +17,6 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
             // si on a une ligne vide on saute une ligne
             if(!ligne.empty())
             {
-                std::cout << ligne << std::endl;
-
                 //detector
                 if(ligne.substr(0,16).compare("//DETECTORS_DATA")==0)
                 {
@@ -146,7 +144,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                            char *buffer = strdup((char*)ligne.c_str());
                            //recuperation des donnees de la BCAM
                            int nb_string = std::count(ligne.begin(), ligne.end(), ' '); //nombre de colonne dans la ligne
-                           //std::cout<<nb_string<<std::endl;
+                           std::cout<<nb_string << ":" << ligne <<std::endl;
 
                            if(nb_string == 5) //cas ou une BCAM simple ou double vise un prisme
                            {
