@@ -13,6 +13,8 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
 
         while(std::getline(fichier,ligne)) // tant que l'on arrive pas a la fin du fichier
         {
+            // take ending off the line
+            ligne.erase(ligne.find_last_not_of(" \n\r\t")+1);
 
             // si on a une ligne vide on saute une ligne
             if(!ligne.empty())
@@ -79,6 +81,9 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                     getline(fichier, ligne);
                     etape_calcul = 9;
                 }
+
+                // take ending off the line
+                ligne.erase(ligne.find_last_not_of(" \n\r\t")+1);
 
                 if(!ligne.empty())
                 {
