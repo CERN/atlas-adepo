@@ -246,7 +246,6 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
 
         //recuperation des donnes a afficher
         std::vector<BCAM> *m_liste_bcam = new std::vector<BCAM>(liste_bcam_from_id_detector(m_bdd, id_detector.toInt()));
-        std::cout << m_liste_bcam->size() << std::endl;
 
         //insertion dans la tableWidget qui affiche les bcams
         liste_bcam->insert(liste_bcam->begin(), m_liste_bcam->begin(), m_liste_bcam->end());

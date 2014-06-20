@@ -5,9 +5,10 @@ std::vector<BCAM> liste_bcam_from_id_detector(bdd & base_donnees, int id_detecto
     //on cree un vecteur de BCAMs
     std::vector<BCAM> liste_bcam;
 
-
     for(unsigned int i=0; i<base_donnees.Get_liste_BCAM().size(); i++)
     {
+        std::cout << Get_liste_BCAM().size() << std::endl;
+
         if(base_donnees.Get_liste_BCAM().at(i).Get_id_detector() == id_detector)
         {
             //enregistrement des donnees de la bcam
