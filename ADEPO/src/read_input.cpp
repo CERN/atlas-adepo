@@ -17,6 +17,8 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
             // si on a une ligne vide on saute une ligne
             if(!ligne.empty())
             {
+                std::cout << ligne << std::endl;
+
                 //detector
                 if(ligne.substr(0,16).compare("//DETECTORS_DATA")==0)
                 {
