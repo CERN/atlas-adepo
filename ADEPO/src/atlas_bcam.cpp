@@ -147,7 +147,7 @@ void ATLAS_BCAM::openInputDir() {
     helmert(m_bdd);
 
     //verification des infos du fichier d'entree
-    //check_input_data();
+    check_input_data();
 
     //activation du boutton pour lancer les acquisitions
     enable_PushButton();
@@ -241,6 +241,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
     //recuperation des donnees a afficher
     for(int i=0; i<nb_detectors; i++)
     {
+        std::cout << nb_detectors << std::endl;
         //recuperation de l'identifiant du detecteur
         QString id_detector = ui->tableWidget_liste_detectors->selectedItems().at(i*noColumn)->text();
 
