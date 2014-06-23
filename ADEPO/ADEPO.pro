@@ -49,7 +49,7 @@ SOURCES += \
     main.cpp \
     src/bcam_adaptateur.cpp \
     src/absolutes_distances.cpp \
-    src/atlas_coordinates.cpp \
+    src/atlas_coordinates.cpp \    
     src/helmert.cpp \
     src/bcam_params.cpp \
     src/changement_repere.cpp \
@@ -61,3 +61,7 @@ FORMS += \
 
 QT += core gui widgets testlib
 
+unix:!mac{
+  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/lib
+  QMAKE_RPATH=
+}
