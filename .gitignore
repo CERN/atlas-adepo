@@ -1,3 +1,11 @@
 .DS_Store
 *.pro.user
 scripts_lwdaq
+Acquisifier_Settings.tcl
+Acquisifier_params.tcl
+Acquisifier_script_file.tcl
+PID.txt
+bash_script.sh
+Acquisifier_Results.txt
+/ADEPO-slc6-32/Archive
+

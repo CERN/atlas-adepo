@@ -7,12 +7,10 @@ the following packages are needed:
 QT 5.3 x86 (32 bit version) in the /det/ti/PosMov directory
 setup the path to bin to make sure you have the correct qmake
 
-- the installation of qt 5.3 needs 1.2 Gbyte of /tmp space. vm-atlas-posmov-01 does not have that. Use lxplus to install, 
-then copy the resulting directory over. It will generate Makefiles with references to afs, but you can edit those later. 
+- the installation of qt 5.3 needs 1.2 Gbyte of /tmp space. vm-atlas-posmov-01 does not have that. 
+Use lxplus to install, then copy the resulting directory over. 
+It will generate Makefiles with references to afs, but you can edit those later. 
 
-
-?4.8.1- qt-devel
-?4.8.1- qt-devel.i686
 - g++, gcc
 - glibc.i686
 - glibc-devel.i686
@@ -24,8 +22,8 @@ then copy the resulting directory over. It will generate Makefiles with referenc
 
 MacOS X
 -------
-- qt version 5.2.1
-- qt creator version 3.0.0
+- qt version 5.3.0
+- qt creator version 3.1.1
 -> install libqxt (configure, make, make install)
 
 --
@@ -51,10 +49,10 @@ Version 1.0 du logiciel ADEPO
 -----------> le fichier de calibration des BCAMs (garder dans le fichier que les calibrations des 28 BCAMs) : http://alignment.hep.brandeis.edu/Devices/Calibration/BCAM_Parameters.txt
 -----------> fichiers .pro et .pro.user pour le projet Qt Creator. Le fichier .ui pour l'interface graphique. Le fichier main.ccp qui lance le programme. 
 
----> ADEPO-build-desktop-Qt_4_8_1_dans_le_PATH__Syst_me__Release : contient les fichiers de la compilation + le dossier Archive + le dossier scripts_lwdaq
+---> ADEPO-slc6-32 : contient les fichiers de la compilation + le dossier Archive + le dossier scripts_lwdaq
 -----------> Archive : contient les fichiers de sauvegarde et de resultats (datation du fichier)
 -----------> scripts_lwdaq : contient les scripts pour la communication ADEPO<==>lwdaq
 -----------> l'executable "ADEPO" qui lance le programme
 
-Pour une recompilation, le fichier "MAKEFILE" se trouve dans le second dossier : ADEPO-build-desktop-Qt_4_8_1_dans_le_PATH__Syst_me__Release.
+Pour une recompilation, le fichier "Makefile" se trouve dans le second dossier : ADEPO-slc6-32.
 
