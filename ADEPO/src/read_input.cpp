@@ -55,7 +55,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                 }
 
                 //distances absolues
-                if(ligne.substr(0,21).compare("//ABSOLUTES_DISTANCES")==0)
+                if(ligne.substr(0,21).compare("//ABSOLUTE_DISTANCES")==0)
                 {
                     getline(fichier, ligne);
                     etape_calcul = 6;
