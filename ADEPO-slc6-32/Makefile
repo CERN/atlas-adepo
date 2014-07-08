@@ -17,7 +17,7 @@ CFLAGS        = -m32 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -m32 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I../../../Qt5.3.0-x86/5.3/gcc/mkspecs/linux-g++-32 -I../ADEPO -I../../../Qt5.3.0-x86/5.3/gcc/include -I../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets -I../../../Qt5.3.0-x86/5.3/gcc/include/QtTest -I../../../Qt5.3.0-x86/5.3/gcc/include/QtGui -I../../../Qt5.3.0-x86/5.3/gcc/include/QtCore -I. -I. -I.
 LINK          = g++
-LFLAGS        = -m32 -Wl,--rpath=/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/plugins -Wl,--rpath=/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/lib -Wl,-O1
+LFLAGS        = -m32 -Wl,--rpath=/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/lib -Wl,-O1
 LIBS          = $(SUBLIBS) -L/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/lib -lQt5Widgets -L/afs/cern.ch/user/d/duns/scratch1000/Qt5.3.0-x86/5.3/gcc/lib -lQt5Test -lQt5Gui -lQt5Core -lpthread 
 AR            = ar cqs
 RANLIB        = 
