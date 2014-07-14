@@ -30,3 +30,8 @@ Acquisifier_status
 
 To Stop
 Acquisifier_command Stop
+
+
+To kill a process
+-----------------
+sudo killall -i ADEPO
