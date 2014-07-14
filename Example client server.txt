@@ -1,0 +1,32 @@
+To start:
+
+Server
+------
+./lwdaq server.tcl
+
+Client
+------
+telnet localhost 1090
+
+Then:
+LWDAQ_run_tool Acquisifier_params.tcl
+LWDAQ_run_tool Acquisifier_Settings.tcl
+Acquisifier_load_script
+
+To get the output back:
+LWDAQ_server_info
+set server_info sock7
+set Acquisifier_config(upload_target) [lindex $server_info 0]
+set  Acquisifier_config(upload_step_result) 1
+
+To run:
+Acquisifier_command Run
+
+or
+Acquisifier_command Repeat_Run
+
+To get the status
+Acquisifier_status
+
+To Stop
+Acquisifier_command Stop
