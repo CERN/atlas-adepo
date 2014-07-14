@@ -1,7 +1,9 @@
 #include <QCoreApplication>
 
 #include <iostream>
-#include <QtNetwork>
+
+#include "client.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -9,11 +11,9 @@ int main(int argc, char *argv[])
 
     std::cout << "Start" << std::endl;
 
-    QTcpSocket* tcpSocket = new QTcpSocket();
+    Client *client = new Client(&a);
 
-    connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readFortune()));
-
-    s.connectToHost("localhost",1090);
+    client->getStatus();
 
     return a.exec();
 }
