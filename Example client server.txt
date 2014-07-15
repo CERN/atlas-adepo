@@ -17,7 +17,7 @@ To get the output back:
 LWDAQ_server_info
 set server_info sock7
 set Acquisifier_config(upload_target) [lindex $server_info 0]
-set  Acquisifier_config(upload_step_result) 1
+set Acquisifier_config(upload_step_result) 1
 
 To run:
 Acquisifier_command Run

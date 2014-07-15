@@ -11,14 +11,23 @@ Client::Client(QObject *parent) : QObject(parent) {
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readStatus()));
     connect(tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)),
                 this, SLOT(displayError(QAbstractSocket::SocketError)));
-
 }
 
 void Client::getStatus() {
     tcpSocket->abort();
     tcpSocket->connectToHost("localhost", 1090);
 
+    tcpSocket->write("LWDAQ_run_tool Acquisifier_params.tcl\r");
+    tcpSocket->write("LWDAQ_run_tool Acquisifier_Settings.tcl\r");
+    tcpSocket->write("Acquisifier_load_script\r");
+    tcpSocket->write("Acquisifier_status\r");
+
     tcpSocket->write("LWDAQ_server_info\r");
+    tcpSocket->write("set server_info sock13\r");
+    tcpSocket->write("set Acquisifier_config(upload_target) [lindex $server_info 0]\r");
+    tcpSocket->write("set Acquisifier_config(upload_step_result) 1\r");
+
+    tcpSocket->write("Acquisifier_command Run\r");
 }
 
 void Client::connected() {
@@ -29,10 +38,12 @@ void Client::disconnected() {
     std::cout << "Disconnected" << std::endl;
 }
 
+bool first = true;
+
 void Client::readStatus() {
     std::cout << "readyRead " << tcpSocket->bytesAvailable() << std::endl;
     QByteArray a = tcpSocket->readAll();
-    std::cout << a.data() << std::endl;
+    std::cout << a.data();
 //    QDataStream in(tcpSocket);
 //    in.setVersion(QDataStream::Qt_4_0);
 
