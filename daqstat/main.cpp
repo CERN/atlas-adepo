@@ -13,7 +13,8 @@ int main(int argc, char *argv[])
 
     Client *client = new Client(&a);
 
-    client->getStatus();
+    client->connectToHost();
+    client->runOnHost(30);
 
     return a.exec();
 }
