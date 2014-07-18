@@ -2,35 +2,44 @@
 #include "client.h"
 #include <iostream>
 
-Client::Client(QObject *parent) : QObject(parent),
-                                  open(false),
+Client::Client(QString host, quint16 port, QObject *parent) : QObject(parent),
+                                  hostName(host),
+                                  portNo(port),
+                                  currentState(INIT),
                                   cmdNo(0),
-                                  stopped(false),
                                   error(false),
                                   errorText("") {
 
     tcpSocket = new QTcpSocket(this);
 
-    connect(tcpSocket, SIGNAL(connected()), this, SLOT(connected()));
-    connect(tcpSocket, SIGNAL(disconnected()), this, SLOT(disconnected()));
+    connect(tcpSocket, SIGNAL(connected()), this, SLOT(gotConnected()));
+    connect(tcpSocket, SIGNAL(disconnected()), this, SLOT(gotDisconnected()));
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readStatus()));
     connect(tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)),
                 this, SLOT(displayError(QAbstractSocket::SocketError)));
 
+    connectTimer = new QTimer(this);
+    connectTimer->setInterval(15000);
+    connectTimer->setSingleShot(true);
+    connect(connectTimer, SIGNAL(timeout()), this, SLOT(connectToHost()));
+
     statusTimer = new QTimer(this);
-    statusTimer->setSingleShot(true);
+    statusTimer->setInterval(20000);
+    statusTimer->setSingleShot(false);
     connect(statusTimer, SIGNAL(timeout()), this, SLOT(updateStatus()));
 
     runTimer = new QTimer(this);
+    runTimer->setInterval(30000);
     runTimer->setSingleShot(true);
     connect(runTimer, SIGNAL(timeout()), this, SLOT(stopRun()));
-
 }
 
 void Client::connectToHost() {
-    tcpSocket->abort();
-    tcpSocket->connectToHost("localhost", 1090);
+    stateChange(INIT);
 
+    std::cout << "Connecting to " << hostName.toStdString() << ":" << portNo << std::endl;
+
+    cmdNo = 0;
     cmd.clear();
     ret.clear();
 
@@ -50,11 +59,13 @@ void Client::connectToHost() {
     cmd.append("set Acquisifier_config(upload_step_result) 1");
     ret.append("1");
 
-    // start updating status
-    statusTimer->start(5000);
+    // try to connect
+    tcpSocket->abort();
+    tcpSocket->connectToHost(hostName, portNo);
 }
 
-void Client::runOnHost(int seconds) {
+bool Client::startRun(int seconds) {
+    cmdNo = 0;
     cmd.clear();
     ret.clear();
 
@@ -71,41 +82,52 @@ void Client::runOnHost(int seconds) {
 
     // setup runtime
     runTimer->start(seconds*1000);
-}
 
-void Client::updateStatus() {
-    std::cout << "Updating status..." << std::endl;
-    if (open) {
-        write("Acquisifier_status");
+    // start a run
+    command(cmdNo);
+    cmdNo++;
 
-        statusTimer->start();
-    } else {
-        std::cout << "Ending status update" << std::endl;
-    }
+    return true;
 }
 
 void Client::stopRun() {
-    if (open) {
+    if (currentState == RUNNING) {
         std::cout << "Stopping run..." << std::endl;
 
         write("Acquisifier_command Stop");
 
         runTimer->stop();
+
+        stateChange(READY);
     }
 }
 
-void Client::connected() {
+void Client::updateStatus() {
+    std::cout << "Updating status..." << std::endl;
+    if (isConnected()) {
+        write("Acquisifier_status");
+    } else {
+        std::cout << "Ending status update" << std::endl;
+        statusTimer->stop();
+    }
+}
+
+
+void Client::gotConnected() {
     std::cout << "Connected to " << tcpSocket->peerAddress().toString().toStdString()
               << ":" << tcpSocket->peerPort() << std::endl;
-    open = true;
 
     command(cmdNo);
     cmdNo++;
 }
 
-void Client::disconnected() {
-    open = false;
+void Client::gotDisconnected() {
     std::cout << "Disconnected" << std::endl;
+    runTimer->stop();
+    statusTimer->stop();
+    stateChange(INIT);
+
+    connectTimer->start();
 }
 
 void Client::readStatus() {
@@ -153,11 +175,17 @@ void Client::readStatus() {
 
     // bail out if out of commands
     if (cmdNo >= cmd.length()) {
+        stateChange(currentState == INIT ? READY : (cmd[cmdNo-1].contains("Repeat_Run")) ? RUNNING : READY);
         return;
     }
 
     // send next command if the current command finished with expected return value
     if (line.endsWith(ret[cmdNo-1])) {
+        // start status timer if last command was "LWDAQ_run_tool..."
+        if (cmd[cmdNo-1] == "LWDAQ_run_tool Acquisifier.tcl") {
+            statusTimer->start();
+        }
+
         command(cmdNo);
         cmdNo++;
     }
@@ -166,16 +194,27 @@ void Client::readStatus() {
 void Client::displayError(QAbstractSocket::SocketError socketError) {
     switch (socketError) {
     case QAbstractSocket::RemoteHostClosedError:
+        std::cerr << "Remote host closed connection, reconnect in " << connectTimer->interval() << " ms." << std::endl;
+        connectTimer->start();
         break;
     case QAbstractSocket::HostNotFoundError:
         std::cerr << "Host not found" << std::endl;
         break;
     case QAbstractSocket::ConnectionRefusedError:
-        std::cerr << "Connection refused" << std::endl;
+        std::cerr << "Connection refused, reconnect in " << connectTimer->interval() << " ms." << std::endl;
+        connectTimer->start();
         break;
     default:
         std::cerr << "The following error occurred: " << tcpSocket->errorString().toStdString() << std::endl;
     }
+}
+
+void Client::stateChange(state newState) {
+    if (currentState == newState) {
+        return;
+    }
+    currentState = newState;
+    stateChanged();
 }
 
 void Client::command(int no) {

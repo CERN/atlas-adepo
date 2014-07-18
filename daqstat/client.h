@@ -9,32 +9,47 @@ class Client : public QObject {
     Q_OBJECT
 
 public:
-    Client(QObject *parent = 0);
+    enum state { INIT, READY, RUNNING };
+
+    Client(QString hostName, quint16 port, QObject *parent = 0);
+    bool isConnected() { return currentState == READY || currentState == RUNNING; }
+    bool isReady() { return currentState == READY; }
+    state getState() { return currentState; }
+    bool startRun(int seconds);
+
+signals:
+    void stateChanged();
+
+public slots:
     void connectToHost();
-    void runOnHost(int seconds);
+    void stopRun();
 
 private slots:
-    void connected();
-    void disconnected();
+    void gotConnected();
+    void gotDisconnected();
     void readStatus();
     void displayError(QAbstractSocket::SocketError socketError);
     void updateStatus();
-    void stopRun();
 
 private:
+    void stateChange(state newState);
     void command(int no);
     void write(QString s);
 
-    bool open;
+    QString hostName;
+    quint16 portNo;
+
     QTcpSocket *tcpSocket;
+    QTimer *connectTimer;
     QTimer *statusTimer;
     QTimer *runTimer;
+
+    state currentState;
 
     QStringList cmd;
     QStringList ret;
     int cmdNo;
 
-    bool stopped;
     bool error;
     QString errorText;
 };

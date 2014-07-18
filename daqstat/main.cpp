@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-#include "client.h"
-
+#include "example.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,10 +10,9 @@ int main(int argc, char *argv[])
 
     std::cout << "Start" << std::endl;
 
-    Client *client = new Client(&a);
-
-    client->connectToHost();
-    client->runOnHost(30);
+    Example *example = new Example(&a);
+    example->run();
 
     return a.exec();
 }
+
