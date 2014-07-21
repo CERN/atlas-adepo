@@ -19,22 +19,22 @@ public:
     }
 
     void run() {
-        client->connectToHost();
+        client->init();
     }
 
 private slots:
     void stateChanged() {
-        Client::state newState = client->getState();
+        std::cout << "state changed to " << client->getStateAsString().toStdString() << std::endl;
 
-        std::cout << "state changed to " << newState << std::endl;
+        Client::state newState = client->getState();
         switch (newState) {
-            case Client::READY: {
-                std::cout << "Ready, starting a run in a moment..." << std::endl;
+            case Client::IDLE: {
+                std::cout << "Idle, starting a run in a moment..." << std::endl;
 
                 QTimer* timer = new QTimer(this);
                 timer->setSingleShot(true);
                 connect(timer, SIGNAL(timeout()), this, SLOT(startRun()));
-                timer->start(5000);
+                timer->start(10000);
                 break;
             }
             default: {
@@ -44,7 +44,7 @@ private slots:
     }
 
     void startRun() {
-        std::cout << "Starting a run " << client->isConnected() << " " << client->isReady() << std::endl;
+        std::cout << "Starting a run " << client->isConnected() << " " << client->isIdle() << std::endl;
         client->startRun(30);
     }
 

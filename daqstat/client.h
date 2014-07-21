@@ -9,19 +9,30 @@ class Client : public QObject {
     Q_OBJECT
 
 public:
-    enum state { INIT, READY, RUNNING };
+    enum state { UNSET, INIT, IDLE, RUN, STOP };    // last three states are set by LWDAQ Acquisifier
 
     Client(QString hostName, quint16 port, QObject *parent = 0);
-    bool isConnected() { return currentState == READY || currentState == RUNNING; }
-    bool isReady() { return currentState == READY; }
+    bool isConnected() { return currentState > INIT; }
+    bool isIdle() { return currentState == IDLE; }
     state getState() { return currentState; }
+    QString getStateAsString() {
+        switch(getState()) {
+        case UNSET: return "UNSET";
+        case INIT: return "INIT";
+        case IDLE: return "IDLE";
+        case RUN: return "RUN";
+        case STOP: return "STOP";
+        default: return "Unknown State";
+        }
+    }
+
     bool startRun(int seconds);
 
 signals:
     void stateChanged();
 
 public slots:
-    void connectToHost();
+    void init();
     void stopRun();
 
 private slots:

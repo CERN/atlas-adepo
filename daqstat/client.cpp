@@ -5,7 +5,7 @@
 Client::Client(QString host, quint16 port, QObject *parent) : QObject(parent),
                                   hostName(host),
                                   portNo(port),
-                                  currentState(INIT),
+                                  currentState(UNSET),
                                   cmdNo(0),
                                   error(false),
                                   errorText("") {
@@ -21,10 +21,10 @@ Client::Client(QString host, quint16 port, QObject *parent) : QObject(parent),
     connectTimer = new QTimer(this);
     connectTimer->setInterval(15000);
     connectTimer->setSingleShot(true);
-    connect(connectTimer, SIGNAL(timeout()), this, SLOT(connectToHost()));
+    connect(connectTimer, SIGNAL(timeout()), this, SLOT(init()));
 
     statusTimer = new QTimer(this);
-    statusTimer->setInterval(20000);
+    statusTimer->setInterval(10000);
     statusTimer->setSingleShot(false);
     connect(statusTimer, SIGNAL(timeout()), this, SLOT(updateStatus()));
 
@@ -34,7 +34,7 @@ Client::Client(QString host, quint16 port, QObject *parent) : QObject(parent),
     connect(runTimer, SIGNAL(timeout()), this, SLOT(stopRun()));
 }
 
-void Client::connectToHost() {
+void Client::init() {
     stateChange(INIT);
 
     std::cout << "Connecting to " << hostName.toStdString() << ":" << portNo << std::endl;
@@ -49,15 +49,19 @@ void Client::connectToHost() {
     cmd.append("<to be filled by LWDAQ_server_info command>");  // #1
     ret.append("<to be filled by LWDAQ_server_info command>");  // #1
 
+    // redirect
+    cmd.append("set Acquisifier_config(upload_target) [lindex $server_info 0]");
+    ret.append("<to be filled by LWDAQ_server_info command>");  // #2
+    cmd.append("set Acquisifier_config(upload_step_result) 1");
+    ret.append("1");
+
     // setup acquisifier
     cmd.append("LWDAQ_run_tool Acquisifier.tcl");
     ret.append("1");
 
-    // redirect
-    cmd.append("set Acquisifier_config(upload_target) [lindex $server_info 0]");    // #3
-    ret.append("<to be filled by LWDAQ_server_info command>");                      // #3
-    cmd.append("set Acquisifier_config(upload_step_result) 1");
-    ret.append("1");
+    // get initial status
+    cmd.append("Acquisifier_status");
+    ret.append("*");
 
     // try to connect
     tcpSocket->abort();
@@ -80,6 +84,9 @@ bool Client::startRun(int seconds) {
     cmd.append("Acquisifier_command Repeat_Run\r");
     ret.append("1");
 
+    cmd.append("Acquisifier_status");
+    ret.append("*");
+
     // setup runtime
     runTimer->start(seconds*1000);
 
@@ -91,14 +98,13 @@ bool Client::startRun(int seconds) {
 }
 
 void Client::stopRun() {
-    if (currentState == RUNNING) {
+    if (currentState == RUN) {
         std::cout << "Stopping run..." << std::endl;
 
         write("Acquisifier_command Stop");
+        write("Acquisifier_status");
 
         runTimer->stop();
-
-        stateChange(READY);
     }
 }
 
@@ -146,9 +152,10 @@ void Client::readStatus() {
 
     // get originating socket e.g. "sock12"
     if (parts.length() == 5 && parts[0].startsWith("sock")) {
-        cmd[1] = QString("set server_info ").append(parts[0]);
-        ret[1] = parts[0];
-        ret[3] = parts[0];
+        QString returnSocket = parts[0];
+        cmd[1] = QString("set server_info ").append(returnSocket);
+        ret[1] = returnSocket;
+        ret[2] = returnSocket;
         line = "ok";
     }
 
@@ -170,22 +177,34 @@ void Client::readStatus() {
     // bail out if error
     if (error) {
         std::cout << "ERR: " << errorText.toStdString() << std::endl;
+        write("Acquisifier_status");
         return;
     }
 
-    // bail out if out of commands
-    if (cmdNo >= cmd.length()) {
-        stateChange(currentState == INIT ? READY : (cmd[cmdNo-1].contains("Repeat_Run")) ? RUNNING : READY);
-        return;
+    // check status updates
+    if (line.startsWith("Idle")) {
+        stateChange(IDLE);
+    } else if (line.startsWith("Run")) {
+        stateChange(RUN);
+    } else if (line.startsWith("Repeat_Run")) {
+        stateChange(RUN);
+    } else if (line.startsWith("Stop")) {
+        stateChange(STOP);
     }
 
-    // send next command if the current command finished with expected return value
-    if (line.endsWith(ret[cmdNo-1])) {
-        // start status timer if last command was "LWDAQ_run_tool..."
-        if (cmd[cmdNo-1] == "LWDAQ_run_tool Acquisifier.tcl") {
+    // verify if the current command finished with expected return value
+    bool retOk = (ret[cmdNo-1] == "*") || line.endsWith(ret[cmdNo-1]);
+
+    // bail out if out of commands, set next state is done by LWDAQ
+    if (retOk && (cmdNo >= cmd.length())) {
+        if (currentState > INIT) {
             statusTimer->start();
         }
+        return;
+    }
 
+    // send next command
+    if (retOk) {
         command(cmdNo);
         cmdNo++;
     }
@@ -218,7 +237,7 @@ void Client::stateChange(state newState) {
 }
 
 void Client::command(int no) {
-    std::cout << "CMD" << no << ":" << cmd[no].toStdString() << std::endl;
+    std::cout << std::endl << "CMD" << no << ":" << cmd[no].toStdString() << std::endl;
     write(cmd[no]);
 }
 
