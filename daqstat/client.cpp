@@ -208,8 +208,7 @@ void Client::readStatus() {
     // bail out if out of commands, set next state is done by LWDAQ
     if (retOk && (cmdNo >= cmd.length())) {
         if (currentState > INIT) {
-            std::cout << "Starting update timer" << std::endl;
-            statusTimer->start();
+            std::cout << "Update timer " << statusTimer->interval() << std::endl;
         }
         return;
     }
@@ -242,6 +241,10 @@ void Client::displayError(QAbstractSocket::SocketError socketError) {
 void Client::stateChange(state newState) {
     if (currentState == newState) {
         return;
+    }
+    if (currentState == INIT && newState == IDLE) {
+        std::cout << "Starting update timer " << statusTimer->interval() << std::endl;
+        statusTimer->start();
     }
     currentState = newState;
     stateChanged();
