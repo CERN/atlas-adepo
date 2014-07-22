@@ -29,7 +29,7 @@ Client::Client(QString host, quint16 port, QObject *parent) : QObject(parent),
     connect(statusTimer, SIGNAL(timeout()), this, SLOT(updateStatus()));
 
     runTimer = new QTimer(this);
-    runTimer->setInterval(30000);
+    runTimer->setInterval(DEFAULT_RUN_TIME*1000);
     runTimer->setSingleShot(true);
     connect(runTimer, SIGNAL(timeout()), this, SLOT(stopRun()));
 }
@@ -68,16 +68,20 @@ void Client::init() {
     tcpSocket->connectToHost(hostName, portNo);
 }
 
-bool Client::startRun(int seconds) {
+bool Client::startRun(QString dir, int seconds) {
+    if (seconds < 0) {
+        seconds = DEFAULT_RUN_TIME;
+    }
+
     cmdNo = 0;
     cmd.clear();
     ret.clear();
 
     // setup run
-    cmd.append("LWDAQ_run_tool Acquisifier_params.tcl");
-    ret.append("Acquisifier_params.tcl");
-    cmd.append("LWDAQ_run_tool Acquisifier_Settings.tcl");
-    ret.append("Acquisifier_Settings.tcl");
+    cmd.append("LWDAQ_run_tool "+dir+"/"+DEFAULT_PARAM_FILE);
+    ret.append("/"+DEFAULT_PARAM_FILE);
+    cmd.append("LWDAQ_run_tool "+dir+"/"+DEFAULT_SETTINGS_FILE);
+    ret.append("/"+DEFAULT_SETTINGS_FILE);
     cmd.append("Acquisifier_load_script");
     ret.append("1");
 

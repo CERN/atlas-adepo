@@ -26,7 +26,7 @@ public:
         }
     }
 
-    bool startRun(int seconds);
+    bool startRun(QString dir = ".", int seconds = -1);
 
 signals:
     void stateChanged();
@@ -43,6 +43,10 @@ private slots:
     void updateStatus();
 
 private:
+    const int DEFAULT_RUN_TIME = 30;
+    const QString DEFAULT_PARAM_FILE = "Acquisifier_Params.tcl";
+    const QString DEFAULT_SETTINGS_FILE = "Acquisifier_Settings.tcl";
+
     void stateChange(state newState);
     void command(int no);
     void write(QString s);

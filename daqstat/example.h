@@ -12,7 +12,7 @@ class Example : public QObject {
     Q_OBJECT
 
 public:
-    Example(QObject *parent = 0) : QObject(parent) {
+    Example(QCoreApplication *parent = 0) : QObject(parent), app(parent) {
         client = new Client("localhost", 1090, this);
 
         connect(client, SIGNAL(stateChanged()), this, SLOT(stateChanged()));
@@ -45,10 +45,11 @@ private slots:
 
     void startRun() {
         std::cout << "Starting a run " << client->isConnected() << " " << client->isIdle() << std::endl;
-        client->startRun(30);
+        client->startRun(app->applicationDirPath(), 30);
     }
 
 private:
     Client *client;
+    QCoreApplication *app;
 };
 #endif // EXAMPLE_H
