@@ -1,4 +1,4 @@
-#include "header/bcam_params.h"
+#include "bcam_params.h"
 
 BCAM_params::BCAM_params(std::string id_bcam, Point3f translation, Point3f rotation) : m_id_bcam(id_bcam), m_translation(translation), m_rotation(rotation)
 {

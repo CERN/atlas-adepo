@@ -1,4 +1,4 @@
-#include "header/prism_correction.h"
+#include "prism_correction.h"
 
 prism_correction::prism_correction(std::string id_prism, Point3f delta):m_id_prism(id_prism), m_delta(delta)
 {

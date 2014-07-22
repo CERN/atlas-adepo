@@ -1,5 +1,5 @@
-#include "header/mount_prism_to_global_prism.h"
-#include "header/changement_repere.h"
+#include "mount_prism_to_global_prism.h"
+#include "changement_repere.h"
 
 void mount_prism_to_global_prism(bdd & base_donnees)
 {

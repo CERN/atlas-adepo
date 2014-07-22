@@ -7,7 +7,7 @@
 #include "QWidget"
 #include <QLineEdit>
 #include <QTextEdit>
-#include "header/mythread.h"
+#include "mythread.h"
 
 namespace Ui {
 class ATLAS_BCAM;

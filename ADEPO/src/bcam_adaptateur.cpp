@@ -1,4 +1,4 @@
-#include "header/bcam_adaptateur.h"
+#include "bcam_adaptateur.h"
 
 bcam_adaptateur::bcam_adaptateur(std::string type_bcam, std::string id_cible, Point3f coord_cible) : m_type_bcam(type_bcam), m_id_cible(id_cible), m_coord_cible(coord_cible)
 {

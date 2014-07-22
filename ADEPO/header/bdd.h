@@ -7,25 +7,25 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
-#include <header/detector.h>
+#include <detector.h>
 #include <cstring>
 #include <stdlib.h>
 #include "unistd.h"
 #include "cstdlib"
 #include "math.h"
 ////////////////////////////////////////////
-#include "header/bcam.h"
-#include "header/detector.h"
-#include "header/spot.h"
-#include "header/calib1.h"
-#include "header/calib2.h"
-#include "header/mount_coord_spots.h"
-#include "header/mount_coord_prism.h"
-#include "header/bcam_adaptateur.h"
-#include "header/absolutes_distances.h"
-#include "header/atlas_coordinates.h"
-#include "header/bcam_params.h"
-#include "header/prism_correction.h"
+#include "bcam.h"
+#include "detector.h"
+#include "spot.h"
+#include "calib1.h"
+#include "calib2.h"
+#include "mount_coord_spots.h"
+#include "mount_coord_prism.h"
+#include "bcam_adaptateur.h"
+#include "absolutes_distances.h"
+#include "atlas_coordinates.h"
+#include "bcam_params.h"
+#include "prism_correction.h"
 /////////////////////////////////////////////
 
 class bdd

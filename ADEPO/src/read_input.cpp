@@ -1,4 +1,4 @@
-#include "header/read_input.h"
+#include "read_input.h"
 #include <algorithm>
 
 int read_input(std::string fichier_configuration, bdd &base_donnees)

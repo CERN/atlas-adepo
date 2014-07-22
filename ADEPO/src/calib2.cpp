@@ -1,4 +1,4 @@
-#include "header/calib2.h"
+#include "calib2.h"
 
 calib2::calib2(std::string id_BCAM, Point3f coord_flash_1, Point3f coord_flash_2) : m_id_BCAM(id_BCAM), m_coord_flash_1(coord_flash_1), m_coord_flash_2(coord_flash_2)
 {

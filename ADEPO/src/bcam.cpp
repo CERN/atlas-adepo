@@ -1,4 +1,4 @@
-#include "header/bcam.h"
+#include "bcam.h"
 
 BCAM::BCAM(std::string nom_BCAM, int id_detector, int num_Port_Driver, int num_Port_Mux, int num_chip, std::string objet_vise):m_nom_BCAM(nom_BCAM), m_id_detector(id_detector), m_num_Port_Driver(num_Port_Driver), m_num_Port_Mux(num_Port_Mux), m_num_chip(num_chip), m_objet_vise(objet_vise)
 {

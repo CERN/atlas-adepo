@@ -1,4 +1,4 @@
-#include "header/calcul_coord_bcam_system.h"
+#include "calcul_coord_bcam_system.h"
 
 #define mm2m 0.001
 

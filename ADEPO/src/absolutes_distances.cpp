@@ -1,4 +1,4 @@
-#include "header/absolutes_distances.h"
+#include "absolutes_distances.h"
 
 absolutes_distances::absolutes_distances(std::string id_BCAM_prisme, Point3f distances) : m_id_BCAM_prisme(id_BCAM_prisme), m_distances(distances)
 {

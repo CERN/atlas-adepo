@@ -1,4 +1,4 @@
-#include "header/atlas_coordinates.h"
+#include "atlas_coordinates.h"
 
 ATLAS_coordinates::ATLAS_coordinates(std::string id_BCAM, Point3f cible) : m_id_BCAM(id_BCAM), m_cible(cible)
 {

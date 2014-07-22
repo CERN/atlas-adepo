@@ -1,4 +1,4 @@
-#include "header/bdd.h"
+#include "bdd.h"
 
 bdd::bdd()
 {

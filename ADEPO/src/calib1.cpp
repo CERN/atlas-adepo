@@ -1,4 +1,4 @@
-#include "header/calib1.h"
+#include "calib1.h"
 
 calib1::calib1(std::string id_BCAM, std::string tps_calib, Point3f coord_pivot, Point3f coord_axis, float ccd_to_pivot, float ccd_rotation) : m_id_BCAM(id_BCAM), m_tps_calib(tps_calib), m_coord_pivot(coord_pivot), m_coord_axis(coord_axis), m_ccd_to_pivot(ccd_to_pivot), m_ccd_rotation(ccd_rotation)
 {

@@ -1,4 +1,4 @@
-#include "header/Point3f.h"
+#include "Point3f.h"
 #include <iostream>
 using namespace std;
 

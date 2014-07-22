@@ -1,4 +1,4 @@
-#include "header/spot.h"
+#include "spot.h"
 
 spot::spot(std::string nom_BCAM, double i1_CCD, double j1_CCD, double i2_CCD, double j2_CCD): m_nom_BCAM(nom_BCAM), m_i1_CCD(i1_CCD), m_j1_CCD(j1_CCD), m_i2_CCD(i2_CCD), m_j2_CCD(j2_CCD)
 {

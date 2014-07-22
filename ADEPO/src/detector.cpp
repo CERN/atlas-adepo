@@ -1,4 +1,4 @@
-#include "header/detector.h"
+#include "detector.h"
 
 detector::detector(int num_id_detector, std::string nom_detector, float airpad_on_add_dist) : m_num_id_detector(num_id_detector), m_nom_detector(nom_detector), m_airpad_on_add_dist(airpad_on_add_dist)
 {
