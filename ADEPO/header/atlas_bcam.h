@@ -47,10 +47,10 @@ public:
     void calcul_coord();
 
     ////fonction qui ecrit un fichier tcl avec les parametres par defaut pour l'onglet acquisifier de LWDAQ et lance automatiquement l'auto-run
-    int write_settings_file(std::string setting_name_file);
+    int write_settings_file(std::string settings_file);
 
     //fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ
-    int write_input_script(std::string startup_lwdaq_script_file);
+    int write_params_file(std::string params_file);
 
 
 

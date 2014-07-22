@@ -46,7 +46,7 @@ QString mode_adepo = "CLOSURE";
 QString mode_airpad = "OFF";
 
 //nom du fichier script qui va lancer l'acquisition que sur les detecteurs selectionnes
-std::string fichier_script = "Acquisifier_script_file.tcl";
+std::string fichier_script = "Acquisifier_Script.tcl";
 
 //bool pour savoir si le programme est entrain d'acquerir des obs
 //action = 0 --> pas d'observations
@@ -266,7 +266,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
         liste_bcam->insert(liste_bcam->begin(), m_liste_bcam->begin(), m_liste_bcam->end());
 
         //ecriture du script d'acquisition des detecteurs selectionnees
-        ecriture_script_acquisition(fichier_script, *liste_bcam);
+        ecriture_script_acquisition(qApp->applicationDirPath().toStdString()+"/"+fichier_script, *liste_bcam);
 
         //on supprime le pointeur a la fin
         delete m_liste_bcam;
@@ -338,29 +338,33 @@ void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet) {
 //fonction qui lance les acquisitions LWDAQ                                                         ----> ok mais qu'est ce qui se passe apres les acquisitions ?
 void ATLAS_BCAM::lancer_acquisition()
 {
+        std::string dir = qApp->applicationDirPath().toStdString();
+
         //le programme est en mode acquisition
         action = 1;
 
         //je supprime le repertoire de meme nom si il existe deja
-        system("rm -rf scripts_lwdaq");
+//        system("rm -rf scripts_lwdaq");
 
         //creation d'un repertoire qui va contenir les scripts en Tcl
-        system("mkdir scripts_lwdaq");
+//        system("mkdir scripts_lwdaq");
 
         //input : startup pour LWDAQ
-        std::string startup_file = "Acquisifier_params.tcl";
-        write_input_script(startup_file);
+//        std::string startup_file = "Acquisifier_params.tcl";
+//        write_input_script(startup_file);
+        write_params_file(dir + "/" + DEFAULT_PARAM_FILE);
 
         //input : startup pour les settings de l'acquisifier
-        std::string acquisifier_settings = "Acquisifier_Settings.tcl";
-        write_settings_file(acquisifier_settings);
+//        std::string acquisifier_settings = "Acquisifier_Settings.tcl";
+//        write_settings_file(acquisifier_settings);
+        write_settings_file(dir + "/" + DEFAULT_SETTINGS_FILE);
 
         //input : le bash pour copier les fichiers + lancer l'acquisition de LWDAQ + arret de LWDAQ apres xx secondes
-        std::string bash_script = "bash_script.sh";
-        ecriture_script_bash(bash_script);
+//        std::string bash_script = "bash_script.sh";
+//        ecriture_script_bash(bash_script);
 
         //deplacer les fichiers en Tcl dans le repertoire script_lwdaq
-        system("cp Acquisifier_* scripts_lwdaq");
+//        system("cp Acquisifier_* scripts_lwdaq");
 
         //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
         std::string name_file_result = path_input_folder.toStdString().append("/").append("LWDAQ").append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
@@ -368,10 +372,10 @@ void ATLAS_BCAM::lancer_acquisition()
 
         //lancement du programme LWDAQ + arret apres nombre de secondes specifiees par le user
         std::cout << "Starting LWDAQ on " << m_bdd.Get_driver_ip_adress() << std::endl;
-        if(system(("bash "+bash_script).c_str()))
-           std::cout << "ACCESS_SUCCESS_to_LWDAQ"<<std::endl;
-        else
-           std::cout << "ACCESS_ENDED_to_LWDAQ"<<std::endl;
+//        if(system(("bash "+bash_script).c_str()))
+//           std::cout << "ACCESS_SUCCESS_to_LWDAQ"<<std::endl;
+//        else
+//           std::cout << "ACCESS_ENDED_to_LWDAQ"<<std::endl;
 
         //je calcule les coordonnees des prismes dans le repere lie a chaque BCAM (la lecture du fichier de coordonnees images se fait dans la fonction "calcul_coord()"
         calcul_coord();
@@ -913,114 +917,102 @@ int ATLAS_BCAM::ecriture_script_bash(std::string nom_fichier_bash)
 }
 
 //fonction qui ecrit un fichier tcl avec les parametres par defaut pour la fenetre Acquisifier      [---> ok
-int ATLAS_BCAM::write_settings_file(std::string setting_name_file)
+int ATLAS_BCAM::write_settings_file(std::string settings_file)
 {
     //écriture dans un fichier
-    std::ofstream fichier((char*)setting_name_file.c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+    std::ofstream fichier(settings_file.c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
 
-    if(fichier)
-    {
-        //écriture la partie du script qui lance l'acquisition automatique
-        fichier<<"set Acquisifier_config(auto_load) \"1\" \n"
-               <<"set Acquisifier_config(title_color) \"purple\" \n"
-               <<"set Acquisifier_config(extended_acquisition) \"0\" \n"
-               <<"set Acquisifier_config(auto_repeat) \"1\" \n"
-               <<"set Acquisifier_config(analyze) \"0\" \n"
-               <<"set Acquisifier_config(auto_run) \"1\" \n"
-               <<"set Acquisifier_config(cycle_period_seconds) \"0\" \n"
-               <<"set Acquisifier_config(daq_script) \""<<path_input_folder.toStdString().append("/").append("LWDAQ").append("/Tools").append("/Data/").append(fichier_script)<<"\" \n"
-               <<"set Acquisifier_config(analysis_color) \"green\" \n"
-               <<"set Acquisifier_config(upload_target) \"stdout\" \n"
-               <<"set Acquisifier_config(auto_quit) \"0\" \n"
-               <<"set Acquisifier_config(result_color) \"green\" \n"
-               <<"set Acquisifier_config(num_steps_show) \"20\" \n"
-               <<"set Acquisifier_config(upload_step_result) \"0\" \n"
-               <<"set Acquisifier_config(num_lines_keep) \"1000\" \n"
-               <<"set Acquisifier_config(restore_instruments) \"0\" \n";
+    if(!fichier) return 0;
 
-               fichier.close();
-               return 1;
-      }
-      else
-      {
-               return 0;
-      }
+    //écriture la partie du script qui lance l'acquisition automatique
+    fichier<<"set Acquisifier_config(auto_load) \"0\" \n"
+           <<"set Acquisifier_config(title_color) \"purple\" \n"
+           <<"set Acquisifier_config(extended_acquisition) \"0\" \n"
+           <<"set Acquisifier_config(auto_repeat) \"0\" \n"
+           <<"set Acquisifier_config(analyze) \"0\" \n"
+           <<"set Acquisifier_config(auto_run) \"0\" \n"
+           <<"set Acquisifier_config(cycle_period_seconds) \"0\" \n"
+           <<"set Acquisifier_config(daq_script) \""<<qApp->applicationDirPath().toStdString().append("/").append(fichier_script)<<"\" \n"
+           <<"set Acquisifier_config(analysis_color) \"green\" \n"
+           <<"set Acquisifier_config(upload_target) \"stdout\" \n"
+           <<"set Acquisifier_config(auto_quit) \"0\" \n"
+           <<"set Acquisifier_config(result_color) \"green\" \n"
+           <<"set Acquisifier_config(num_steps_show) \"20\" \n"
+           <<"set Acquisifier_config(num_lines_keep) \"1000\" \n"
+           <<"set Acquisifier_config(restore_instruments) \"0\" \n";
+
+      fichier.close();
+      return 1;
 }
 
 //fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ   [----> ok
-int ATLAS_BCAM::write_input_script(std::string startup_lwdaq_script_file)
+int ATLAS_BCAM::write_params_file(std::string params_file)
 {
     //écriture dans un fichier
-    std::ofstream fichier((char*)startup_lwdaq_script_file.c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
-    if(fichier)
-    {
-        fichier<<"#~ Lancer l'acquisifier \n"
-               <<"LWDAQ_run_tool Acquisifier.tcl \n"
-               <<"#~ Settings pour les BCAMs"
-               <<"set LWDAQ_info_BCAM(daq_password) \"no_password\" \n"
-               <<"set LWDAQ_info_BCAM(ambient_exposure_seconds) \"0\" \n"
-               <<"set LWDAQ_info_BCAM(counter) \"0\" \n"
-               <<"set LWDAQ_info_BCAM(verbose_description) \"  {Spot Position X (um)}  {Spot Position Y (um) or Line Rotation Anticlockwise (mrad)}  {Number of Pixels Above Threshold in Spot}  {Peak Intensity in Spot}  {Accuracy (um)}  {Threshold (counts)}\" \n"
-               <<"set LWDAQ_info_BCAM(flash_max_tries) \"30\" \n"
-               <<"set LWDAQ_info_BCAM(flash_seconds_max) \"0.1\" \n"
-               <<"set LWDAQ_info_BCAM(control) \"Idle\" \n"
-               <<"set LWDAQ_info_BCAM(analysis_return_intensity) \"0\" \n"
-               <<"set LWDAQ_info_BCAM(daq_image_left) \"20\" \n"
-               <<"set LWDAQ_info_BCAM(analysis_show_timing) \"0\" \n"
-               <<"set LWDAQ_info_BCAM(daq_image_bottom) \"243\" \n"
-               <<"set LWDAQ_info_BCAM(extended_parameters) \"0.6 0.9 0 1\" \n"
-               <<"set LWDAQ_info_BCAM(daq_image_right) \"343\" \n"
-               <<"set LWDAQ_info_BCAM(text) \".bcam.text\" \n"
-               <<"set LWDAQ_info_BCAM(daq_source_device_type) \"2\" \n"
-               <<"set LWDAQ_info_BCAM(flash_seconds_step) \"0.000002\" \n"
-               <<"set LWDAQ_info_BCAM(daq_image_width) \"344\" \n"
-               <<"set LWDAQ_info_BCAM(state_label) \".bcam.buttons.state\" \n"
-               <<"set LWDAQ_info_BCAM(daq_source_ip_addr) \"*\" \n"
-               <<"set LWDAQ_info_BCAM(analysis_pixel_size_um) \"10\" \n"
-               <<"set LWDAQ_info_BCAM(daq_image_height) \"244\" \n"
-               <<"set LWDAQ_info_BCAM(window) \".bcam\" \n"
-               <<"set LWDAQ_info_BCAM(analysis_show_pixels) \"0\" \n"
-               <<"set LWDAQ_info_BCAM(name) \"BCAM\" \n"
-               <<"set LWDAQ_info_BCAM(daq_image_top) \"1\" \n"
-               <<"set LWDAQ_info_BCAM(photo) \"bcam_photo\" \n"
-               <<"set LWDAQ_info_BCAM(flash_num_tries) \"0\" \n"
-               <<"set LWDAQ_info_BCAM(flash_seconds_reduce) \"0.1\" \n"
-               <<"set LWDAQ_info_BCAM(file_use_daq_bounds) \"0\" \n"
-               <<"set LWDAQ_info_BCAM(peak_min) \"100\" \n"
-               <<"set LWDAQ_info_BCAM(zoom) \"1\" \n"
-               <<"set LWDAQ_info_BCAM(analysis_return_bounds) \"0\" \n"
-               <<"set LWDAQ_info_BCAM(delete_old_images) \"1\" \n"
-               <<"set LWDAQ_info_BCAM(daq_device_type) \"2\" \n"
-               <<"set LWDAQ_info_BCAM(file_try_header) \"1\" \n"
-               <<"set LWDAQ_info_BCAM(peak_max) \"180\" \n"
-               <<"set LWDAQ_info_BCAM(flash_seconds_transition) \"0.000030\" \n"
-               <<"set LWDAQ_info_BCAM(daq_extended) \"0\" \n"
-               <<"set LWDAQ_config_BCAM(analysis_threshold) \"10 #\" \n"
-               <<"set LWDAQ_config_BCAM(daq_ip_addr) \" "<<m_bdd.Get_driver_ip_adress()<<" \" \n"
-               <<"set LWDAQ_config_BCAM(daq_flash_seconds) \"0.000010\" \n"
-               <<"set LWDAQ_config_BCAM(daq_driver_socket) \"5\" \n"
-               <<"set LWDAQ_config_BCAM(analysis_num_spots) \"2\" \n"
-               <<"set LWDAQ_config_BCAM(image_source) \"daq\" \n"
-               <<"set LWDAQ_config_BCAM(daq_subtract_background) \"0\" \n"
-               <<"set LWDAQ_config_BCAM(daq_adjust_flash) \"0\" \n"
-               <<"set LWDAQ_config_BCAM(daq_source_device_element) \"3 4\" \n"
-               <<"set LWDAQ_config_BCAM(daq_source_mux_socket) \"1\" \n"
-               <<"set LWDAQ_config_BCAM(file_name) \"./images/BCAM*\" \n"
-               <<"set LWDAQ_config_BCAM(intensify) \"exact\" \n"
-               <<"set LWDAQ_config_BCAM(memory_name) \"BCAM_0\" \n"
-               <<"set LWDAQ_config_BCAM(daq_source_driver_socket) \"8\" \n"
-               <<"set LWDAQ_config_BCAM(analysis_enable) \"1\" \n"
-               <<"set LWDAQ_config_BCAM(verbose_result) \"0\" \n"
-               <<"set LWDAQ_config_BCAM(daq_device_element) \"2\" \n"
-               <<"set LWDAQ_config_BCAM(daq_mux_socket) \"1\" \n";
+    std::ofstream fichier(params_file.c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
 
-           fichier.close();
-           return 1;
-    }
-    else
-    {
-           return 0;
-    }
+    if(!fichier) return 0;
+
+    fichier<<"#~ Settings pour les BCAMs"
+           <<"set LWDAQ_info_BCAM(daq_password) \"no_password\" \n"
+           <<"set LWDAQ_info_BCAM(ambient_exposure_seconds) \"0\" \n"
+           <<"set LWDAQ_info_BCAM(counter) \"0\" \n"
+           <<"set LWDAQ_info_BCAM(verbose_description) \"  {Spot Position X (um)}  {Spot Position Y (um) or Line Rotation Anticlockwise (mrad)}  {Number of Pixels Above Threshold in Spot}  {Peak Intensity in Spot}  {Accuracy (um)}  {Threshold (counts)}\" \n"
+           <<"set LWDAQ_info_BCAM(flash_max_tries) \"30\" \n"
+           <<"set LWDAQ_info_BCAM(flash_seconds_max) \"0.1\" \n"
+           <<"set LWDAQ_info_BCAM(control) \"Idle\" \n"
+           <<"set LWDAQ_info_BCAM(analysis_return_intensity) \"0\" \n"
+           <<"set LWDAQ_info_BCAM(daq_image_left) \"20\" \n"
+           <<"set LWDAQ_info_BCAM(analysis_show_timing) \"0\" \n"
+           <<"set LWDAQ_info_BCAM(daq_image_bottom) \"243\" \n"
+           <<"set LWDAQ_info_BCAM(extended_parameters) \"0.6 0.9 0 1\" \n"
+           <<"set LWDAQ_info_BCAM(daq_image_right) \"343\" \n"
+           <<"set LWDAQ_info_BCAM(text) \".bcam.text\" \n"
+           <<"set LWDAQ_info_BCAM(daq_source_device_type) \"2\" \n"
+           <<"set LWDAQ_info_BCAM(flash_seconds_step) \"0.000002\" \n"
+           <<"set LWDAQ_info_BCAM(daq_image_width) \"344\" \n"
+           <<"set LWDAQ_info_BCAM(state_label) \".bcam.buttons.state\" \n"
+           <<"set LWDAQ_info_BCAM(daq_source_ip_addr) \"*\" \n"
+           <<"set LWDAQ_info_BCAM(analysis_pixel_size_um) \"10\" \n"
+           <<"set LWDAQ_info_BCAM(daq_image_height) \"244\" \n"
+           <<"set LWDAQ_info_BCAM(window) \".bcam\" \n"
+           <<"set LWDAQ_info_BCAM(analysis_show_pixels) \"0\" \n"
+           <<"set LWDAQ_info_BCAM(name) \"BCAM\" \n"
+           <<"set LWDAQ_info_BCAM(daq_image_top) \"1\" \n"
+           <<"set LWDAQ_info_BCAM(photo) \"bcam_photo\" \n"
+           <<"set LWDAQ_info_BCAM(flash_num_tries) \"0\" \n"
+           <<"set LWDAQ_info_BCAM(flash_seconds_reduce) \"0.1\" \n"
+           <<"set LWDAQ_info_BCAM(file_use_daq_bounds) \"0\" \n"
+           <<"set LWDAQ_info_BCAM(peak_min) \"100\" \n"
+           <<"set LWDAQ_info_BCAM(zoom) \"1\" \n"
+           <<"set LWDAQ_info_BCAM(analysis_return_bounds) \"0\" \n"
+           <<"set LWDAQ_info_BCAM(delete_old_images) \"1\" \n"
+           <<"set LWDAQ_info_BCAM(daq_device_type) \"2\" \n"
+           <<"set LWDAQ_info_BCAM(file_try_header) \"1\" \n"
+           <<"set LWDAQ_info_BCAM(peak_max) \"180\" \n"
+           <<"set LWDAQ_info_BCAM(flash_seconds_transition) \"0.000030\" \n"
+           <<"set LWDAQ_info_BCAM(daq_extended) \"0\" \n"
+           <<"set LWDAQ_config_BCAM(analysis_threshold) \"10 #\" \n"
+           <<"set LWDAQ_config_BCAM(daq_ip_addr) \""<<m_bdd.Get_driver_ip_adress()<<"\" \n"
+           <<"set LWDAQ_config_BCAM(daq_flash_seconds) \"0.000010\" \n"
+           <<"set LWDAQ_config_BCAM(daq_driver_socket) \"5\" \n"
+           <<"set LWDAQ_config_BCAM(analysis_num_spots) \"2\" \n"
+           <<"set LWDAQ_config_BCAM(image_source) \"daq\" \n"
+           <<"set LWDAQ_config_BCAM(daq_subtract_background) \"0\" \n"
+           <<"set LWDAQ_config_BCAM(daq_adjust_flash) \"0\" \n"
+           <<"set LWDAQ_config_BCAM(daq_source_device_element) \"3 4\" \n"
+           <<"set LWDAQ_config_BCAM(daq_source_mux_socket) \"1\" \n"
+           <<"set LWDAQ_config_BCAM(file_name) \"./images/BCAM*\" \n"
+           <<"set LWDAQ_config_BCAM(intensify) \"exact\" \n"
+           <<"set LWDAQ_config_BCAM(memory_name) \"BCAM_0\" \n"
+           <<"set LWDAQ_config_BCAM(daq_source_driver_socket) \"8\" \n"
+           <<"set LWDAQ_config_BCAM(analysis_enable) \"1\" \n"
+           <<"set LWDAQ_config_BCAM(verbose_result) \"0\" \n"
+           <<"set LWDAQ_config_BCAM(daq_device_element) \"2\" \n"
+           <<"set LWDAQ_config_BCAM(daq_mux_socket) \"1\" \n";
+
+    fichier.close();
+    return 1;
 }
 
 //fonction qui gere les selections dans les checkbox                                                [----> ok

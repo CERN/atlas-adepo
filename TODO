@@ -3,11 +3,11 @@ Status:
 - Tested daqstat on local and on vm. Works with real setup. Relaunches runs, can restart in middle of run, getting correct
 state. Output is send back over line. 
 - Added LWDAQ Status to ADEPO
+- Write files with correct content in correct place, (on MacOSX this is in ADEPO.app/Contents/MacOS
 
 ToDo:
 - connect stop button to lwdaq
 - connect start button to lwdaq
-- write files with correct content in correct place
 - move resultfile to same directory, out of lwdaq
 - add LWDAQ server (including tcl and startup file) into ADEPO
 - make LWDAQ start automatically
