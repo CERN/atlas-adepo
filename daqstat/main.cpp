@@ -7,6 +7,7 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+    std::cout << a.applicationDirPath().toStdString() << std::endl;
 
     std::cout << "Start" << std::endl;
 
