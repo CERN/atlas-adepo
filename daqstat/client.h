@@ -5,7 +5,7 @@
 #include <QtNetwork>
 
 #define SLOW_UPDATE_TIME 10
-#define FAST_UPDATE_TIME 5
+#define FAST_UPDATE_TIME 2
 #define RECONNECT_TIME 15
 #define DEFAULT_RUN_TIME 30
 #define DEFAULT_PARAM_FILE "Acquisifier_Params.tcl"
