@@ -239,7 +239,7 @@ void Client::stateChange(state newState) {
     if (currentState == newState) {
         return;
     }
-    if (currentState == INIT && newState == IDLE) {
+    if (currentState == INIT && newState > INIT) {
         std::cout << "Starting update timer " << statusTimer->interval() << std::endl;
         statusTimer->start();
     }
