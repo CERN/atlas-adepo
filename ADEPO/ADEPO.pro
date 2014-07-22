@@ -25,7 +25,8 @@ HEADERS += \
     header/changement_repere.h \
     header/mount_prism_to_global_prism.h \
     header/prism_correction.h \
-    header/result.h
+    header/result.h \
+    header/lwdaq_client.h
 
 SOURCES += \
     src/write_file_obs_mount_system.cpp \
@@ -46,7 +47,7 @@ SOURCES += \
     src/bdd.cpp \
     src/bcam.cpp \
     src/atlas_bcam.cpp \
-    main.cpp \
+    src/main.cpp \
     src/bcam_adaptateur.cpp \
     src/absolutes_distances.cpp \
     src/atlas_coordinates.cpp \    
@@ -54,12 +55,15 @@ SOURCES += \
     src/bcam_params.cpp \
     src/changement_repere.cpp \
     src/mount_prism_to_global_prism.cpp \
-    src/prism_correction.cpp
+    src/prism_correction.cpp \
+    src/lwdaq_client.cpp
 
 FORMS += \
     ATLAS_BCAM.ui \
 
-QT += core gui widgets testlib
+INCLUDEPATH += ./header
+
+QT += core gui network widgets testlib
 
 unix:!mac{
   QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/lib
