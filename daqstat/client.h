@@ -4,6 +4,10 @@
 #include <QObject>
 #include <QtNetwork>
 
+#define DEFAULT_RUN_TIME 30
+#define DEFAULT_PARAM_FILE "Acquisifier_Params.tcl"
+#define DEFAULT_SETTINGS_FILE "Acquisifier_Settings.tcl"
+
 class Client : public QObject {
 
     Q_OBJECT
@@ -43,10 +47,6 @@ private slots:
     void updateStatus();
 
 private:
-    const int DEFAULT_RUN_TIME = 30;
-    const QString DEFAULT_PARAM_FILE = "Acquisifier_Params.tcl";
-    const QString DEFAULT_SETTINGS_FILE = "Acquisifier_Settings.tcl";
-
     void stateChange(state newState);
     void command(int no);
     void write(QString s);

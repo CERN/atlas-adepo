@@ -79,9 +79,9 @@ bool Client::startRun(QString dir, int seconds) {
 
     // setup run
     cmd.append("LWDAQ_run_tool "+dir+"/"+DEFAULT_PARAM_FILE);
-    ret.append("/"+DEFAULT_PARAM_FILE);
+    ret.append(DEFAULT_PARAM_FILE);
     cmd.append("LWDAQ_run_tool "+dir+"/"+DEFAULT_SETTINGS_FILE);
-    ret.append("/"+DEFAULT_SETTINGS_FILE);
+    ret.append(DEFAULT_SETTINGS_FILE);
     cmd.append("Acquisifier_load_script");
     ret.append("1");
 
