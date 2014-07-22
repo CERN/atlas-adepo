@@ -1,8 +1,9 @@
 
-#include "client.h"
 #include <iostream>
 
-Client::Client(QString host, quint16 port, QObject *parent) : QObject(parent),
+#include "lwdaq_client.h"
+
+LWDAQ_Client::LWDAQ_Client(QString host, quint16 port, QObject *parent) : QObject(parent),
                                   hostName(host),
                                   portNo(port),
                                   currentState(UNSET),
@@ -34,7 +35,7 @@ Client::Client(QString host, quint16 port, QObject *parent) : QObject(parent),
     connect(runTimer, SIGNAL(timeout()), this, SLOT(stopRun()));
 }
 
-void Client::init() {
+void LWDAQ_Client::init() {
     stateChange(INIT);
 
     std::cout << "Connecting to " << hostName.toStdString() << ":" << portNo << std::endl;
@@ -68,7 +69,7 @@ void Client::init() {
     tcpSocket->connectToHost(hostName, portNo);
 }
 
-bool Client::startRun(QString dir, int seconds) {
+bool LWDAQ_Client::startRun(QString dir, int seconds) {
     if (seconds < 0) {
         seconds = DEFAULT_RUN_TIME;
     }
@@ -101,7 +102,7 @@ bool Client::startRun(QString dir, int seconds) {
     return true;
 }
 
-void Client::stopRun() {
+void LWDAQ_Client::stopRun() {
     if (currentState == RUN) {
         std::cout << "Stopping run..." << std::endl;
 
@@ -112,7 +113,7 @@ void Client::stopRun() {
     }
 }
 
-void Client::updateStatus() {
+void LWDAQ_Client::updateStatus() {
     std::cout << "Updating status..." << std::endl;
     if (isConnected()) {
         write("Acquisifier_status");
@@ -124,7 +125,7 @@ void Client::updateStatus() {
 }
 
 
-void Client::gotConnected() {
+void LWDAQ_Client::gotConnected() {
     std::cout << "Connected to " << tcpSocket->peerAddress().toString().toStdString()
               << ":" << tcpSocket->peerPort() << std::endl;
 
@@ -132,7 +133,7 @@ void Client::gotConnected() {
     cmdNo++;
 }
 
-void Client::gotDisconnected() {
+void LWDAQ_Client::gotDisconnected() {
     std::cout << "Disconnected" << std::endl;
     runTimer->stop();
     statusTimer->stop();
@@ -142,7 +143,7 @@ void Client::gotDisconnected() {
     connectTimer->start();
 }
 
-void Client::readStatus() {
+void LWDAQ_Client::readStatus() {
 //    std::cout << "readyRead " << tcpSocket->bytesAvailable() << std::endl;
     if (!tcpSocket->canReadLine()) {
         std::cout << "Line incomplete..." << std::endl;
@@ -217,7 +218,7 @@ void Client::readStatus() {
     }
 }
 
-void Client::displayError(QAbstractSocket::SocketError socketError) {
+void LWDAQ_Client::displayError(QAbstractSocket::SocketError socketError) {
     switch (socketError) {
     case QAbstractSocket::RemoteHostClosedError:
         std::cerr << "Remote host closed connection, reconnect in " << connectTimer->interval() << " ms." << std::endl;
@@ -235,7 +236,7 @@ void Client::displayError(QAbstractSocket::SocketError socketError) {
     }
 }
 
-void Client::stateChange(state newState) {
+void LWDAQ_Client::stateChange(state newState) {
     if (currentState == newState) {
         return;
     }
@@ -247,11 +248,11 @@ void Client::stateChange(state newState) {
     stateChanged();
 }
 
-void Client::command(int no) {
+void LWDAQ_Client::command(int no) {
     std::cout << std::endl << "CMD" << no << ":" << cmd[no].toStdString() << std::endl;
     write(cmd[no]);
 }
 
-void Client::write(QString c) {
+void LWDAQ_Client::write(QString c) {
     tcpSocket->write(c.append("\r").toLatin1());
 }

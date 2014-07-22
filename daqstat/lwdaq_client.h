@@ -1,5 +1,5 @@
-#ifndef CLIENT_H
-#define CLIENT_H
+#ifndef LWDAQ_CLIENT_H
+#define LWDAQ_CLIENT_H
 
 #include <QObject>
 #include <QtNetwork>
@@ -11,14 +11,14 @@
 #define DEFAULT_PARAM_FILE "Acquisifier_Params.tcl"
 #define DEFAULT_SETTINGS_FILE "Acquisifier_Settings.tcl"
 
-class Client : public QObject {
+class LWDAQ_Client : public QObject {
 
     Q_OBJECT
 
 public:
     enum state { UNSET, INIT, IDLE, RUN, STOP };    // last three states are set by LWDAQ Acquisifier
 
-    Client(QString hostName, quint16 port, QObject *parent = 0);
+    LWDAQ_Client(QString hostName, quint16 port, QObject *parent = 0);
     bool isConnected() { return currentState > INIT; }
     bool isIdle() { return currentState == IDLE; }
     state getState() { return currentState; }
@@ -72,4 +72,4 @@ private:
     QString errorText;
 };
 
-#endif // CLIENT_H
+#endif // LWDAQ_CLIENT_H

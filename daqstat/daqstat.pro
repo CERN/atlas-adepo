@@ -17,8 +17,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    client.cpp
+    lwdaq_client.cpp
 
 HEADERS += \
-    client.h \
-    example.h
+    example.h \
+    lwdaq_client.h

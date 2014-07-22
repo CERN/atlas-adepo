@@ -5,7 +5,7 @@
 #include <QObject>
 #include <QtNetwork>
 
-#include "client.h"
+#include "lwdaq_client.h"
 
 class Example : public QObject {
 
@@ -13,7 +13,7 @@ class Example : public QObject {
 
 public:
     Example(QCoreApplication *parent = 0) : QObject(parent), app(parent) {
-        client = new Client("localhost", 1090, this);
+        client = new LWDAQ_Client("localhost", 1090, this);
 
         connect(client, SIGNAL(stateChanged()), this, SLOT(stateChanged()));
     }
@@ -26,9 +26,9 @@ private slots:
     void stateChanged() {
         std::cout << "state changed to " << client->getStateAsString().toStdString() << std::endl;
 
-        Client::state newState = client->getState();
+        LWDAQ_Client::state newState = client->getState();
         switch (newState) {
-            case Client::IDLE: {
+            case LWDAQ_Client::IDLE: {
                 std::cout << "Idle, starting a run in a moment..." << std::endl;
 
                 QTimer* timer = new QTimer(this);
@@ -49,7 +49,7 @@ private slots:
     }
 
 private:
-    Client *client;
+    LWDAQ_Client *client;
     QCoreApplication *app;
 };
 #endif // EXAMPLE_H
