@@ -6,8 +6,10 @@
 #include "result.h"
 #include "QWidget"
 #include <QLineEdit>
+#include <QLabel>
 #include <QTextEdit>
 #include "mythread.h"
+#include "lwdaq_client.h"
 
 namespace Ui {
 class ATLAS_BCAM;
@@ -87,12 +89,18 @@ public slots:
 signals:
 
 
+private slots:
+    void lwdaqStateChanged();
+
 private:
     Ui::ATLAS_BCAM *ui;
     bdd m_bdd;
     QString path_fich;
     mythread *thread; // this is our thread
     std::map<std::string, result> results;
+
+    LWDAQ_Client *lwdaq_client;
+    QLabel lwdaqStatus;
 
     void openInputDir();
     void setResult(int row, Point3f point, int columnSet);

@@ -14,7 +14,6 @@
 #include "mythread.h"
 #include "mount_prism_to_global_prism.h"
 #include "eigen-eigen-ffa86ffb5570/Eigen/Eigen"
-#include "lwdaq_client.h"
 
 #include <iostream>
 #include <QtGui>
@@ -73,7 +72,16 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ATLAS_BCAM)                                                                        //[---> ok
 {
+        std::cout << qApp->applicationDirPath().toStdString() << std::endl;
+
+        // connect to LWDAQ server
+        lwdaq_client = new LWDAQ_Client("localhost", 1090, this);
+        connect(lwdaq_client, SIGNAL(stateChanged()), this, SLOT(lwdaqStateChanged()));
+        lwdaq_client->init();
+
         ui->setupUi(this);
+        ui->statusBar->addPermanentWidget(&lwdaqStatus);
+
         //ouverture de l'input file
         QObject::connect(ui->actionCharger,SIGNAL(triggered()),this,SLOT(ouvrirDialogue()));
         ui->actionCharger->setShortcut(QKeySequence("Ctrl+O"));
@@ -120,6 +128,12 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 ATLAS_BCAM::~ATLAS_BCAM()
 {
     delete ui;
+}
+
+void ATLAS_BCAM::lwdaqStateChanged() {
+    std::cout << "state changed to " << lwdaq_client->getStateAsString().toStdString() << std::endl;
+    lwdaqStatus.setText(lwdaq_client->getStateAsString());
+    QMainWindow::statusBar()->showMessage("ADEPO");  // Used for Adepos status later on
 }
 
 //ouverture d'une boite de dialogue                                                                 [----> ok
