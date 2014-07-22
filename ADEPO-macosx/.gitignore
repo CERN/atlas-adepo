@@ -1,3 +1,4 @@
+/.qmake.stash
 /*.o
 /ADEPO.app
 /moc_atlas_bcam.cpp
