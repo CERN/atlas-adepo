@@ -207,9 +207,6 @@ void Client::readStatus() {
 
     // bail out if out of commands, set next state is done by LWDAQ
     if (retOk && (cmdNo >= cmd.length())) {
-        if (currentState > INIT) {
-            std::cout << "Update timer " << statusTimer->interval() << std::endl;
-        }
         return;
     }
 
