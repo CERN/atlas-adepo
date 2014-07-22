@@ -19,12 +19,12 @@ Client::Client(QString host, quint16 port, QObject *parent) : QObject(parent),
                 this, SLOT(displayError(QAbstractSocket::SocketError)));
 
     connectTimer = new QTimer(this);
-    connectTimer->setInterval(15000);
+    connectTimer->setInterval(RECONNECT_TIME*1000);
     connectTimer->setSingleShot(true);
     connect(connectTimer, SIGNAL(timeout()), this, SLOT(init()));
 
     statusTimer = new QTimer(this);
-    statusTimer->setInterval(10000);
+    statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
     statusTimer->setSingleShot(false);
     connect(statusTimer, SIGNAL(timeout()), this, SLOT(updateStatus()));
 
@@ -119,6 +119,7 @@ void Client::updateStatus() {
     } else {
         std::cout << "Ending status update" << std::endl;
         statusTimer->stop();
+        statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
     }
 }
 
@@ -135,6 +136,7 @@ void Client::gotDisconnected() {
     std::cout << "Disconnected" << std::endl;
     runTimer->stop();
     statusTimer->stop();
+    statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
     stateChange(INIT);
 
     connectTimer->start();
@@ -188,12 +190,16 @@ void Client::readStatus() {
     // check status updates
     if (line.startsWith("Idle")) {
         stateChange(IDLE);
+        statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
     } else if (line.startsWith("Run")) {
         stateChange(RUN);
+        statusTimer->setInterval(FAST_UPDATE_TIME*1000);
     } else if (line.startsWith("Repeat_Run")) {
         stateChange(RUN);
+        statusTimer->setInterval(FAST_UPDATE_TIME*1000);
     } else if (line.startsWith("Stop")) {
         stateChange(STOP);
+        statusTimer->setInterval(FAST_UPDATE_TIME*1000);
     }
 
     // verify if the current command finished with expected return value
@@ -202,6 +208,7 @@ void Client::readStatus() {
     // bail out if out of commands, set next state is done by LWDAQ
     if (retOk && (cmdNo >= cmd.length())) {
         if (currentState > INIT) {
+            std::cout << "Starting update timer" << std::endl;
             statusTimer->start();
         }
         return;
