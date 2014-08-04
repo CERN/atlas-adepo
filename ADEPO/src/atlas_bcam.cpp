@@ -46,7 +46,7 @@ QString mode_adepo = "CLOSURE";
 QString mode_airpad = "OFF";
 
 //nom du fichier script qui va lancer l'acquisition que sur les detecteurs selectionnes
-std::string fichier_script = "Acquisifier_Script.tcl";
+QString fichier_script = "Acquisifier_Script.tcl";
 
 //bool pour savoir si le programme est entrain d'acquerir des obs
 //action = 0 --> pas d'observations
@@ -77,7 +77,6 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         // connect to LWDAQ server
         lwdaq_client = new LWDAQ_Client("localhost", 1090, this);
         connect(lwdaq_client, SIGNAL(stateChanged()), this, SLOT(lwdaqStateChanged()));
-        lwdaq_client->init();
 
         ui->setupUi(this);
         ui->statusBar->addPermanentWidget(&lwdaqStatus);
@@ -119,10 +118,18 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         //recuperer la valeur des airpads : ON ou OFF
         QObject::connect(ui->comboBox_2, SIGNAL(currentIndexChanged(int)), this, SLOT(get_airpad_state()));
 
+        previousState = LWDAQ_Client::UNSET;
+
+        ui->Boutton_lancer->setEnabled(false);
+        ui->boutton_arreter->setEnabled(false);
+
+        lwdaq_client->init();
+
         path_input_folder = settings.value("input_folder").toString();
         if (path_input_folder != NULL) {
             openInputDir();
         }
+
 }
 
 ATLAS_BCAM::~ATLAS_BCAM()
@@ -134,6 +141,44 @@ void ATLAS_BCAM::lwdaqStateChanged() {
     std::cout << "state changed to " << lwdaq_client->getStateAsString().toStdString() << std::endl;
     lwdaqStatus.setText(lwdaq_client->getStateAsString());
     QMainWindow::statusBar()->showMessage("ADEPO");  // Used for Adepos status later on
+
+    switch (lwdaq_client->getState()) {
+        case LWDAQ_Client::IDLE:
+            ui->Boutton_lancer->setEnabled(true);
+            ui->boutton_arreter->setEnabled(false);
+
+            if (needToCalculateResults) {
+                // rename startup script file
+                // TODO
+
+                // calculate
+                calcul_coord();
+                needToCalculateResults = false;
+            }
+            break;
+        case LWDAQ_Client::RUN:
+            ui->Boutton_lancer->setEnabled(false);
+            ui->boutton_arreter->setEnabled(true);
+            needToCalculateResults = true;
+            break;
+        case LWDAQ_Client::STOP:
+            ui->Boutton_lancer->setEnabled(false);
+            ui->boutton_arreter->setEnabled(false);
+            break;
+        case LWDAQ_Client::INIT:
+//            if (previousState != LWDAQ_Client::UNSET) {
+                ui->Boutton_lancer->setEnabled(false);
+                ui->boutton_arreter->setEnabled(false);
+//            }
+            break;
+
+    default:
+//            ui->Boutton_lancer->setEnabled(false);
+//            ui->boutton_arreter->setEnabled(false);
+            break;
+    }
+
+    previousState = lwdaq_client->getState();
 }
 
 //ouverture d'une boite de dialogue                                                                 [----> ok
@@ -266,7 +311,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
         liste_bcam->insert(liste_bcam->begin(), m_liste_bcam->begin(), m_liste_bcam->end());
 
         //ecriture du script d'acquisition des detecteurs selectionnees
-        ecriture_script_acquisition(qApp->applicationDirPath().toStdString()+"/"+fichier_script, *liste_bcam);
+        ecriture_script_acquisition(qApp->applicationDirPath()+"/"+fichier_script, *liste_bcam);
 
         //on supprime le pointeur a la fin
         delete m_liste_bcam;
@@ -338,7 +383,7 @@ void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet) {
 //fonction qui lance les acquisitions LWDAQ                                                         ----> ok mais qu'est ce qui se passe apres les acquisitions ?
 void ATLAS_BCAM::lancer_acquisition()
 {
-        std::string dir = qApp->applicationDirPath().toStdString();
+        QString dir = qApp->applicationDirPath();
 
         //le programme est en mode acquisition
         action = 1;
@@ -377,15 +422,20 @@ void ATLAS_BCAM::lancer_acquisition()
 //        else
 //           std::cout << "ACCESS_ENDED_to_LWDAQ"<<std::endl;
 
+        lwdaq_client->startRun(dir, time_value.toInt());
+
+        // DELAYED at IDLE
         //je calcule les coordonnees des prismes dans le repere lie a chaque BCAM (la lecture du fichier de coordonnees images se fait dans la fonction "calcul_coord()"
-        calcul_coord();
+//        calcul_coord();
 }
 
 //fonction qui permet d'arreter l'acquisition LWDAQ (seuleuement en mode monitoring)                [----> ok
 void ATLAS_BCAM::stop_acquisition()
 {
     //le boutton stop ne marche qu'en mode monitoring <==> arreter le QTimer
-    timer->stop();
+//    timer->stop();
+    lwdaq_client->stopRun();
+
     //activation de la fenetre
     ui->tableWidget_liste_detectors->setEnabled(true);
     ui->comboBox->setEnabled(true);
@@ -696,13 +746,17 @@ void ATLAS_BCAM::enable_PushButton()
 }
 
 //fonction qui permet de generer un script d'acquisition                                            [---> ok
-int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acquisition, std::vector<BCAM> &liste_temp_bcam)
+int ATLAS_BCAM::ecriture_script_acquisition(QString nom_fichier_script_acquisition, std::vector<BCAM> &liste_temp_bcam)
 {
     //écriture dans un fichier
-    std::ofstream fichier((char*)nom_fichier_script_acquisition.c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+    std::ofstream fichier(nom_fichier_script_acquisition.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+
+    std::cout << "Writing to " << nom_fichier_script_acquisition.toStdString() << std::endl;
 
     if(fichier)
     {
+        std::cerr << "Writing to " << nom_fichier_script_acquisition.toStdString() << std::endl;
+
         //écriture la partie du script qui gère l'enregistrement dans un fichier externe
         fichier<<"acquisifier: \n"
                <<"config: \n"
@@ -881,6 +935,7 @@ int ATLAS_BCAM::ecriture_script_acquisition(std::string nom_fichier_script_acqui
 
     else
     {
+        std::cout << "Could not write script" << std::endl;
         return 0;
     }
 }
@@ -917,10 +972,10 @@ int ATLAS_BCAM::ecriture_script_bash(std::string nom_fichier_bash)
 }
 
 //fonction qui ecrit un fichier tcl avec les parametres par defaut pour la fenetre Acquisifier      [---> ok
-int ATLAS_BCAM::write_settings_file(std::string settings_file)
+int ATLAS_BCAM::write_settings_file(QString settings_file)
 {
     //écriture dans un fichier
-    std::ofstream fichier(settings_file.c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+    std::ofstream fichier(settings_file.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
 
     if(!fichier) return 0;
 
@@ -932,7 +987,7 @@ int ATLAS_BCAM::write_settings_file(std::string settings_file)
            <<"set Acquisifier_config(analyze) \"0\" \n"
            <<"set Acquisifier_config(auto_run) \"0\" \n"
            <<"set Acquisifier_config(cycle_period_seconds) \"0\" \n"
-           <<"set Acquisifier_config(daq_script) \""<<qApp->applicationDirPath().toStdString().append("/").append(fichier_script)<<"\" \n"
+           <<"set Acquisifier_config(daq_script) \""<<qApp->applicationDirPath().append("/").append(fichier_script).toStdString()<<"\" \n"
            <<"set Acquisifier_config(analysis_color) \"green\" \n"
            <<"set Acquisifier_config(upload_target) \"stdout\" \n"
            <<"set Acquisifier_config(auto_quit) \"0\" \n"
@@ -946,10 +1001,10 @@ int ATLAS_BCAM::write_settings_file(std::string settings_file)
 }
 
 //fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ   [----> ok
-int ATLAS_BCAM::write_params_file(std::string params_file)
+int ATLAS_BCAM::write_params_file(QString params_file)
 {
     //écriture dans un fichier
-    std::ofstream fichier(params_file.c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+    std::ofstream fichier(params_file.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
 
     if(!fichier) return 0;
 
@@ -1068,6 +1123,9 @@ void ATLAS_BCAM::startCalcul()
     {
         //desactivation du bouttoon stop : en mode closure pas d'arret possible
         ui->boutton_arreter->setEnabled(false);
+
+        QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));
+
         //lancement des acquisitions + calcul
         lancer_acquisition();
     }
@@ -1075,7 +1133,7 @@ void ATLAS_BCAM::startCalcul()
     {
         //boite de dialogue avant de debuter le mode monitoring
         int reponse = QMessageBox::question(this, "Mode monitoring", "Attention, vous etes en mode monitoring. Assurez vous d'avoir selectionner tous les detecteurs avant de continuer.", QMessageBox::Yes | QMessageBox::No);
-        //si la reponse est positiove
+        //si la reponse est positive
         if (reponse == QMessageBox::Yes)
         {
             //desactivation de toute la fenetre sauf le bouton stop qui permet de tuer le QTimer

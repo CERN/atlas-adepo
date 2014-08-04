@@ -38,7 +38,7 @@ public:
     int ecriture_script_bash_stop(std::string nom_fichier_bash_stop);
 
     //fonction qui genere un script tcl pour lancer les acquisitions LWDAQ que sur la liste de detetcteurs selectionnes
-    int ecriture_script_acquisition(std::string nom_fichier_script_acquisition, std::vector<BCAM> &liste_temp_bcam);
+    int ecriture_script_acquisition(QString nom_fichier_script_acquisition, std::vector<BCAM> &liste_temp_bcam);
 
     //fonction qui genere un script shell pour lancer les acquisition et l'arret de LWDAQ apres le temps specifie par l'utilisateur
     int ecriture_script_bash(std::string nom_fichier_bash);
@@ -47,10 +47,10 @@ public:
     void calcul_coord();
 
     ////fonction qui ecrit un fichier tcl avec les parametres par defaut pour l'onglet acquisifier de LWDAQ et lance automatiquement l'auto-run
-    int write_settings_file(std::string settings_file);
+    int write_settings_file(QString settings_file);
 
     //fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ
-    int write_params_file(std::string params_file);
+    int write_params_file(QString params_file);
 
 
 
@@ -101,6 +101,8 @@ private:
 
     LWDAQ_Client *lwdaq_client;
     QLabel lwdaqStatus;
+    bool needToCalculateResults;
+    LWDAQ_Client::state previousState;
 
     void openInputDir();
     void setResult(int row, Point3f point, int columnSet);
