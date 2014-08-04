@@ -4,10 +4,10 @@ Status:
 state. Output is send back over line. 
 - Added LWDAQ Status to ADEPO
 - Write files with correct content in correct place, (on MacOSX this is in ADEPO.app/Contents/MacOS
-
-ToDo:
 - connect stop button to lwdaq
 - connect start button to lwdaq
+
+ToDo:
 - move resultfile to same directory, out of lwdaq
 - add LWDAQ server (including tcl and startup file) into ADEPO
 - make LWDAQ start automatically
