@@ -3,3 +3,5 @@
 /daqstat
 /moc_client.cpp
 /moc_example.cpp
+/moc_lwdaq_client.cpp
+
