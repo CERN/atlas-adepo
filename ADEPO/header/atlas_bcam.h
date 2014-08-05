@@ -31,17 +31,8 @@ public:
     //fonction qui verifie si les donnees de fichier de calibration existent pour chaque BCAM
     void check_calibration_database();
 
-    //fonction qui permet d'activer certains bouttons apres certaines actions
-    void enable_PushButton();
-
-    //fonction qui permet de generer un script shell pour l'arret de LWDAQ lorsqu'on cliaue sur le boutton "stop"
-    int ecriture_script_bash_stop(std::string nom_fichier_bash_stop);
-
     //fonction qui genere un script tcl pour lancer les acquisitions LWDAQ que sur la liste de detetcteurs selectionnes
-    int ecriture_script_acquisition(QString nom_fichier_script_acquisition, std::vector<BCAM> &liste_temp_bcam);
-
-    //fonction qui genere un script shell pour lancer les acquisition et l'arret de LWDAQ apres le temps specifie par l'utilisateur
-    int ecriture_script_bash(std::string nom_fichier_bash);
+    int write_script_file(QString nom_fichier_script_acquisition, std::vector<BCAM> &liste_temp_bcam);
 
     //fonction qui permet de calculer les coordonnees de chaque prisme
     void calcul_coord();
@@ -108,6 +99,7 @@ private:
     void setResult(int row, Point3f point, int columnSet);
     void calculateResults(bdd &base_donnees, std::map<std::string, result> &results);
     void updateResults(std::map<std::string, result> &results);
+    void setEnabled(bool enabled);
 };
 
 #endif // ATLAS_BCAM_H
