@@ -119,6 +119,7 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         QObject::connect(ui->comboBox_2, SIGNAL(currentIndexChanged(int)), this, SLOT(get_airpad_state()));
 
         previousState = LWDAQ_Client::UNSET;
+        needToCalculateResults = false;
 
         ui->Boutton_lancer->setEnabled(false);
         ui->boutton_arreter->setEnabled(false);
@@ -166,13 +167,12 @@ void ATLAS_BCAM::lwdaqStateChanged() {
             ui->boutton_arreter->setEnabled(false);
             break;
         case LWDAQ_Client::INIT:
-//            if (previousState != LWDAQ_Client::UNSET) {
-                ui->Boutton_lancer->setEnabled(false);
-                ui->boutton_arreter->setEnabled(false);
-//            }
+            ui->Boutton_lancer->setEnabled(false);
+            ui->boutton_arreter->setEnabled(false);
+            needToCalculateResults = false;
             break;
 
-    default:
+        default:
 //            ui->Boutton_lancer->setEnabled(false);
 //            ui->boutton_arreter->setEnabled(false);
             break;
@@ -415,6 +415,8 @@ void ATLAS_BCAM::lancer_acquisition()
         std::string name_file_result = path_input_folder.toStdString().append("/").append("LWDAQ").append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
         system(("rm -rf "+name_file_result).c_str());
 
+        std::cout << "*** Removing " << name_file_result << std::endl;
+
         //lancement du programme LWDAQ + arret apres nombre de secondes specifiees par le user
         std::cout << "Starting LWDAQ on " << m_bdd.Get_driver_ip_adress() << std::endl;
 //        if(system(("bash "+bash_script).c_str()))
@@ -458,6 +460,8 @@ void ATLAS_BCAM::calcul_coord()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
    std::string fichier_obs_brutes = path_input_folder.toStdString().append("/").append("LWDAQ").append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
+
+   std::cout << "Results should be in " << fichier_obs_brutes << std::endl;
 
    int lecture_output_result = read_lwdaq_output(fichier_obs_brutes, m_bdd);
 
