@@ -412,7 +412,7 @@ void ATLAS_BCAM::lancer_acquisition()
 //        system("cp Acquisifier_* scripts_lwdaq");
 
         //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
-        std::string name_file_result = path_input_folder.toStdString().append("/").append("LWDAQ").append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
+        std::string name_file_result = std::string("/det/ti/PosMov").append("/").append("LWDAQ").append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
         system(("rm -rf "+name_file_result).c_str());
 
         std::cout << "*** Removing " << name_file_result << std::endl;
@@ -459,7 +459,7 @@ void ATLAS_BCAM::resetDelta() {
 void ATLAS_BCAM::calcul_coord()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
-   std::string fichier_obs_brutes = path_input_folder.toStdString().append("/").append("LWDAQ").append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
+   std::string fichier_obs_brutes = std::string("/det/ti/PosMov").append("/").append("LWDAQ").append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
 
    std::cout << "Results should be in " << fichier_obs_brutes << std::endl;
 
@@ -993,7 +993,7 @@ int ATLAS_BCAM::write_settings_file(QString settings_file)
            <<"set Acquisifier_config(cycle_period_seconds) \"0\" \n"
            <<"set Acquisifier_config(daq_script) \""<<qApp->applicationDirPath().append("/").append(fichier_script).toStdString()<<"\" \n"
            <<"set Acquisifier_config(analysis_color) \"green\" \n"
-           <<"set Acquisifier_config(upload_target) \"stdout\" \n"
+//           <<"set Acquisifier_config(upload_target) \"stdout\" \n"
            <<"set Acquisifier_config(auto_quit) \"0\" \n"
            <<"set Acquisifier_config(result_color) \"green\" \n"
            <<"set Acquisifier_config(num_steps_show) \"20\" \n"

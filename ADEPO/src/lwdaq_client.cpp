@@ -8,7 +8,7 @@ LWDAQ_Client::LWDAQ_Client(QString host, quint16 port, QObject *parent) : QObjec
                                   portNo(port),
                                   currentState(UNSET),
                                   cmdNo(0),
-                                  redirect(false),
+                                  redirect(true),
                                   error(false),
                                   errorText("") {
 
