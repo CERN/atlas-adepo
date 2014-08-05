@@ -67,6 +67,7 @@ private:
     QStringList cmd;
     QStringList ret;
     int cmdNo;
+    bool redirect;
 
     bool error;
     QString errorText;

@@ -8,6 +8,7 @@ LWDAQ_Client::LWDAQ_Client(QString host, quint16 port, QObject *parent) : QObjec
                                   portNo(port),
                                   currentState(UNSET),
                                   cmdNo(0),
+                                  redirect(false),
                                   error(false),
                                   errorText("") {
 
@@ -51,10 +52,12 @@ void LWDAQ_Client::init() {
     ret.append("<to be filled by LWDAQ_server_info command>");  // #1
 
     // redirect
-    cmd.append("set Acquisifier_config(upload_target) [lindex $server_info 0]");
-    ret.append("<to be filled by LWDAQ_server_info command>");  // #2
-    cmd.append("set Acquisifier_config(upload_step_result) 1");
-    ret.append("1");
+    if (redirect) {
+        cmd.append("set Acquisifier_config(upload_target) [lindex $server_info 0]");
+        ret.append("<to be filled by LWDAQ_server_info command>");  // #2
+        cmd.append("set Acquisifier_config(upload_step_result) 1");
+        ret.append("1");
+    }
 
     // setup acquisifier
     cmd.append("LWDAQ_run_tool Acquisifier.tcl");
@@ -162,7 +165,9 @@ void LWDAQ_Client::readStatus() {
         QString returnSocket = parts[0];
         cmd[1] = QString("set server_info ").append(returnSocket);
         ret[1] = returnSocket;
-        ret[2] = returnSocket;
+        if (redirect) {
+            ret[2] = returnSocket;
+        }
         line = "ok";
     }
 
