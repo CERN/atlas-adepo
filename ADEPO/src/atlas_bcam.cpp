@@ -169,10 +169,14 @@ void ATLAS_BCAM::lwdaqStateChanged() {
 }
 
 void ATLAS_BCAM::setEnabled(bool enabled) {
-    bool canStart = enabled && !path_input_folder.isEmpty() && ui->tableWidget_liste_bcams->rowCount() > 0;
+    bool canStart = enabled &&
+            !path_input_folder.isEmpty() &&
+            ui->tableWidget_liste_bcams->rowCount() > 0 &&
+            lwdaq_client->getState() > LWDAQ_Client::INIT;
     ui->Boutton_lancer->setEnabled(canStart);
     ui->nextMeasurement->setEnabled(canStart);
     ui->boutton_arreter->setEnabled(!enabled);
+    ui->stop->setEnabled(!enabled);
 
     ui->tableWidget_liste_detectors->setEnabled(enabled);
     ui->comboBox->setEnabled(enabled);
