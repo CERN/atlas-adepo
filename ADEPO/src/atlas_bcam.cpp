@@ -151,11 +151,15 @@ void ATLAS_BCAM::lwdaqStateChanged() {
             break;
         case LWDAQ_Client::STOP:
             ui->Boutton_lancer->setEnabled(false);
+            ui->nextMeasurement->setEnabled(false);
             ui->boutton_arreter->setEnabled(false);
+            ui->stop->setEnabled(false);
             break;
         case LWDAQ_Client::INIT:
             ui->Boutton_lancer->setEnabled(false);
             ui->boutton_arreter->setEnabled(false);
+            ui->boutton_arreter->setEnabled(false);
+            ui->stop->setEnabled(false);
             needToCalculateResults = false;
             break;
 
