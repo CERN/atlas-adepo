@@ -157,7 +157,6 @@ void ATLAS_BCAM::lwdaqStateChanged() {
             break;
         case LWDAQ_Client::RUN:
             setEnabled(false);
-            needToCalculateResults = true;
             break;
         case LWDAQ_Client::STOP:
             ui->Boutton_lancer->setEnabled(false);
@@ -1056,6 +1055,8 @@ void ATLAS_BCAM::startCalcul()
     if(mode_adepo == "CLOSURE")
     {
         ui->boutton_arreter->setEnabled(true);
+
+        needToCalculateResults = true;
 
         //lancement des acquisitions + calcul
         lancer_acquisition();
