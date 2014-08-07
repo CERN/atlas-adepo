@@ -91,6 +91,7 @@ private:
     std::map<std::string, result> results;
 
     QDir lwdaqDir;
+    QFile resultFile;
     LWDAQ_Client *lwdaq_client;
     QLabel lwdaqStatus;
     bool needToCalculateResults;

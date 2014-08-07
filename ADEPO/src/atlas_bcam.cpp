@@ -34,7 +34,6 @@
 //declaration des variables globales
 QSettings settings;
 
-std::string path_lwdaq;
 QString path_input_folder;
 bool input_folder_read = false;
 
@@ -121,6 +120,8 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         } else {
             std::cout << "Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
         }
+
+        resultFile.setFileName(lwdaqDir.absolutePath().append("/Tools").append("/Data/").append("Acquisifier_Results.txt"));
 
         lwdaq_client->init();
 
@@ -237,9 +238,6 @@ void ATLAS_BCAM::openInputDir() {
 
     //recuperation de la partie qui nous interesse du fichier de calibration
     //clean_calib(m_bdd);
-
-    // chemin d'acces a l'emplacement de LWDAQ
-    path_lwdaq = path_input_folder.toStdString().append("/").append(NAME_LWDAQ_FOLDER).append("/").append("lwdaq");
 
     //activation du boutton pour lancer les acquisitions
     setEnabled(true);
@@ -408,7 +406,6 @@ void ATLAS_BCAM::lancer_acquisition()
     write_settings_file(dir + "/" + DEFAULT_SETTINGS_FILE);
 
     //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
-    QFile resultFile(lwdaqDir.absolutePath().append("/Tools").append("/Data/").append("Acquisifier_Results.txt"));
     resultFile.remove();
 
     std::cout << "*** Removing " << resultFile.fileName().toStdString() << std::endl;
@@ -440,11 +437,7 @@ void ATLAS_BCAM::resetDelta() {
 void ATLAS_BCAM::calcul_coord()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
-   QString fichier_obs_brutes = lwdaqDir.absolutePath().append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
-
-   std::cout << "Results should be in " << fichier_obs_brutes.toStdString() << std::endl;
-
-   int lecture_output_result = read_lwdaq_output(fichier_obs_brutes.toStdString(), m_bdd);
+   int lecture_output_result = read_lwdaq_output(resultFile, m_bdd);
 
    if(lecture_output_result == 0 )
    {
@@ -478,10 +471,11 @@ void ATLAS_BCAM::calcul_coord()
    time_t t = time(NULL);
    char* tps_calcul = asctime(localtime(&t));
 
-   std::string file_name = "Archive/Observations_MOUNT_System";
-
-   std::string fichier_obs_mount = file_name.append("_").append(tps_calcul, strlen(tps_calcul)-1).append(".txt");
-   write_file_obs_mount_system(fichier_obs_mount, m_bdd);
+   std::string resultMountFileName = qApp->applicationDirPath().toStdString().
+           append("/Archive/Observations_MOUNT_System_").
+           append(tps_calcul, strlen(tps_calcul)-1).
+           append(".txt");
+   write_file_obs_mount_system(resultMountFileName, m_bdd);
 
    //vidage des acquisitions
    m_bdd.vidage();

@@ -1,9 +1,9 @@
 #include "read_lwdaq_output.h"
 #include "algorithm"
 
-int read_lwdaq_output(std::string nom_fichier, bdd & base_donnees)
+int read_lwdaq_output(QFile &file, bdd & base_donnees)
 {
-    std::ifstream fichier((char*)nom_fichier.c_str(), std::ios::in);
+    std::ifstream fichier((char*)file.fileName().toStdString().c_str(), std::ios::in);
     if(fichier)
     {
         std::string ligne;  // déclaration d'une chaîne qui contiendra la ligne lue

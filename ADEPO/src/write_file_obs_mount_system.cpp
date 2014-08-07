@@ -11,7 +11,6 @@
 
 int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_donnees)
 {
-    std::cout << "Writing results into " << save_obs_mount_system << std::endl;
 
     //écriture dans un fichier
     std::ofstream fichier((char*)save_obs_mount_system.c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
