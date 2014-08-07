@@ -724,8 +724,6 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
     //écriture dans un fichier
     std::ofstream fichier(nom_fichier_script_acquisition.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
 
-    std::cout << "Writing to " << nom_fichier_script_acquisition.toStdString() << std::endl;
-
     if(fichier)
     {
         std::cerr << "Writing to " << nom_fichier_script_acquisition.toStdString() << std::endl;
@@ -932,7 +930,6 @@ int ATLAS_BCAM::write_settings_file(QString settings_file)
            <<"set Acquisifier_config(cycle_period_seconds) \"0\" \n"
            <<"set Acquisifier_config(daq_script) \""<<qApp->applicationDirPath().append("/").append(fichier_script).toStdString()<<"\" \n"
            <<"set Acquisifier_config(analysis_color) \"green\" \n"
-//           <<"set Acquisifier_config(upload_target) \"stdout\" \n"
            <<"set Acquisifier_config(auto_quit) \"0\" \n"
            <<"set Acquisifier_config(result_color) \"green\" \n"
            <<"set Acquisifier_config(num_steps_show) \"20\" \n"
@@ -1065,8 +1062,6 @@ void ATLAS_BCAM::startCalcul()
     if(mode_adepo == "CLOSURE")
     {
         ui->boutton_arreter->setEnabled(true);
-
-//        QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));
 
         //lancement des acquisitions + calcul
         lancer_acquisition();

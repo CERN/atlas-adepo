@@ -18,6 +18,8 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
 
     if(fichier)
     {
+        std::cout << "Writing results into " << save_obs_mount_system << std::endl;
+
         fichier<<"********** Fichier qui contient une sauvegarde des coordonnees images + coordonnees images transformees dans le repere BCAM (MOUNT) + coordonnees des prismes dans le repere MOUNT********** \n"
                <<"********************************************************************** Unite en metres (m)************************************************************************************************** \n"
                <<"\n";
