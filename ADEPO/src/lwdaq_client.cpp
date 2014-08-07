@@ -208,8 +208,7 @@ void LWDAQ_Client::readStatus() {
     // check status updates
     if (line.startsWith("Idle")) {
         stateChange(IDLE);
-//        statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
-        statusTimer->setInterval(FAST_UPDATE_TIME*1000);
+        statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
     } else if (line.startsWith("Run")) {
         stateChange(RUN);
         statusTimer->setInterval(FAST_UPDATE_TIME*1000);
