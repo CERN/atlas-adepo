@@ -96,7 +96,7 @@
                   <bool>true</bool>
                  </property>
                  <attribute name="horizontalHeaderVisible">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </attribute>
                  <attribute name="horizontalHeaderCascadingSectionResizes">
                   <bool>false</bool>
@@ -230,11 +230,6 @@
                      <string>CLOSURE</string>
                     </property>
                    </item>
-                   <item>
-                    <property name="text">
-                     <string>MONITORING</string>
-                    </property>
-                   </item>
                   </widget>
                  </item>
                  <item row="1" column="0">
@@ -323,7 +318,7 @@
                 <bool>true</bool>
                </property>
                <attribute name="horizontalHeaderVisible">
-                <bool>true</bool>
+                <bool>false</bool>
                </attribute>
                <attribute name="horizontalHeaderDefaultSectionSize">
                 <number>160</number>
