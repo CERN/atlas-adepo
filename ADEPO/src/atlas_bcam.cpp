@@ -62,7 +62,8 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ATLAS_BCAM)                                                                        //[---> ok
 {
-        std::cout << qApp->applicationDirPath().toStdString() << std::endl;
+        QString appPath = qApp->applicationDirPath();
+        std::cout << appPath.toStdString() << std::endl;
 
         // connect to LWDAQ server
         lwdaq_client = new LWDAQ_Client("localhost", 1090, this);
@@ -113,9 +114,9 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         setEnabled(true);
 
-        lwdaqDir = lwdaq_client->find(QDir::current());
+        lwdaqDir = lwdaq_client->find(QDir(appPath));
         if (!lwdaqDir.exists()) {
-            std::cerr << "FATAL: could not find LWDAQ directory up from " << QDir::current().absolutePath().toStdString() << std::endl;
+            std::cerr << "FATAL: could not find LWDAQ directory up from " << appPath.toStdString() << std::endl;
             exit(1);
         } else {
             std::cout << "Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
