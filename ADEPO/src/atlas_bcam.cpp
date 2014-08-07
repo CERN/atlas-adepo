@@ -418,8 +418,8 @@ void ATLAS_BCAM::lancer_acquisition()
 //fonction qui permet d'arreter l'acquisition LWDAQ (seuleuement en mode monitoring)                [----> ok
 void ATLAS_BCAM::stop_acquisition()
 {
-    //le boutton stop ne marche qu'en mode monitoring <==> arreter le QTimer
-//    timer->stop();
+    needToCalculateResults = false;
+
     lwdaq_client->stopRun();
 
     setEnabled(true);
