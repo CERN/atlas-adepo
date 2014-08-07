@@ -113,6 +113,14 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         setEnabled(true);
 
+        lwdaqDir = lwdaq_client->find(QDir::current());
+        if (!lwdaqDir.exists()) {
+            std::cerr << "FATAL: could not find LWDAQ directory up from " << QDir::current().absolutePath().toStdString() << std::endl;
+            exit(1);
+        } else {
+            std::cout << "Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
+        }
+
         lwdaq_client->init();
 
         path_input_folder = settings.value("input_folder").toString();
@@ -399,10 +407,10 @@ void ATLAS_BCAM::lancer_acquisition()
     write_settings_file(dir + "/" + DEFAULT_SETTINGS_FILE);
 
     //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
-    std::string name_file_result = std::string("/det/ti/PosMov").append("/").append("LWDAQ").append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
-    system(("rm -rf "+name_file_result).c_str());
+    QFile resultFile(lwdaqDir.absolutePath().append("/Tools").append("/Data/").append("Acquisifier_Results.txt"));
+    resultFile.remove();
 
-    std::cout << "*** Removing " << name_file_result << std::endl;
+    std::cout << "*** Removing " << resultFile.fileName().toStdString() << std::endl;
 
     //lancement du programme LWDAQ + arret apres nombre de secondes specifiees par le user
     std::cout << "Starting LWDAQ on " << m_bdd.Get_driver_ip_adress() << std::endl;
@@ -431,11 +439,11 @@ void ATLAS_BCAM::resetDelta() {
 void ATLAS_BCAM::calcul_coord()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
-   std::string fichier_obs_brutes = std::string("/det/ti/PosMov").append("/").append("LWDAQ").append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
+   QString fichier_obs_brutes = lwdaqDir.absolutePath().append("/Tools").append("/Data/").append("Acquisifier_Results.txt");
 
-   std::cout << "Results should be in " << fichier_obs_brutes << std::endl;
+   std::cout << "Results should be in " << fichier_obs_brutes.toStdString() << std::endl;
 
-   int lecture_output_result = read_lwdaq_output(fichier_obs_brutes, m_bdd);
+   int lecture_output_result = read_lwdaq_output(fichier_obs_brutes.toStdString(), m_bdd);
 
    if(lecture_output_result == 0 )
    {

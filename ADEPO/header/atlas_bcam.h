@@ -90,6 +90,7 @@ private:
     mythread *thread; // this is our thread
     std::map<std::string, result> results;
 
+    QDir lwdaqDir;
     LWDAQ_Client *lwdaq_client;
     QLabel lwdaqStatus;
     bool needToCalculateResults;

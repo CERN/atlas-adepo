@@ -36,6 +36,18 @@ LWDAQ_Client::LWDAQ_Client(QString host, quint16 port, QObject *parent) : QObjec
     connect(runTimer, SIGNAL(timeout()), this, SLOT(stopRun()));
 }
 
+QDir LWDAQ_Client::find(QDir dir) {
+    QStringList list = dir.entryList(QStringList("LWDAQ"), QDir::Dirs);
+    QString absPath = dir.absolutePath().append("/");
+    if (list.size() == 1) {
+        return QDir(absPath.append(list[0]));
+    } else if (dir != QDir::root()) {
+        return find(QDir(absPath.append("..")));
+    } else {
+        return QDir("fkdshkjfhdskjfh"); // non existing directory
+    }
+}
+
 void LWDAQ_Client::init() {
     stateChange(INIT);
 
