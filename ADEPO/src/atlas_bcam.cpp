@@ -372,7 +372,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
       ui->tableWidget_results->setItem(i, 2, prism);
 
       QTableWidgetItem *n = new QTableWidgetItem(QString::number(0));
-      ui->tableWidget_results->setItem(row, 3, n);
+      ui->tableWidget_results->setItem(i, 3, n);
 
       setResult(i, Point3f(), 0);
       setResult(i, Point3f(), 1);
