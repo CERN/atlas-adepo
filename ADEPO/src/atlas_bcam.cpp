@@ -386,13 +386,13 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
 void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet) {
     int firstColumn = 4;
 
-    QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X(), "f", 6));
+    QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X(), 'f', 6));
     ui->tableWidget_results->setItem(row, firstColumn + (columnSet * 3), x);
 
-    QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y(), "f", 6));
+    QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y(), 'f', 6));
     ui->tableWidget_results->setItem(row, firstColumn + 1 + (columnSet * 3), y);
 
-    QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z(), "f", 6));
+    QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z(), 'f', 6));
     ui->tableWidget_results->setItem(row, firstColumn + 2 + (columnSet * 3), z);
 }
 
