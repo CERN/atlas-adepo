@@ -96,7 +96,7 @@
                   <bool>true</bool>
                  </property>
                  <attribute name="horizontalHeaderVisible">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </attribute>
                  <attribute name="horizontalHeaderCascadingSectionResizes">
                   <bool>false</bool>
@@ -318,7 +318,7 @@
                 <bool>true</bool>
                </property>
                <attribute name="horizontalHeaderVisible">
-                <bool>true</bool>
+                <bool>false</bool>
                </attribute>
                <attribute name="horizontalHeaderDefaultSectionSize">
                 <number>160</number>
