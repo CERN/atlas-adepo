@@ -1,1 +1,0 @@
-/home/hashemi/TclTk/lib/teapot
