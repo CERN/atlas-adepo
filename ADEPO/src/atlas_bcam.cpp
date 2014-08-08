@@ -381,7 +381,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
 }
 
 void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet) {
-    int firstColumn = 3;
+    int firstColumn = 4;
 
     QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X()));
     ui->tableWidget_results->setItem(row, firstColumn + (columnSet * 3), x);
@@ -519,6 +519,9 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
                 ligne=ligne+1;
             }
         }
+
+        result.n = ligne;
+
         Eigen::MatrixXd mean(1,3);
         mean = coord.colwise().sum()/ligne; //somme de chaque colonne / par le nombre de lignes
 
@@ -560,6 +563,8 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
         std::cout << prism << std::endl;
 
         result& r = results[prism];
+        QTableWidgetItem *n = new QTableWidgetItem(QString::number(r.n));
+        ui->tableWidget_results->setItem(row, 1, n);
         setResult(row, r.value, 0);
         setResult(row, r.std, 1);
         setResult(row, Point3f(Point3f(r.value, r.offset), 1000), 2);

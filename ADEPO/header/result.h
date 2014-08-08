@@ -10,6 +10,7 @@ public:
     result() {
         value = Point3f();
         std = Point3f();
+        n = 0;
         setOffset();
     }
     ~result() {};
@@ -19,7 +20,7 @@ public:
     }
 
     void toString() {
-        std::cout << name << " "
+        std::cout << name << " " << n << ""
                   << value.Get_X() << " " << value.Get_Y() << " " << value.Get_Z() << " "
                   << std.Get_X() << " " << std.Get_Y() << " " << std.Get_Z() << ""
                   << offset.Get_X() << " " << offset.Get_Y() << " " << offset.Get_Z() <<
@@ -30,6 +31,7 @@ public:
     tm *ltm;
     Point3f value;
     Point3f std;
+    int n;
     Point3f offset;
 };
 
