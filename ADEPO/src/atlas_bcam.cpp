@@ -371,6 +371,9 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
       prism->setText(QString::fromStdString(liste_bcam->at(i).Get_objet_vise()));
       ui->tableWidget_results->setItem(i, 2, prism);
 
+      QTableWidgetItem *n = new QTableWidgetItem(QString::number(0));
+      ui->tableWidget_results->setItem(row, 3, n);
+
       setResult(i, Point3f(), 0);
       setResult(i, Point3f(), 1);
       setResult(i, Point3f(), 2);
@@ -564,7 +567,7 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
 
         result& r = results[prism];
         QTableWidgetItem *n = new QTableWidgetItem(QString::number(r.n));
-        ui->tableWidget_results->setItem(row, 1, n);
+        ui->tableWidget_results->setItem(row, 3, n);
         setResult(row, r.value, 0);
         setResult(row, r.std, 1);
         setResult(row, Point3f(Point3f(r.value, r.offset), 1000), 2);
