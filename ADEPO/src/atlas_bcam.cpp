@@ -72,6 +72,10 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         ui->setupUi(this);
         ui->statusBar->addPermanentWidget(&lwdaqStatus);
 
+        // headers seem to become invisible after editing UI
+        ui->tableWidget_liste_detectors->horizontalHeader()->setVisible(true);
+        ui->tableWidget_liste_bcams->horizontalHeader()->setVisible(true);
+
         //ouverture de l'input file
         QObject::connect(ui->actionCharger,SIGNAL(triggered()),this,SLOT(ouvrirDialogue()));
         ui->actionCharger->setShortcut(QKeySequence("Ctrl+O"));
