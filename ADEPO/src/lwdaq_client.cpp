@@ -27,7 +27,7 @@ LWDAQ_Client::LWDAQ_Client(QString host, quint16 port, QObject *parent) : QObjec
 
     statusTimer = new QTimer(this);
     statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
-    statusTimer->setSingleShot(false);
+    statusTimer->setSingleShot(true);
     connect(statusTimer, SIGNAL(timeout()), this, SLOT(updateStatus()));
 
     runTimer = new QTimer(this);
