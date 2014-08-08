@@ -184,7 +184,7 @@ void ATLAS_BCAM::lwdaqStateChanged() {
 
 void ATLAS_BCAM::lwdaqTimeChanged() {
     std::cout << lwdaq_client->getRemainingTime() << std::endl;
-    ui->Boutton_lancer->setText(""+lwdaq_client->getRemainingTime());
+//    ui->Boutton_lancer->setText(""+lwdaq_client->getRemainingTime());
 }
 
 void ATLAS_BCAM::setEnabled(bool enabled) {

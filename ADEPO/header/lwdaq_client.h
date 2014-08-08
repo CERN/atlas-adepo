@@ -35,7 +35,7 @@ public:
         }
     }
     int getRemainingTime() {
-        return updateTimer->remainingTime();
+        return runTimer->remainingTime();
     }
 
     QDir find(QDir dir);
