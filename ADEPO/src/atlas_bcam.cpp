@@ -13,7 +13,7 @@
 #include "helmert.h"
 #include "mythread.h"
 #include "mount_prism_to_global_prism.h"
-#include "eigen-eigen-ffa86ffb5570/Eigen/Eigen"
+#include "Eigen/Eigen"
 
 #include <iostream>
 #include <QtGui>

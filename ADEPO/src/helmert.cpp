@@ -1,10 +1,10 @@
 #include "helmert.h"
 #include <iomanip>
 #include <iostream>
-#include "eigen-eigen-ffa86ffb5570/Eigen/Core"
-#include "eigen-eigen-ffa86ffb5570/Eigen/LU"
-#include "eigen-eigen-ffa86ffb5570/Eigen/Householder"
-#include "eigen-eigen-ffa86ffb5570/Eigen/QR"
+#include "Eigen/Core"
+#include "Eigen/LU"
+#include "Eigen/Householder"
+#include "Eigen/QR"
 
 void helmert(bdd & base_donnees)
 {

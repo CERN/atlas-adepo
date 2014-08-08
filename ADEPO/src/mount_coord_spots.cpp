@@ -1,4 +1,4 @@
-#include "header/mount_coord_spots.h"
+#include "mount_coord_spots.h"
 
 mount_coord_spots::mount_coord_spots(std::string id,  Point3f coord1, Point3f coord2): m_id(id), m_coord1(coord1), m_coord2(coord2)
 {

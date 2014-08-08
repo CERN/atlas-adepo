@@ -3,7 +3,7 @@
 
 #include <QFile>
 
-#include <header/bdd.h>
+#include <bdd.h>
 
 int read_lwdaq_output(QFile& file, bdd & base_donnees);
 

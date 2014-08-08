@@ -62,6 +62,7 @@ FORMS += \
     ATLAS_BCAM.ui \
 
 INCLUDEPATH += ./header
+INCLUDEPATH += ./eigen-eigen-ffa86ffb5570
 
 QT += core gui network widgets testlib
 

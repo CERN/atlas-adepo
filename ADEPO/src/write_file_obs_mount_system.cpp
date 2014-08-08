@@ -2,7 +2,7 @@
 #include "changement_repere.h"
 #include "eigen-eigen-ffa86ffb5570/Eigen/Eigen"
 #include "math.h"
-#include "eigen-eigen-ffa86ffb5570/Eigen/Core"
+#include "Eigen/Core"
 #include "iostream"
 #include "ctime"
 #include "sstream"

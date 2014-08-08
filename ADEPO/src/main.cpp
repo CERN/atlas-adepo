@@ -1,17 +1,17 @@
-#include "header/bdd.h"
-#include "header/read_input.h"
-#include "header/read_lwdaq_output.h"
-#include "header/read_calibration_database.h"
-#include "header/detect_flash.h"
-#include "header/write_bash_script.h"
+#include "bdd.h"
+#include "read_input.h"
+#include "read_lwdaq_output.h"
+#include "read_calibration_database.h"
+#include "detect_flash.h"
+#include "write_bash_script.h"
 
 
-#include "header/clean_calib.h"
-#include "header/liste_bcam_from_id_detector.h"
+#include "clean_calib.h"
+#include "liste_bcam_from_id_detector.h"
 
 #include <QApplication>
 #include <QtGui>
-#include "header/atlas_bcam.h"
+#include "atlas_bcam.h"
 #include <QApplication>
 #include <QTranslator>
 #include <QLocale>

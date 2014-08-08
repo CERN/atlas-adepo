@@ -1,7 +1,7 @@
 #include "changement_repere.h"
 #include <iostream>
-#include "eigen-eigen-ffa86ffb5570/Eigen/Core"
-#include "eigen-eigen-ffa86ffb5570/Eigen/LU"
+#include "Eigen/Core"
+#include "Eigen/LU"
 
 Point3f changement_repere(Point3f coord_sys1, Point3f translation, Point3f rotation)
 {
