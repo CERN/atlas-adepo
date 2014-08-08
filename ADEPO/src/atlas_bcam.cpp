@@ -515,7 +515,6 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
 
         //nomenclature dans le repere ATLAS
         std::string name_prism_atlas = base_donnees.getName(prism.Get_id().substr(15,5));
-        std::cout << "*" << name_prism_atlas << std::endl;
 
         result& result = results[name_prism_atlas];
         result.name = name_prism_atlas;
@@ -527,7 +526,6 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
         for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
         {
             mount_coord_prism checkedPrism = base_donnees.Get_liste_global_coord_prism().at(j);
-            std::cout << "checked " << prism.Get_id() << " " << checkedPrism.Get_id() << std::endl;
             if(prism.Get_id() == checkedPrism.Get_id())
             {
                 coord(ligne,0)=checkedPrism.Get_coord_prism_mount_sys().Get_X();
