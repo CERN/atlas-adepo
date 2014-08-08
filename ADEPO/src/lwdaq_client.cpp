@@ -114,6 +114,7 @@ bool LWDAQ_Client::startRun(QString dir, int seconds) {
 
     // setup runtime
     runTimer->start(seconds*1000);
+    updateTimer->start();
 
     // start a run
     command(cmdNo);
@@ -130,6 +131,7 @@ void LWDAQ_Client::stopRun() {
         write("Acquisifier_status");
 
         runTimer->stop();
+        updateTimer->stop();
     }
 }
 
@@ -156,6 +158,7 @@ void LWDAQ_Client::gotConnected() {
 void LWDAQ_Client::gotDisconnected() {
     std::cout << "Disconnected" << std::endl;
     runTimer->stop();
+    updateTimer->stop();
     statusTimer->stop();
     statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
     stateChange(INIT);
