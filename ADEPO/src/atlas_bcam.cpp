@@ -183,8 +183,8 @@ void ATLAS_BCAM::lwdaqStateChanged() {
 }
 
 void ATLAS_BCAM::lwdaqTimeChanged() {
-    QString s = "ADEPO ";
-    QMainWindow::statusBar()->showMessage(s.append(lwdaq_client->getRemainingTime()/1000).append(" seconds remaining..."));
+   QMainWindow::statusBar()->showMessage(QString("ADEPO ").append(QString::number(lwdaq_client->getRemainingTime()/1000)).
+                                          append(" seconds remaining..."));
 }
 
 void ATLAS_BCAM::setEnabled(bool enabled) {
