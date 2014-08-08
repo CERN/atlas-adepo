@@ -209,15 +209,19 @@ void LWDAQ_Client::readStatus() {
     if (line.startsWith("Idle")) {
         stateChange(IDLE);
         statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
+        statusTimer->start();
     } else if (line.startsWith("Run")) {
         stateChange(RUN);
         statusTimer->setInterval(FAST_UPDATE_TIME*1000);
+        statusTimer->start();
     } else if (line.startsWith("Repeat_Run")) {
         stateChange(RUN);
         statusTimer->setInterval(FAST_UPDATE_TIME*1000);
+        statusTimer->start();
     } else if (line.startsWith("Stop")) {
         stateChange(STOP);
         statusTimer->setInterval(FAST_UPDATE_TIME*1000);
+        statusTimer->start();
     }
 
     // verify if the current command finished with expected return value
