@@ -503,6 +503,7 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
 
         //nomenclature dans le repere ATLAS
         std::string name_prism_atlas = base_donnees.getName(prism.Get_id().substr(15,5));
+        std::cout << "*" << name_prism_atlas << std::endl;
 
         result& result = results[name_prism_atlas];
         result.name = name_prism_atlas;
