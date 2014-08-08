@@ -127,11 +127,21 @@ void LWDAQ_Client::stopRun() {
     if (currentState == RUN) {
         std::cout << "Stopping run..." << std::endl;
 
-        write("Acquisifier_command Stop");
-        write("Acquisifier_status");
-
         runTimer->stop();
         updateTimer->stop();
+
+        cmdNo = 0;
+        cmd.clear();
+        ret.clear();
+
+        cmd.append("Acquisifier_command Stop");
+        ret.append("1");
+
+        cmd.append("Acquisifier_status");
+        ret.append("*");
+
+        command(cmdNo);
+        cmdNo++;
     }
 }
 
