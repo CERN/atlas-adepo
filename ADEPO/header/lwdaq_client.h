@@ -7,6 +7,8 @@
 #define SLOW_UPDATE_TIME 10
 #define FAST_UPDATE_TIME 2
 #define RECONNECT_TIME 15
+#define DEFAULT_UPDATE_TIME 2
+
 #define DEFAULT_RUN_TIME 30
 #define DEFAULT_PARAM_FILE "Acquisifier_Params.tcl"
 #define DEFAULT_SETTINGS_FILE "Acquisifier_Settings.tcl"
@@ -38,6 +40,7 @@ public:
 
 signals:
     void stateChanged();
+    void remainingTimeChanged();
 
 public slots:
     void init();
@@ -49,6 +52,7 @@ private slots:
     void readStatus();
     void displayError(QAbstractSocket::SocketError socketError);
     void updateStatus();
+    void updateRemainingTime();
 
 private:
     void stateChange(state newState);
@@ -62,6 +66,7 @@ private:
     QTimer *connectTimer;
     QTimer *statusTimer;
     QTimer *runTimer;
+    QTimer *updateTimer;
 
     state currentState;
 

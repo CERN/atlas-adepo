@@ -34,6 +34,11 @@ LWDAQ_Client::LWDAQ_Client(QString host, quint16 port, QObject *parent) : QObjec
     runTimer->setInterval(DEFAULT_RUN_TIME*1000);
     runTimer->setSingleShot(true);
     connect(runTimer, SIGNAL(timeout()), this, SLOT(stopRun()));
+
+    updateTimer = new QTimer(this);
+    updateTimer->setInterval(DEFAULT_UPDATE_TIME*1000);
+    updateTimer->setSingleShot(false);
+    connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateRemainingTime()));
 }
 
 QDir LWDAQ_Client::find(QDir dir) {
@@ -267,6 +272,10 @@ void LWDAQ_Client::stateChange(state newState) {
     }
     currentState = newState;
     stateChanged();
+}
+
+void LWDAQ_Client::updateRemainingTime() {
+    remainingTimeChanged();
 }
 
 void LWDAQ_Client::command(int no) {

@@ -82,6 +82,7 @@ signals:
 
 private slots:
     void lwdaqStateChanged();
+    void lwdaqTimeChanged();
 
 private:
     Ui::ATLAS_BCAM *ui;

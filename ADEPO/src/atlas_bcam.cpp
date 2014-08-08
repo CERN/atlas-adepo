@@ -67,6 +67,7 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         // connect to LWDAQ server
         lwdaq_client = new LWDAQ_Client("localhost", 1090, this);
         connect(lwdaq_client, SIGNAL(stateChanged()), this, SLOT(lwdaqStateChanged()));
+        connect(lwdaq_client, SIGNAL(remainingTimeChanged()), this, SLOT(lwdaqTimeChanged()));
 
         ui->setupUi(this);
         ui->statusBar->addPermanentWidget(&lwdaqStatus);
@@ -179,6 +180,10 @@ void ATLAS_BCAM::lwdaqStateChanged() {
     }
 
     previousState = lwdaq_client->getState();
+}
+
+void ATLAS_BCAM::lwdaqTimeChanged() {
+    QMainWindow::statusBar()->showMessage("ADEPO *");
 }
 
 void ATLAS_BCAM::setEnabled(bool enabled) {
