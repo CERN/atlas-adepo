@@ -332,10 +332,10 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
     }
 
     // nombre de lignes dans la table
-    int nb_lignes = liste_bcam->size();
-    ui->tableWidget_liste_bcams->setRowCount(nb_lignes);
-    ui->tableWidget_results->setRowCount(nb_lignes);
+    ui->tableWidget_liste_bcams->setRowCount(liste_bcam->size());
+    ui->tableWidget_results->setRowCount(100);
 
+    int row = 0;
     for(unsigned int i=0; i<liste_bcam->size(); i++)
     {
       //ajout dans la tableWidget qui affiche les BCAMs
@@ -359,25 +359,37 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
       objet_vise->setText(QString::fromStdString(liste_bcam->at(i).Get_objet_vise()));
       ui->tableWidget_liste_bcams->setItem(i,4,objet_vise);
 
-      QTableWidgetItem *name = new QTableWidgetItem();
-      name->setText(QString::fromStdString(m_bdd.getName(liste_bcam->at(i).Get_objet_vise())));
-      ui->tableWidget_results->setItem(i, 0, name);
+      QStringList prisms = QString::fromStdString(liste_bcam->at(i).Get_objet_vise()).split('_');
+      // Example:  PR001, PR001_PR023 or PR010_PR034_2_PR045
 
-      QTableWidgetItem *bcam = new QTableWidgetItem();
-      bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
-      ui->tableWidget_results->setItem(i, 1, bcam);
+      for (int j=0; j<prisms.size(); j++) {
+          if (prisms[j].startsWith("PR")) {
+              QTableWidgetItem *name = new QTableWidgetItem();
+              name->setText(QString::fromStdString(m_bdd.getName(prisms[j].toStdString())));
+              ui->tableWidget_results->setItem(row, 0, name);
 
-      QTableWidgetItem *prism = new QTableWidgetItem();
-      prism->setText(QString::fromStdString(liste_bcam->at(i).Get_objet_vise()));
-      ui->tableWidget_results->setItem(i, 2, prism);
+              QTableWidgetItem *bcam = new QTableWidgetItem();
+              bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
+              ui->tableWidget_results->setItem(row, 1, bcam);
 
-      QTableWidgetItem *n = new QTableWidgetItem(QString::number(0));
-      ui->tableWidget_results->setItem(i, 3, n);
+              QTableWidgetItem *prism = new QTableWidgetItem();
+              prism->setText(prisms[j]);
+              ui->tableWidget_results->setItem(row, 2, prism);
 
-      setResult(i, Point3f(), 0);
-      setResult(i, Point3f(), 1);
-      setResult(i, Point3f(), 2);
+              QTableWidgetItem *n = new QTableWidgetItem(QString::number(0));
+              ui->tableWidget_results->setItem(row, 3, n);
+
+              setResult(row, Point3f(), 0);
+              setResult(row, Point3f(), 1);
+              setResult(row, Point3f(), 2);
+
+              row++;
+          }
+      }
     }
+
+    ui->tableWidget_results->setRowCount(row);
+    ui->tableWidget_liste_bcams->resizeColumnsToContents();
     ui->tableWidget_results->resizeColumnsToContents();
 
     setEnabled(true);
