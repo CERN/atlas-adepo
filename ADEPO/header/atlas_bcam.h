@@ -98,6 +98,7 @@ private:
     bool needToCalculateResults;
     LWDAQ_Client::state previousState;
 
+    QString appDirPath();
     void openInputDir();
     void setResult(int row, Point3f point, int columnSet);
     void calculateResults(bdd &base_donnees, std::map<std::string, result> &results);

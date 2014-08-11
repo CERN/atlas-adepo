@@ -61,7 +61,7 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ATLAS_BCAM)                                                                        //[---> ok
 {
-        QString appPath = qApp->applicationDirPath();
+        QString appPath = appDirPath();
         std::cout << appPath.toStdString() << std::endl;
 
         // connect to LWDAQ server
@@ -140,6 +140,15 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 ATLAS_BCAM::~ATLAS_BCAM()
 {
     delete ui;
+}
+
+QString ATLAS_BCAM::appDirPath() {
+    QString appPath = qApp->applicationDirPath();
+    if (appPath.endsWith("/Contents/MacOS")) {
+        QDir dir(appPath + "/../../..");
+        appPath = dir.absolutePath();
+    }
+    return appPath;
 }
 
 void ATLAS_BCAM::lwdaqStateChanged() {
@@ -335,7 +344,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
         liste_bcam->insert(liste_bcam->begin(), m_liste_bcam->begin(), m_liste_bcam->end());
 
         //ecriture du script d'acquisition des detecteurs selectionnees
-        write_script_file(qApp->applicationDirPath()+"/"+fichier_script, *liste_bcam);
+        write_script_file(appDirPath()+"/"+fichier_script, *liste_bcam);
 
         //on supprime le pointeur a la fin
         delete m_liste_bcam;
@@ -423,7 +432,7 @@ void ATLAS_BCAM::lancer_acquisition()
 {
     setEnabled(false);
 
-    QString dir = qApp->applicationDirPath();
+    QString dir = appDirPath();
 
     write_params_file(dir + "/" + DEFAULT_PARAM_FILE);
 
@@ -495,7 +504,7 @@ void ATLAS_BCAM::calcul_coord()
    time_t t = time(NULL);
    char* tps_calcul = asctime(localtime(&t));
 
-   std::string resultMountFileName = qApp->applicationDirPath().toStdString().
+   std::string resultMountFileName = appDirPath().toStdString().
            append("/Archive/Observations_MOUNT_System_").
            append(tps_calcul, strlen(tps_calcul)-1).
            append(".txt");
@@ -951,7 +960,7 @@ int ATLAS_BCAM::write_settings_file(QString settings_file)
            <<"set Acquisifier_config(analyze) \"0\" \n"
            <<"set Acquisifier_config(auto_run) \"0\" \n"
            <<"set Acquisifier_config(cycle_period_seconds) \"0\" \n"
-           <<"set Acquisifier_config(daq_script) \""<<qApp->applicationDirPath().append("/").append(fichier_script).toStdString()<<"\" \n"
+           <<"set Acquisifier_config(daq_script) \""<<appDirPath().append("/").append(fichier_script).toStdString()<<"\" \n"
            <<"set Acquisifier_config(analysis_color) \"green\" \n"
            <<"set Acquisifier_config(auto_quit) \"0\" \n"
            <<"set Acquisifier_config(result_color) \"green\" \n"
