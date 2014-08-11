@@ -1,0 +1,2 @@
+#!/bin/sh
+ps -ef | grep -e ADEPO -e tclsh | grep -v 'grep -e ADEPO -e tclsh' | grep -v 'ADEPO-check'
