@@ -1,2 +1,1 @@
-#!/bin/sh
-/det/ti/PosMov/LWDAQ/lwdaq --gui /det/ti/PosMov/LWDAQ/server.tcl
+../bin/lwdaq-server-gui

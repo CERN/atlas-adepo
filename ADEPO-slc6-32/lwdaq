@@ -1,2 +1,1 @@
-#!/bin/sh
-/det/ti/PosMov/LWDAQ/lwdaq --no-console /det/ti/PosMov/LWDAQ/server.tcl
+../bin/lwdaq
