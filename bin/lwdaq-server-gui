@@ -1,2 +1,4 @@
 #!/bin/sh
-/det/ti/PosMov/LWDAQ/lwdaq --gui /det/ti/PosMov/LWDAQ/server.tcl
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+$SCRIPTPATH/../LWDAQ/lwdaq --gui $SCRIPTPATH/../server.tcl

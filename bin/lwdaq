@@ -1,2 +1,4 @@
 #!/bin/sh
-../LWDAQ/lwdaq --no-console ../server.tcl
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+$SCRIPTPATH/../LWDAQ/lwdaq --no-console $SCRIPTPATH/../server.tcl
