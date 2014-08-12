@@ -277,7 +277,7 @@
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0">
+              <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0">
                <item>
                 <widget class="QTableWidget" name="tableWidget_liste_bcams">
                  <property name="sizePolicy">
@@ -377,6 +377,16 @@
                    <string>PRISM</string>
                   </property>
                  </column>
+                </widget>
+               </item>
+               <item>
+                <widget class="QGraphicsView" name="bcamImage">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                 </widget>
                </item>
               </layout>
