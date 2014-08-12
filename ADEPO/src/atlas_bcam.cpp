@@ -160,6 +160,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
     QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(
                  ui->tableWidget_liste_bcams->item(row, 4)->text());
     ui->bcamLabel->setText(name);
+    QPixmapCache::clear();
     QString imageName = lwdaqDir.absolutePath().append("/Tools/Data/").append(name).append(".gif");
 //    QList<QByteArray> list = QImageReader::supportedImageFormats();
 //    for (int i=0; i<list.size(); i++) {
