@@ -2107,6 +2107,8 @@ atlas_bcam.o: ../ADEPO/src/atlas_bcam.cpp ../ADEPO/header/atlas_bcam.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QButtonGroup \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qbuttongroup.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QCheckBox \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qcheckbox.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QComboBox \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qcombobox.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qabstractitemdelegate.h \
