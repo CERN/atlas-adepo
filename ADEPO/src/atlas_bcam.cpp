@@ -779,7 +779,7 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
                <<" puts $f $result \n"
                <<" close $f \n"
                <<" LWDAQ_print $info(text) \"Appended modified result to [file tail $config(run_results)].\" blue ;  \n"
-               <<" set fn [file join [file dirname $config(adepo_dir)] $name.gif] \n"
+               <<" set fn [file join [file dirname $config(run_results)] $name.gif] \n"
                <<" LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
                <<" LWDAQ_print $info(text) \"Saved raw image to $fn\" blue ; \n"
                <<" } \n"
@@ -966,7 +966,8 @@ int ATLAS_BCAM::write_settings_file(QString settings_file)
            <<"set Acquisifier_config(result_color) \"green\" \n"
            <<"set Acquisifier_config(num_steps_show) \"20\" \n"
            <<"set Acquisifier_config(num_lines_keep) \"1000\" \n"
-           <<"set Acquisifier_config(restore_instruments) \"0\" \n";
+           <<"set Acquisifier_config(restore_instruments) \"0\" \n"
+           <<"set config(run_results) \""<<appDirPath().append("/").append("Acquisifier_Results.txt").toStdString()<<"\" \n";
 
       fichier.close();
       return 1;
@@ -1036,9 +1037,7 @@ int ATLAS_BCAM::write_params_file(QString params_file)
            <<"set LWDAQ_config_BCAM(analysis_enable) \"1\" \n"
            <<"set LWDAQ_config_BCAM(verbose_result) \"0\" \n"
            <<"set LWDAQ_config_BCAM(daq_device_element) \"2\" \n"
-           <<"set LWDAQ_config_BCAM(daq_mux_socket) \"1\" \n"
-           <<"set config(adepo_dir) \""<<appDirPath().toStdString()<<"\" \n";
-
+           <<"set LWDAQ_config_BCAM(daq_mux_socket) \"1\" \n";
 
     fichier.close();
     return 1;
