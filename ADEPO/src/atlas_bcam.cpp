@@ -214,7 +214,6 @@ void ATLAS_BCAM::setEnabled(bool enabled) {
     ui->comboBox->setEnabled(enabled);
     ui->comboBox_2->setEnabled(enabled);
     ui->spinBox->setEnabled(enabled);
-    ui->tableWidget_liste_bcams->setEnabled(enabled);
 }
 
 //ouverture d'une boite de dialogue                                                                 [----> ok
@@ -966,8 +965,7 @@ int ATLAS_BCAM::write_settings_file(QString settings_file)
            <<"set Acquisifier_config(result_color) \"green\" \n"
            <<"set Acquisifier_config(num_steps_show) \"20\" \n"
            <<"set Acquisifier_config(num_lines_keep) \"1000\" \n"
-           <<"set Acquisifier_config(restore_instruments) \"0\" \n"
-           <<"set config(run_results) \""<<appDirPath().append("/").append("Acquisifier_Results.txt").toStdString()<<"\" \n";
+           <<"set Acquisifier_config(restore_instruments) \"0\" \n";
 
       fichier.close();
       return 1;
