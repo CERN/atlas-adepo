@@ -160,7 +160,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
     QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(
                  ui->tableWidget_liste_bcams->item(row, 4)->text());
     ui->bcamLabel->setText(name);
-    QString imageName = lwdaqDir.absolutePath().append("/Tools/Data/").append(name).append(".gif");
+    QString imageName = QString("/det/ti/PosMov/git/atlas-adepo/LWDAQ_8.2").append("/Tools/Data/").append(name).append(".gif");
     std::cout << imageName.toStdString() << std::endl;
     QPixmap pix(imageName);
     ui->bcamImage->setPixmap(pix);
