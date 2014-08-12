@@ -2,3 +2,4 @@
 *.pro.user
 /LWDAQ_8.1/Tools/Data/Acquisifier_Results.txt
 /LWDAQ_8.2/Tools/Data/Acquisifier_Results.txt
+/LWDAQ_8.2/Tools/Data/*.gif
