@@ -126,7 +126,11 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
             std::cout << "Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
         }
 
-        resultFile.setFileName(lwdaqDir.absolutePath().append("/Tools").append("/Data/").append("Acquisifier_Results.txt"));
+        resultFile.setFileName(lwdaqDir.absolutePath().append("/Tools/Data/").append("Acquisifier_Results.txt"));
+        imageName = lwdaqDir.absolutePath().append("/Tools/Data/").append("20MABNDB000126_PR028.gif");
+
+        QPixmap pix(imageName);
+        ui->bcamImage->setPixmap(pix);
 
         lwdaq_client->init();
 
