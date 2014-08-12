@@ -966,8 +966,8 @@ int ATLAS_BCAM::write_settings_file(QString settings_file)
            <<"set Acquisifier_config(result_color) \"green\" \n"
            <<"set Acquisifier_config(num_steps_show) \"20\" \n"
            <<"set Acquisifier_config(num_lines_keep) \"1000\" \n"
-           <<"set Acquisifier_config(restore_instruments) \"0\" \n";
-           <<"set Acquisifier_config(adepo_dir) \""<<appDirPath()<<"\" \n";
+           <<"set Acquisifier_config(restore_instruments) \"0\" \n"
+           <<"set Acquisifier_config(adepo_dir) \""<<appDirPath().toStdString()<<"\" \n";
 
       fichier.close();
       return 1;
