@@ -161,7 +161,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
                  ui->tableWidget_liste_bcams->item(row, 4)->text());
     ui->bcamLabel->setText(name);
     QString imageName = lwdaqDir.absolutePath().append("/Tools/Data/").append(name).append(".gif");
-    std::cout << imageName << std::endl;
+    std::cout << imageName.toStdString() << std::endl;
     QPixmap pix(imageName);
     ui->bcamImage->setPixmap(pix);
 }
