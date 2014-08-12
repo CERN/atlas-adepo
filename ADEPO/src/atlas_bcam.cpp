@@ -158,7 +158,7 @@ QString ATLAS_BCAM::appDirPath() {
 }
 
 void ATLAS_BCAM::showBCAM(int row, int /* column */) {
-    std::cout << ui->tableWidget_liste_bcams->itemAt(row, 0)->text().toStdString() << " "
+    std::cout << row << " " << ui->tableWidget_liste_bcams->itemAt(row, 0)->text().toStdString() << " "
                  << ui->tableWidget_liste_bcams->itemAt(row, 4)->text().toStdString() << std::endl;
 }
 
