@@ -315,7 +315,7 @@ void ATLAS_BCAM::remplir_tableau_detectors()
         item_nom->setText(QString::fromStdString(detectors_data.at(i).Get_nom_detector()));
         ui->tableWidget_liste_detectors->setItem(i,1,item_nom);
 
-        //ajout de la constante de aipad
+        //ajout de la constante de airpad
         QTableWidgetItem *item_dist_const = new QTableWidgetItem();
         item_dist_const->setData(0,detectors_data.at(i).Get_airpad_on_add_dist());
         ui->tableWidget_liste_detectors->setItem(i,2,item_dist_const);

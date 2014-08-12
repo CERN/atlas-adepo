@@ -1,3 +1,4 @@
+#include "adepo.h"
 #include "calcul_coord_bcam_system.h"
 
 #define mm2m 0.001
@@ -91,8 +92,10 @@ void calcul_coord_bcam_system(bdd & base_donnees)
     }
 
     //affichage base donnee des coordonnees des prismes dans le systeme MOUNT
-    /*for(int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
+#ifdef ADEPO_DEBUG
+    for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
     {
         base_donnees.Get_liste_mount_coord_prism().at(i).Affiche();
-    }*/
+    }
+#endif
 }

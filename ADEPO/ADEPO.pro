@@ -1,4 +1,5 @@
 HEADERS += \
+    header/adepo.h \
     header/write_file_obs_mount_system.h \
     header/spot.h \
     header/read_lwdaq_output.h \
@@ -26,7 +27,8 @@ HEADERS += \
     header/mount_prism_to_global_prism.h \
     header/prism_correction.h \
     header/result.h \
-    header/lwdaq_client.h
+    header/lwdaq_client.h \
+    header/adepo.h
 
 SOURCES += \
     src/write_file_obs_mount_system.cpp \

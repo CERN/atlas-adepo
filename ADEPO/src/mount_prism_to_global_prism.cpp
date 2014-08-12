@@ -1,3 +1,4 @@
+#include "adepo.h"
 #include "mount_prism_to_global_prism.h"
 #include "changement_repere.h"
 
@@ -19,10 +20,12 @@ void mount_prism_to_global_prism(bdd & base_donnees)
     }
 
     //affichage base de donnee des prismes dans le repere global
-    /*for(int k=0; k<base_donnees.Get_liste_global_coord_prism().size(); k++)
+#ifdef ADEPO_DEBUG
+    for(unsigned int k=0; k<base_donnees.Get_liste_global_coord_prism().size(); k++)
     {
         base_donnees.Get_liste_global_coord_prism().at(k).Affiche();
-    }*/
+    }
+#endif
 
     if (!found) {
         std::cout << "WARNING: no mount_prism_to_global_prism found, some setup file may be missing..." << std::endl;
