@@ -91,6 +91,7 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         //clic detecteur-affichage bcam
         QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)),this, SLOT(affiche_liste_BCAMs(int,int)));
+        QObject::connect(ui->tableWidget_liste_bcams, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAM(int,int)));
 
         //lancer les acquisitions (arret automoatique)
         QObject::connect(ui->Boutton_lancer,SIGNAL(clicked()), this,SLOT(startCalcul()));
@@ -154,6 +155,11 @@ QString ATLAS_BCAM::appDirPath() {
         appPath = dir.absolutePath();
     }
     return appPath;
+}
+
+void ATLAS_BCAM::showBCAM(int row, int /* column */) {
+    std::cout << ui->tableWidget_liste_bcams->itemAt(row, 0)->text().toStdString() << " "
+                 << ui->tableWidget_liste_bcams->itemAt(row, 4)->text().toStdString() << std::endl;
 }
 
 void ATLAS_BCAM::lwdaqStateChanged() {
@@ -423,7 +429,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
 
     setEnabled(true);
     if (ui->tableWidget_liste_bcams->rowCount() > 0) {
-        ui->tableWidget_liste_bcams->selectRow(1);
+        ui->tableWidget_liste_bcams->selectRow(0);
     }
 }
 

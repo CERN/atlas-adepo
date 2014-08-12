@@ -58,6 +58,7 @@ public slots:
 
     //fonction qui affiche les BCAMs qui qppqrtiennent a la liste de detecteurs selectionnes
     void affiche_liste_BCAMs(int ligne, int colonne);
+    void showBCAM(int row, int);
 
     //fonction qui lance les acquisitions lorsqu'on clicke sur le boutton correspondant
     void lancer_acquisition();
