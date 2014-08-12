@@ -93,10 +93,10 @@ private:
     QString path_fich;
     mythread *thread; // this is our thread
     std::map<std::string, result> results;
+    int selectedBCAM;
 
     QDir lwdaqDir;
     QFile resultFile;
-    QString imageName;
     LWDAQ_Client *lwdaq_client;
     QLabel lwdaqStatus;
     bool needToCalculateResults;

@@ -130,12 +130,10 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         }
 
         resultFile.setFileName(lwdaqDir.absolutePath().append("/Tools/Data/").append("Acquisifier_Results.txt"));
-        imageName = lwdaqDir.absolutePath().append("/Tools/Data/").append("20MABNDB000126_PR028.gif");
-
-        QPixmap pix(imageName);
-        ui->bcamImage->setPixmap(pix);
 
         lwdaq_client->init();
+
+        ui->tabWidget->setCurrentIndex(0);
 
         path_input_folder = settings.value("input_folder").toString();
         if (path_input_folder != NULL) {
@@ -158,8 +156,13 @@ QString ATLAS_BCAM::appDirPath() {
 }
 
 void ATLAS_BCAM::showBCAM(int row, int /* column */) {
-    std::cout << row << " " << ui->tableWidget_liste_bcams->itemAt(row, 0)->text().toStdString() << " "
-                 << ui->tableWidget_liste_bcams->itemAt(row, 4)->text().toStdString() << std::endl;
+    selectedBCAM = row;
+    QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(
+                 ui->tableWidget_liste_bcams->item(row, 4)->text());
+    ui->bcamLabel->setText(name);
+    QString imageName = lwdaqDir.absolutePath().append("/Tools/Data/").append(name).append(".gif");
+    QPixmap pix(imageName);
+    ui->bcamImage->setPixmap(pix);
 }
 
 void ATLAS_BCAM::lwdaqStateChanged() {
@@ -209,6 +212,7 @@ void ATLAS_BCAM::lwdaqStateChanged() {
 void ATLAS_BCAM::lwdaqTimeChanged() {
    QMainWindow::statusBar()->showMessage(QString("ADEPO ").append(QString::number(lwdaq_client->getRemainingTime()/1000)).
                                           append(" seconds remaining..."));
+   showBCAM(selectedBCAM, 0);
 }
 
 void ATLAS_BCAM::setEnabled(bool enabled) {
@@ -430,6 +434,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
     setEnabled(true);
     if (ui->tableWidget_liste_bcams->rowCount() > 0) {
         ui->tableWidget_liste_bcams->selectRow(0);
+        showBCAM(0, 0);
     }
 }
 
