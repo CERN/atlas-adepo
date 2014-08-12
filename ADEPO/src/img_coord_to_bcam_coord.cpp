@@ -1,3 +1,4 @@
+#include "adepo.h"
 #include "img_coord_to_bcam_coord.h"
 #include "Eigen/Core"
 
@@ -99,10 +100,12 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
     }
 
     //affichage de la base de donnees qui contient les observations transformees dans le repere MOUNT
-    /*for(int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++)
+#ifdef ADEPO_DEBUG
+    for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++)
     {
         base_donnees.Get_liste_mount_coord_spots().at(i).Affiche();
-    }*/
+    }
+#endif
 
     if (!found) {
         std::cout << "WARNING: no img_coord_to_bcam_coord found, some setup file may be missing..." << std::endl;

@@ -76,6 +76,8 @@ public slots:
 
     void resetDelta();
 
+    void changeFormat();
+
 
 signals:
 
@@ -93,6 +95,7 @@ private:
 
     QDir lwdaqDir;
     QFile resultFile;
+    QString imageName;
     LWDAQ_Client *lwdaq_client;
     QLabel lwdaqStatus;
     bool needToCalculateResults;
@@ -100,7 +103,7 @@ private:
 
     QString appDirPath();
     void openInputDir();
-    void setResult(int row, Point3f point, int columnSet);
+    void setResult(int row, Point3f point, int columnSet, int precision);
     void calculateResults(bdd &base_donnees, std::map<std::string, result> &results);
     void updateResults(std::map<std::string, result> &results);
     void setEnabled(bool enabled);

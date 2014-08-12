@@ -558,7 +558,7 @@ ADEPO.app/Contents/Info.plist:
 	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@ICON@,,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.ADEPO,g" -e "s,@EXECUTABLE@,ADEPO,g" -e "s,@TYPEINFO@,????,g" ../../../../Qt5.3.0/5.3/clang_64/mkspecs/macx-clang/Info.plist.app >ADEPO.app/Contents/Info.plist
 dist: 
 	@test -d .tmp/ADEPO1.0.0 || mkdir -p .tmp/ADEPO1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/header/write_file_obs_mount_system.h ../ADEPO/header/spot.h ../ADEPO/header/read_lwdaq_output.h ../ADEPO/header/read_input.h ../ADEPO/header/read_calibration_database.h ../ADEPO/header/Point3f.h ../ADEPO/header/mount_coord_spots.h ../ADEPO/header/mount_coord_prism.h ../ADEPO/header/liste_bcam_from_id_detector.h ../ADEPO/header/img_coord_to_bcam_coord.h ../ADEPO/header/detector.h ../ADEPO/header/clean_calib.h ../ADEPO/header/calib2.h ../ADEPO/header/calib1.h ../ADEPO/header/calcul_coord_bcam_system.h ../ADEPO/header/bdd.h ../ADEPO/header/bcam.h ../ADEPO/header/atlas_bcam.h ../ADEPO/header/bcam_adaptateur.h ../ADEPO/header/absolutes_distances.h ../ADEPO/header/atlas_coordinates.h ../ADEPO/header/helmert.h ../ADEPO/header/bcam_params.h ../ADEPO/header/changement_repere.h ../ADEPO/header/mount_prism_to_global_prism.h ../ADEPO/header/prism_correction.h ../ADEPO/header/result.h ../ADEPO/header/lwdaq_client.h .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/src/write_file_obs_mount_system.cpp ../ADEPO/src/spot.cpp ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/src/read_input.cpp ../ADEPO/src/read_calibration_database.cpp ../ADEPO/src/Point3f.cpp ../ADEPO/src/mount_coord_spots.cpp ../ADEPO/src/mount_coord_prism.cpp ../ADEPO/src/liste_bcam_from_id_detector.cpp ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/src/detector.cpp ../ADEPO/src/clean_calib.cpp ../ADEPO/src/calib2.cpp ../ADEPO/src/calib1.cpp ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/src/bdd.cpp ../ADEPO/src/bcam.cpp ../ADEPO/src/atlas_bcam.cpp ../ADEPO/src/main.cpp ../ADEPO/src/bcam_adaptateur.cpp ../ADEPO/src/absolutes_distances.cpp ../ADEPO/src/atlas_coordinates.cpp ../ADEPO/src/helmert.cpp ../ADEPO/src/bcam_params.cpp ../ADEPO/src/changement_repere.cpp ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/src/prism_correction.cpp ../ADEPO/src/lwdaq_client.cpp .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/ATLAS_BCAM.ui .tmp/ADEPO1.0.0/ && (cd `dirname .tmp/ADEPO1.0.0` && $(TAR) ADEPO1.0.0.tar ADEPO1.0.0 && $(COMPRESS) ADEPO1.0.0.tar) && $(MOVE) `dirname .tmp/ADEPO1.0.0`/ADEPO1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ADEPO1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/header/adepo.h ../ADEPO/header/write_file_obs_mount_system.h ../ADEPO/header/spot.h ../ADEPO/header/read_lwdaq_output.h ../ADEPO/header/read_input.h ../ADEPO/header/read_calibration_database.h ../ADEPO/header/Point3f.h ../ADEPO/header/mount_coord_spots.h ../ADEPO/header/mount_coord_prism.h ../ADEPO/header/liste_bcam_from_id_detector.h ../ADEPO/header/img_coord_to_bcam_coord.h ../ADEPO/header/detector.h ../ADEPO/header/clean_calib.h ../ADEPO/header/calib2.h ../ADEPO/header/calib1.h ../ADEPO/header/calcul_coord_bcam_system.h ../ADEPO/header/bdd.h ../ADEPO/header/bcam.h ../ADEPO/header/atlas_bcam.h ../ADEPO/header/bcam_adaptateur.h ../ADEPO/header/absolutes_distances.h ../ADEPO/header/atlas_coordinates.h ../ADEPO/header/helmert.h ../ADEPO/header/bcam_params.h ../ADEPO/header/changement_repere.h ../ADEPO/header/mount_prism_to_global_prism.h ../ADEPO/header/prism_correction.h ../ADEPO/header/result.h ../ADEPO/header/lwdaq_client.h ../ADEPO/header/adepo.h .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/src/write_file_obs_mount_system.cpp ../ADEPO/src/spot.cpp ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/src/read_input.cpp ../ADEPO/src/read_calibration_database.cpp ../ADEPO/src/Point3f.cpp ../ADEPO/src/mount_coord_spots.cpp ../ADEPO/src/mount_coord_prism.cpp ../ADEPO/src/liste_bcam_from_id_detector.cpp ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/src/detector.cpp ../ADEPO/src/clean_calib.cpp ../ADEPO/src/calib2.cpp ../ADEPO/src/calib1.cpp ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/src/bdd.cpp ../ADEPO/src/bcam.cpp ../ADEPO/src/atlas_bcam.cpp ../ADEPO/src/main.cpp ../ADEPO/src/bcam_adaptateur.cpp ../ADEPO/src/absolutes_distances.cpp ../ADEPO/src/atlas_coordinates.cpp ../ADEPO/src/helmert.cpp ../ADEPO/src/bcam_params.cpp ../ADEPO/src/changement_repere.cpp ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/src/prism_correction.cpp ../ADEPO/src/lwdaq_client.cpp .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/ATLAS_BCAM.ui .tmp/ADEPO1.0.0/ && (cd `dirname .tmp/ADEPO1.0.0` && $(TAR) ADEPO1.0.0.tar ADEPO1.0.0 && $(COMPRESS) ADEPO1.0.0.tar) && $(MOVE) `dirname .tmp/ADEPO1.0.0`/ADEPO1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ADEPO1.0.0
 
 
 clean:compiler_clean 
@@ -1106,7 +1106,8 @@ liste_bcam_from_id_detector.o: ../ADEPO/src/liste_bcam_from_id_detector.cpp ../A
 		../ADEPO/header/prism_correction.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o liste_bcam_from_id_detector.o ../ADEPO/src/liste_bcam_from_id_detector.cpp
 
-img_coord_to_bcam_coord.o: ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/header/img_coord_to_bcam_coord.h \
+img_coord_to_bcam_coord.o: ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/header/adepo.h \
+		../ADEPO/header/img_coord_to_bcam_coord.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
 		../ADEPO/header/bcam.h \
@@ -1272,7 +1273,8 @@ calib1.o: ../ADEPO/src/calib1.cpp ../ADEPO/header/calib1.h \
 		../ADEPO/header/Point3f.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calib1.o ../ADEPO/src/calib1.cpp
 
-calcul_coord_bcam_system.o: ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/header/calcul_coord_bcam_system.h \
+calcul_coord_bcam_system.o: ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/header/adepo.h \
+		../ADEPO/header/calcul_coord_bcam_system.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
 		../ADEPO/header/bcam.h \
@@ -2237,7 +2239,8 @@ changement_repere.o: ../ADEPO/src/changement_repere.cpp ../ADEPO/header/changeme
 		../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/LU.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o changement_repere.o ../ADEPO/src/changement_repere.cpp
 
-mount_prism_to_global_prism.o: ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/header/mount_prism_to_global_prism.h \
+mount_prism_to_global_prism.o: ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/header/adepo.h \
+		../ADEPO/header/mount_prism_to_global_prism.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
 		../ADEPO/header/bcam.h \

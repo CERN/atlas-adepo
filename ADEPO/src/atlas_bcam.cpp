@@ -104,6 +104,8 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
 
+        QObject::connect(ui->fullPrecision,SIGNAL(clicked()),this,SLOT(changeFormat()));
+
         //recuperer la valeur du temps d'acquisition
         QObject::connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(save_time_value()));
 
@@ -126,7 +128,11 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
             std::cout << "Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
         }
 
-        resultFile.setFileName(lwdaqDir.absolutePath().append("/Tools").append("/Data/").append("Acquisifier_Results.txt"));
+        resultFile.setFileName(lwdaqDir.absolutePath().append("/Tools/Data/").append("Acquisifier_Results.txt"));
+        imageName = lwdaqDir.absolutePath().append("/Tools/Data/").append("20MABNDB000126_PR028.gif");
+
+        QPixmap pix(imageName);
+        ui->bcamImage->setPixmap(pix);
 
         lwdaq_client->init();
 
@@ -134,7 +140,6 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         if (path_input_folder != NULL) {
             openInputDir();
         }
-
 }
 
 ATLAS_BCAM::~ATLAS_BCAM()
@@ -214,7 +219,6 @@ void ATLAS_BCAM::setEnabled(bool enabled) {
     ui->comboBox->setEnabled(enabled);
     ui->comboBox_2->setEnabled(enabled);
     ui->spinBox->setEnabled(enabled);
-    ui->tableWidget_liste_bcams->setEnabled(enabled);
 }
 
 //ouverture d'une boite de dialogue                                                                 [----> ok
@@ -311,7 +315,7 @@ void ATLAS_BCAM::remplir_tableau_detectors()
         item_nom->setText(QString::fromStdString(detectors_data.at(i).Get_nom_detector()));
         ui->tableWidget_liste_detectors->setItem(i,1,item_nom);
 
-        //ajout de la constante de aipad
+        //ajout de la constante de airpad
         QTableWidgetItem *item_dist_const = new QTableWidgetItem();
         item_dist_const->setData(0,detectors_data.at(i).Get_airpad_on_add_dist());
         ui->tableWidget_liste_detectors->setItem(i,2,item_dist_const);
@@ -398,9 +402,15 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
               QTableWidgetItem *n = new QTableWidgetItem(QString::number(0));
               ui->tableWidget_results->setItem(row, 3, n);
 
-              setResult(row, Point3f(), 0);
-              setResult(row, Point3f(), 1);
-              setResult(row, Point3f(), 2);
+              if (ui->fullPrecision->isChecked()) {
+                  setResult(row, Point3f(), 0, 8);
+                  setResult(row, Point3f(), 1, 8);
+                  setResult(row, Point3f(), 2, 8);
+              } else {
+                  setResult(row, Point3f(), 0, 6);
+                  setResult(row, Point3f(), 1, 3);
+                  setResult(row, Point3f(), 2, 3);
+              }
 
               row++;
           }
@@ -414,16 +424,16 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
     setEnabled(true);
 }
 
-void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet) {
+void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision) {
     int firstColumn = 4;
 
-    QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X(), 'f', 8));
+    QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X(), 'f', precision));
     ui->tableWidget_results->setItem(row, firstColumn + (columnSet * 3), x);
 
-    QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y(), 'f', 8));
+    QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y(), 'f', precision));
     ui->tableWidget_results->setItem(row, firstColumn + 1 + (columnSet * 3), y);
 
-    QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z(), 'f', 8));
+    QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z(), 'f', precision));
     ui->tableWidget_results->setItem(row, firstColumn + 2 + (columnSet * 3), z);
 }
 
@@ -463,6 +473,10 @@ void ATLAS_BCAM::resetDelta() {
     for (std::map<std::string, result>::iterator i = results.begin(); i != results.end(); i++) {
         i->second.setOffset();
     }
+    updateResults(results);
+}
+
+void ATLAS_BCAM::changeFormat() {
     updateResults(results);
 }
 
@@ -599,9 +613,16 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
         result& r = results[prism];
         QTableWidgetItem *n = new QTableWidgetItem(QString::number(r.n));
         ui->tableWidget_results->setItem(row, 3, n);
-        setResult(row, r.value, 0);
-        setResult(row, r.std, 1);
-        setResult(row, Point3f(Point3f(r.value, r.offset), 1000), 2);
+
+        if (ui->fullPrecision->isChecked()) {
+            setResult(row, r.value, 0, 8);
+            setResult(row, r.std, 1, 8);
+            setResult(row, Point3f(Point3f(r.value, r.offset), 1000), 2, 8);
+        } else {
+            setResult(row, r.value, 0, 6);
+            setResult(row, r.std, 1, 3);
+            setResult(row, Point3f(Point3f(r.value, r.offset), 1000), 2, 3);
+        }
     }
     ui->tableWidget_results->resizeColumnsToContents();
 }
@@ -966,8 +987,7 @@ int ATLAS_BCAM::write_settings_file(QString settings_file)
            <<"set Acquisifier_config(result_color) \"green\" \n"
            <<"set Acquisifier_config(num_steps_show) \"20\" \n"
            <<"set Acquisifier_config(num_lines_keep) \"1000\" \n"
-           <<"set Acquisifier_config(restore_instruments) \"0\" \n"
-           <<"set config(run_results) \""<<appDirPath().append("/").append("Acquisifier_Results.txt").toStdString()<<"\" \n";
+           <<"set Acquisifier_config(restore_instruments) \"0\" \n";
 
       fichier.close();
       return 1;
