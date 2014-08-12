@@ -104,6 +104,8 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
 
+        QObject::connect(ui->fullPrecision,SIGNAL(clicked()),this,SLOT(changeFormat()));
+
         //recuperer la valeur du temps d'acquisition
         QObject::connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(save_time_value()));
 
@@ -138,7 +140,6 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         if (path_input_folder != NULL) {
             openInputDir();
         }
-
 }
 
 ATLAS_BCAM::~ATLAS_BCAM()
@@ -401,9 +402,15 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
               QTableWidgetItem *n = new QTableWidgetItem(QString::number(0));
               ui->tableWidget_results->setItem(row, 3, n);
 
-              setResult(row, Point3f(), 0);
-              setResult(row, Point3f(), 1);
-              setResult(row, Point3f(), 2);
+              if (ui->fullPrecision->isChecked()) {
+                  setResult(row, Point3f(), 0, 8);
+                  setResult(row, Point3f(), 1, 8);
+                  setResult(row, Point3f(), 2, 8);
+              } else {
+                  setResult(row, Point3f(), 0, 6);
+                  setResult(row, Point3f(), 1, 3);
+                  setResult(row, Point3f(), 2, 3);
+              }
 
               row++;
           }
@@ -417,16 +424,16 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
     setEnabled(true);
 }
 
-void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet) {
+void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision) {
     int firstColumn = 4;
 
-    QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X(), 'f', 8));
+    QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X(), 'f', precision));
     ui->tableWidget_results->setItem(row, firstColumn + (columnSet * 3), x);
 
-    QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y(), 'f', 8));
+    QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y(), 'f', precision));
     ui->tableWidget_results->setItem(row, firstColumn + 1 + (columnSet * 3), y);
 
-    QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z(), 'f', 8));
+    QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z(), 'f', precision));
     ui->tableWidget_results->setItem(row, firstColumn + 2 + (columnSet * 3), z);
 }
 
@@ -466,6 +473,10 @@ void ATLAS_BCAM::resetDelta() {
     for (std::map<std::string, result>::iterator i = results.begin(); i != results.end(); i++) {
         i->second.setOffset();
     }
+    updateResults(results);
+}
+
+void ATLAS_BCAM::changeFormat() {
     updateResults(results);
 }
 
@@ -602,9 +613,16 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
         result& r = results[prism];
         QTableWidgetItem *n = new QTableWidgetItem(QString::number(r.n));
         ui->tableWidget_results->setItem(row, 3, n);
-        setResult(row, r.value, 0);
-        setResult(row, r.std, 1);
-        setResult(row, Point3f(Point3f(r.value, r.offset), 1000), 2);
+
+        if (ui->fullPrecision->isChecked()) {
+            setResult(row, r.value, 0, 8);
+            setResult(row, r.std, 1, 8);
+            setResult(row, Point3f(Point3f(r.value, r.offset), 1000), 2, 8);
+        } else {
+            setResult(row, r.value, 0, 6);
+            setResult(row, r.std, 1, 3);
+            setResult(row, Point3f(Point3f(r.value, r.offset), 1000), 2, 3);
+        }
     }
     ui->tableWidget_results->resizeColumnsToContents();
 }

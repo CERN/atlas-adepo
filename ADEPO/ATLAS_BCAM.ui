@@ -28,7 +28,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -96,7 +96,7 @@
                   <bool>true</bool>
                  </property>
                  <attribute name="horizontalHeaderVisible">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </attribute>
                  <attribute name="horizontalHeaderCascadingSectionResizes">
                   <bool>false</bool>
@@ -154,7 +154,7 @@
                  </column>
                  <column>
                   <property name="text">
-                   <string>AIRPAD CONSTANT</string>
+                   <string>AIRPAD CONSTANT (m)</string>
                   </property>
                   <property name="textAlignment">
                    <set>AlignHCenter|AlignVCenter|AlignCenter</set>
@@ -320,7 +320,7 @@
                   <bool>true</bool>
                  </property>
                  <attribute name="horizontalHeaderVisible">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </attribute>
                  <attribute name="horizontalHeaderDefaultSectionSize">
                   <number>160</number>
@@ -534,17 +534,17 @@
             </column>
             <column>
              <property name="text">
-              <string>Sigma X</string>
+              <string>Sigma X (mm)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Sigma Y</string>
+              <string>Sigma Y (mm)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Sigma Z</string>
+              <string>Sigma Z (mm)</string>
              </property>
             </column>
             <column>
