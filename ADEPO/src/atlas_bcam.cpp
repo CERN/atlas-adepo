@@ -779,9 +779,9 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
                <<" puts $f $result \n"
                <<" close $f \n"
                <<" LWDAQ_print $info(text) \"Appended modified result to [file tail $config(run_results)].\" blue ;  \n"
-               <<" set fn [file join [file dirname $config(run_results)] $name.lwdaq] \n"
-               <<" # LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
-               <<" LWDAQ_print $info(text) \"Saved raw image to [file tail $fn]\" blue ; \n"
+               <<" set fn [file join [file dirname $config(adepo_dir)] $name.gif] \n"
+               <<" LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
+               <<" LWDAQ_print $info(text) \"Saved raw image to $fn\" blue ; \n"
                <<" } \n"
                <<"\n"
                <<"config: \n"
@@ -967,6 +967,7 @@ int ATLAS_BCAM::write_settings_file(QString settings_file)
            <<"set Acquisifier_config(num_steps_show) \"20\" \n"
            <<"set Acquisifier_config(num_lines_keep) \"1000\" \n"
            <<"set Acquisifier_config(restore_instruments) \"0\" \n";
+           <<"set Acquisifier_config(adepo_dir) \""<<appDirPath()<<"\" \n";
 
       fichier.close();
       return 1;
