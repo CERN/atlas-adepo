@@ -422,6 +422,9 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
     ui->tableWidget_results->resizeColumnsToContents();
 
     setEnabled(true);
+    if (ui->tableWidget_liste_bcams->rowCount() > 0) {
+        ui->tableWidget_liste_bcams->selectRow(1);
+    }
 }
 
 void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision) {
