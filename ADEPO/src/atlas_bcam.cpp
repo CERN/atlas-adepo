@@ -579,8 +579,8 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
         std::string name_prism_atlas = base_donnees.getName(prism.Get_id().substr(15,5));
 
         result& result = results[name_prism_atlas];
-        result.name = name_prism_atlas;
-        result.ltm = ltm;
+        result.setName(name_prism_atlas);
+        result.setTime(ltm);
 
         Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
         int ligne=0;
@@ -597,7 +597,7 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
             }
         }
 
-        result.n = ligne;
+        result.setN(ligne);
 
         Eigen::MatrixXd mean(1,3);
         mean = coord.colwise().sum()/ligne; //somme de chaque colonne / par le nombre de lignes
@@ -613,7 +613,7 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
         Eigen::MatrixXd result_std_square(1,3); //calcul de l'ecart-type au carre
         result_std_square=result_var.colwise().sum()/ligne;
 
-        result.std = Point3f(sqrt(result_std_square(0,0)),sqrt(result_std_square(0,1)),sqrt(result_std_square(0,2)));
+        result.setStd(Point3f(sqrt(result_std_square(0,0)),sqrt(result_std_square(0,1)),sqrt(result_std_square(0,2))));
 
         //delta selon composantes axiales
         float dx=0;
@@ -630,7 +630,7 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
             }
         }
 
-        result.value = Point3f(mean(0,0) + dx, mean(0,1) + dy, mean(0,2) + dz);
+        result.setValue(Point3f(mean(0,0) + dx, mean(0,1) + dy, mean(0,2) + dz));
     }
 }
 
@@ -640,17 +640,17 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
         std::cout << prism << std::endl;
 
         result& r = results[prism];
-        QTableWidgetItem *n = new QTableWidgetItem(QString::number(r.n));
+        QTableWidgetItem *n = new QTableWidgetItem(QString::number(r.getN()));
         ui->tableWidget_results->setItem(row, 3, n);
 
         if (ui->fullPrecision->isChecked()) {
-            setResult(row, r.value, 0, 8);
-            setResult(row, r.std, 1, 8);
-            setResult(row, Point3f(Point3f(r.value, r.offset), 1000), 2, 8);
+            setResult(row, r.getValue(), 0, 8);
+            setResult(row, r.getStd(), 1, 8);
+            setResult(row, Point3f(Point3f(r.getValue(), r.getOffset()), 1000), 2, 8);
         } else {
-            setResult(row, r.value, 0, 6);
-            setResult(row, r.std, 1, 3);
-            setResult(row, Point3f(Point3f(r.value, r.offset), 1000), 2, 3);
+            setResult(row, r.getValue(), 0, 6);
+            setResult(row, r.getStd(), 1, 3);
+            setResult(row, Point3f(Point3f(r.getValue(), r.getOffset()), 1000), 2, 3);
         }
     }
     ui->tableWidget_results->resizeColumnsToContents();

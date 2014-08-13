@@ -15,8 +15,47 @@ public:
     }
     ~result() {};
 
+    void setName(std::string _name) {
+        name = _name;
+    }
+
+    void setTime(tm *_ltm) {
+        ltm = _ltm;
+    }
+
+    void setN(int _n) {
+        n = _n;
+    }
+
+    int getN() {
+        return n;
+    }
+
+    void setStd(Point3f _std) {
+        std = _std;
+    }
+
+    Point3f getStd() {
+        return std;
+    }
+
+    void setValue(Point3f _value) {
+        value = _value;
+        if (value.isValid() && !offset.isValid()) {
+            setOffset();
+        }
+    }
+
+    Point3f getValue() {
+        return value;
+    }
+
     void setOffset() {
         offset = value;
+    }
+
+    Point3f getOffset() {
+        return offset;
     }
 
     void toString() {
@@ -27,6 +66,7 @@ public:
                      std::endl;
     }
 
+private:
     std::string name;
     tm *ltm;
     Point3f value;
