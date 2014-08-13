@@ -20,6 +20,7 @@
 #include "QWidget"
 #include "QtTest/QTest"
 #include <time.h>
+#include <QString>
 
 #define NBR_DETECTORS 8
 #define ID_LENGTH_BCAM 14

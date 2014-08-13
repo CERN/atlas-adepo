@@ -24,7 +24,8 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
     int min = ltm->tm_min;
     int sec = ltm->tm_sec;
 
-    QString datetime = QString("%4d-%2d-%2d-%2d-%2d-%2d").arg(year).arg(month).arg(day).arg(hour).arg(min).arg(sec);
+    QString datetime = QString("%1.%2.%3.%4.%5.%6").arg(year, 4).arg(month, 2, 10, QChar('0')).arg(day, 2, 10, QChar('0')).
+            arg(hour, 2, 10, QChar('0')).arg(min, 2, 10, QChar('0')).arg(sec, 2, 10, QChar('0'));
     QString filename = QString::fromStdString(resultMountFilePrefix).append(datetime).append(".txt");
 
     //écriture dans un fichier
