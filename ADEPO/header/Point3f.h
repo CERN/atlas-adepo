@@ -9,12 +9,14 @@ class Point3f
         //constructeurs et destructeurs
         Point3f();
         Point3f(float X,float Y,float Z);
+        Point3f(bool valid);
         virtual ~Point3f();
         Point3f(const Point3f& copie);
         Point3f(const Point3f& value, const Point3f& ref);
         Point3f(const Point3f& value, float multiplier);
 
         //setter et getter
+        bool isValid() { return valid; }
         float Get_X() const { return m_X; }
         void Set_X(float val) { m_X = val; }
         float Get_Y() const { return m_Y; }
@@ -28,6 +30,7 @@ class Point3f
 
     protected:
     private:
+        bool valid;
         float m_X;
         float m_Y;
         float m_Z;

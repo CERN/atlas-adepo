@@ -427,13 +427,13 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
               ui->tableWidget_results->setItem(row, 3, n);
 
               if (ui->fullPrecision->isChecked()) {
-                  setResult(row, Point3f(), 0, 8);
-                  setResult(row, Point3f(), 1, 8);
-                  setResult(row, Point3f(), 2, 8);
+                  setResult(row, Point3f(false), 0, 8);
+                  setResult(row, Point3f(false), 1, 8);
+                  setResult(row, Point3f(false), 2, 8);
               } else {
-                  setResult(row, Point3f(), 0, 6);
-                  setResult(row, Point3f(), 1, 3);
-                  setResult(row, Point3f(), 2, 3);
+                  setResult(row, Point3f(false), 0, 6);
+                  setResult(row, Point3f(false), 1, 3);
+                  setResult(row, Point3f(false), 2, 3);
               }
 
               row++;
@@ -455,14 +455,21 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
 void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision) {
     int firstColumn = 4;
 
-    QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X(), 'f', precision));
-    ui->tableWidget_results->setItem(row, firstColumn + (columnSet * 3), x);
+    if (point.isValid()) {
+        QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X(), 'f', precision));
+        ui->tableWidget_results->setItem(row, firstColumn + (columnSet * 3), x);
 
-    QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y(), 'f', precision));
-    ui->tableWidget_results->setItem(row, firstColumn + 1 + (columnSet * 3), y);
+        QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y(), 'f', precision));
+        ui->tableWidget_results->setItem(row, firstColumn + 1 + (columnSet * 3), y);
 
-    QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z(), 'f', precision));
-    ui->tableWidget_results->setItem(row, firstColumn + 2 + (columnSet * 3), z);
+        QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z(), 'f', precision));
+        ui->tableWidget_results->setItem(row, firstColumn + 2 + (columnSet * 3), z);
+    } else {
+        for (int i=0; i<3; i++) {
+            QTableWidgetItem *v = new QTableWidgetItem("Not Valid");
+            ui->tableWidget_results->setItem(row, firstColumn + i + (columnSet * 3), v);
+        }
+    }
 }
 
 //fonction qui lance les acquisitions LWDAQ                                                         ----> ok mais qu'est ce qui se passe apres les acquisitions ?

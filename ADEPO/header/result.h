@@ -8,8 +8,8 @@ class result
 {
 public:
     result() {
-        value = Point3f();
-        std = Point3f();
+        value = Point3f(false);
+        std = Point3f(false);
         n = 0;
         setOffset();
     }
@@ -21,9 +21,9 @@ public:
 
     void toString() {
         std::cout << name << " " << n << ""
-                  << value.Get_X() << " " << value.Get_Y() << " " << value.Get_Z() << " "
-                  << std.Get_X() << " " << std.Get_Y() << " " << std.Get_Z() << ""
-                  << offset.Get_X() << " " << offset.Get_Y() << " " << offset.Get_Z() <<
+                  << value.isValid() << " " << value.Get_X() << " " << value.Get_Y() << " " << value.Get_Z() << " "
+                  << std.isValid() << " " << std.Get_X() << " " << std.Get_Y() << " " << std.Get_Z() << ""
+                  << offset.isValid() << " " << offset.Get_X() << " " << offset.Get_Y() << " " << offset.Get_Z() <<
                      std::endl;
     }
 
