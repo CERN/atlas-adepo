@@ -533,15 +533,9 @@ void ATLAS_BCAM::calcul_coord()
    updateResults(results);
 
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
-   //on recupere la date dans une variable
-   time_t t = time(NULL);
-   char* tps_calcul = asctime(localtime(&t));
 
-   std::string resultMountFileName = appDirPath().toStdString().
-           append("/Archive/Observations_MOUNT_System_").
-           append(tps_calcul, strlen(tps_calcul)-1).
-           append(".txt");
-   write_file_obs_mount_system(resultMountFileName, m_bdd);
+   std::string resultMountFilePrefix = appDirPath().toStdString().append("/Archive/Observations_MOUNT_System_");
+   write_file_obs_mount_system(resultMountFilePrefix, m_bdd);
 
    //vidage des acquisitions
    m_bdd.vidage();

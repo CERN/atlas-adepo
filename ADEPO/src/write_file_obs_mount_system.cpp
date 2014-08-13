@@ -6,18 +6,34 @@
 #include "iostream"
 #include "ctime"
 #include "sstream"
+#include <QString>
 
 #define um2m 0.000001
 
-int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_donnees)
+int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_donnees)
 {
 
+    // current date/time based on current system
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    // print various components of tm structure.
+    int year = 1900 + ltm->tm_year;
+    int month = 1 + ltm->tm_mon;
+    int day = ltm->tm_mday;
+    int hour = ltm->tm_hour;
+    int min = ltm->tm_min;
+    int sec = ltm->tm_sec;
+
+    QString datetime = QString::number(year).append(".").append(QString::number(month)).append(".").append(QString::number(day))
+                     .append(".").append(QString::number(hour)).append(".").append(QString::number(min)).append(".").append(QString::number(sec));
+    QString filename = QString::fromStdString(resultMountFilePrefix).append(datetime).append(".txt");
+
     //écriture dans un fichier
-    std::ofstream fichier((char*)save_obs_mount_system.c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+    std::ofstream fichier(filename.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
 
     if(fichier)
     {
-        std::cout << "Writing results into " << save_obs_mount_system << std::endl;
+        std::cout << "Writing results into " << filename.toStdString() << std::endl;
 
         fichier<<"********** Fichier qui contient une sauvegarde des coordonnees images + coordonnees images transformees dans le repere BCAM (MOUNT) + coordonnees des prismes dans le repere MOUNT********** \n"
                <<"********************************************************************** Unite en metres (m)************************************************************************************************** \n"
@@ -111,16 +127,6 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
                    <<"\n"
                    <<"*****************************************************************Rapport********************************************************************************** \n";
             //on parcourt tous les points transformes dans le repere global : moyenne + dispersion
-            // current date/time based on current system
-            time_t now = time(0);
-            tm *ltm = localtime(&now);
-            // print various components of tm structure.
-            float year = 1900 + ltm->tm_year;
-            float month = 1 + ltm->tm_mon;
-            float day = ltm->tm_mday;
-            float hour = ltm->tm_hour;
-            float min = ltm->tm_min;
-            float sec = ltm->tm_sec;
 
             for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
             {
@@ -180,7 +186,7 @@ int write_file_obs_mount_system(std::string save_obs_mount_system, bdd &base_don
                     }
                 }
                 //enregistrement dans le fichier de resultats
-                fichier<<name_bcam_atlas<<"_"<<name_prism_atlas<<" "<<year<<"."<<month<<"."<<day<<"."<<hour<<"."<<min<<"."<<sec<<" "<<result_mean(0,0)+delta_x<<" "<<result_mean(0,1)+delta_y<<" "<<result_mean(0,2)+delta_z<<" "<<result_std(0,0)<<" "<<result_std(0,1)<<" "<<result_std(0,2)<<" "<<"VRAI \n";
+                fichier<<name_bcam_atlas<<"_"<<name_prism_atlas<<" "<<datetime.toStdString()<<" "<<result_mean(0,0)+delta_x<<" "<<result_mean(0,1)+delta_y<<" "<<result_mean(0,2)+delta_z<<" "<<result_std(0,0)<<" "<<result_std(0,1)<<" "<<result_std(0,2)<<" "<<"VRAI \n";
             }
 
         fichier.close();
