@@ -183,8 +183,17 @@ void LWDAQ_Client::readStatus() {
         return;
     }
 
-    QByteArray buffer = tcpSocket->readLine();
-    QString line = QString::fromLatin1(buffer);
+    char buf[8192];
+    qint64 lineLength = tcpSocket->readLine(buf, sizeof(buf));
+    if (lineLength < 0) {
+        std::cout << "Could not read line" << std::endl;
+        return;
+    }
+    QString line(buf);
+
+//    QByteArray buffer = tcpSocket->readLine();
+//    QString line = QString::fromLatin1(buffer);
+
     line.chop(2);
     QStringList parts = line.split(" ", QString::SkipEmptyParts);
 
