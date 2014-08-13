@@ -75,8 +75,8 @@ void calcul_coord_bcam_system(bdd & base_donnees)
                         float coordPrisme_z = (prisme_z1+prisme_z2)/4;
 
                         //ajout dans la base de donnees
-                        Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z);
-                        mount_coord_prism xyz_prism(base_donnees.Get_liste_mount_coord_spots().at(i).Get_id(), xyz);
+                        Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z+0.003);
+                        mount_coord_prism xyz_prism(base_donnees.Get_liste_mount_coord_spots().at(i).Get_id(), xyz, 0.003);
                         base_donnees.Add_mount_coord_prism(xyz_prism);
                         found = true;
                     }

@@ -12,7 +12,7 @@ void mount_prism_to_global_prism(bdd & base_donnees)
             if(base_donnees.Get_liste_mount_coord_prism().at(i).Get_id().substr(0,14) == base_donnees.Get_liste_BCAM_params().at(j).Get_id_bcam())
             {
                  Point3f point_transforme = changement_repere(base_donnees.Get_liste_mount_coord_prism().at(i).Get_coord_prism_mount_sys(), base_donnees.Get_liste_BCAM_params().at(j).Get_translation(), base_donnees.Get_liste_BCAM_params().at(j).Get_rotation());
-                 mount_coord_prism pt_global(base_donnees.Get_liste_mount_coord_prism().at(i).Get_id(), point_transforme);
+                 mount_coord_prism pt_global(base_donnees.Get_liste_mount_coord_prism().at(i).Get_id(), point_transforme, base_donnees.Get_liste_mount_coord_prism().at(i).getAirpad());
                  base_donnees.Add_global_coord_prism(pt_global);
                  found = true;
             }

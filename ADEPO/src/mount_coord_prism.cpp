@@ -1,6 +1,6 @@
 #include "mount_coord_prism.h"
 
-mount_coord_prism::mount_coord_prism(std::string id, Point3f coord_prism_mount_sys): m_id(id), m_coord_prism_mount_sys(coord_prism_mount_sys)
+mount_coord_prism::mount_coord_prism(std::string id, Point3f coord_prism_mount_sys, float airpad): m_id(id), m_coord_prism_mount_sys(coord_prism_mount_sys), m_airpad(airpad)
 {
     //ctor
 }

@@ -11,7 +11,7 @@ class mount_coord_prism
 public:
     //constructeurs et destructeurs
     mount_coord_prism();
-    mount_coord_prism(std::string id, Point3f coord_prism_mount_sys);
+    mount_coord_prism(std::string id, Point3f coord_prism_mount_sys, float airpad);
     virtual ~mount_coord_prism();
 
     //getter setter
@@ -21,6 +21,10 @@ public:
     Point3f Get_coord_prism_mount_sys() const {return m_coord_prism_mount_sys; }
     void Set_coord_prism_mount_sys(Point3f val) {m_coord_prism_mount_sys = val; }
 
+    float getAirpad() {
+        return m_airpad;
+    }
+
     //methodes
     void Affiche();
 
@@ -28,7 +32,7 @@ protected:
 private:
     std::string m_id;
     Point3f m_coord_prism_mount_sys;
-
+    float m_airpad;
 };
 
 #endif // MOUNT_COORD_PRISM_H
