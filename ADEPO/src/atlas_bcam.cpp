@@ -166,8 +166,16 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
 //    for (int i=0; i<list.size(); i++) {
 //        std::cout << QString(list[i]).toStdString() << std::endl;
 //    }
-    QPixmap pix(imageName);
-    ui->bcamImage->setPixmap(pix);
+    QFileInfo file(imageName);
+    if (file.exists()) {
+        QDateTime dateTime = file.lastModified();
+        QPixmap pix(imageName);
+        ui->bcamImage->setPixmap(pix);
+        ui->bcamDateTime->setText(dateTime.toString());
+    } else {
+        ui->bcamImage->setText("No BCAM Image");
+        ui->bcamDateTime->setText("");
+    }
 }
 
 void ATLAS_BCAM::lwdaqStateChanged() {
