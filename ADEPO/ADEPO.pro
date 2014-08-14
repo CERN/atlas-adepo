@@ -39,7 +39,6 @@ SOURCES += \
     src/img_coord_to_bcam_coord.cpp \
     src/clean_calib.cpp \
     src/calcul_coord_bcam_system.cpp \
-    src/bdd.cpp \
     src/atlas_bcam.cpp \
     src/main.cpp \
     src/helmert.cpp \

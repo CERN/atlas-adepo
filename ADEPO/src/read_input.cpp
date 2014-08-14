@@ -99,7 +99,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                             //ajout dans la base de donnees
                             detector det(atoi(num_id_detector), nom_detector, atof(airpad));
                             //det.Affiche();
-                            base_donnees.Add_detector(det);
+                            base_donnees.add(det);
                         }
                         break;
 
@@ -114,7 +114,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                             std::string type_bcam = "Blue";
                             bcam_adaptateur blue_model(type_bcam, id_cible, pt_cible);
                             //blue_model.Affiche();
-                            base_donnees.Add_bcam_adaptateur(blue_model);
+                            base_donnees.add(blue_model);
 
                         }
                         break;
@@ -130,7 +130,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                             std::string type_bcam = "Black";
                             bcam_adaptateur black_model(type_bcam, id_cible, pt_cible);
                             //black_model.Affiche();
-                            base_donnees.Add_bcam_adaptateur(black_model);
+                            base_donnees.add(black_model);
 
                         }
                         break;
@@ -140,7 +140,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                             char *buffer = strdup((char*)ligne.c_str());
                             //recuperation de l'adresse ip du driver
                             std::string driver_ip_adress = strtok(buffer," ");
-                            base_donnees.Set_driver_ip_adress(driver_ip_adress);
+                            base_donnees.setDriverIpAddress(driver_ip_adress);
                         }
                         break;
 
@@ -152,7 +152,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
 //                           std::cout<<nb_string << ":" << ligne << ":" << std::endl;
 
                            if(nb_string == 5) //cas ou une BCAM simple ou double vise un prisme
-                           {
+                           {    // 20MABNDA000318 3 2 1 PR004 2
                                std::string nom_BCAM = strtok(buffer," ");
                                char *id_detector = strtok( NULL, " " );
                                char *num_Port_Driver = strtok( NULL, " " );
@@ -161,13 +161,12 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                                char *num_chip_bcam_single = strtok( NULL, " " );
                                BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_bcam_single), id_prisme);
                                //std::cout<<nb_string<<std::endl;
-                               //bcam_data.Affiche();
-                               base_donnees.Add_BCAM(bcam_data);
+                               // bcam_data.print();
+                               base_donnees.add(bcam_data);
                            }
 
                            if(nb_string == 7) //cas ou une BCAM double vise deux prisme d'un cote et une autre BCAM de l'autre cote
                            {
-
                                std::string nom_BCAM = strtok(buffer," ");
                                char *id_detector = strtok( NULL, " " );
                                char *num_Port_Driver = strtok( NULL, " " );
@@ -177,30 +176,30 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                                char *num_chip_double_bcam = strtok( NULL, " " );
                                std::string id_bcam_visee = strtok( NULL, " " );
                                BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_double_bcam), id_prisme_1.append("_").append(id_prisme_2).append("_").append(id_bcam_visee));
-                               //bcam_data_.Affiche();
-                               base_donnees.Add_BCAM(bcam_data);
+                               // bcam_data.print();
+                               base_donnees.add(bcam_data);
 
                            }
 
                            if(nb_string == 8) //cas ou une BCAM double vise 3 prismes d'un cote et une bcam de l'autre cote
-                           {
+                           {    // 20MABNDL000077 1 2 7 PR002 PR003 1 20MABNDM000168 PR024
                                std::string nom_BCAM = strtok(buffer," ");
                                char *id_detector = strtok( NULL, " " );
                                char *num_Port_Driver = strtok( NULL, " " );
                                char *num_Port_Multiplexer = strtok( NULL, " " );
                                std::string id_prisme_1 = strtok( NULL, " " );
                                std::string id_prisme_2 = strtok( NULL, " " );
-                               std::string id_prisme_3 = strtok( NULL, " " );
                                char *num_chip_double_bcam = strtok( NULL, " " );
                                std::string id_bcam_visee = strtok( NULL, " " );
+                               std::string id_prisme_3 = strtok( NULL, " " );
 
                                BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_double_bcam), id_prisme_1.append("_").append(id_prisme_2).append("_").append(id_prisme_3).append("_").append(id_bcam_visee));
-                               //bcam_data.Affiche();
-                               base_donnees.Add_BCAM(bcam_data);
+                               bcam_data.print();
+                               base_donnees.add(bcam_data);
                            }
 
                            if(nb_string == 6) //cas ou une bcam simple vise deux prismes
-                           {
+                           {    // 20MABNDA000035 8 3 6 PR044 PR047 2
                                std::string nom_BCAM = strtok(buffer," ");
                                char *id_detector = strtok( NULL, " " );
                                char *num_Port_Driver = strtok( NULL, " " );
@@ -209,8 +208,8 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                                std::string id_prisme_2 = strtok( NULL, " " );
                                char *num_chip_single_bcam = strtok( NULL, " " );
                                BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_single_bcam), id_prisme_1.append("_").append(id_prisme_2));
-                               //bcam_data.Affiche();
-                               base_donnees.Add_BCAM(bcam_data);
+                               // bcam_data.print();
+                               base_donnees.add(bcam_data);
                            }
 
                     }
@@ -225,9 +224,9 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                             char *dist_source1_prisme = strtok( NULL, " " );
                             char *dist_source2_prisme = strtok( NULL, " " );
                             Point3f dist(atof(dist_pivot_prisme), atof(dist_source1_prisme),atof(dist_source2_prisme));
-                            absolutes_distances abs_dist(id_bcam.append("_").append(id_prisme), dist);
+                            absolutes_distances abs_dist(id_bcam, id_prisme, dist);
                             //abs_dist.Affiche();
-                            base_donnees.Add_distance_absolue(abs_dist);
+                            base_donnees.add(abs_dist);
                         }
                         break;
 
@@ -255,14 +254,14 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                             ATLAS_coordinates pos2_bcam(id_bcam, B2);
                             ATLAS_coordinates pos3_bcam(id_bcam, B3);
                             ATLAS_coordinates pos4_bcam(id_bcam, B4);
-                            //pos1_bcam.Affiche();
-                            //pos2_bcam.Affiche();
-                            //pos3_bcam.Affiche();
-                            //pos4_bcam.Affiche();
-                            base_donnees.Add_ATLAS_coordinates(pos1_bcam);
-                            base_donnees.Add_ATLAS_coordinates(pos2_bcam);
-                            base_donnees.Add_ATLAS_coordinates(pos3_bcam);
-                            base_donnees.Add_ATLAS_coordinates(pos4_bcam);
+                            //pos1_bcam.print();
+                            //pos2_bcam.print();
+                            //pos3_bcam.print();
+                            //pos4_bcam.print();
+                            base_donnees.add(pos1_bcam);
+                            base_donnees.add(pos2_bcam);
+                            base_donnees.add(pos3_bcam);
+                            base_donnees.add(pos4_bcam);
                         }
                         break;
 
@@ -285,7 +284,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                             Point3f delta(atof(delta_x),atof(delta_y),atof(delta_z));
                             prism_correction pr_corr(id_prisme, delta);
                             //pr_corr.Affiche();
-                            base_donnees.Add_correction_excentrement(pr_corr);
+                            base_donnees.add(pr_corr);
                         }
                         break;
                     }

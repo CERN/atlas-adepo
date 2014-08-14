@@ -40,21 +40,21 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                <<"\n";
 
             //premiere visee BCAM-Prisme de la liste des observations
-            std::string premier_objet_img= base_donnees.Get_liste_spots().at(0).getId();
+            std::string premier_objet_img= base_donnees.getSpots().at(0).getName();
 
             //sauvegarde des coordonnees images
             fichier<<"*******************************************************************coordonnees images dans le repere CCD *********************************************************************************** \n";
-            for(unsigned int i=0; i<base_donnees.Get_liste_spots().size(); i++)
+            for(unsigned int i=0; i<base_donnees.getSpots().size(); i++)
             {
-                spot spot1 = base_donnees.Get_liste_spots().at(i);
-                if(i>0 && spot1.getId() == premier_objet_img) //si on a tout parcourut et on revient au premier objet ==> fin
+                spot spot1 = base_donnees.getSpots().at(i);
+                if(i>0 && spot1.getName() == premier_objet_img) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
-                fichier<<spot1.getId()<<"\n";
-                for(unsigned int j=0; j<base_donnees.Get_liste_spots().size(); j++)
+                fichier<<spot1.getName()<<"\n";
+                for(unsigned int j=0; j<base_donnees.getSpots().size(); j++)
                 {
-                    spot spot2 = base_donnees.Get_liste_spots().at(j);
-                    if(spot1.getId() == spot2.getId())
+                    spot spot2 = base_donnees.getSpots().at(j);
+                    if(spot1.getName() == spot2.getName())
                     {
                                 fichier<<"Spot 1"<<" "<<spot2.getI1CCD()*um2m<<" "<<spot2.getJ1CCD()*um2m<<"\n"
                                        <<"Spot 2"<<" "<<spot2.getI2CCD()*um2m<<" "<<spot2.getJ2CCD()*um2m<<"\n";
@@ -65,20 +65,20 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
             fichier<<"\n"
                    <<"\n"
                    <<"****************************************************************coordonnees images transformees dans le repere MOUNT************************************************************************* \n";
-            std::string premier_objet_mount = base_donnees.Get_liste_mount_coord_spots().at(0).getId();
+            std::string premier_objet_mount = base_donnees.getMountCoordSpots().at(0).getName();
 
             //sauvegarde des coordonnees images transformees dans le repere MOUNT
-            for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++)
+            for(unsigned int i=0; i<base_donnees.getMountCoordSpots().size(); i++)
             {
-                mount_coord_spots spots1 = base_donnees.Get_liste_mount_coord_spots().at(i);
-                if(i>0 && spots1.getId() == premier_objet_mount) //si on a tout parcourut et on revient au premier objet ==> fin
+                mount_coord_spots spots1 = base_donnees.getMountCoordSpots().at(i);
+                if(i>0 && spots1.getName() == premier_objet_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
-                fichier<<spots1.getId()<<"\n";
-                for(unsigned int j=0; j<base_donnees.Get_liste_mount_coord_spots().size(); j++)
+                fichier<<spots1.getName()<<"\n";
+                for(unsigned int j=0; j<base_donnees.getMountCoordSpots().size(); j++)
                 {
-                    mount_coord_spots spots2 = base_donnees.Get_liste_mount_coord_spots().at(j);
-                    if(spots1.getId() == spots2.getId())
+                    mount_coord_spots spots2 = base_donnees.getMountCoordSpots().at(j);
+                    if(spots1.getName() == spots2.getName())
                     {
                         fichier<<"Spot 1"<<" "<<spots2.getCoord1().x()<<" "<<spots2.getCoord1().y()<<" "<<spots2.getCoord1().z()<<"\n"
                                <<"Spot 2"<<" "<<spots2.getCoord2().x()<<" "<<spots2.getCoord2().y()<<" "<<spots2.getCoord2().z()<<"\n";
@@ -90,19 +90,19 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                    <<"\n"
                    <<"*****************************************************************coordonnees du prisme dans le repere MOUNT********************************************************************************** \n";
             //sauvegarde des coordonnees du prisme dans le repere MOUNT pour chaque paire de spots
-            std::string premier_prisme_mount = base_donnees.Get_liste_mount_coord_prism().at(0).getId();
+            std::string premier_prisme_mount = base_donnees.getMountCoordPrisms().at(0).getName();
 
-            for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
+            for(unsigned int i=0; i<base_donnees.getMountCoordPrisms().size(); i++)
             {
-                mount_coord_prism prism1 = base_donnees.Get_liste_mount_coord_prism().at(i);
-                if(i>0 && prism1.getId() == premier_prisme_mount) //si on a tout parcourut et on revient au premier objet ==> fin
+                mount_coord_prism prism1 = base_donnees.getMountCoordPrisms().at(i);
+                if(i>0 && prism1.getName() == premier_prisme_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
-                fichier<<prism1.getId()<<" "<<prism1.getAirpad()<<"\n";
-                for(unsigned int j=0; j<base_donnees.Get_liste_mount_coord_prism().size(); j++)
+                fichier<<prism1.getName()<<" "<<prism1.getAirpad()<<"\n";
+                for(unsigned int j=0; j<base_donnees.getMountCoordPrisms().size(); j++)
                 {
-                    mount_coord_prism prism2 = base_donnees.Get_liste_mount_coord_prism().at(j);
-                    if(prism1.getId() == prism2.getId())
+                    mount_coord_prism prism2 = base_donnees.getMountCoordPrisms().at(j);
+                    if(prism1.getName() == prism2.getName())
                     {
                         fichier<<prism2.getCoordPrismMountSys().x()<<" "<<prism2.getCoordPrismMountSys().y()<<" "<<prism2.getCoordPrismMountSys().z()<<"\n";
                     }
@@ -113,19 +113,19 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                    <<"\n"
                    <<"*****************************************************************coordonnees du prisme dans le repere ATLAS********************************************************************************** \n";
             //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
-            std::string premier_prisme_atlas = base_donnees.Get_liste_global_coord_prism().at(0).getId();
+            std::string premier_prisme_atlas = base_donnees.getGlobalCoordPrisms().at(0).getName();
 
-            for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
+            for(unsigned int i=0; i<base_donnees.getGlobalCoordPrisms().size(); i++)
             {
-                mount_coord_prism prism1 = base_donnees.Get_liste_global_coord_prism().at(i);
-                if(i>0 && prism1.getId() == premier_prisme_atlas)
+                mount_coord_prism prism1 = base_donnees.getGlobalCoordPrisms().at(i);
+                if(i>0 && prism1.getName() == premier_prisme_atlas)
                     break;
 
-                fichier<<prism1.getId()<<" "<<prism1.getAirpad()<<"\n";
-                for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
+                fichier<<prism1.getName()<<" "<<prism1.getAirpad()<<"\n";
+                for(unsigned int j=0; j<base_donnees.getGlobalCoordPrisms().size(); j++)
                 {
-                    mount_coord_prism prism2 = base_donnees.Get_liste_mount_coord_prism().at(j);
-                    if(prism1.getId() == prism2.getId())
+                    mount_coord_prism prism2 = base_donnees.getMountCoordPrisms().at(j);
+                    if(prism1.getName() == prism2.getName())
                     {
                         fichier<<prism2.getCoordPrismMountSys().x()<<" "<<prism2.getCoordPrismMountSys().y()<<" "<<prism2.getCoordPrismMountSys().z()<<"\n";
                     }
@@ -136,19 +136,19 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                    <<"*****************************************************************Rapport********************************************************************************** \n";
             //on parcourt tous les points transformes dans le repere global : moyenne + dispersion
 
-            for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
+            for(unsigned int i=0; i<base_donnees.getGlobalCoordPrisms().size(); i++)
             {
-                mount_coord_prism prism1 = base_donnees.Get_liste_global_coord_prism().at(i);
-                if(i>0 && prism1.getId() == premier_prisme_atlas)
+                mount_coord_prism prism1 = base_donnees.getGlobalCoordPrisms().at(i);
+                if(i>0 && prism1.getName() == premier_prisme_atlas)
                     break;
 
                 Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
                 int ligne=0;
 
-                for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
+                for(unsigned int j=0; j<base_donnees.getGlobalCoordPrisms().size(); j++)
                 {
-                    mount_coord_prism prism2 = base_donnees.Get_liste_global_coord_prism().at(j);
-                    if(prism1.getId() == prism2.getId())
+                    mount_coord_prism prism2 = base_donnees.getGlobalCoordPrisms().at(j);
+                    if(prism1.getName() == prism2.getName())
                     {
                         coord(ligne,0)=prism2.getCoordPrismMountSys().x();
                         coord(ligne,1)=prism2.getCoordPrismMountSys().y();
@@ -178,8 +178,8 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
 
                 //nomenclature dans le repere ATLAS
                 mount_coord_prism prism = prism1;
-                std::string name_bcam_atlas = base_donnees.getName(prism.getId().substr(0,14));
-                std::string name_prism_atlas = base_donnees.getName(prism.getId().substr(15,5));
+                std::string name_bcam_atlas = base_donnees.getName(prism.getBCAM());
+                std::string name_prism_atlas = base_donnees.getName(prism.getPrism());
                 float airpad = prism1.getAirpad();
 
                 //delta selon composantes axiales
@@ -187,10 +187,10 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                 float delta_y=0;
                 float delta_z=0;
                 //ajout de la constante de prisme
-                for(unsigned int n=0; n<base_donnees.Get_liste_correction_excentrement().size(); n++)
+                for(unsigned int n=0; n<base_donnees.getPrismCorrections().size(); n++)
                 {
-                    prism_correction correction = base_donnees.Get_liste_correction_excentrement().at(n);
-                    if(prism1.getId().substr(15,5) == correction.getId())
+                    prism_correction correction = base_donnees.getPrismCorrections().at(n);
+                    if(prism1.getPrism() == correction.getPrism())
                     {
                         delta_x = correction.getDelta().x();
                         delta_y = correction.getDelta().y();

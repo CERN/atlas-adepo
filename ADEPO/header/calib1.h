@@ -8,12 +8,12 @@
 class calib1
 {
 public:
-    calib1(std::string id, std::string tpsCalib, Point3f coordPivot, Point3f coordAxis, float ccdToPivot, float ccdRotation) :
-        mId(id), mTpsCalib(tpsCalib), mCoordPivot(coordPivot), mCoordAxis(coordAxis), mCcdToPivot(ccdToPivot), mCcdRotation(ccdRotation) {};
+    calib1(std::string bcam, std::string tpsCalib, Point3f coordPivot, Point3f coordAxis, float ccdToPivot, float ccdRotation) :
+        mBCAM(bcam), mTpsCalib(tpsCalib), mCoordPivot(coordPivot), mCoordAxis(coordAxis), mCcdToPivot(ccdToPivot), mCcdRotation(ccdRotation) {};
     virtual ~calib1() {};
 
     //setter et getter
-    std::string getId() const { return mId; }
+    std::string getBCAM() const { return mBCAM; }
     std::string getTpsCalib() const { return mTpsCalib; }
     Point3f getCoordPivot() const { return mCoordPivot; }
     Point3f getCoordAxis() const { return mCoordAxis; }
@@ -23,7 +23,7 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************Infos Calib*******************************************"<<std::endl;
-        std::cout<<"Id de la BCAM : "<<getId()<<std::endl;
+        std::cout<<"Id de la BCAM : "<<getBCAM()<<std::endl;
         std::cout<<"Date calibration : "<<getTpsCalib()<<std::endl;
         std::cout<<"Coordonnées du pivot : "<<std::endl;
         this->getCoordPivot().print();
@@ -36,7 +36,7 @@ public:
 
 protected:
 private:
-    std::string mId;
+    std::string mBCAM;
     std::string mTpsCalib;
     Point3f mCoordPivot;
     Point3f mCoordAxis;

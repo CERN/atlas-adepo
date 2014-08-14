@@ -7,12 +7,12 @@
 class BCAM_params
 {
 public:
-    BCAM_params(std::string id, Point3f translation, Point3f rotation) : mId(id), mTranslation(translation), mRotation(rotation) {};
+    BCAM_params(std::string bcam, Point3f translation, Point3f rotation) : mBCAM(bcam), mTranslation(translation), mRotation(rotation) {};
 
     virtual ~BCAM_params() {};
 
     //setter et getter
-    std::string getId() const {return mId;}
+    std::string getBCAM() const {return mBCAM;}
 
     Point3f getTranslation() const {return mTranslation;}
 
@@ -21,7 +21,7 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************//BCAM_parametres*******************************************"<<std::endl;
-        std::cout<<"Identifiant de la BCAM : "<<getId()<<std::endl;
+        std::cout<<"Identifiant de la BCAM : "<<getBCAM()<<std::endl;
         std::cout<<"Translation : "<<std::endl;
         getTranslation().print();
         std::cout<<"Angles de rotation : "<<std::endl;
@@ -30,7 +30,7 @@ public:
 
 protected:
 private:
-    std::string mId;
+    std::string mBCAM;
     Point3f mTranslation;
     Point3f mRotation;
 };

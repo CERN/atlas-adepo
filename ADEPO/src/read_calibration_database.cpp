@@ -50,7 +50,7 @@ int read_calibration_database(std::string nom_fichier, bdd & base_donnees)
                             float focale = atof(dist_ccd_pivot);
                             float angle_rotation = atof(ccd_rotation);
                             calib1 cal1(id_BCAM, tps_calib, pv, ax, focale, angle_rotation);
-                            base_donnees.Add_calib1(cal1);
+                            base_donnees.add(cal1);
                         }
                         break;
 
@@ -68,7 +68,7 @@ int read_calibration_database(std::string nom_fichier, bdd & base_donnees)
                             Point3f spt1(atof(x1_flash), atof(y1_flash), atof(z_flash));
                             Point3f spt2(atof(x2_flash), atof(y2_flash), atof(z_flash));
                             calib2 cal2(id_BCAM_2, spt1, spt2);
-                            base_donnees.Add_calib2(cal2);
+                            base_donnees.add(cal2);
                         }
                         break;
 

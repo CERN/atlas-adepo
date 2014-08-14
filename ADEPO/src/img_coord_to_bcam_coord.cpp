@@ -13,14 +13,14 @@
 void img_coord_to_bcam_coord(bdd & base_donnees)
 {
     bool found = false;
-    for(unsigned int i=0; i<base_donnees.Get_liste_spots().size(); i++) //je parcours la base de donnees des coordonnees images
+    for(unsigned int i=0; i<base_donnees.getSpots().size(); i++) //je parcours la base de donnees des coordonnees images
     {
-        for (unsigned int j=0; j<base_donnees.Get_liste_calib1().size(); j++) //je parcours la base de donnees qui contient les informations de calibration
+        for (unsigned int j=0; j<base_donnees.getCalibs1().size(); j++) //je parcours la base de donnees qui contient les informations de calibration
         {
-            spot spot = base_donnees.Get_liste_spots().at(i);
-            calib1 calib1 = base_donnees.Get_liste_calib1().at(j);
+            spot spot = base_donnees.getSpots().at(i);
+            calib1 calib1 = base_donnees.getCalibs1().at(j);
 
-            if(spot.getId().substr(0,14) == calib1.getId())
+            if(spot.getBCAM() == calib1.getBCAM())
             {
                 //transformation des coordonnees IMAGE vers le repere MOUNT
 
@@ -94,8 +94,8 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
                 //sauvegarde dans la base de donnee
                 Point3f mount_sp1(coord_mount1(0,0), coord_mount1(0,1), coord_mount1(0,2));
                 Point3f mount_sp2(coord_mount2(0,0), coord_mount2(0,1), coord_mount2(0,2));
-                mount_coord_spots mount_couple_spots(spot.getId(), mount_sp1, mount_sp2);
-                base_donnees.Add_mount_coord_spots(mount_couple_spots);
+                mount_coord_spots mount_couple_spots(spot.getBCAM(), spot.getPrism(), mount_sp1, mount_sp2);
+                base_donnees.add(mount_couple_spots);
 
                 found = true;
             }
@@ -104,9 +104,9 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
 
     //affichage de la base de donnees qui contient les observations transformees dans le repere MOUNT
 #ifdef ADEPO_DEBUG
-    for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++)
+    for(unsigned int i=0; i<base_donnees.getMountCoordSpots().size(); i++)
     {
-        base_donnees.Get_liste_mount_coord_spots().at(i).print();
+        base_donnees.getMountCoordSpots().at(i).print();
     }
 #endif
 

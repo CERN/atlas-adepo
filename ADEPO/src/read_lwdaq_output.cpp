@@ -50,7 +50,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     {
                         char *buffer = strdup((char*)ligne.c_str());
                         //recuperation du nom de la BCAM_Objet + coordonnées images du premier spot
-                        std::string nom_BCAM_Objet = strtok(buffer," ");
+                        std::string nom_BCAM_Objets = strtok(buffer," ");
                         char *coord1_i_ccd = strtok( NULL, " " );
                         char *coord1_j_ccd = strtok( NULL, " " );
                         //sauter les 4 prochaines valeurs
@@ -62,8 +62,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                         char *coord2_i_ccd = strtok( NULL, " " );
                         char *coord2_j_ccd = strtok( NULL, " " );
                         //ajout dans la base de donnees
-                        spot sp(nom_BCAM_Objet, atof(coord1_i_ccd), atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
-                        base_donnees.Add_spots(sp);
+                        spot sp(nom_BCAM_Objets.substr(0,14), nom_BCAM_Objets.substr(15,5),
+                                atof(coord1_i_ccd), atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
+                        base_donnees.add(sp);
                         break;
                     }
 
@@ -72,8 +73,6 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                         char *buffer = strdup((char*)ligne.c_str());
                         //recuperation du nom de la BCAM_Objet(S) + coordonnées images du premier spot
                         std::string nom_BCAM_Objets = strtok(buffer," ");
-                        std::string nom_BCAM_Objet1 = nom_BCAM_Objets.substr(0,14).append("_").append(nom_BCAM_Objets.substr(15,5));
-                        std::string nom_BCAM_Objet2 = nom_BCAM_Objets.substr(0,14).append("_").append(nom_BCAM_Objets.substr(21,5));
                         char *coord1_i_ccd = strtok( NULL, " " );
                         char *coord1_j_ccd = strtok( NULL, " " );
                         //sauter les 4 prochaines valeurs
@@ -85,8 +84,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                         char *coord2_i_ccd = strtok( NULL, " " );
                         char *coord2_j_ccd = strtok( NULL, " " );
                         //ajout dans la base de donnees
-                        spot sp1(nom_BCAM_Objet1, atof(coord1_i_ccd),atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
-                        base_donnees.Add_spots(sp1);
+                        spot sp1(nom_BCAM_Objets.substr(0,14), nom_BCAM_Objets.substr(15,5),
+                                 atof(coord1_i_ccd),atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
+                        base_donnees.add(sp1);
                         //sauter les 4 prochaines valeurs
                         for(int i=0; i<4; i++)
                         {
@@ -104,8 +104,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                         char *coord4_i_ccd = strtok( NULL, " " );
                         char *coord4_j_ccd = strtok( NULL, " " );
                         //ajout dans la base de donnees
-                        spot sp2(nom_BCAM_Objet2, atof(coord3_i_ccd), atof(coord3_j_ccd), atof(coord4_i_ccd), atof(coord4_j_ccd));
-                        base_donnees.Add_spots(sp2);
+                        spot sp2(nom_BCAM_Objets.substr(0,14), nom_BCAM_Objets.substr(21,5),
+                                 atof(coord3_i_ccd), atof(coord3_j_ccd), atof(coord4_i_ccd), atof(coord4_j_ccd));
+                        base_donnees.add(sp2);
                         break;
                     }
 
@@ -114,9 +115,6 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                         char *buffer = strdup((char*)ligne.c_str());
                         //recuperation du nom de la BCAM_Objet(S) + coordonnées images du premier spot
                         std::string nom_BCAM_Objets = strtok(buffer," ");
-                        std::string nom_BCAM_Objet1 = nom_BCAM_Objets.substr(0,14).append("_").append(nom_BCAM_Objets.substr(15,5));
-                        std::string nom_BCAM_Objet2 = nom_BCAM_Objets.substr(0,14).append("_").append(nom_BCAM_Objets.substr(21,5));
-                        std::string nom_BCAM_Objet3 = nom_BCAM_Objets.substr(0,14).append("_").append(nom_BCAM_Objets.substr(27,5));
                         char *coord1_i_ccd = strtok( NULL, " " );
                         char *coord1_j_ccd = strtok( NULL, " " );
                         //sauter les 4 prochaines valeurs
@@ -128,8 +126,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                         char *coord2_i_ccd = strtok( NULL, " " );
                         char *coord2_j_ccd = strtok( NULL, " " );
                         //ajout dans la base de donnees
-                        spot sp1(nom_BCAM_Objet1, atof(coord1_i_ccd),atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
-                        base_donnees.Add_spots(sp1);
+                        spot sp1(nom_BCAM_Objets.substr(0,14), nom_BCAM_Objets.substr(15,5),
+                                 atof(coord1_i_ccd),atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
+                        base_donnees.add(sp1);
                         //sauter les 4 prochaines valeurs
                         for(int i=0; i<4; i++)
                         {
@@ -147,8 +146,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                         char *coord4_i_ccd = strtok( NULL, " " );
                         char *coord4_j_ccd = strtok( NULL, " " );
                         //ajout dans la base de donnees
-                        spot sp2(nom_BCAM_Objet2, atof(coord3_i_ccd), atof(coord3_j_ccd), atof(coord4_i_ccd), atof(coord4_j_ccd));
-                        base_donnees.Add_spots(sp2);
+                        spot sp2(nom_BCAM_Objets.substr(0,14), nom_BCAM_Objets.substr(21,5),
+                                 atof(coord3_i_ccd), atof(coord3_j_ccd), atof(coord4_i_ccd), atof(coord4_j_ccd));
+                        base_donnees.add(sp2);
                         //sauter les 4 prochaines valeurs
                         for(int i=0; i<4; i++)
                         {
@@ -166,8 +166,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                         char *coord6_i_ccd = strtok( NULL, " " );
                         char *coord6_j_ccd = strtok( NULL, " " );
                         //ajout dans la base de donnees
-                        spot sp3(nom_BCAM_Objet3, atof(coord5_i_ccd), atof(coord5_j_ccd), atof(coord6_i_ccd), atof(coord6_j_ccd));
-                        base_donnees.Add_spots(sp3);
+                        spot sp3(nom_BCAM_Objets.substr(0,14), nom_BCAM_Objets.substr(27,5),
+                                 atof(coord5_i_ccd), atof(coord5_j_ccd), atof(coord6_i_ccd), atof(coord6_j_ccd));
+                        base_donnees.add(sp3);
                         break;
                     }
 

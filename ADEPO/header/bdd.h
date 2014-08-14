@@ -32,47 +32,45 @@ class bdd
 {
 public:
     //constructeurs et destructeur
-    bdd();
-    bdd(const bdd& copie);
-    virtual ~bdd();
+    bdd() {};
+    bdd(const bdd& /* copie */) {};
+    virtual ~bdd() {};
 
     //getter
     //gestion des bcams dans le terrain a partir du fichier de configuration
-    std::vector<BCAM> Get_liste_BCAM() const {return m_liste_BCAM;}
+    std::vector<BCAM> getBCAMs() const {return mBCAMs;}
     //gestion des detecteurs dans le fichier de configuration
-    std::vector<detector> Get_liste_detector() const {return m_liste_detector;}
-    std::vector<calib1> Get_liste_calib1() const {return m_liste_calib1;}
-    std::vector<calib1> Get_liste_calib1_clean() const {return m_liste_calib1_clean;}
-    std::vector<calib2> Get_liste_calib2() const {return m_liste_calib2;}
-    std::vector<calib2> Get_liste_calib2_clean() const {return m_liste_calib2_clean;}
-    std::vector<spot> Get_liste_spots() const {return m_liste_spots;}
-    std::vector<mount_coord_spots> Get_liste_mount_coord_spots() const {return m_liste_mount_coord_spots;}
-    std::vector<mount_coord_prism> Get_liste_mount_coord_prism() const {return m_liste_mount_coord_prism;}
+    std::vector<detector> getDetectors() const {return mDetectors;}
+    std::vector<calib1> getCalibs1() const {return mCalibs1;}
+//    std::vector<calib1> getCalibs1Clean() const {return m_liste_calib1_clean;}
+    std::vector<calib2> getCalibs2() const {return mCalibs2;}
+//    std::vector<calib2> Get_liste_calib2_clean() const {return m_liste_calib2_clean;}
+    std::vector<spot> getSpots() const {return mSpots;}
+    std::vector<mount_coord_spots> getMountCoordSpots() const {return mMountCoordSpots;}
+    std::vector<mount_coord_prism> getMountCoordPrisms() const {return mMountCoordPrisms;}
     //gestion de l'adresse IP
-    std::string Get_driver_ip_adress() const {return m_driver_ip_adress;}
+    std::string getDriverIpAddress() const {return mDriverIpAddress;}
     //gestion des coordonnees mount de l'adaptateur
-    std::vector<bcam_adaptateur> Get_liste_bcam_adaptateur() const {return m_liste_bcam_adaptateur;}
+    std::vector<bcam_adaptateur> getBCAMAdapters() const {return mBCAMAdapters;}
     //gestion des distances absolues
-    std::vector<absolutes_distances> Get_liste_absolutes_distances() const {return m_liste_absolutes_distances;}
+    std::vector<absolutes_distances> getAbsoluteDistances() const {return mAbsoluteDistances;}
     //gestion des coordonnees de l'adaptateur <==> de la bcam, dans le repere ATLAS
-    std::vector<ATLAS_coordinates> Get_liste_ATLAS_coordinates() const {return m_liste_ATLAS_coordinates;}
+    std::vector<ATLAS_coordinates> getATLASCoordinates() const {return mATLASCoordinates;}
     //gestion des parametres de translation et de rotation par BCAM
-    std::vector<BCAM_params> Get_liste_BCAM_params() const {return m_liste_bcam_params;}
+    std::vector<BCAM_params> getBCAMParams() const {return mBcamParams;}
     //gestion de la liste des coordonnees du prisme dans le repre global
-    std::vector<mount_coord_prism> Get_liste_global_coord_prism() const {return m_liste_global_coord_prism;}
+    std::vector<mount_coord_prism> getGlobalCoordPrisms() const {return mGlobalCoordPrisms;}
     //gestion des corrections d'excentrement
-    std::vector<prism_correction> Get_liste_correction_excentrement() const {return m_liste_correction_excentrement;}
+    std::vector<prism_correction> getPrismCorrections() const {return mPrismCorrections;}
 
-    std::string getName(std::string id) {
-        return names[id];
-    }
+    std::string getName(std::string id) { return names.at(id); }
 
     detector* getDetector(std::string bcamName) {
-        for(unsigned int i=0; i < m_liste_BCAM.size(); i++) {
-            if (bcamName == m_liste_BCAM[i].getName()) {
-                for(unsigned int j=0; j < m_liste_detector.size(); j++) {
-                    if (m_liste_BCAM[i].getDetectorId() == m_liste_detector[j].getId()) {
-                        return &m_liste_detector[j];
+        for(unsigned int i=0; i < mBCAMs.size(); i++) {
+            if (bcamName == mBCAMs[i].getName()) {
+                for(unsigned int j=0; j < mDetectors.size(); j++) {
+                    if (mBCAMs[i].getDetectorId() == mDetectors[j].getId()) {
+                        return &mDetectors[j];
                     }
                 }
             }
@@ -82,58 +80,77 @@ public:
     }
 
    //methodes d'ajout
-    void Add_BCAM(BCAM val) {m_liste_BCAM.push_back(val);}
-    void Add_detector(detector val) {m_liste_detector.push_back(val);}
-    void Add_calib1(calib1 val) {m_liste_calib1.push_back(val);}
-    void Add_calib1_clean(calib1 val) {m_liste_calib1_clean.push_back(val);}
-    void Add_calib2(calib2 val) {m_liste_calib2.push_back(val);}
-    void Add_calib2_clean(calib2 val) {m_liste_calib2_clean.push_back(val);}
-    void Add_spots(spot val) {m_liste_spots.push_back(val);}
-    void Add_mount_coord_spots(mount_coord_spots val) {m_liste_mount_coord_spots.push_back(val);}
-    void Add_mount_coord_prism(mount_coord_prism val) {m_liste_mount_coord_prism.push_back(val);}
+    void add(BCAM val) {mBCAMs.push_back(val);}
+    void add(detector val) {mDetectors.push_back(val);}
+    void add(calib1 val) { mCalibs1.push_back(val); }
+//    void addClean(calib1 val) {mCalibs1Clean.push_back(val);}
+    void add(calib2 val) {mCalibs2.push_back(val);}
+//    void Add_calib2_clean(calib2 val) {m_liste_calib2_clean.push_back(val);}
+    void add(spot val) {mSpots.push_back(val);}
+    void add(mount_coord_spots val) {mMountCoordSpots.push_back(val);}
+    void addMount(mount_coord_prism val) {mMountCoordPrisms.push_back(val);}
     //gestion de l'adresse IP
-    void Set_driver_ip_adress(std::string val) {m_driver_ip_adress = val;}
+    void setDriverIpAddress(std::string val) {mDriverIpAddress = val;}
     //gestion de l'adaptateur
-    void Add_bcam_adaptateur(bcam_adaptateur val) {m_liste_bcam_adaptateur.push_back(val);}
+    void add(bcam_adaptateur val) {mBCAMAdapters.push_back(val);}
     //gestion des distances absolues
-    void Add_distance_absolue(absolutes_distances val) {m_liste_absolutes_distances.push_back(val);}
+    void add(absolutes_distances val) {mAbsoluteDistances.push_back(val);}
     //gestion des coordonnees de l'adaptatuer <==> de la bcam, dans le repere ATLAS
-    void Add_ATLAS_coordinates(ATLAS_coordinates val) {m_liste_ATLAS_coordinates.push_back(val);}
+    void add(ATLAS_coordinates val) {mATLASCoordinates.push_back(val);}
     //gestion des parametres de translation et de rotation par BCAM
-    void Add_BCAM_params(BCAM_params val) {m_liste_bcam_params.push_back(val);}
+    void add(BCAM_params val) {mBcamParams.push_back(val);}
     //gestion de la liste des coordonnees du prisme dans le repre global
-    void Add_global_coord_prism(mount_coord_prism val) {m_liste_global_coord_prism.push_back(val);}
+    void addGlobal(mount_coord_prism val) {mGlobalCoordPrisms.push_back(val);}
     //gestion des nomenclatures
-    void addName(std::string id, std::string name) {
-        names[id] = name;
-    }
+    void addName(std::string id, std::string name) { names[id] = name; }
 
     //gestion des correctiosn d'excentrement
-    void Add_correction_excentrement(prism_correction val) {m_liste_correction_excentrement.push_back(val);}
+    void add(prism_correction val) {mPrismCorrections.push_back(val);}
 
     //vidage partiel de la bdd
-    void vidage();
+    void vidage() {
+        mSpots.clear();
+        mMountCoordSpots.clear();
+        mMountCoordPrisms.clear();
+        mGlobalCoordPrisms.clear();
+    }
+
     //vidage complet de la bdd si on charge un second fichier
-    void vidage_complet();
+    void vidage_complet() {
+        mBCAMs.clear();
+        mDetectors.clear();
+        mCalibs1.clear();
+//        mCalibs1Clean.clear();
+        mCalibs2.clear();
+//        m_liste_calib2_clean.clear();
+        mSpots.clear();
+        mMountCoordSpots.clear();
+        mMountCoordPrisms.clear();
+        mGlobalCoordPrisms.clear();
+        mDriverIpAddress.clear();
+        mBCAMAdapters.clear();
+        mAbsoluteDistances.clear();
+        mATLASCoordinates.clear();
+    }
 
 protected:
 private:
-    std::vector<BCAM> m_liste_BCAM;
-    std::vector<detector> m_liste_detector;
-    std::vector<calib1> m_liste_calib1;
-    std::vector<calib1> m_liste_calib1_clean;
-    std::vector<calib2> m_liste_calib2;
-    std::vector<calib2> m_liste_calib2_clean;
-    std::vector<spot> m_liste_spots;
-    std::vector<mount_coord_spots> m_liste_mount_coord_spots;
-    std::vector<mount_coord_prism> m_liste_mount_coord_prism;
-    std::string m_driver_ip_adress;
-    std::vector<bcam_adaptateur> m_liste_bcam_adaptateur;
-    std::vector<absolutes_distances> m_liste_absolutes_distances;
-    std::vector<ATLAS_coordinates> m_liste_ATLAS_coordinates;
-    std::vector<BCAM_params> m_liste_bcam_params;
-    std::vector<mount_coord_prism> m_liste_global_coord_prism;
-    std::vector<prism_correction> m_liste_correction_excentrement;
+    std::vector<BCAM> mBCAMs;
+    std::vector<detector> mDetectors;
+    std::vector<calib1> mCalibs1;
+//    std::vector<calib1> mCalibs1Clean;
+    std::vector<calib2> mCalibs2;
+//    std::vector<calib2> m_liste_calib2_clean;
+    std::vector<spot> mSpots;
+    std::vector<mount_coord_spots> mMountCoordSpots;
+    std::vector<mount_coord_prism> mMountCoordPrisms;
+    std::string mDriverIpAddress;
+    std::vector<bcam_adaptateur> mBCAMAdapters;
+    std::vector<absolutes_distances> mAbsoluteDistances;
+    std::vector<ATLAS_coordinates> mATLASCoordinates;
+    std::vector<BCAM_params> mBcamParams;
+    std::vector<mount_coord_prism> mGlobalCoordPrisms;
+    std::vector<prism_correction> mPrismCorrections;
 
     std::map<std::string, std::string> names;
 };

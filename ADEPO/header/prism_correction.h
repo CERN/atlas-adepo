@@ -7,25 +7,25 @@
 class prism_correction
 {
 public:
-    prism_correction(std::string id, Point3f delta) : mId(id), mDelta(delta) {};
+    prism_correction(std::string prism, Point3f delta) : mPrism(prism), mDelta(delta) {};
     virtual ~prism_correction() {};
 
     //setter et getter
-    std::string getId() const {return mId;}
+    std::string getPrism() const {return mPrism;}
 
     Point3f getDelta() const {return mDelta;}
 
     //methodes
     void print() {
         std::cout<<"*******************************************Correction excentrement*******************************************"<<std::endl;
-        std::cout<<"Identifiant du prisme : "<<getId()<<std::endl;
+        std::cout<<"Identifiant du prisme : "<<getPrism()<<std::endl;
         std::cout<<"Valeur d'excentrement : "<<std::endl;
         getDelta().print();
     }
 
 protected:
 private:
-    std::string mId;
+    std::string mPrism;
     Point3f mDelta;
 };
 

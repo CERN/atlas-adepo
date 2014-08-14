@@ -1,3 +1,4 @@
+#include "adepo.h"
 #include "liste_bcam_from_id_detector.h"
 
 std::vector<BCAM> liste_bcam_from_id_detector(bdd & base_donnees, int id_detector)
@@ -5,18 +6,19 @@ std::vector<BCAM> liste_bcam_from_id_detector(bdd & base_donnees, int id_detecto
     //on cree un vecteur de BCAMs
     std::vector<BCAM> liste_bcam;
 
-    for(unsigned int i=0; i<base_donnees.Get_liste_BCAM().size(); i++)
+    for(unsigned int i=0; i<base_donnees.getBCAMs().size(); i++)
     {
-        if(base_donnees.Get_liste_BCAM().at(i).getDetectorId() == id_detector)
+        BCAM bcam = base_donnees.getBCAMs().at(i);
+        if(bcam.getDetectorId() == id_detector)
         {
 
             //enregistrement des donnees de la bcam
-            std::string nom_bcam = base_donnees.Get_liste_BCAM().at(i).getName();
-            int num_id_detector = base_donnees.Get_liste_BCAM().at(i).getDetectorId();
-            int num_port_driver = base_donnees.Get_liste_BCAM().at(i).getDriverSocket();
-            int num_port_mux = base_donnees.Get_liste_BCAM().at(i).getMuxSocket();
-            int num_cheap = base_donnees.Get_liste_BCAM().at(i).getNumChip();
-            std::string nom_objet_vise = base_donnees.Get_liste_BCAM().at(i).getPrisms();
+            std::string nom_bcam = bcam.getName();
+            int num_id_detector = bcam.getDetectorId();
+            int num_port_driver = bcam.getDriverSocket();
+            int num_port_mux = bcam.getMuxSocket();
+            int num_cheap = bcam.getNumChip();
+            std::string nom_objet_vise = bcam.getPrisms();
 
             //BCAM bcam_data(nom_bcam, num_id_detector, num_port_driver, num_port_mux, num_cheap, nom_objet_vise);
             //liste_bcam.push_back(bcam_data);
@@ -78,10 +80,12 @@ std::vector<BCAM> liste_bcam_from_id_detector(bdd & base_donnees, int id_detecto
     }
 
     //affichage de la liste temporaire de BCAMs
+#ifdef ADEPO_DEBUG
     for(unsigned int i=0; i<liste_bcam.size(); i++)
     {
-        //liste_bcam.at(i).Affiche();
+        liste_bcam.at(i).print();
     }
+#endif
 
     return liste_bcam;
 

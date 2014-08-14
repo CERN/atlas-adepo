@@ -8,11 +8,11 @@
 class calib2
 {
 public:
-    calib2(std::string id, Point3f coordFlash1, Point3f coordFlash2) : mId(id), mCoordFlash1(coordFlash1), mCoordFlash2(coordFlash2) {};
+    calib2(std::string bcam, Point3f coordFlash1, Point3f coordFlash2) : mBCAM(bcam), mCoordFlash1(coordFlash1), mCoordFlash2(coordFlash2) {};
     virtual ~calib2() {};
 
     //setter et getter
-    std::string getId() const { return mId; }
+    std::string getBCAM() const { return mBCAM; }
 
     Point3f getCoordFlash1() const {return mCoordFlash1; }
 
@@ -21,7 +21,7 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************Infos Calib*******************************************"<<std::endl;
-        std::cout<<"Id de la BCAM : "<<getId()<<std::endl;
+        std::cout<<"Id de la BCAM : "<<getBCAM()<<std::endl;
         std::cout<<"Affichage des cordonnées du premier flash : "<<std::endl;
         this->getCoordFlash1().print();
         std::cout<<"Affichage des cordonnées du second flash : "<<std::endl;
@@ -31,7 +31,7 @@ public:
 
 protected:
 private:
-    std::string mId;
+    std::string mBCAM;
     Point3f mCoordFlash1;
     Point3f mCoordFlash2;
 };
