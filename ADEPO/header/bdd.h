@@ -69,9 +69,9 @@ public:
 
     detector* getDetector(std::string bcamName) {
         for(unsigned int i=0; i < m_liste_BCAM.size(); i++) {
-            if (bcamName == m_liste_BCAM[i].Get_nom_BCAM()) {
+            if (bcamName == m_liste_BCAM[i].getName()) {
                 for(unsigned int j=0; j < m_liste_detector.size(); j++) {
-                    if (m_liste_BCAM[i].Get_id_detector() == m_liste_detector[j].Get_num_id_detector()) {
+                    if (m_liste_BCAM[i].getDetectorId() == m_liste_detector[j].getId()) {
                         return &m_liste_detector[j];
                     }
                 }

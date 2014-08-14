@@ -3,29 +3,28 @@
 
 #include <iostream>
 
-class detector
-{
+class detector {
 public:
-    //constructeurs et destructeurs
-    detector();
-    detector(int num_id_detector, std::string nom_detector, float airpad);
-    virtual ~detector();
+    detector(int id, std::string name, float airpad) : mId(id), mName(name), mAirpad(airpad) {}
 
-    //setter et getter
-    int Get_num_id_detector() const {return m_num_id_detector; }
+    virtual ~detector() {};
 
-    std::string Get_nom_detector() const {return m_nom_detector; }
+    int getId() const { return mId; }
+    std::string getName() const { return mName; }
+    float getAirpad() const { return mAirpad; }
 
-    float getAirpad() const {return m_airpad;}
-
-    //methodes
-    void Affiche();
+    void print() {
+        std::cout<<"*******************************************//DETECTORS_DATA*******************************************"<<std::endl;
+        std::cout<<"Numéro identifiant detecteur : "<<getId()<<std::endl;
+        std::cout<<"Nom du detecteur : "<<getName()<<std::endl;
+        std::cout<<"Constante Airpad on :"<<getAirpad()<<std::endl;
+    }
 
 protected:
 private:
-    int m_num_id_detector;
-    std::string m_nom_detector;
-    float m_airpad;
+    int mId;
+    std::string mName;
+    float mAirpad;
 
 };
 

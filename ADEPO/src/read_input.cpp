@@ -95,9 +95,9 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                             //recuperation du nom du detecteur
                             char *num_id_detector = strtok(buffer, " " );
                             std::string nom_detector = strtok( NULL, " " );
-                            char *value_dist_airpad_on = strtok( NULL, " " );
+                            char *airpad = strtok( NULL, " " );
                             //ajout dans la base de donnees
-                            detector det(atof(num_id_detector), nom_detector, atof(value_dist_airpad_on));
+                            detector det(atoi(num_id_detector), nom_detector, atof(airpad));
                             //det.Affiche();
                             base_donnees.Add_detector(det);
                         }
@@ -159,7 +159,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                                char *num_Port_Multiplexer = strtok( NULL, " " );
                                std::string id_prisme = strtok( NULL, " " );
                                char *num_chip_bcam_single = strtok( NULL, " " );
-                               BCAM bcam_data(nom_BCAM, atof(id_detector), atof(num_Port_Driver), atof(num_Port_Multiplexer), atof(num_chip_bcam_single), id_prisme);
+                               BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_bcam_single), id_prisme);
                                //std::cout<<nb_string<<std::endl;
                                //bcam_data.Affiche();
                                base_donnees.Add_BCAM(bcam_data);
@@ -176,7 +176,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                                std::string id_prisme_2 = strtok( NULL, " " );
                                char *num_chip_double_bcam = strtok( NULL, " " );
                                std::string id_bcam_visee = strtok( NULL, " " );
-                               BCAM bcam_data(nom_BCAM, atof(id_detector), atof(num_Port_Driver), atof(num_Port_Multiplexer), atof(num_chip_double_bcam), id_prisme_1.append("_").append(id_prisme_2).append("_").append(id_bcam_visee));
+                               BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_double_bcam), id_prisme_1.append("_").append(id_prisme_2).append("_").append(id_bcam_visee));
                                //bcam_data_.Affiche();
                                base_donnees.Add_BCAM(bcam_data);
 
@@ -194,7 +194,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                                char *num_chip_double_bcam = strtok( NULL, " " );
                                std::string id_bcam_visee = strtok( NULL, " " );
 
-                               BCAM bcam_data(nom_BCAM, atof(id_detector), atof(num_Port_Driver), atof(num_Port_Multiplexer), atof(num_chip_double_bcam), id_prisme_1.append("_").append(id_prisme_2).append("_").append(id_prisme_3).append("_").append(id_bcam_visee));
+                               BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_double_bcam), id_prisme_1.append("_").append(id_prisme_2).append("_").append(id_prisme_3).append("_").append(id_bcam_visee));
                                //bcam_data.Affiche();
                                base_donnees.Add_BCAM(bcam_data);
                            }
@@ -208,7 +208,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                                std::string id_prisme_1 = strtok( NULL, " " );
                                std::string id_prisme_2 = strtok( NULL, " " );
                                char *num_chip_single_bcam = strtok( NULL, " " );
-                               BCAM bcam_data(nom_BCAM, atof(id_detector), atof(num_Port_Driver), atof(num_Port_Multiplexer), atof(num_chip_single_bcam), id_prisme_1.append("_").append(id_prisme_2));
+                               BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_single_bcam), id_prisme_1.append("_").append(id_prisme_2));
                                //bcam_data.Affiche();
                                base_donnees.Add_BCAM(bcam_data);
                            }

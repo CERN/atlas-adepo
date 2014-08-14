@@ -7,32 +7,29 @@
 class mount_coord_spots
 {
 public:
-    //constructeurs et destructeurs
-    mount_coord_spots();
-    mount_coord_spots(std::string id,  Point3f coord1, Point3f coord2);
-    virtual ~mount_coord_spots();
+    mount_coord_spots(std::string id,  Point3f coord1, Point3f coord2) : mId(id), mCoord1(coord1), mCoord2(coord2) {};
+    virtual ~mount_coord_spots() {};
 
-     //setter et getter
-    std::string Get_id() const { return m_id; }
-    void Set_id(std::string val) {m_id = val; }
+    std::string getId() const { return mId; }
 
-    Point3f Get_coord1() const {return m_coord1; }
-    void Set_coord1(Point3f val) { m_coord1 = val; }
-
-    Point3f Get_coord2() const {return m_coord2; }
-    void Set_coord2(Point3f val) { m_coord2 = val; }
+    Point3f getCoord1() const {return mCoord1; }
+    Point3f getCoord2() const {return mCoord2; }
 
     //methodes
-    void Affiche();
-
+    void print() {
+        std::cout<<"*******************************************Mount coordinates*******************************************"<<std::endl;
+        std::cout<<"Id : "<<getId()<<std::endl;
+        std::cout<<"Coordonnées dans le systeme MOUNT (spot 1) : "<<std::endl;
+        this->getCoord1().print();
+        std::cout<<"Coordonnées dans le systeme MOUNT (spot 2) : "<<std::endl;
+        this->getCoord2().print();
+    }
 
 protected:
 private:
-    std::string m_id;
-    Point3f m_coord1;
-    Point3f m_coord2;
-
-
+    std::string mId;
+    Point3f mCoord1;
+    Point3f mCoord2;
 };
 
 #endif // MOUNT_COORD_SPOTS_H

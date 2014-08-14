@@ -330,12 +330,12 @@ void ATLAS_BCAM::remplir_tableau_detectors()
 
         //ajout du numero id du detetcteur
         QTableWidgetItem *item_num = new QTableWidgetItem();
-        item_num->setData(0,detectors_data.at(i).Get_num_id_detector());
+        item_num->setData(0,detectors_data.at(i).getId());
         ui->tableWidget_liste_detectors->setItem(i,0,item_num);
 
         //ajout du nom du detecteur
         QTableWidgetItem *item_nom = new QTableWidgetItem();
-        item_nom->setText(QString::fromStdString(detectors_data.at(i).Get_nom_detector()));
+        item_nom->setText(QString::fromStdString(detectors_data.at(i).getName()));
         ui->tableWidget_liste_detectors->setItem(i,1,item_nom);
 
         //ajout de la constante de airpad
@@ -386,26 +386,26 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
     {
       //ajout dans la tableWidget qui affiche les BCAMs
       QTableWidgetItem *nom_bcam = new QTableWidgetItem();
-      nom_bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
+      nom_bcam->setText(QString::fromStdString(liste_bcam->at(i).getName()));
       ui->tableWidget_liste_bcams->setItem(i,0,nom_bcam);
 
       QTableWidgetItem *num_detector = new QTableWidgetItem();
-      num_detector->setData(0,liste_bcam->at(i).Get_id_detector());
+      num_detector->setData(0,liste_bcam->at(i).getDetectorId());
       ui->tableWidget_liste_bcams->setItem(i,1,num_detector);
 
       QTableWidgetItem *num_port_driver = new QTableWidgetItem();
-      num_port_driver->setData(0,liste_bcam->at(i).Get_num_Port_Driver());
+      num_port_driver->setData(0,liste_bcam->at(i).getDriverSocket());
       ui->tableWidget_liste_bcams->setItem(i,2,num_port_driver);
 
       QTableWidgetItem *num_port_mux = new QTableWidgetItem();
-      num_port_mux->setData(0,liste_bcam->at(i).Get_num_Port_Mux());
+      num_port_mux->setData(0,liste_bcam->at(i).getMuxSocket());
       ui->tableWidget_liste_bcams->setItem(i,3,num_port_mux);
 
       QTableWidgetItem *objet_vise = new QTableWidgetItem();
-      objet_vise->setText(QString::fromStdString(liste_bcam->at(i).Get_objet_vise()));
+      objet_vise->setText(QString::fromStdString(liste_bcam->at(i).getPrisms()));
       ui->tableWidget_liste_bcams->setItem(i,4,objet_vise);
 
-      QStringList prisms = QString::fromStdString(liste_bcam->at(i).Get_objet_vise()).split('_');
+      QStringList prisms = QString::fromStdString(liste_bcam->at(i).getPrisms()).split('_');
       // Example:  PR001, PR001_PR023 or PR010_PR034_2_PR045
 
       for (int j=0; j<prisms.size(); j++) {
@@ -415,7 +415,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
               ui->tableWidget_results->setItem(row, 0, name);
 
               QTableWidgetItem *bcam = new QTableWidgetItem();
-              bcam->setText(QString::fromStdString(liste_bcam->at(i).Get_nom_BCAM()));
+              bcam->setText(QString::fromStdString(liste_bcam->at(i).getName()));
               ui->tableWidget_results->setItem(row, 1, bcam);
 
               QTableWidgetItem *prism = new QTableWidgetItem();
@@ -455,13 +455,13 @@ void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision)
     int firstColumn = 4;
 
     if (point.isValid()) {
-        QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.Get_X(), 'f', precision));
+        QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.x(), 'f', precision));
         ui->tableWidget_results->setItem(row, firstColumn + (columnSet * 3), x);
 
-        QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.Get_Y(), 'f', precision));
+        QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.y(), 'f', precision));
         ui->tableWidget_results->setItem(row, firstColumn + 1 + (columnSet * 3), y);
 
-        QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.Get_Z(), 'f', precision));
+        QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.z(), 'f', precision));
         ui->tableWidget_results->setItem(row, firstColumn + 2 + (columnSet * 3), z);
     } else {
         for (int i=0; i<3; i++) {
@@ -565,17 +565,17 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
     tm* ltm = localtime(&now);
 
     //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
-    std::string premier_prisme_atlas = base_donnees.Get_liste_global_coord_prism().at(0).Get_id();
+    std::string premier_prisme_atlas = base_donnees.Get_liste_global_coord_prism().at(0).getId();
 
     for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
     {
-        if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == premier_prisme_atlas)
+        if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).getId() == premier_prisme_atlas)
             break;
 
         mount_coord_prism prism = base_donnees.Get_liste_global_coord_prism().at(i);
 
         //nomenclature dans le repere ATLAS
-        std::string name_prism_atlas = base_donnees.getName(prism.Get_id().substr(15,5));
+        std::string name_prism_atlas = base_donnees.getName(prism.getId().substr(15,5));
 
         result& result = results[name_prism_atlas];
         result.setName(name_prism_atlas);
@@ -587,11 +587,11 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
         for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
         {
             mount_coord_prism checkedPrism = base_donnees.Get_liste_global_coord_prism().at(j);
-            if(prism.Get_id() == checkedPrism.Get_id())
+            if(prism.getId() == checkedPrism.getId())
             {
-                coord(ligne,0)=checkedPrism.Get_coord_prism_mount_sys().Get_X();
-                coord(ligne,1)=checkedPrism.Get_coord_prism_mount_sys().Get_Y();
-                coord(ligne,2)=checkedPrism.Get_coord_prism_mount_sys().Get_Z();
+                coord(ligne,0)=checkedPrism.getCoordPrismMountSys().x();
+                coord(ligne,1)=checkedPrism.getCoordPrismMountSys().y();
+                coord(ligne,2)=checkedPrism.getCoordPrismMountSys().z();
                 ligne=ligne+1;
             }
         }
@@ -621,11 +621,11 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
         //ajout de la constante de prisme
         for(unsigned int n=0; n<base_donnees.Get_liste_correction_excentrement().size(); n++)
         {
-            if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id().substr(15,5) == base_donnees.Get_liste_correction_excentrement().at(n).Get_id_prism())
+            if(base_donnees.Get_liste_global_coord_prism().at(i).getId().substr(15,5) == base_donnees.Get_liste_correction_excentrement().at(n).getId())
             {
-                dx = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_X();
-                dy = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_Y();
-                dz = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_Z();
+                dx = base_donnees.Get_liste_correction_excentrement().at(n).getDelta().x();
+                dy = base_donnees.Get_liste_correction_excentrement().at(n).getDelta().y();
+                dz = base_donnees.Get_liste_correction_excentrement().at(n).getDelta().z();
             }
         }
 
@@ -661,7 +661,7 @@ void ATLAS_BCAM::check_input_data()
     //test des numéros des ports driver : sur les driver les numéros de ports possibles sont compris entre 1 et 8
     for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
-        if(m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Driver()>8 || m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Driver()<1)
+        if(m_bdd.Get_liste_BCAM().at(i).getDriverSocket()>8 || m_bdd.Get_liste_BCAM().at(i).getDriverSocket()<1)
         {
             QMessageBox::critical(this,"Attention","les numéros des ports driver sont impérativement compris entre 1 et 8");
             //mauvais format
@@ -674,7 +674,7 @@ void ATLAS_BCAM::check_input_data()
     //test des numéros des ports multiplexer : sur les multiplexer les numéros des ports possibles sont compris entre 1 et 10
     for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
-        if(m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Mux()>10 || m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Mux()<1)
+        if(m_bdd.Get_liste_BCAM().at(i).getMuxSocket()>10 || m_bdd.Get_liste_BCAM().at(i).getMuxSocket()<1)
         {
             QMessageBox::critical(this,"Attention","les numéros des ports multiplexer sont impérativement compris entre 1 et 10");
             //mauvais format
@@ -700,7 +700,7 @@ void ATLAS_BCAM::check_input_data()
 
          for (unsigned int j=0; j<m_bdd.Get_liste_detector().size(); j++)
         {
-             if( j != i && m_bdd.Get_liste_detector().at(i).Get_nom_detector() == m_bdd.Get_liste_detector().at(j).Get_nom_detector())
+             if( j != i && m_bdd.Get_liste_detector().at(i).getName() == m_bdd.Get_liste_detector().at(j).getName())
              {
                  QMessageBox::critical(this,"Attention","Vous avez entre 2 fois le meme nom de detecteur !");
                  //mauvais format
@@ -708,7 +708,7 @@ void ATLAS_BCAM::check_input_data()
                  //arrêt du programme
                  std::exit(EXIT_FAILURE);
              }
-             if(j != i && m_bdd.Get_liste_detector().at(i).Get_num_id_detector() == m_bdd.Get_liste_detector().at(j).Get_num_id_detector())
+             if(j != i && m_bdd.Get_liste_detector().at(i).getId() == m_bdd.Get_liste_detector().at(j).getId())
              {
                  QMessageBox::critical(this,"Attention","Vous avez entre 2 fois le meme numero d'identifiant pour un detectuer !");
                  //mauvais format
@@ -722,7 +722,7 @@ void ATLAS_BCAM::check_input_data()
     //test sur la longueur des chaînes de caractères (identifiant des BCAMs)
     for (unsigned int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
     {
-        if(m_bdd.Get_liste_BCAM().at(i).Get_nom_BCAM().size() != ID_LENGTH_BCAM)
+        if(m_bdd.Get_liste_BCAM().at(i).getName().size() != ID_LENGTH_BCAM)
         {
             QMessageBox::critical(this,"Attention","Au moins 1 BCAM comporte un identifiant de longueur inapropriee !");
             //mauvais format
@@ -738,7 +738,7 @@ void ATLAS_BCAM::check_input_data()
     {
         for (unsigned int j=0; j<m_bdd.Get_liste_BCAM().size(); j++)
         {
-            if(j != i && m_bdd.Get_liste_BCAM().at(i).Get_nom_BCAM() == m_bdd.Get_liste_BCAM().at(j).Get_nom_BCAM())
+            if(j != i && m_bdd.Get_liste_BCAM().at(i).getName() == m_bdd.Get_liste_BCAM().at(j).getName())
             {
                 QMessageBox::critical(this,"Attention","Vous avez entre 2 fois le meme numero d'identifiant de BCAM !");
                 //mauvais format
@@ -754,7 +754,8 @@ void ATLAS_BCAM::check_input_data()
     {
         for (unsigned int j=0; j<m_bdd.Get_liste_BCAM().size(); j++)
         {
-            if((i != j) && (m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Driver() == m_bdd.Get_liste_BCAM().at(j).Get_num_Port_Driver()) && (m_bdd.Get_liste_BCAM().at(i).Get_num_Port_Mux() == m_bdd.Get_liste_BCAM().at(j).Get_num_Port_Mux()))
+            if((i != j) && (m_bdd.Get_liste_BCAM().at(i).getDriverSocket() == m_bdd.Get_liste_BCAM().at(j).getDriverSocket()) &&
+                    (m_bdd.Get_liste_BCAM().at(i).getMuxSocket() == m_bdd.Get_liste_BCAM().at(j).getMuxSocket()))
             {
                 QMessageBox::critical(this,"Attention","2 BCAMs ne peut pas être branchée sur le même port driver et multiplexer à la fois !");
                 //mauvais format
@@ -849,26 +850,26 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
         for(unsigned int i=0; i<liste_temp_bcam.size(); i++)
         {
             // on separe les visees BCAM-Prisme des visees BCAM-BCAM
-            if(liste_temp_bcam.at(i).Get_objet_vise().length() == 14) //configuration de visee BCAM-BCAM
+            if(liste_temp_bcam.at(i).getPrisms().length() == 14) //configuration de visee BCAM-BCAM
             {
                 fichier<<"acquire: \n"
-                       <<"name: "<<liste_temp_bcam.at(i).Get_nom_BCAM().append("_").append(liste_temp_bcam.at(i).Get_objet_vise())<<"\n"
+                       <<"name: "<<liste_temp_bcam.at(i).getName().append("_").append(liste_temp_bcam.at(i).getPrisms())<<"\n"
                        <<"instrument: BCAM \n"
                        <<"result: None \n"
                        <<"time: 0 \n"
                        <<"config: \n"
                        <<"\n"
                        <<"\t analysis_num_spots 2 \n"
-                       <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).Get_num_Port_Driver()<<"\n"
-                       <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n";
+                       <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                       <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n";
 
                 for(unsigned int j=0; j<liste_temp_bcam.size(); j++)
                 {
-                    if(liste_temp_bcam.at(i).Get_objet_vise() == liste_temp_bcam.at(j).Get_nom_BCAM())
+                    if(liste_temp_bcam.at(i).getPrisms() == liste_temp_bcam.at(j).getName())
                     {
-                        fichier<<"\t daq_source_mux_socket "<<liste_temp_bcam.at(j).Get_num_Port_Mux()<<"\n"
-                               <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(j).Get_num_Port_Driver()<<"\n";
-                        if(liste_temp_bcam.at(i).Get_num_chip() == 2)
+                        fichier<<"\t daq_source_mux_socket "<<liste_temp_bcam.at(j).getMuxSocket()<<"\n"
+                               <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(j).getDriverSocket()<<"\n";
+                        if(liste_temp_bcam.at(i).getNumChip() == 2)
                         {
                             fichier<<"\t daq_device_element 1 \n"
                                    <<"\t daq_source_device_element \"3 4\" \n";
@@ -895,21 +896,21 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
             else //configuration BCAM-Prisme
             {
                 fichier<<"acquire: \n"
-                       <<"name: "<<liste_temp_bcam.at(i).Get_nom_BCAM().append("_").append(liste_temp_bcam.at(i).Get_objet_vise())<<"\n"
+                       <<"name: "<<liste_temp_bcam.at(i).getName().append("_").append(liste_temp_bcam.at(i).getPrisms())<<"\n"
                        <<"instrument: BCAM \n"
                        <<"result: None \n"
                        <<"time: 0 \n"
                        <<"config: \n";
 
-                if(liste_temp_bcam.at(i).Get_objet_vise().length() == 5)         //cas de 1 bcam qui vise 1 prisme (port source et port enregistreure sont les memes)
+                if(liste_temp_bcam.at(i).getPrisms().length() == 5)         //cas de 1 bcam qui vise 1 prisme (port source et port enregistreure sont les memes)
                 {
                            fichier<<"\t analysis_num_spots 2 \n"
-                                 <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).Get_num_Port_Driver()<<"\n"
-                                  <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).Get_num_Port_Driver()<<"\n"
-                                  <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n"
-                                  <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n"
-                                  <<"\t daq_device_element "<<liste_temp_bcam.at(i).Get_num_chip()<<"\n";
-                           if(liste_temp_bcam.at(i).Get_num_chip() == 2)
+                                 <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                                  <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                                  <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                                  <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                                  <<"\t daq_device_element "<<liste_temp_bcam.at(i).getNumChip()<<"\n";
+                           if(liste_temp_bcam.at(i).getNumChip() == 2)
                            {
                                fichier<<"\t daq_source_device_element \"3 4\" \n";
                            }
@@ -924,15 +925,15 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
                                    <<"end. \n"
                                   <<"\n";
                 }
-                else if(liste_temp_bcam.at(i).Get_objet_vise().length() == 11)   //cas de 1 bcam qui vise 2 prismes (port source et port enregistreure sont les memes)
+                else if(liste_temp_bcam.at(i).getPrisms().length() == 11)   //cas de 1 bcam qui vise 2 prismes (port source et port enregistreure sont les memes)
                 {
                            fichier<<"\t analysis_num_spots 4 \n"
-                                 <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).Get_num_Port_Driver()<<"\n"
-                                 <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n"
-                                  <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).Get_num_Port_Driver()<<"\n"
-                                  <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n"
-                                  <<"\t daq_device_element "<<liste_temp_bcam.at(i).Get_num_chip()<<"\n";
-                           if(liste_temp_bcam.at(i).Get_num_chip() == 2)
+                                 <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                                 <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                                  <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                                  <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                                  <<"\t daq_device_element "<<liste_temp_bcam.at(i).getNumChip()<<"\n";
+                           if(liste_temp_bcam.at(i).getNumChip() == 2)
                            {
                                fichier<<"\t daq_source_device_element \"3 4\" \n";
                            }
@@ -951,16 +952,16 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
                 else  //cas d'une BCAM qui vise 3 prismes (port source et port enregistreure sont les memes)
                        {
                            fichier<<"\t analysis_num_spots 6 \n"
-                                  <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n"
-                                  <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).Get_num_Port_Mux()<<"\n"
-                                  <<"\t daq_device_element "<<liste_temp_bcam.at(i).Get_num_chip()<<"\n"
-                                  <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).Get_num_Port_Driver()<<"\n"
-                                  <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).Get_num_Port_Driver()<<"\n"
+                                  <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                                  <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                                  <<"\t daq_device_element "<<liste_temp_bcam.at(i).getNumChip()<<"\n"
+                                  <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                                  <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
                                   <<"\t daq_image_left 20 \n"
                                   <<"\t daq_image_top 1 \n"
                                   <<"\t daq_image_right 343 \n"
                                   <<"\t daq_image_bottom 243 \n";
-                          if(liste_temp_bcam.at(i).Get_num_chip() == 2)
+                          if(liste_temp_bcam.at(i).getNumChip() == 2)
                           {
                               fichier<<"\t daq_source_device_element \"3 4\" \n";
                           }

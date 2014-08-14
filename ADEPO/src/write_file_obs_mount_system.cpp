@@ -40,22 +40,22 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                <<"\n";
 
             //premiere visee BCAM-Prisme de la liste des observations
-            std::string premier_objet_img= base_donnees.Get_liste_spots().at(0).Get_nom_BCAM_Objet();
+            std::string premier_objet_img= base_donnees.Get_liste_spots().at(0).getId();
 
             //sauvegarde des coordonnees images
             fichier<<"*******************************************************************coordonnees images dans le repere CCD *********************************************************************************** \n";
             for(unsigned int i=0; i<base_donnees.Get_liste_spots().size(); i++)
             {
-                if(i>0 && base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet() == premier_objet_img) //si on a tout parcourut et on revient au premier objet ==> fin
+                if(i>0 && base_donnees.Get_liste_spots().at(i).getId() == premier_objet_img) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
-                fichier<<base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet()<<"\n";
+                fichier<<base_donnees.Get_liste_spots().at(i).getId()<<"\n";
                 for(unsigned int j=0; j<base_donnees.Get_liste_spots().size(); j++)
                 {
-                    if(base_donnees.Get_liste_spots().at(i).Get_nom_BCAM_Objet() == base_donnees.Get_liste_spots().at(j).Get_nom_BCAM_Objet())
+                    if(base_donnees.Get_liste_spots().at(i).getId() == base_donnees.Get_liste_spots().at(j).getId())
                     {
-                                fichier<<"Spot 1"<<" "<<base_donnees.Get_liste_spots().at(j).Get_i1_CCD()*um2m<<" "<<base_donnees.Get_liste_spots().at(j).Get_j1_CCD()*um2m<<"\n"
-                                       <<"Spot 2"<<" "<<base_donnees.Get_liste_spots().at(j).Get_i2_CCD()*um2m<<" "<<base_donnees.Get_liste_spots().at(j).Get_j2_CCD()*um2m<<"\n";
+                                fichier<<"Spot 1"<<" "<<base_donnees.Get_liste_spots().at(j).getI1CCD()*um2m<<" "<<base_donnees.Get_liste_spots().at(j).getJ1CCD()*um2m<<"\n"
+                                       <<"Spot 2"<<" "<<base_donnees.Get_liste_spots().at(j).getI2CCD()*um2m<<" "<<base_donnees.Get_liste_spots().at(j).getJ2CCD()*um2m<<"\n";
                     }
                 }
             }
@@ -63,21 +63,21 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
             fichier<<"\n"
                    <<"\n"
                    <<"****************************************************************coordonnees images transformees dans le repere MOUNT************************************************************************* \n";
-            std::string premier_objet_mount = base_donnees.Get_liste_mount_coord_spots().at(0).Get_id();
+            std::string premier_objet_mount = base_donnees.Get_liste_mount_coord_spots().at(0).getId();
 
             //sauvegarde des coordonnees images transformees dans le repere MOUNT
             for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++)
             {
-                if(i>0 && base_donnees.Get_liste_mount_coord_spots().at(i).Get_id() == premier_objet_mount) //si on a tout parcourut et on revient au premier objet ==> fin
+                if(i>0 && base_donnees.Get_liste_mount_coord_spots().at(i).getId() == premier_objet_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
-                fichier<<base_donnees.Get_liste_mount_coord_spots().at(i).Get_id()<<"\n";
+                fichier<<base_donnees.Get_liste_mount_coord_spots().at(i).getId()<<"\n";
                 for(unsigned int j=0; j<base_donnees.Get_liste_mount_coord_spots().size(); j++)
                 {
-                    if(base_donnees.Get_liste_mount_coord_spots().at(i).Get_id() == base_donnees.Get_liste_mount_coord_spots().at(j).Get_id())
+                    if(base_donnees.Get_liste_mount_coord_spots().at(i).getId() == base_donnees.Get_liste_mount_coord_spots().at(j).getId())
                     {
-                        fichier<<"Spot 1"<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord1().Get_X()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord1().Get_Y()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord1().Get_Z()<<"\n"
-                               <<"Spot 2"<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord2().Get_X()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord2().Get_Y()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).Get_coord2().Get_Z()<<"\n";
+                        fichier<<"Spot 1"<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord1().x()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord1().y()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord1().z()<<"\n"
+                               <<"Spot 2"<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord2().x()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord2().y()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord2().z()<<"\n";
                     }
                 }
             }
@@ -86,19 +86,19 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                    <<"\n"
                    <<"*****************************************************************coordonnees du prisme dans le repere MOUNT********************************************************************************** \n";
             //sauvegarde des coordonnees du prisme dans le repere MOUNT pour chaque paire de spots
-            std::string premier_prisme_mount = base_donnees.Get_liste_mount_coord_prism().at(0).Get_id();
+            std::string premier_prisme_mount = base_donnees.Get_liste_mount_coord_prism().at(0).getId();
 
             for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
             {
-                if(i>0 && base_donnees.Get_liste_mount_coord_prism().at(i).Get_id() == premier_prisme_mount) //si on a tout parcourut et on revient au premier objet ==> fin
+                if(i>0 && base_donnees.Get_liste_mount_coord_prism().at(i).getId() == premier_prisme_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
-                fichier<<base_donnees.Get_liste_mount_coord_prism().at(i).Get_id()<<" "<<base_donnees.Get_liste_mount_coord_prism().at(i).getAirpad()<<"\n";
+                fichier<<base_donnees.Get_liste_mount_coord_prism().at(i).getId()<<" "<<base_donnees.Get_liste_mount_coord_prism().at(i).getAirpad()<<"\n";
                 for(unsigned int j=0; j<base_donnees.Get_liste_mount_coord_prism().size(); j++)
                 {
-                    if(base_donnees.Get_liste_mount_coord_prism().at(i).Get_id() == base_donnees.Get_liste_mount_coord_prism().at(j).Get_id())
+                    if(base_donnees.Get_liste_mount_coord_prism().at(i).getId() == base_donnees.Get_liste_mount_coord_prism().at(j).getId())
                     {
-                        fichier<<base_donnees.Get_liste_mount_coord_prism().at(j).Get_coord_prism_mount_sys().Get_X()<<" "<<base_donnees.Get_liste_mount_coord_prism().at(j).Get_coord_prism_mount_sys().Get_Y()<<" "<<base_donnees.Get_liste_mount_coord_prism().at(j).Get_coord_prism_mount_sys().Get_Z()<<"\n";
+                        fichier<<base_donnees.Get_liste_mount_coord_prism().at(j).getCoordPrismMountSys().x()<<" "<<base_donnees.Get_liste_mount_coord_prism().at(j).getCoordPrismMountSys().y()<<" "<<base_donnees.Get_liste_mount_coord_prism().at(j).getCoordPrismMountSys().z()<<"\n";
                     }
                 }
             }
@@ -107,19 +107,19 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                    <<"\n"
                    <<"*****************************************************************coordonnees du prisme dans le repere ATLAS********************************************************************************** \n";
             //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
-            std::string premier_prisme_atlas = base_donnees.Get_liste_global_coord_prism().at(0).Get_id();
+            std::string premier_prisme_atlas = base_donnees.Get_liste_global_coord_prism().at(0).getId();
 
             for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
             {
-                if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == premier_prisme_atlas)
+                if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).getId() == premier_prisme_atlas)
                     break;
 
-                fichier<<base_donnees.Get_liste_global_coord_prism().at(i).Get_id()<<" "<<base_donnees.Get_liste_global_coord_prism().at(i).getAirpad()<<"\n";
+                fichier<<base_donnees.Get_liste_global_coord_prism().at(i).getId()<<" "<<base_donnees.Get_liste_global_coord_prism().at(i).getAirpad()<<"\n";
                 for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
                 {
-                    if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == base_donnees.Get_liste_global_coord_prism().at(j).Get_id())
+                    if(base_donnees.Get_liste_global_coord_prism().at(i).getId() == base_donnees.Get_liste_global_coord_prism().at(j).getId())
                     {
-                        fichier<<base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_X()<<" "<<base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_Y()<<" "<<base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_Z()<<"\n";
+                        fichier<<base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().x()<<" "<<base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().y()<<" "<<base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().z()<<"\n";
                     }
                 }
             }
@@ -130,7 +130,7 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
 
             for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
             {
-                if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == premier_prisme_atlas)
+                if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).getId() == premier_prisme_atlas)
                     break;
 
                 Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
@@ -138,11 +138,11 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
 
                 for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
                 {
-                    if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == base_donnees.Get_liste_global_coord_prism().at(j).Get_id())
+                    if(base_donnees.Get_liste_global_coord_prism().at(i).getId() == base_donnees.Get_liste_global_coord_prism().at(j).getId())
                     {
-                        coord(ligne,0)=base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_X();
-                        coord(ligne,1)=base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_Y();
-                        coord(ligne,2)=base_donnees.Get_liste_global_coord_prism().at(j).Get_coord_prism_mount_sys().Get_Z();
+                        coord(ligne,0)=base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().x();
+                        coord(ligne,1)=base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().y();
+                        coord(ligne,2)=base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().z();
                         ligne=ligne+1;
                     }
                 }
@@ -168,8 +168,8 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
 
                 //nomenclature dans le repere ATLAS
                 mount_coord_prism prism = base_donnees.Get_liste_global_coord_prism().at(i);
-                std::string name_bcam_atlas = base_donnees.getName(prism.Get_id().substr(0,14));
-                std::string name_prism_atlas = base_donnees.getName(prism.Get_id().substr(15,5));
+                std::string name_bcam_atlas = base_donnees.getName(prism.getId().substr(0,14));
+                std::string name_prism_atlas = base_donnees.getName(prism.getId().substr(15,5));
                 float airpad = base_donnees.Get_liste_global_coord_prism().at(i).getAirpad();
 
                 //delta selon composantes axiales
@@ -179,11 +179,11 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                 //ajout de la constante de prisme
                 for(unsigned int n=0; n<base_donnees.Get_liste_correction_excentrement().size(); n++)
                 {
-                    if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id().substr(15,5) == base_donnees.Get_liste_correction_excentrement().at(n).Get_id_prism())
+                    if(base_donnees.Get_liste_global_coord_prism().at(i).getId().substr(15,5) == base_donnees.Get_liste_correction_excentrement().at(n).getId())
                     {
-                        delta_x = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_X();
-                        delta_y = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_Y();
-                        delta_z = base_donnees.Get_liste_correction_excentrement().at(n).Get_delta().Get_Z();
+                        delta_x = base_donnees.Get_liste_correction_excentrement().at(n).getDelta().x();
+                        delta_y = base_donnees.Get_liste_correction_excentrement().at(n).getDelta().y();
+                        delta_z = base_donnees.Get_liste_correction_excentrement().at(n).getDelta().z();
                     }
                 }
                 //enregistrement dans le fichier de resultats

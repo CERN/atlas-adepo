@@ -32,32 +32,19 @@ HEADERS += \
 
 SOURCES += \
     src/write_file_obs_mount_system.cpp \
-    src/spot.cpp \
     src/read_lwdaq_output.cpp \
     src/read_input.cpp \
     src/read_calibration_database.cpp \
-    src/Point3f.cpp \
-    src/mount_coord_spots.cpp \
-    src/mount_coord_prism.cpp \
     src/liste_bcam_from_id_detector.cpp \
     src/img_coord_to_bcam_coord.cpp \
-    src/detector.cpp \
     src/clean_calib.cpp \
-    src/calib2.cpp \
-    src/calib1.cpp \
     src/calcul_coord_bcam_system.cpp \
     src/bdd.cpp \
-    src/bcam.cpp \
     src/atlas_bcam.cpp \
     src/main.cpp \
-    src/bcam_adaptateur.cpp \
-    src/absolutes_distances.cpp \
-    src/atlas_coordinates.cpp \    
     src/helmert.cpp \
-    src/bcam_params.cpp \
     src/changement_repere.cpp \
     src/mount_prism_to_global_prism.cpp \
-    src/prism_correction.cpp \
     src/lwdaq_client.cpp
 
 FORMS += \

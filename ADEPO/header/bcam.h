@@ -7,42 +7,43 @@ class BCAM
 {
 public:
     //constructeurs et destructeurs
-    BCAM();
-    BCAM(std::string nom_BCAM, int id_detector, int num_Port_Driver, int num_Port_Mux, int num_chip, std::string objet_vise);
-    virtual ~BCAM();
+    BCAM(std::string name, int detectorId, int driverSocket, int muxSocket, int numChip, std::string prisms) :
+           mName(name), mDetectorId(detectorId), mDriverSocket(driverSocket), mMuxSocket(muxSocket), mNumChip(numChip), mPrisms(prisms) {};
+    virtual ~BCAM() {};
 
     //setter et getter
-    std::string Get_nom_BCAM() const { return m_nom_BCAM; }
-    void Set_nom_BCAM(std::string val) {m_nom_BCAM = val; }
+    std::string getName() const { return mName; }
 
-    int Get_id_detector() const { return m_id_detector; }
-    void set_id_detector(int val) {m_id_detector =val; }
+    int getDetectorId() const { return mDetectorId; }
 
-    int Get_num_Port_Driver() const { return m_num_Port_Driver; }
-    void Set_num_Port_Driver(int val) { m_num_Port_Driver = val; }
+    int getDriverSocket() const { return mDriverSocket; }
 
-    int Get_num_Port_Mux() const { return m_num_Port_Mux; }
-    void Set_num_Port_Mux(int val) { m_num_Port_Mux = val; }
+    int getMuxSocket() const { return mMuxSocket; }
 
-    int Get_num_chip() const { return m_num_chip; }
-    void Set_num_chip(int val) { m_num_chip = val; }
+    int getNumChip() const { return mNumChip; }
 
-    std::string Get_objet_vise() const { return m_objet_vise; }
-    void Set_objet_vise(std::string val) {m_objet_vise = val; }
+    std::string getPrisms() const { return mPrisms; }
 
     //methodes
-    void Affiche();
+    void print() {
+        std::cout<<"*******************************************Infos BCAM*******************************************"<<std::endl;
+        std::cout<<"Nom de la BCAM : "<<getName()<<std::endl;
+        std::cout<<"Identifiant du detecteur auquel la BCAM appartient : "<<getDetectorId()<<std::endl;
+        std::cout<<"Numéro du port Driver : "<<getDriverSocket()<<std::endl;
+        std::cout<<"Numéro du port Multiplexer : "<<getMuxSocket()<<std::endl;
+        std::cout<<"Objet visee : "<<getPrisms()<<std::endl;
+        std::cout<<"Numero du chip : "<<getNumChip()<<std::endl;
+        std::cout<<"************************************************************************************************"<<std::endl;
+    }
 
 protected:
 private:
-    std::string m_nom_BCAM;
-    int m_id_detector;
-    int m_num_Port_Driver;
-    int m_num_Port_Mux;
-    int m_num_chip;
-    std::string m_objet_vise;
-
-
+    std::string mName;
+    int mDetectorId;
+    int mDriverSocket;
+    int mMuxSocket;
+    int mNumChip;
+    std::string mPrisms;
 };
 
 #endif // BCAM_H

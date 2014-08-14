@@ -6,9 +6,9 @@
 Point3f changement_repere(Point3f coord_sys1, Point3f translation, Point3f rotation)
 {
 
-    float x_sys1 = coord_sys1.Get_X();
-    float y_sys1 = coord_sys1.Get_Y();
-    float z_sys1 = coord_sys1.Get_Z();
+    float x_sys1 = coord_sys1.x();
+    float y_sys1 = coord_sys1.y();
+    float z_sys1 = coord_sys1.z();
 
     //vecteur point dans systeme 1
     Eigen::MatrixXd pt_sys1(1,3); pt_sys1.setZero();
@@ -17,9 +17,9 @@ Point3f changement_repere(Point3f coord_sys1, Point3f translation, Point3f rotat
     std::cout<<pt_sys1<<std::endl;
     std::cout<<"---------->"<<std::endl;*/
 
-    float Tx0 = translation.Get_X();
-    float Ty0 = translation.Get_Y();
-    float Tz0 = translation.Get_Z();
+    float Tx0 = translation.x();
+    float Ty0 = translation.y();
+    float Tz0 = translation.z();
 
     //vecteur translation
     Eigen::MatrixXd T(1,3); T.setZero();
@@ -28,9 +28,9 @@ Point3f changement_repere(Point3f coord_sys1, Point3f translation, Point3f rotat
     std::cout<<T<<std::endl;
     std::cout<<"---------->"<<std::endl;*/
 
-    float phi0 = rotation.Get_X();
-    float teta0 = rotation.Get_Y();
-    float psi0 = rotation.Get_Z();
+    float phi0 = rotation.x();
+    float teta0 = rotation.y();
+    float psi0 = rotation.z();
 
     /*std::cout<<teta0<<std::endl;
     std::cout<<phi0<<std::endl;

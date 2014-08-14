@@ -60,9 +60,9 @@ public:
 
     void toString() {
         std::cout << name << " " << n << ""
-                  << value.isValid() << " " << value.Get_X() << " " << value.Get_Y() << " " << value.Get_Z() << " "
-                  << std.isValid() << " " << std.Get_X() << " " << std.Get_Y() << " " << std.Get_Z() << ""
-                  << offset.isValid() << " " << offset.Get_X() << " " << offset.Get_Y() << " " << offset.Get_Z() <<
+                  << value.isValid() << " " << value.x() << " " << value.y() << " " << value.z() << " "
+                  << std.isValid() << " " << std.x() << " " << std.y() << " " << std.z() << ""
+                  << offset.isValid() << " " << offset.x() << " " << offset.y() << " " << offset.z() <<
                      std::endl;
     }
 

@@ -14,31 +14,31 @@ void helmert(bdd & base_donnees)
         Eigen::VectorXd l_terrain(12); l_terrain.setZero();
         Eigen::VectorXd l_modele(12);  l_modele.setZero();
 
-        if(base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "A" || base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "L") //si la bcam est noire
+        if(base_donnees.Get_liste_BCAM().at(i).getName().substr(7,1) == "A" || base_donnees.Get_liste_BCAM().at(i).getName().substr(7,1) == "L") //si la bcam est noire
         {
             int cmpt=0;
             for(unsigned int j=0; j<base_donnees.Get_liste_bcam_adaptateur().size(); j++) //je parcours la liste des coordonnees modele
             {
-                if(base_donnees.Get_liste_bcam_adaptateur().at(j).Get_type_bcam() == "Black")
+                if(base_donnees.Get_liste_bcam_adaptateur().at(j).getTypeBCAM() == "Black")
                 {
-                    l_modele(3*cmpt,0)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_X();
-                    l_modele(3*cmpt+1,0)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_Y();
-                    l_modele(3*cmpt+2,0)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_Z();
+                    l_modele(3*cmpt,0)=base_donnees.Get_liste_bcam_adaptateur().at(j).getTargetCoord().x();
+                    l_modele(3*cmpt+1,0)=base_donnees.Get_liste_bcam_adaptateur().at(j).getTargetCoord().y();
+                    l_modele(3*cmpt+2,0)=base_donnees.Get_liste_bcam_adaptateur().at(j).getTargetCoord().z();
                     cmpt++;
                 }
             }
 
         }
-        if(base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "B" || base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "M")
+        if(base_donnees.Get_liste_BCAM().at(i).getName().substr(7,1) == "B" || base_donnees.Get_liste_BCAM().at(i).getName().substr(7,1) == "M")
         {
             int cmpt=0;
             for(unsigned int j=0; j<base_donnees.Get_liste_bcam_adaptateur().size(); j++) //je parcours la liste des coordonnees modele
             {
-                if(base_donnees.Get_liste_bcam_adaptateur().at(j).Get_type_bcam() == "Blue")
+                if(base_donnees.Get_liste_bcam_adaptateur().at(j).getTypeBCAM() == "Blue")
                 {
-                    l_modele(3*cmpt)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_X();
-                    l_modele(3*cmpt+1)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_Y();
-                    l_modele(3*cmpt+2)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_Z();
+                    l_modele(3*cmpt)=base_donnees.Get_liste_bcam_adaptateur().at(j).getTargetCoord().x();
+                    l_modele(3*cmpt+1)=base_donnees.Get_liste_bcam_adaptateur().at(j).getTargetCoord().y();
+                    l_modele(3*cmpt+2)=base_donnees.Get_liste_bcam_adaptateur().at(j).getTargetCoord().z();
                     cmpt++;
                 }
             }
@@ -49,11 +49,11 @@ void helmert(bdd & base_donnees)
         int cmpt=0;
         for(unsigned int j=0; j<base_donnees.Get_liste_ATLAS_coordinates().size(); j++)
         {
-            if(base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM() == base_donnees.Get_liste_ATLAS_coordinates().at(j).Get_id_BCAM())
+            if(base_donnees.Get_liste_BCAM().at(i).getName() == base_donnees.Get_liste_ATLAS_coordinates().at(j).getId())
             {
-                    l_terrain(3*cmpt,0)=base_donnees.Get_liste_ATLAS_coordinates().at(j).Get_cible().Get_X();
-                    l_terrain(3*cmpt+1,0)=base_donnees.Get_liste_ATLAS_coordinates().at(j).Get_cible().Get_Y();
-                    l_terrain(3*cmpt+2,0)=base_donnees.Get_liste_ATLAS_coordinates().at(j).Get_cible().Get_Z();
+                    l_terrain(3*cmpt,0)=base_donnees.Get_liste_ATLAS_coordinates().at(j).getTarget().x();
+                    l_terrain(3*cmpt+1,0)=base_donnees.Get_liste_ATLAS_coordinates().at(j).getTarget().y();
+                    l_terrain(3*cmpt+2,0)=base_donnees.Get_liste_ATLAS_coordinates().at(j).getTarget().z();
                     cmpt++;
             }
         }
@@ -293,7 +293,7 @@ void helmert(bdd & base_donnees)
 
           }
             //enregistrement dans la base de donnees des parametres de chaque BCAM
-            std::string id_bcam = base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM();
+            std::string id_bcam = base_donnees.Get_liste_BCAM().at(i).getName();
             Point3f translation(Tx0,Ty0,Tz0);
             Point3f rotation(phi0,teta0,psi0);
             BCAM_params parametres_bcam(id_bcam, translation, rotation);

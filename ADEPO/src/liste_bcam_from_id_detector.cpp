@@ -7,16 +7,16 @@ std::vector<BCAM> liste_bcam_from_id_detector(bdd & base_donnees, int id_detecto
 
     for(unsigned int i=0; i<base_donnees.Get_liste_BCAM().size(); i++)
     {
-        if(base_donnees.Get_liste_BCAM().at(i).Get_id_detector() == id_detector)
+        if(base_donnees.Get_liste_BCAM().at(i).getDetectorId() == id_detector)
         {
 
             //enregistrement des donnees de la bcam
-            std::string nom_bcam = base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM();
-            int num_id_detector = base_donnees.Get_liste_BCAM().at(i).Get_id_detector();
-            int num_port_driver = base_donnees.Get_liste_BCAM().at(i).Get_num_Port_Driver();
-            int num_port_mux = base_donnees.Get_liste_BCAM().at(i).Get_num_Port_Mux();
-            int num_cheap = base_donnees.Get_liste_BCAM().at(i).Get_num_chip();
-            std::string nom_objet_vise = base_donnees.Get_liste_BCAM().at(i).Get_objet_vise();
+            std::string nom_bcam = base_donnees.Get_liste_BCAM().at(i).getName();
+            int num_id_detector = base_donnees.Get_liste_BCAM().at(i).getDetectorId();
+            int num_port_driver = base_donnees.Get_liste_BCAM().at(i).getDriverSocket();
+            int num_port_mux = base_donnees.Get_liste_BCAM().at(i).getMuxSocket();
+            int num_cheap = base_donnees.Get_liste_BCAM().at(i).getNumChip();
+            std::string nom_objet_vise = base_donnees.Get_liste_BCAM().at(i).getPrisms();
 
             //BCAM bcam_data(nom_bcam, num_id_detector, num_port_driver, num_port_mux, num_cheap, nom_objet_vise);
             //liste_bcam.push_back(bcam_data);

@@ -8,31 +8,32 @@
 class calib2
 {
 public:
-    //constructeurs et destructeurs
-    calib2();
-    calib2(std::string id_BCAM, Point3f coord_flash_1, Point3f coord_flash_2);
-    virtual ~calib2();
+    calib2(std::string id, Point3f coordFlash1, Point3f coordFlash2) : mId(id), mCoordFlash1(coordFlash1), mCoordFlash2(coordFlash2) {};
+    virtual ~calib2() {};
 
     //setter et getter
-    std::string Get_id_BCAM() const { return m_id_BCAM; }
-    void Set_id_BCAM(std::string val) {m_id_BCAM = val; }
+    std::string getId() const { return mId; }
 
-    Point3f Get_coord_flash_1() const {return m_coord_flash_1; }
-    void Set_coord_flash_1(Point3f val) { m_coord_flash_1 = val; }
+    Point3f getCoordFlash1() const {return mCoordFlash1; }
 
-    Point3f Get_coord_flash_2() const {return m_coord_flash_2; }
-    void Set_coord_flash_2(Point3f val) { m_coord_flash_2 = val; }
-
-
+    Point3f getCoordFlash2() const {return mCoordFlash2; }
 
     //methodes
-    void Affiche();
+    void print() {
+        std::cout<<"*******************************************Infos Calib*******************************************"<<std::endl;
+        std::cout<<"Id de la BCAM : "<<getId()<<std::endl;
+        std::cout<<"Affichage des cordonnées du premier flash : "<<std::endl;
+        this->getCoordFlash1().print();
+        std::cout<<"Affichage des cordonnées du second flash : "<<std::endl;
+        this->getCoordFlash2().print();
+        std::cout<<"************************************************************************************************"<<std::endl;
+    }
 
 protected:
 private:
-    std::string m_id_BCAM;
-    Point3f m_coord_flash_1;
-    Point3f m_coord_flash_2;
+    std::string mId;
+    Point3f mCoordFlash1;
+    Point3f mCoordFlash2;
 };
 
 #endif // CALIB2_H

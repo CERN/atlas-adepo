@@ -9,30 +9,28 @@
 class mount_coord_prism
 {
 public:
-    //constructeurs et destructeurs
-    mount_coord_prism();
-    mount_coord_prism(std::string id, Point3f coord_prism_mount_sys, float airpad);
-    virtual ~mount_coord_prism();
+    mount_coord_prism(std::string id, Point3f coordPrismMountSys, float airpad) : mId(id), mCoordPrismMountSys(coordPrismMountSys), mAirpad(airpad) {};
+    virtual ~mount_coord_prism() {};
 
     //getter setter
-    std::string Get_id() const {return m_id; }
-    void Set_id_prism(std::string val) {m_id = val ;}
+    std::string getId() const {return mId; }
+    Point3f getCoordPrismMountSys() const {return mCoordPrismMountSys; }
 
-    Point3f Get_coord_prism_mount_sys() const {return m_coord_prism_mount_sys; }
-    void Set_coord_prism_mount_sys(Point3f val) {m_coord_prism_mount_sys = val; }
-
-    float getAirpad() {
-        return m_airpad;
-    }
+    float getAirpad() { return mAirpad; }
 
     //methodes
-    void Affiche();
+    void print() {
+        std::cout<<"*******************************************Mount coordinates of prism*******************************************"<<std::endl;
+        std::cout<<"Objet BCAM-Prisme : "<<getId()<<std::endl;
+        std::cout<<"Coordonnées du prisme dans le systeme MOUNT : "<<std::endl;
+        getCoordPrismMountSys().print();
+    }
 
 protected:
 private:
-    std::string m_id;
-    Point3f m_coord_prism_mount_sys;
-    float m_airpad;
+    std::string mId;
+    Point3f mCoordPrismMountSys;
+    float mAirpad;
 };
 
 #endif // MOUNT_COORD_PRISM_H

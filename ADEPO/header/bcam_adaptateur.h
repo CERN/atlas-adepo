@@ -7,29 +7,30 @@
 class bcam_adaptateur
 {
 public:
-    //constructeurs et destructeurs
-    bcam_adaptateur();
-    bcam_adaptateur(std::string type_bcam, std::string id_cible, Point3f coord_cible);
-    virtual ~bcam_adaptateur();
+    bcam_adaptateur(std::string typeBCAM, std::string target, Point3f targetCoord) : mTypeBCAM(typeBCAM), mTarget(target), mTargetCoord(targetCoord) {};
+    virtual ~bcam_adaptateur() {};
 
     //setter et getter
-    std::string Get_type_bcam() const {return m_type_bcam;}
-    void Set_type_bcam(std::string val) {m_type_bcam =val;}
+    std::string getTypeBCAM() const {return mTypeBCAM;}
 
-    std::string Get_id_cible() const {return m_id_cible;}
-    void Set_id_cible(std::string val) {m_id_cible =val;}
+    std::string getTarget() const {return mTarget;}
 
-    Point3f Get_coord_cible() const {return m_coord_cible;}
-    void Set_coord_cible(Point3f val) {m_coord_cible =val;}
+    Point3f getTargetCoord() const {return mTargetCoord;}
 
     //methodes
-    void Affiche();
+    void print() {
+        std::cout<<"*******************************************//BCAM_ADAPTATEUR*******************************************"<<std::endl;
+        std::cout<<"Type de la BCAM : "<<getTypeBCAM()<<std::endl;
+        std::cout<<"Id de la cible : "<<getTarget()<<std::endl;
+        std::cout<<"Coordonnees : "<<std::endl;
+        this->getTargetCoord().print();
+    }
 
 protected:
 private:
-    std::string m_type_bcam;
-    std::string m_id_cible;
-    Point3f m_coord_cible;
+    std::string mTypeBCAM;
+    std::string mTarget;
+    Point3f mTargetCoord;
 };
 
 #endif // BCAM_ADAPTATEUR_H

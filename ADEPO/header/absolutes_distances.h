@@ -7,25 +7,26 @@
 class absolutes_distances
 {
 public:
-    //constructeurs et destructeurs
-    absolutes_distances();
-    absolutes_distances(std::string id_BCAM_prisme, Point3f distances);
-    virtual ~absolutes_distances();
+    absolutes_distances(std::string Id, Point3f distances) : mId(Id), mDistances(distances) {};
+    virtual ~absolutes_distances() {};
 
    //setter et getter
-    std::string Get_id_BCAM_prisme() const {return m_id_BCAM_prisme;}
-    void Set_id_BCAM_prisme(std::string val) {m_id_BCAM_prisme = val;}
+    std::string getId() const {return mId;}
 
-    Point3f Get_distances() const {return m_distances;}
-    void Set_distances(Point3f val) {m_distances = val;}
+    Point3f getDistances() const {return mDistances;}
 
     //methodes
-    void Affiche();
+    void print() {
+        std::cout<<"*******************************************//ABSOLUTES_DISTANCES*******************************************"<<std::endl;
+        std::cout<<"La distance est entre  : "<<getId()<<std::endl;
+        std::cout<<"Les valeurs des distances : \n"<<std::endl;
+        getDistances().print();
+    }
 
 protected:
 private:
-    std::string m_id_BCAM_prisme;
-    Point3f m_distances;
+    std::string mId;
+    Point3f mDistances;
 };
 
 #endif // ABSOLUTES_DISTANCES_H

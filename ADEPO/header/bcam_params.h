@@ -7,29 +7,32 @@
 class BCAM_params
 {
 public:
-    //constructeurs et destructeurs
-    BCAM_params();
-    BCAM_params(std::string id_bcam, Point3f translation, Point3f rotation);
-    virtual ~BCAM_params();
+    BCAM_params(std::string id, Point3f translation, Point3f rotation) : mId(id), mTranslation(translation), mRotation(rotation) {};
+
+    virtual ~BCAM_params() {};
 
     //setter et getter
-    std::string Get_id_bcam() const {return m_id_bcam;}
-    void Set_id_bcam(std::string val) {m_id_bcam =val;}
+    std::string getId() const {return mId;}
 
-    Point3f Get_translation() const {return m_translation;}
-    void Set_translation(Point3f val) {m_translation =val;}
+    Point3f getTranslation() const {return mTranslation;}
 
-    Point3f Get_rotation() const {return m_rotation;}
-    void Set_rotation(Point3f val) {m_rotation =val;}
+    Point3f getRotation() const {return mRotation;}
 
     //methodes
-    void Affiche();
+    void print() {
+        std::cout<<"*******************************************//BCAM_parametres*******************************************"<<std::endl;
+        std::cout<<"Identifiant de la BCAM : "<<getId()<<std::endl;
+        std::cout<<"Translation : "<<std::endl;
+        getTranslation().print();
+        std::cout<<"Angles de rotation : "<<std::endl;
+        getRotation().print();
+    }
 
 protected:
 private:
-    std::string m_id_bcam;
-    Point3f m_translation;
-    Point3f m_rotation;
+    std::string mId;
+    Point3f mTranslation;
+    Point3f mRotation;
 };
 
 #endif // BCAM_PARAMS_H

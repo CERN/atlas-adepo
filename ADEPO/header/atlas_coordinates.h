@@ -8,25 +8,27 @@
 class ATLAS_coordinates
 {
 public:
-    //constructeurs et destructeurs
-    ATLAS_coordinates();
-    ATLAS_coordinates(std::string id_BCAM, Point3f cible);
-    virtual ~ATLAS_coordinates();
+    ATLAS_coordinates(std::string id, Point3f target) : mId(id), mTarget(target) {};
+    virtual ~ATLAS_coordinates() {};
 
     //setter et getter
-    std::string Get_id_BCAM() const {return m_id_BCAM; }
-    void Set_id_BCAM(std::string val) {m_id_BCAM = val;}
+    std::string getId() const {return mId; }
 
-    Point3f Get_cible() const {return m_cible;}
-    void Set_cible(Point3f val) {m_cible = val;}
+    Point3f getTarget() const {return mTarget;}
 
     //methodes
-    void Affiche();
+    void print() {
+        std::cout<<"*******************************************//ATLAS_COORDINATES*******************************************"<<std::endl;
+        std::cout<<"Objet BCAM : "<<getId()<<std::endl;
+        std::cout<<"Coordonnees de l'adaptateur : "<<std::endl;
+        std::cout<<"Coordonnees de la cible : "<<std::endl;
+        getTarget().print();
+    }
 
 protected:
 private:
-    std::string m_id_BCAM;
-    Point3f m_cible;
+    std::string mId;
+    Point3f mTarget;
 };
 
 #endif // ATLAS_COORDINATES_H
