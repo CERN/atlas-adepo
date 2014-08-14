@@ -187,7 +187,10 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                     }
                 }
                 //enregistrement dans le fichier de resultats
-                fichier<<name_bcam_atlas<<"_"<<name_prism_atlas<<" "<<datetime.toStdString()<<" "<<result_mean(0,0)+delta_x<<" "<<result_mean(0,1)+delta_y<<" "<<result_mean(0,2)+delta_z<<" "<<result_std(0,0)<<" "<<result_std(0,1)<<" "<<result_std(0,2)<<" "<<airpad<<"VRAI \n";
+                fichier<<name_bcam_atlas<<"_"<<name_prism_atlas<<" "<<datetime.toStdString()<<" "
+                     <<result_mean(0,0)+delta_x<<" "<<result_mean(0,1)+delta_y<<" "<<result_mean(0,2)+delta_z<<" "
+                     <<result_std(0,0)<<" "<<result_std(0,1)<<" "<<result_std(0,2)
+                     <<" "<<airpad<<" VRAI \n";
             }
 
         fichier.close();
