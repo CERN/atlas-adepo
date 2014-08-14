@@ -46,16 +46,18 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
             fichier<<"*******************************************************************coordonnees images dans le repere CCD *********************************************************************************** \n";
             for(unsigned int i=0; i<base_donnees.Get_liste_spots().size(); i++)
             {
-                if(i>0 && base_donnees.Get_liste_spots().at(i).getId() == premier_objet_img) //si on a tout parcourut et on revient au premier objet ==> fin
+                spot spot1 = base_donnees.Get_liste_spots().at(i);
+                if(i>0 && spot1.getId() == premier_objet_img) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
-                fichier<<base_donnees.Get_liste_spots().at(i).getId()<<"\n";
+                fichier<<spot1.getId()<<"\n";
                 for(unsigned int j=0; j<base_donnees.Get_liste_spots().size(); j++)
                 {
-                    if(base_donnees.Get_liste_spots().at(i).getId() == base_donnees.Get_liste_spots().at(j).getId())
+                    spot spot2 = base_donnees.Get_liste_spots().at(j);
+                    if(spot1.getId() == spot2.getId())
                     {
-                                fichier<<"Spot 1"<<" "<<base_donnees.Get_liste_spots().at(j).getI1CCD()*um2m<<" "<<base_donnees.Get_liste_spots().at(j).getJ1CCD()*um2m<<"\n"
-                                       <<"Spot 2"<<" "<<base_donnees.Get_liste_spots().at(j).getI2CCD()*um2m<<" "<<base_donnees.Get_liste_spots().at(j).getJ2CCD()*um2m<<"\n";
+                                fichier<<"Spot 1"<<" "<<spot2.getI1CCD()*um2m<<" "<<spot2.getJ1CCD()*um2m<<"\n"
+                                       <<"Spot 2"<<" "<<spot2.getI2CCD()*um2m<<" "<<spot2.getJ2CCD()*um2m<<"\n";
                     }
                 }
             }
@@ -68,16 +70,18 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
             //sauvegarde des coordonnees images transformees dans le repere MOUNT
             for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++)
             {
-                if(i>0 && base_donnees.Get_liste_mount_coord_spots().at(i).getId() == premier_objet_mount) //si on a tout parcourut et on revient au premier objet ==> fin
+                mount_coord_spots spots1 = base_donnees.Get_liste_mount_coord_spots().at(i);
+                if(i>0 && spots1.getId() == premier_objet_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
-                fichier<<base_donnees.Get_liste_mount_coord_spots().at(i).getId()<<"\n";
+                fichier<<spots1.getId()<<"\n";
                 for(unsigned int j=0; j<base_donnees.Get_liste_mount_coord_spots().size(); j++)
                 {
-                    if(base_donnees.Get_liste_mount_coord_spots().at(i).getId() == base_donnees.Get_liste_mount_coord_spots().at(j).getId())
+                    mount_coord_spots spots2 = base_donnees.Get_liste_mount_coord_spots().at(j);
+                    if(spots1.getId() == spots2.getId())
                     {
-                        fichier<<"Spot 1"<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord1().x()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord1().y()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord1().z()<<"\n"
-                               <<"Spot 2"<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord2().x()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord2().y()<<" "<<base_donnees.Get_liste_mount_coord_spots().at(j).getCoord2().z()<<"\n";
+                        fichier<<"Spot 1"<<" "<<spots2.getCoord1().x()<<" "<<spots2.getCoord1().y()<<" "<<spots2.getCoord1().z()<<"\n"
+                               <<"Spot 2"<<" "<<spots2.getCoord2().x()<<" "<<spots2.getCoord2().y()<<" "<<spots2.getCoord2().z()<<"\n";
                     }
                 }
             }
@@ -90,15 +94,17 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
 
             for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
             {
-                if(i>0 && base_donnees.Get_liste_mount_coord_prism().at(i).getId() == premier_prisme_mount) //si on a tout parcourut et on revient au premier objet ==> fin
+                mount_coord_prism prism1 = base_donnees.Get_liste_mount_coord_prism().at(i);
+                if(i>0 && prism1.getId() == premier_prisme_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
-                fichier<<base_donnees.Get_liste_mount_coord_prism().at(i).getId()<<" "<<base_donnees.Get_liste_mount_coord_prism().at(i).getAirpad()<<"\n";
+                fichier<<prism1.getId()<<" "<<prism1.getAirpad()<<"\n";
                 for(unsigned int j=0; j<base_donnees.Get_liste_mount_coord_prism().size(); j++)
                 {
-                    if(base_donnees.Get_liste_mount_coord_prism().at(i).getId() == base_donnees.Get_liste_mount_coord_prism().at(j).getId())
+                    mount_coord_prism prism2 = base_donnees.Get_liste_mount_coord_prism().at(j);
+                    if(prism1.getId() == prism2.getId())
                     {
-                        fichier<<base_donnees.Get_liste_mount_coord_prism().at(j).getCoordPrismMountSys().x()<<" "<<base_donnees.Get_liste_mount_coord_prism().at(j).getCoordPrismMountSys().y()<<" "<<base_donnees.Get_liste_mount_coord_prism().at(j).getCoordPrismMountSys().z()<<"\n";
+                        fichier<<prism2.getCoordPrismMountSys().x()<<" "<<prism2.getCoordPrismMountSys().y()<<" "<<prism2.getCoordPrismMountSys().z()<<"\n";
                     }
                 }
             }
@@ -111,15 +117,17 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
 
             for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
             {
-                if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).getId() == premier_prisme_atlas)
+                mount_coord_prism prism1 = base_donnees.Get_liste_global_coord_prism().at(i);
+                if(i>0 && prism1.getId() == premier_prisme_atlas)
                     break;
 
-                fichier<<base_donnees.Get_liste_global_coord_prism().at(i).getId()<<" "<<base_donnees.Get_liste_global_coord_prism().at(i).getAirpad()<<"\n";
+                fichier<<prism1.getId()<<" "<<prism1.getAirpad()<<"\n";
                 for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
                 {
-                    if(base_donnees.Get_liste_global_coord_prism().at(i).getId() == base_donnees.Get_liste_global_coord_prism().at(j).getId())
+                    mount_coord_prism prism2 = base_donnees.Get_liste_mount_coord_prism().at(j);
+                    if(prism1.getId() == prism2.getId())
                     {
-                        fichier<<base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().x()<<" "<<base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().y()<<" "<<base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().z()<<"\n";
+                        fichier<<prism2.getCoordPrismMountSys().x()<<" "<<prism2.getCoordPrismMountSys().y()<<" "<<prism2.getCoordPrismMountSys().z()<<"\n";
                     }
                 }
             }
@@ -130,7 +138,8 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
 
             for(unsigned int i=0; i<base_donnees.Get_liste_global_coord_prism().size(); i++)
             {
-                if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).getId() == premier_prisme_atlas)
+                mount_coord_prism prism1 = base_donnees.Get_liste_global_coord_prism().at(i);
+                if(i>0 && prism1.getId() == premier_prisme_atlas)
                     break;
 
                 Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
@@ -138,11 +147,12 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
 
                 for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
                 {
-                    if(base_donnees.Get_liste_global_coord_prism().at(i).getId() == base_donnees.Get_liste_global_coord_prism().at(j).getId())
+                    mount_coord_prism prism2 = base_donnees.Get_liste_global_coord_prism().at(j);
+                    if(prism1.getId() == prism2.getId())
                     {
-                        coord(ligne,0)=base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().x();
-                        coord(ligne,1)=base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().y();
-                        coord(ligne,2)=base_donnees.Get_liste_global_coord_prism().at(j).getCoordPrismMountSys().z();
+                        coord(ligne,0)=prism2.getCoordPrismMountSys().x();
+                        coord(ligne,1)=prism2.getCoordPrismMountSys().y();
+                        coord(ligne,2)=prism2.getCoordPrismMountSys().z();
                         ligne=ligne+1;
                     }
                 }
@@ -167,10 +177,10 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                 }
 
                 //nomenclature dans le repere ATLAS
-                mount_coord_prism prism = base_donnees.Get_liste_global_coord_prism().at(i);
+                mount_coord_prism prism = prism1;
                 std::string name_bcam_atlas = base_donnees.getName(prism.getId().substr(0,14));
                 std::string name_prism_atlas = base_donnees.getName(prism.getId().substr(15,5));
-                float airpad = base_donnees.Get_liste_global_coord_prism().at(i).getAirpad();
+                float airpad = prism1.getAirpad();
 
                 //delta selon composantes axiales
                 float delta_x=0;
@@ -179,11 +189,12 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                 //ajout de la constante de prisme
                 for(unsigned int n=0; n<base_donnees.Get_liste_correction_excentrement().size(); n++)
                 {
-                    if(base_donnees.Get_liste_global_coord_prism().at(i).getId().substr(15,5) == base_donnees.Get_liste_correction_excentrement().at(n).getId())
+                    prism_correction correction = base_donnees.Get_liste_correction_excentrement().at(n);
+                    if(prism1.getId().substr(15,5) == correction.getId())
                     {
-                        delta_x = base_donnees.Get_liste_correction_excentrement().at(n).getDelta().x();
-                        delta_y = base_donnees.Get_liste_correction_excentrement().at(n).getDelta().y();
-                        delta_z = base_donnees.Get_liste_correction_excentrement().at(n).getDelta().z();
+                        delta_x = correction.getDelta().x();
+                        delta_y = correction.getDelta().y();
+                        delta_z = correction.getDelta().z();
                     }
                 }
                 //enregistrement dans le fichier de resultats

@@ -1,20 +1,25 @@
 #include "adepo.h"
 #include "mount_prism_to_global_prism.h"
 #include "changement_repere.h"
+#include "mount_coord_prism.h"
 
 void mount_prism_to_global_prism(bdd & base_donnees)
 {
     bool found = false;
     for(unsigned int i=0; i<base_donnees.Get_liste_mount_coord_prism().size(); i++)
     {
+        mount_coord_prism prism = base_donnees.Get_liste_mount_coord_prism().at(i);
+
         for(unsigned int j=0; j<base_donnees.Get_liste_BCAM_params().size(); j++)
         {
-            if(base_donnees.Get_liste_mount_coord_prism().at(i).getId().substr(0,14) == base_donnees.Get_liste_BCAM_params().at(j).getId())
+            BCAM_params params = base_donnees.Get_liste_BCAM_params().at(j);
+
+            if(prism.getId().substr(0,14) == params.getId())
             {
-                 Point3f point_transforme = changement_repere(base_donnees.Get_liste_mount_coord_prism().at(i).getCoordPrismMountSys(),
-                                                              base_donnees.Get_liste_BCAM_params().at(j).getTranslation(),
-                                                              base_donnees.Get_liste_BCAM_params().at(j).getRotation());
-                 mount_coord_prism pt_global(base_donnees.Get_liste_mount_coord_prism().at(i).getId(), point_transforme, base_donnees.Get_liste_mount_coord_prism().at(i).getAirpad());
+                 Point3f point_transforme = changement_repere(prism.getCoordPrismMountSys(),
+                                                              params.getTranslation(),
+                                                              params.getRotation());
+                 mount_coord_prism pt_global(prism.getId(), point_transforme, prism.getAirpad());
                  base_donnees.Add_global_coord_prism(pt_global);
                  found = true;
             }

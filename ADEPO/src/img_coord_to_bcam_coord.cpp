@@ -17,19 +17,22 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
     {
         for (unsigned int j=0; j<base_donnees.Get_liste_calib1().size(); j++) //je parcours la base de donnees qui contient les informations de calibration
         {
-            if(base_donnees.Get_liste_spots().at(i).getId().substr(0,14) == base_donnees.Get_liste_calib1().at(j).getId())
+            spot spot = base_donnees.Get_liste_spots().at(i);
+            calib1 calib1 = base_donnees.Get_liste_calib1().at(j);
+
+            if(spot.getId().substr(0,14) == calib1.getId())
             {
                 //transformation des coordonnees IMAGE vers le repere MOUNT
 
                 Eigen::MatrixXd ccd1(1,3);       //vecteur des coordonnees images1
-                ccd1(0,0)=base_donnees.Get_liste_spots().at(i).getI1CCD()*um2m;
-                ccd1(0,1)=base_donnees.Get_liste_spots().at(i).getJ1CCD()*um2m;
+                ccd1(0,0)=spot.getI1CCD()*um2m;
+                ccd1(0,1)=spot.getJ1CCD()*um2m;
                 ccd1(0,2)=0;
                 //std::cout<<ccd<<std::endl;
 
                 Eigen::MatrixXd ccd2(1,3);       //vecteur des coordonnees images2
-                ccd2(0,0)=base_donnees.Get_liste_spots().at(i).getI2CCD()*um2m;
-                ccd2(0,1)=base_donnees.Get_liste_spots().at(i).getJ2CCD()*um2m;
+                ccd2(0,0)=spot.getI2CCD()*um2m;
+                ccd2(0,1)=spot.getJ2CCD()*um2m;
                 ccd2(0,2)=0;
                 //std::cout<<ccd<<std::endl;
 
@@ -40,25 +43,25 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
                 //std::cout<<centre<<std::endl;
 
                 Eigen::MatrixXd pivot(1,3);     //vecteur pivot
-                pivot(0,0)=base_donnees.Get_liste_calib1().at(j).getCoordPivot().x()*mm2m;
-                pivot(0,1)=base_donnees.Get_liste_calib1().at(j).getCoordPivot().y()*mm2m;
-                pivot(0,2)=base_donnees.Get_liste_calib1().at(j).getCoordPivot().z()*mm2m;
+                pivot(0,0)=calib1.getCoordPivot().x()*mm2m;
+                pivot(0,1)=calib1.getCoordPivot().y()*mm2m;
+                pivot(0,2)=calib1.getCoordPivot().z()*mm2m;
                 //std::cout<<pivot<<std::endl;
 
                 Eigen::MatrixXd axis(1,3);      //vecteur axis
-                axis(0.0)=base_donnees.Get_liste_calib1().at(j).getCoordAxis().x()*mm2m;
-                axis(0,1)=base_donnees.Get_liste_calib1().at(j).getCoordAxis().y()*mm2m;
-                axis(0,2)=base_donnees.Get_liste_calib1().at(j).getCoordAxis().z();
+                axis(0.0)=calib1.getCoordAxis().x()*mm2m;
+                axis(0,1)=calib1.getCoordAxis().y()*mm2m;
+                axis(0,2)=calib1.getCoordAxis().z();
                 //std::cout<<axis<<std::endl;
 
                 Eigen::MatrixXd rotation(3,3);  //matrice rotation en fonction du signe de axis.z
                 if(axis(0,2) > 0)
                 {
-                    rotation(0,0)=cos(-base_donnees.Get_liste_calib1().at(j).getCcdRotation()*mm2m);
-                    rotation(1,0)=sin(-base_donnees.Get_liste_calib1().at(j).getCcdRotation()*mm2m);
+                    rotation(0,0)=cos(-calib1.getCcdRotation()*mm2m);
+                    rotation(1,0)=sin(-calib1.getCcdRotation()*mm2m);
                     rotation(2,0)=0;
-                    rotation(0,1)=-sin(-base_donnees.Get_liste_calib1().at(j).getCcdRotation()*mm2m);
-                    rotation(1,1)=cos(-base_donnees.Get_liste_calib1().at(j).getCcdRotation()*mm2m);
+                    rotation(0,1)=-sin(-calib1.getCcdRotation()*mm2m);
+                    rotation(1,1)=cos(-calib1.getCcdRotation()*mm2m);
                     rotation(2,1)=0;
                     rotation(0,2)=0;
                     rotation(1,2)=0;
@@ -66,11 +69,11 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
                 }
                 else
                 {
-                    rotation(0,0)=-cos(-base_donnees.Get_liste_calib1().at(j).getCcdRotation()*mm2m);
-                    rotation(1,0)=sin(-base_donnees.Get_liste_calib1().at(j).getCcdRotation()*mm2m);
+                    rotation(0,0)=-cos(-calib1.getCcdRotation()*mm2m);
+                    rotation(1,0)=sin(-calib1.getCcdRotation()*mm2m);
                     rotation(2,0)=0;
-                    rotation(0,1)=sin(-base_donnees.Get_liste_calib1().at(j).getCcdRotation()*mm2m);
-                    rotation(1,1)=cos(-base_donnees.Get_liste_calib1().at(j).getCcdRotation()*mm2m);
+                    rotation(0,1)=sin(-calib1.getCcdRotation()*mm2m);
+                    rotation(1,1)=cos(-calib1.getCcdRotation()*mm2m);
                     rotation(2,1)=0;
                     rotation(0,2)=0;
                     rotation(1,2)=0;
@@ -80,18 +83,18 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
 
                 //transformation1           //vecteur mount 1
                 Eigen::MatrixXd coord_mount1(3,1);
-                coord_mount1=(ccd1-centre)*rotation + pivot - base_donnees.Get_liste_calib1().at(j).getCcdToPivot()*mm2m*axis;
+                coord_mount1=(ccd1-centre)*rotation + pivot - calib1.getCcdToPivot()*mm2m*axis;
                 //std::cout<<coord_mount<<std::endl;
 
                 //transformation2           //vecteur mount 2
                 Eigen::MatrixXd coord_mount2(3,1);
-                coord_mount2=(ccd2-centre)*rotation + pivot - base_donnees.Get_liste_calib1().at(j).getCcdToPivot()*mm2m*axis;
+                coord_mount2=(ccd2-centre)*rotation + pivot - calib1.getCcdToPivot()*mm2m*axis;
                 //std::cout<<coord_mount<<std::endl;
 
                 //sauvegarde dans la base de donnee
                 Point3f mount_sp1(coord_mount1(0,0), coord_mount1(0,1), coord_mount1(0,2));
                 Point3f mount_sp2(coord_mount2(0,0), coord_mount2(0,1), coord_mount2(0,2));
-                mount_coord_spots mount_couple_spots(base_donnees.Get_liste_spots().at(i).getId(), mount_sp1, mount_sp2);
+                mount_coord_spots mount_couple_spots(spot.getId(), mount_sp1, mount_sp2);
                 base_donnees.Add_mount_coord_spots(mount_couple_spots);
 
                 found = true;
