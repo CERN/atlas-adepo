@@ -93,7 +93,7 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                 if(i>0 && base_donnees.Get_liste_mount_coord_prism().at(i).Get_id() == premier_prisme_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
-                fichier<<base_donnees.Get_liste_mount_coord_prism().at(i).Get_id()<<"\n";
+                fichier<<base_donnees.Get_liste_mount_coord_prism().at(i).Get_id()<<" "<<base_donnees.Get_liste_mount_coord_prism().at(i).getAirpad()<<"\n";
                 for(unsigned int j=0; j<base_donnees.Get_liste_mount_coord_prism().size(); j++)
                 {
                     if(base_donnees.Get_liste_mount_coord_prism().at(i).Get_id() == base_donnees.Get_liste_mount_coord_prism().at(j).Get_id())
@@ -114,7 +114,7 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                 if(i>0 && base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == premier_prisme_atlas)
                     break;
 
-                fichier<<base_donnees.Get_liste_global_coord_prism().at(i).Get_id()<<"\n";
+                fichier<<base_donnees.Get_liste_global_coord_prism().at(i).Get_id()<<" "<<base_donnees.Get_liste_global_coord_prism().at(i).getAirpad()<<"\n";
                 for(unsigned int j=0; j<base_donnees.Get_liste_global_coord_prism().size(); j++)
                 {
                     if(base_donnees.Get_liste_global_coord_prism().at(i).Get_id() == base_donnees.Get_liste_global_coord_prism().at(j).Get_id())
@@ -170,6 +170,7 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                 mount_coord_prism prism = base_donnees.Get_liste_global_coord_prism().at(i);
                 std::string name_bcam_atlas = base_donnees.getName(prism.Get_id().substr(0,14));
                 std::string name_prism_atlas = base_donnees.getName(prism.Get_id().substr(15,5));
+                float airpad = base_donnees.Get_liste_global_coord_prism().at(i).getAirpad();
 
                 //delta selon composantes axiales
                 float delta_x=0;
@@ -186,7 +187,7 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                     }
                 }
                 //enregistrement dans le fichier de resultats
-                fichier<<name_bcam_atlas<<"_"<<name_prism_atlas<<" "<<datetime.toStdString()<<" "<<result_mean(0,0)+delta_x<<" "<<result_mean(0,1)+delta_y<<" "<<result_mean(0,2)+delta_z<<" "<<result_std(0,0)<<" "<<result_std(0,1)<<" "<<result_std(0,2)<<" "<<"VRAI \n";
+                fichier<<name_bcam_atlas<<"_"<<name_prism_atlas<<" "<<datetime.toStdString()<<" "<<result_mean(0,0)+delta_x<<" "<<result_mean(0,1)+delta_y<<" "<<result_mean(0,2)+delta_z<<" "<<result_std(0,0)<<" "<<result_std(0,1)<<" "<<result_std(0,2)<<" "<<airpad<<"VRAI \n";
             }
 
         fichier.close();

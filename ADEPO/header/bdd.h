@@ -51,7 +51,7 @@ public:
     //gestion de l'adresse IP
     std::string Get_driver_ip_adress() const {return m_driver_ip_adress;}
     //gestion des coordonnees mount de l'adaptateur
-    std::vector<bcam_adaptateur> Get_liste_bcam_adatateur() const {return m_liste_bcam_adaptateur;}
+    std::vector<bcam_adaptateur> Get_liste_bcam_adaptateur() const {return m_liste_bcam_adaptateur;}
     //gestion des distances absolues
     std::vector<absolutes_distances> Get_liste_absolutes_distances() const {return m_liste_absolutes_distances;}
     //gestion des coordonnees de l'adaptateur <==> de la bcam, dans le repere ATLAS
@@ -65,6 +65,20 @@ public:
 
     std::string getName(std::string id) {
         return names[id];
+    }
+
+    detector* getDetector(std::string bcamName) {
+        for(unsigned int i=0; i < m_liste_BCAM.size(); i++) {
+            if (bcamName == m_liste_BCAM[i].Get_nom_BCAM()) {
+                for(unsigned int j=0; j < m_liste_detector.size(); j++) {
+                    if (m_liste_BCAM[i].Get_id_detector() == m_liste_detector[j].Get_num_id_detector()) {
+                        return &m_liste_detector[j];
+                    }
+                }
+            }
+        }
+        std::cout << "WARNING " << bcamName << " not defined in configuration." << std::endl;
+        return NULL;
     }
 
    //methodes d'ajout
@@ -93,6 +107,7 @@ public:
     void addName(std::string id, std::string name) {
         names[id] = name;
     }
+
     //gestion des correctiosn d'excentrement
     void Add_correction_excentrement(prism_correction val) {m_liste_correction_excentrement.push_back(val);}
 

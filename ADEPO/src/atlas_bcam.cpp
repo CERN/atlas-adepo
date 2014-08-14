@@ -114,9 +114,6 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         //recuperer la valeur du mode : CLOSURE ou MONITORING
         QObject::connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(get_mode()));
 
-        //recuperer la valeur des airpads : ON ou OFF
-        QObject::connect(ui->comboBox_2, SIGNAL(currentIndexChanged(int)), this, SLOT(get_airpad_state()));
-
         previousState = LWDAQ_Client::UNSET;
         needToCalculateResults = false;
 
@@ -140,6 +137,8 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         if (path_input_folder != NULL) {
             openInputDir();
         }
+
+        m_bdd.getDetector("20MABNDA000444");
 }
 
 ATLAS_BCAM::~ATLAS_BCAM()
@@ -341,7 +340,7 @@ void ATLAS_BCAM::remplir_tableau_detectors()
 
         //ajout de la constante de airpad
         QTableWidgetItem *item_dist_const = new QTableWidgetItem();
-        item_dist_const->setData(0,detectors_data.at(i).Get_airpad_on_add_dist());
+        item_dist_const->setData(0,detectors_data.at(i).getAirpad());
         ui->tableWidget_liste_detectors->setItem(i,2,item_dist_const);
     }
 
@@ -538,7 +537,7 @@ void ATLAS_BCAM::calcul_coord()
    img_coord_to_bcam_coord(m_bdd);
 
    //je calcule les coordonnees du prisme en 3D dans le repere MOUNT
-   calcul_coord_bcam_system(m_bdd);
+   calcul_coord_bcam_system(m_bdd, ui->comboBox_2->currentText() == "ON");
 
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mount_prism_to_global_prism(m_bdd);
@@ -1113,29 +1112,6 @@ void ATLAS_BCAM::get_mode()
         ui->spinBox->setMaximum(300);
         ui->spinBox->setValue(30);
     }
-}
-
-//fonction qui recupere l'etat des airpads                                                          [----> not yet
-void ATLAS_BCAM::get_airpad_state()
-{
-    mode_airpad = ui->comboBox_2->currentText();
-    if(mode_airpad == "ON")
-    {
-        for(unsigned int i=0; i<m_bdd.Get_liste_absolutes_distances().size(); i++)
-        {
-            float val_x = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances().Get_X();
-            float val_y = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances().Get_Y();
-            float val_z = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances().Get_Z();
-
-            Point3f pt(val_x+0.003, val_y+0.003, val_z+0.003);
-            //Point3f val_temp = m_bdd.Get_liste_absolutes_distances().at(i).Get_distances();
-            //m_bdd.Get_liste_absolutes_distances().at(i).Set_distances(pt);
-        }
-    }
-    /*for(int j=0; j<m_bdd.Get_liste_absolutes_distances().size(); j++)
-    {
-        //m_bdd.Get_liste_absolutes_distances().at(j).Affiche();
-    }*/
 }
 
 //fonction thread pour lancer les modes d'acquisition                                               [-----> ok

@@ -3,7 +3,7 @@
 
 #define mm2m 0.001
 
-void calcul_coord_bcam_system(bdd & base_donnees)
+void calcul_coord_bcam_system(bdd & base_donnees, bool airpads)
 {
     bool found = false;
     for (unsigned int i=0; i<base_donnees.Get_liste_mount_coord_spots().size(); i++) // je parcours la database qui contient les coord des observation dans le system MOUNT
@@ -74,9 +74,11 @@ void calcul_coord_bcam_system(bdd & base_donnees)
                         float coordPrisme_y = (prisme_y1+prisme_y2)/4;
                         float coordPrisme_z = (prisme_z1+prisme_z2)/4;
 
+                        float airpad = airpads ? base_donnees.getDetector(base_donnees.Get_liste_mount_coord_spots().at(i).Get_id().substr(0,14))->getAirpad() : 0.0f;
+
                         //ajout dans la base de donnees
-                        Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z+0.003);
-                        mount_coord_prism xyz_prism(base_donnees.Get_liste_mount_coord_spots().at(i).Get_id(), xyz, 0.003);
+                        Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z+airpad);
+                        mount_coord_prism xyz_prism(base_donnees.Get_liste_mount_coord_spots().at(i).Get_id(), xyz, airpad);
                         base_donnees.Add_mount_coord_prism(xyz_prism);
                         found = true;
                     }

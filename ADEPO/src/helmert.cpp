@@ -17,13 +17,13 @@ void helmert(bdd & base_donnees)
         if(base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "A" || base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "L") //si la bcam est noire
         {
             int cmpt=0;
-            for(unsigned int j=0; j<base_donnees.Get_liste_bcam_adatateur().size(); j++) //je parcours la liste des coordonnees modele
+            for(unsigned int j=0; j<base_donnees.Get_liste_bcam_adaptateur().size(); j++) //je parcours la liste des coordonnees modele
             {
-                if(base_donnees.Get_liste_bcam_adatateur().at(j).Get_type_bcam() == "Black")
+                if(base_donnees.Get_liste_bcam_adaptateur().at(j).Get_type_bcam() == "Black")
                 {
-                    l_modele(3*cmpt,0)=base_donnees.Get_liste_bcam_adatateur().at(j).Get_coord_cible().Get_X();
-                    l_modele(3*cmpt+1,0)=base_donnees.Get_liste_bcam_adatateur().at(j).Get_coord_cible().Get_Y();
-                    l_modele(3*cmpt+2,0)=base_donnees.Get_liste_bcam_adatateur().at(j).Get_coord_cible().Get_Z();
+                    l_modele(3*cmpt,0)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_X();
+                    l_modele(3*cmpt+1,0)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_Y();
+                    l_modele(3*cmpt+2,0)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_Z();
                     cmpt++;
                 }
             }
@@ -32,13 +32,13 @@ void helmert(bdd & base_donnees)
         if(base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "B" || base_donnees.Get_liste_BCAM().at(i).Get_nom_BCAM().substr(7,1) == "M")
         {
             int cmpt=0;
-            for(unsigned int j=0; j<base_donnees.Get_liste_bcam_adatateur().size(); j++) //je parcours la liste des coordonnees modele
+            for(unsigned int j=0; j<base_donnees.Get_liste_bcam_adaptateur().size(); j++) //je parcours la liste des coordonnees modele
             {
-                if(base_donnees.Get_liste_bcam_adatateur().at(j).Get_type_bcam() == "Blue")
+                if(base_donnees.Get_liste_bcam_adaptateur().at(j).Get_type_bcam() == "Blue")
                 {
-                    l_modele(3*cmpt)=base_donnees.Get_liste_bcam_adatateur().at(j).Get_coord_cible().Get_X();
-                    l_modele(3*cmpt+1)=base_donnees.Get_liste_bcam_adatateur().at(j).Get_coord_cible().Get_Y();
-                    l_modele(3*cmpt+2)=base_donnees.Get_liste_bcam_adatateur().at(j).Get_coord_cible().Get_Z();
+                    l_modele(3*cmpt)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_X();
+                    l_modele(3*cmpt+1)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_Y();
+                    l_modele(3*cmpt+2)=base_donnees.Get_liste_bcam_adaptateur().at(j).Get_coord_cible().Get_Z();
                     cmpt++;
                 }
             }

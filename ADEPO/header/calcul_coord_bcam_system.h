@@ -3,7 +3,7 @@
 
 #include "bdd.h"
 
-void calcul_coord_bcam_system(bdd & base_donnees);
+void calcul_coord_bcam_system(bdd & base_donnees, bool airpads);
 
 #endif // CALCUL_COORD_BCAM_SYSTEM_H
 

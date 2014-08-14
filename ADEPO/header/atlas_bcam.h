@@ -69,9 +69,6 @@ public slots:
     //fonction qui gere les selections dans les checkbox
     void get_mode();
 
-    //fonction qui recupere l'etat des airpads
-    void get_airpad_state();
-
     //fonction qui agit apres un press bouton sur "Lancer"
     void startCalcul();
 
