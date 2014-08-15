@@ -866,6 +866,7 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
 
                 for(unsigned int j=0; j<liste_temp_bcam.size(); j++)
                 {
+                    std::cout << liste_temp_bcam.at(i).getPrisms() << "*" << liste_temp_bcam.at(j).getName() << std::endl;
                     if(liste_temp_bcam.at(i).getPrisms() == liste_temp_bcam.at(j).getName())
                     {
                         fichier<<"\t daq_source_mux_socket "<<liste_temp_bcam.at(j).getMuxSocket()<<"\n"
@@ -986,7 +987,6 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
         fichier.close();
         return 1;
     }
-
     else
     {
         std::cout << "Could not write script" << std::endl;
