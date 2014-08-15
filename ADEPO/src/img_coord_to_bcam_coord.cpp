@@ -51,8 +51,8 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
                 Eigen::MatrixXd axis(1,3);      //vecteur axis
                 axis(0.0)=calib1.getCoordAxis().x()*mm2m;
                 axis(0,1)=calib1.getCoordAxis().y()*mm2m;
-                axis(0,2)=calib1.getCoordAxis().z();
-                std::cout<<"* "<<axis<<std::endl;
+                axis(0,2)=calib1.getCoordAxis().z(); // NOTE, unit-less just gives direction of the bcam as 1 and -1
+                //std::cout<<axis<<std::endl;
 
                 Eigen::MatrixXd rotation(3,3);  //matrice rotation en fonction du signe de axis.z
                 if(axis(0,2) > 0)
