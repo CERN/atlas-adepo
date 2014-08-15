@@ -17,6 +17,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
             if(!ligne.empty())
             {
                 int nb_colonnes = std::count(ligne.begin(), ligne.end(), ' '); //je compte le nombre de colonnes dans le fichier
+                std::cout << "nb " << nb_colonnes << std::endl;
 
                 //2 spots
                 if(nb_colonnes == 12)
