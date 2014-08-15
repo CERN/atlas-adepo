@@ -20,8 +20,6 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
             spot spot = base_donnees.getSpots().at(i);
             calib1 calib1 = base_donnees.getCalibs1().at(j);
 
-            std::cout << "*** " << spot.getBCAM() << " " << calib1.getBCAM() << std::endl;
-
             if(spot.getBCAM() == calib1.getBCAM())
             {
                 //transformation des coordonnees IMAGE vers le repere MOUNT
