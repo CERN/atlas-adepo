@@ -17,6 +17,7 @@ public:
     std::string getTpsCalib() const { return mTpsCalib; }
     Point3f getCoordPivot() const { return mCoordPivot; }
     Point3f getCoordAxis() const { return mCoordAxis; }
+    int getDirection() const { return mCoordAxis.z() > 0 ? 1 : -1; }
     float getCcdToPivot() const { return mCcdToPivot; }
     float getCcdRotation() const { return mCcdRotation; }
 

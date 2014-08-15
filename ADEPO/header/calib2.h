@@ -18,6 +18,8 @@ public:
 
     Point3f getCoordFlash2() const {return mCoordFlash2; }
 
+    int getDirection() const { return mCoordFlash1.z() > 0 ? 1 : -1; }
+
     //methodes
     void print() {
         std::cout<<"*******************************************Infos Calib*******************************************"<<std::endl;

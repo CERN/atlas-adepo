@@ -16,14 +16,14 @@ void calcul_coord_bcam_system(bdd & base_donnees)
 
             // NumChip == 2 is Z+ direction (check?)
             int num_chip = base_donnees.getBCAM(spot.getBCAM())->getNumChip();
-            bool directionOk1 = ((num_chip == 2) && (calib1.getCoordAxis().z() == 1)) || ((num_chip == 1) && (calib1.getCoordAxis().z() == -1));
+            bool directionOk1 = ((num_chip == 2) && (calib1.getDirection() == 1)) || ((num_chip == 1) && (calib1.getDirection() == -1));
 
             for(unsigned int k=0; k<base_donnees.getCalibs2().size(); k++) //je parcours la base de donnee de calibration 2
             {
                 calib2 calib2k = base_donnees.getCalibs2().at(k);
                 calib2 calib2j = base_donnees.getCalibs2().at(j);
 
-                bool directionOk2 = ((num_chip == 2) && (calib2k.getCoordAxis().z() == 1)) || ((num_chip == 1) && (calib2k.getCoordAxis().z() == -1));
+                bool directionOk2 = ((num_chip == 2) && (calib2k.getDirection() == 1)) || ((num_chip == 1) && (calib2k.getDirection() == -1));
 
                 for(unsigned int l=0; l<base_donnees.getAbsoluteDistances().size(); l++) //je parcours la base de donnee des distances absolues
                 {
