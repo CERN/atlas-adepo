@@ -7,7 +7,7 @@ class BCAM
 {
 public:
     //constructeurs et destructeurs
-    BCAM(std::string name, int detectorId, int driverSocket, int muxSocket, int numChip, std::string prisms) :
+     BCAM(std::string name, int detectorId, int driverSocket, int muxSocket, int numChip, std::string prisms) :
            mName(name), mDetectorId(detectorId), mDriverSocket(driverSocket), mMuxSocket(muxSocket), mNumChip(numChip), mPrisms(prisms) {};
     virtual ~BCAM() {};
 

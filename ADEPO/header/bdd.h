@@ -40,7 +40,7 @@ public:
     //getter
     //gestion des bcams dans le terrain a partir du fichier de configuration
     std::vector<BCAM> getBCAMs() const {return mBCAMs;}
-    BCAM getBCAM(std::string name) { return mapBCAMs.at(name); }
+    BCAM* getBCAM(std::string name) { return mapBCAMs.at(name); }
     //gestion des detecteurs dans le fichier de configuration
     std::vector<detector> getDetectors() const {return mDetectors;}
     std::vector<calib1> getCalibs1() const {return mCalibs1;}
@@ -82,7 +82,7 @@ public:
     }
 
    //methodes d'ajout
-    void add(BCAM val) { mBCAMs.push_back(val); mapBCAMs[val.getName()] = val; }
+    void add(BCAM val) { mBCAMs.push_back(val); mapBCAMs[val.getName()] = &val; }
     void add(detector val) {mDetectors.push_back(val);}
     void add(calib1 val) { mCalibs1.push_back(val); }
 //    void addClean(calib1 val) {mCalibs1Clean.push_back(val);}
@@ -139,7 +139,7 @@ public:
 protected:
 private:
     std::vector<BCAM> mBCAMs;
-    std::map<std::string, BCAM> mapBCAMs;
+    std::map<std::string, BCAM*> mapBCAMs;
     std::vector<detector> mDetectors;
     std::vector<calib1> mCalibs1;
 //    std::vector<calib1> mCalibs1Clean;
