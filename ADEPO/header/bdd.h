@@ -40,7 +40,6 @@ public:
     //getter
     //gestion des bcams dans le terrain a partir du fichier de configuration
     std::vector<BCAM> getBCAMs() const {return mBCAMs;}
-    BCAM* getBCAM(std::string name) { return mapBCAMs.at(name); }
     //gestion des detecteurs dans le fichier de configuration
     std::vector<detector> getDetectors() const {return mDetectors;}
     std::vector<calib1> getCalibs1() const {return mCalibs1;}
@@ -67,22 +66,32 @@ public:
 
     std::string getName(std::string id) { return names.at(id); }
 
-    detector* getDetector(std::string bcamName) {
+    BCAM* getBCAM(std::string name) {
         for(unsigned int i=0; i < mBCAMs.size(); i++) {
-            if (bcamName == mBCAMs[i].getName()) {
-                for(unsigned int j=0; j < mDetectors.size(); j++) {
-                    if (mBCAMs[i].getDetectorId() == mDetectors[j].getId()) {
-                        return &mDetectors[j];
-                    }
-                }
+            if (name == mBCAMs[i].getName()) {
+                return &mBCAMs[i];
             }
         }
-        std::cout << "WARNING " << bcamName << " not defined in configuration." << std::endl;
+        std::cout << "WARNING BCAM with name " << name << " not defined in configuration." << std::endl;
         return NULL;
     }
 
+    detector* getDetector(std::string bcamName) {
+        BCAM* bcam = getBCAM(bcamName);
+        if (bcam == NULL) return NULL;
+
+        for(unsigned int j=0; j < mDetectors.size(); j++) {
+            if (bcam->getDetectorId() == mDetectors[j].getId()) {
+                return &mDetectors[j];
+            }
+        }
+        std::cout << "WARNING detector with id " << bcam->getDetectorId() << " not defined in configuration." << std::endl;
+        return NULL;
+    }
+
+
    //methodes d'ajout
-    void add(BCAM val) { mBCAMs.push_back(val); mapBCAMs[val.getName()] = &val; }
+    void add(BCAM val) { mBCAMs.push_back(val); }
     void add(detector val) {mDetectors.push_back(val);}
     void add(calib1 val) { mCalibs1.push_back(val); }
 //    void addClean(calib1 val) {mCalibs1Clean.push_back(val);}
@@ -120,7 +129,6 @@ public:
     //vidage complet de la bdd si on charge un second fichier
     void vidage_complet() {
         mBCAMs.clear();
-        mapBCAMs.clear();
         mDetectors.clear();
         mCalibs1.clear();
 //        mCalibs1Clean.clear();
@@ -139,7 +147,6 @@ public:
 protected:
 private:
     std::vector<BCAM> mBCAMs;
-    std::map<std::string, BCAM*> mapBCAMs;
     std::vector<detector> mDetectors;
     std::vector<calib1> mCalibs1;
 //    std::vector<calib1> mCalibs1Clean;
