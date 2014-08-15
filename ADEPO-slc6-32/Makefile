@@ -466,7 +466,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/ADEPO1.0.0 || mkdir -p .tmp/ADEPO1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/header/adepo.h ../ADEPO/header/write_file_obs_mount_system.h ../ADEPO/header/spot.h ../ADEPO/header/read_lwdaq_output.h ../ADEPO/header/read_input.h ../ADEPO/header/read_calibration_database.h ../ADEPO/header/Point3f.h ../ADEPO/header/mount_coord_spots.h ../ADEPO/header/mount_coord_prism.h ../ADEPO/header/liste_bcam_from_id_detector.h ../ADEPO/header/img_coord_to_bcam_coord.h ../ADEPO/header/detector.h ../ADEPO/header/clean_calib.h ../ADEPO/header/calib2.h ../ADEPO/header/calib1.h ../ADEPO/header/calcul_coord_bcam_system.h ../ADEPO/header/bdd.h ../ADEPO/header/bcam.h ../ADEPO/header/atlas_bcam.h ../ADEPO/header/bcam_adaptateur.h ../ADEPO/header/absolutes_distances.h ../ADEPO/header/atlas_coordinates.h ../ADEPO/header/helmert.h ../ADEPO/header/bcam_params.h ../ADEPO/header/changement_repere.h ../ADEPO/header/mount_prism_to_global_prism.h ../ADEPO/header/prism_correction.h ../ADEPO/header/result.h ../ADEPO/header/lwdaq_client.h ../ADEPO/header/adepo.h .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/src/write_file_obs_mount_system.cpp ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/src/read_input.cpp ../ADEPO/src/read_calibration_database.cpp ../ADEPO/src/liste_bcam_from_id_detector.cpp ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/src/clean_calib.cpp ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/src/atlas_bcam.cpp ../ADEPO/src/main.cpp ../ADEPO/src/helmert.cpp ../ADEPO/src/changement_repere.cpp ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/src/lwdaq_client.cpp .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/ATLAS_BCAM.ui .tmp/ADEPO1.0.0/ && (cd `dirname .tmp/ADEPO1.0.0` && $(TAR) ADEPO1.0.0.tar ADEPO1.0.0 && $(COMPRESS) ADEPO1.0.0.tar) && $(MOVE) `dirname .tmp/ADEPO1.0.0`/ADEPO1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ADEPO1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/header/adepo.h ../ADEPO/header/write_file_obs_mount_system.h ../ADEPO/header/spot.h ../ADEPO/header/read_lwdaq_output.h ../ADEPO/header/read_input.h ../ADEPO/header/read_calibration_database.h ../ADEPO/header/Point3f.h ../ADEPO/header/mount_coord_spots.h ../ADEPO/header/mount_coord_prism.h ../ADEPO/header/liste_bcam_from_id_detector.h ../ADEPO/header/img_coord_to_bcam_coord.h ../ADEPO/header/detector.h ../ADEPO/header/clean_calib.h ../ADEPO/header/calib2.h ../ADEPO/header/calib1.h ../ADEPO/header/calcul_coord_bcam_system.h ../ADEPO/header/bdd.h ../ADEPO/header/bcam.h ../ADEPO/header/atlas_bcam.h ../ADEPO/header/bcam_adaptateur.h ../ADEPO/header/absolutes_distances.h ../ADEPO/header/atlas_coordinates.h ../ADEPO/header/helmert.h ../ADEPO/header/bcam_params.h ../ADEPO/header/changement_repere.h ../ADEPO/header/mount_prism_to_global_prism.h ../ADEPO/header/prism_correction.h ../ADEPO/header/result.h ../ADEPO/header/lwdaq_client.h ../ADEPO/header/adepo.h ../ADEPO/header/global_coord_prism.h .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/src/write_file_obs_mount_system.cpp ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/src/read_input.cpp ../ADEPO/src/read_calibration_database.cpp ../ADEPO/src/liste_bcam_from_id_detector.cpp ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/src/clean_calib.cpp ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/src/atlas_bcam.cpp ../ADEPO/src/main.cpp ../ADEPO/src/helmert.cpp ../ADEPO/src/changement_repere.cpp ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/src/lwdaq_client.cpp .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/ATLAS_BCAM.ui .tmp/ADEPO1.0.0/ && (cd `dirname .tmp/ADEPO1.0.0` && $(TAR) ADEPO1.0.0.tar ADEPO1.0.0 && $(COMPRESS) ADEPO1.0.0.tar) && $(MOVE) `dirname .tmp/ADEPO1.0.0`/ADEPO1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ADEPO1.0.0
 
 
 clean:compiler_clean 
@@ -604,6 +604,7 @@ moc_atlas_bcam.cpp: ../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QMainWindow \
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -1123,6 +1124,7 @@ write_file_obs_mount_system.o: ../ADEPO/src/write_file_obs_mount_system.cpp ../A
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -1427,6 +1429,7 @@ read_lwdaq_output.o: ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/header/read_lwd
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -1444,6 +1447,7 @@ read_input.o: ../ADEPO/src/read_input.cpp ../ADEPO/header/read_input.h \
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -1461,6 +1465,7 @@ read_calibration_database.o: ../ADEPO/src/read_calibration_database.cpp ../ADEPO
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -1479,6 +1484,7 @@ liste_bcam_from_id_detector.o: ../ADEPO/src/liste_bcam_from_id_detector.cpp ../A
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -1497,6 +1503,7 @@ img_coord_to_bcam_coord.o: ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/hea
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -1635,6 +1642,7 @@ clean_calib.o: ../ADEPO/src/clean_calib.cpp ../ADEPO/header/clean_calib.h \
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -1653,6 +1661,7 @@ calcul_coord_bcam_system.o: ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/h
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -1773,6 +1782,7 @@ atlas_bcam.o: ../ADEPO/src/atlas_bcam.cpp ../ADEPO/header/atlas_bcam.h \
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -2326,6 +2336,7 @@ main.o: ../ADEPO/src/main.cpp ../ADEPO/header/bdd.h \
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -2712,6 +2723,7 @@ helmert.o: ../ADEPO/src/helmert.cpp ../ADEPO/header/helmert.h \
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
@@ -3062,6 +3074,7 @@ mount_prism_to_global_prism.o: ../ADEPO/src/mount_prism_to_global_prism.cpp ../A
 		../ADEPO/header/calib2.h \
 		../ADEPO/header/mount_coord_spots.h \
 		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
 		../ADEPO/header/bcam_adaptateur.h \
 		../ADEPO/header/absolutes_distances.h \
 		../ADEPO/header/atlas_coordinates.h \
