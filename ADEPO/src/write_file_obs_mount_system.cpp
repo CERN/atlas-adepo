@@ -72,8 +72,8 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
             {
                 mount_coord_spots spots1 = base_donnees.getMountCoordSpots().at(i);
                 std::cout << base_donnees.getMountCoordSpots().size() << " " << spots1.getName() << " " << premier_objet_mount << std::endl;
-//                if(i>0 && spots1.getName() == premier_objet_mount) //si on a tout parcourut et on revient au premier objet ==> fin
-//                    break;
+                if(i>0 && spots1.getName() == premier_objet_mount) //si on a tout parcourut et on revient au premier objet ==> fin
+                    break;
 
                 fichier<<spots1.getName()<<"\n";
                 for(unsigned int j=0; j<base_donnees.getMountCoordSpots().size(); j++)
