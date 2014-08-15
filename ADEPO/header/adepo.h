@@ -1,6 +1,6 @@
 #ifndef ADEPO_H
 #define ADEPO_H
 
-#define ADEPO_DEBUG 1
+#define ADEPO_DEBUG 0
 
 #endif // ADEPO_H
