@@ -20,6 +20,8 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
             spot spot = base_donnees.getSpots().at(i);
             calib1 calib1 = base_donnees.getCalibs1().at(j);
             // NumChip == 2 is Z+ direction (check?)
+            BCAM* bcam = base_donnees.getBCAM(spot.getBCAM());
+            bcam->print();
             int num_chip = base_donnees.getBCAM(calib1.getBCAM())->getNumChip();
             bool directionOk = ((num_chip == 2) && (calib1.getCoordAxis().z() == 1)) || ((num_chip == 1) && (calib1.getCoordAxis().z() == -1));
             std::cout << spot.getBCAM() << " " << calib1.getBCAM() << " " << directionOk << " " <<  num_chip << " " << calib1.getCoordAxis().z() << std::endl;
