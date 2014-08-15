@@ -19,8 +19,12 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
         {
             spot spot = base_donnees.getSpots().at(i);
             calib1 calib1 = base_donnees.getCalibs1().at(j);
+            num_chip = base_donnees.getBCAM(spot.getBCAM()).getNumChip();
 
-            if(spot.getBCAM() == calib1.getBCAM())
+            // chekc for name and direction. NumChip == 2 is Z+ direction (check?)
+            if ((spot.getBCAM() == calib1.getBCAM()) &&
+                ((num_chip == 2 && calib1.getCoordAxis().z() > 0)
+                 (num_chip == 1 && calib1.getCoordAxis().z() < 0)))
             {
                 //transformation des coordonnees IMAGE vers le repere MOUNT
 
