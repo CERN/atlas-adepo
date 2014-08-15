@@ -96,7 +96,7 @@ void calcul_coord_bcam_system(bdd & base_donnees, bool airpads)
                         //ajout dans la base de donnees
                         Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z+airpad);
                         mount_coord_prism xyz_prism(spot.getBCAM(), spot.getPrism(), xyz, airpad);
-                        base_donnees.addMount(xyz_prism);
+                        base_donnees.add(xyz_prism);
                         found = true;
                     }
                 }

@@ -2,6 +2,7 @@
 #include "mount_prism_to_global_prism.h"
 #include "changement_repere.h"
 #include "mount_coord_prism.h"
+#include "global_coord_prism.h"
 
 void mount_prism_to_global_prism(bdd & base_donnees)
 {
@@ -19,8 +20,8 @@ void mount_prism_to_global_prism(bdd & base_donnees)
                  Point3f point_transforme = changement_repere(prism.getCoordPrismMountSys(),
                                                               params.getTranslation(),
                                                               params.getRotation());
-                 mount_coord_prism pt_global(prism.getBCAM(), prism.getPrism(), point_transforme, prism.getAirpad());
-                 base_donnees.addGlobal(pt_global);
+                 global_coord_prism pt_global(prism.getBCAM(), prism.getPrism(), point_transforme, prism.getAirpad());
+                 base_donnees.add(pt_global);
                  found = true;
             }
         }

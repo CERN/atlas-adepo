@@ -21,6 +21,7 @@
 #include "calib2.h"
 #include "mount_coord_spots.h"
 #include "mount_coord_prism.h"
+#include "global_coord_prism.h"
 #include "bcam_adaptateur.h"
 #include "absolutes_distances.h"
 #include "atlas_coordinates.h"
@@ -59,7 +60,7 @@ public:
     //gestion des parametres de translation et de rotation par BCAM
     std::vector<BCAM_params> getBCAMParams() const {return mBcamParams;}
     //gestion de la liste des coordonnees du prisme dans le repre global
-    std::vector<mount_coord_prism> getGlobalCoordPrisms() const {return mGlobalCoordPrisms;}
+    std::vector<global_coord_prism> getGlobalCoordPrisms() const {return mGlobalCoordPrisms;}
     //gestion des corrections d'excentrement
     std::vector<prism_correction> getPrismCorrections() const {return mPrismCorrections;}
 
@@ -88,7 +89,7 @@ public:
 //    void Add_calib2_clean(calib2 val) {m_liste_calib2_clean.push_back(val);}
     void add(spot val) {mSpots.push_back(val);}
     void add(mount_coord_spots val) {mMountCoordSpots.push_back(val);}
-    void addMount(mount_coord_prism val) {mMountCoordPrisms.push_back(val);}
+    void add(mount_coord_prism val) {mMountCoordPrisms.push_back(val);}
     //gestion de l'adresse IP
     void setDriverIpAddress(std::string val) {mDriverIpAddress = val;}
     //gestion de l'adaptateur
@@ -100,7 +101,7 @@ public:
     //gestion des parametres de translation et de rotation par BCAM
     void add(BCAM_params val) {mBcamParams.push_back(val);}
     //gestion de la liste des coordonnees du prisme dans le repre global
-    void addGlobal(mount_coord_prism val) {mGlobalCoordPrisms.push_back(val);}
+    void add(global_coord_prism val) {mGlobalCoordPrisms.push_back(val);}
     //gestion des nomenclatures
     void addName(std::string id, std::string name) { names[id] = name; }
 
@@ -149,7 +150,7 @@ private:
     std::vector<absolutes_distances> mAbsoluteDistances;
     std::vector<ATLAS_coordinates> mATLASCoordinates;
     std::vector<BCAM_params> mBcamParams;
-    std::vector<mount_coord_prism> mGlobalCoordPrisms;
+    std::vector<global_coord_prism> mGlobalCoordPrisms;
     std::vector<prism_correction> mPrismCorrections;
 
     std::map<std::string, std::string> names;

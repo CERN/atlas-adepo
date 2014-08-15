@@ -28,7 +28,8 @@ HEADERS += \
     header/prism_correction.h \
     header/result.h \
     header/lwdaq_client.h \
-    header/adepo.h
+    header/adepo.h \
+    header/global_coord_prism.h
 
 SOURCES += \
     src/write_file_obs_mount_system.cpp \

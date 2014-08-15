@@ -117,7 +117,7 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
 
             for(unsigned int i=0; i<base_donnees.getGlobalCoordPrisms().size(); i++)
             {
-                mount_coord_prism prism1 = base_donnees.getGlobalCoordPrisms().at(i);
+                global_coord_prism prism1 = base_donnees.getGlobalCoordPrisms().at(i);
                 if(i>0 && prism1.getName() == premier_prisme_atlas)
                     break;
 
@@ -138,7 +138,7 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
 
             for(unsigned int i=0; i<base_donnees.getGlobalCoordPrisms().size(); i++)
             {
-                mount_coord_prism prism1 = base_donnees.getGlobalCoordPrisms().at(i);
+                global_coord_prism prism1 = base_donnees.getGlobalCoordPrisms().at(i);
                 if(i>0 && prism1.getName() == premier_prisme_atlas)
                     break;
 
@@ -147,7 +147,7 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
 
                 for(unsigned int j=0; j<base_donnees.getGlobalCoordPrisms().size(); j++)
                 {
-                    mount_coord_prism prism2 = base_donnees.getGlobalCoordPrisms().at(j);
+                    global_coord_prism prism2 = base_donnees.getGlobalCoordPrisms().at(j);
                     if(prism1.getName() == prism2.getName())
                     {
                         coord(ligne,0)=prism2.getCoordPrismMountSys().x();
@@ -177,7 +177,7 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                 }
 
                 //nomenclature dans le repere ATLAS
-                mount_coord_prism prism = prism1;
+                global_coord_prism prism = prism1;
                 std::string name_bcam_atlas = base_donnees.getName(prism.getBCAM());
                 std::string name_prism_atlas = base_donnees.getName(prism.getPrism());
                 float airpad = prism1.getAirpad();
