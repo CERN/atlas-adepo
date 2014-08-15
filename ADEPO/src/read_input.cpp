@@ -166,7 +166,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                            }
 
                            if(nb_string == 7) //cas ou une BCAM double vise deux prisme d'un cote et une autre BCAM de l'autre cote
-                           {
+                           { // 20MABNDL000077 1 2 7 PR002 PR003 1 20MABNDM000168
                                std::string nom_BCAM = strtok(buffer," ");
                                char *id_detector = strtok( NULL, " " );
                                char *num_Port_Driver = strtok( NULL, " " );
@@ -181,8 +181,9 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
 
                            }
 
-                           if(nb_string == 8) //cas ou une BCAM double vise 3 prismes d'un cote et une bcam de l'autre cote
-                           {    // 20MABNDL000077 1 2 7 PR002 PR003 PR024 1 20MABNDM000168
+                           if(nb_string == 8) //cas ou une BCAM double vise 2 prismes d'un cote et une bcam de l'autre cote avec prisme
+                           {    // 20MABNDL000077 1 2 7 PR002 PR003 1 20MABNDM000168 PR024
+                               // NOT CORRECT YET
                                std::string nom_BCAM = strtok(buffer," ");
                                char *id_detector = strtok( NULL, " " );
                                char *num_Port_Driver = strtok( NULL, " " );
