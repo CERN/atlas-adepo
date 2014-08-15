@@ -864,27 +864,19 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
                        <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
                        <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n";
 
-                for(unsigned int j=0; j<liste_temp_bcam.size(); j++)
-                {
-                    std::cout << liste_temp_bcam.at(i).getPrisms() << "*" << liste_temp_bcam.at(j).getName() << std::endl;
-                    if(liste_temp_bcam.at(i).getPrisms() == liste_temp_bcam.at(j).getName())
-                    {
-                        fichier<<"\t daq_source_mux_socket "<<liste_temp_bcam.at(j).getMuxSocket()<<"\n"
-                               <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(j).getDriverSocket()<<"\n";
-                        if(liste_temp_bcam.at(i).getNumChip() == 2)
-                        {
-                            fichier<<"\t daq_device_element 1 \n"
-                                   <<"\t daq_source_device_element \"3 4\" \n";
-                        }
-                        else
-                        {
-                            fichier<<"\t daq_device_element 2 \n"
-                                   <<"\t daq_source_device_element \"1 2\" \n";
-                        }
-                     break;
+                BCAM* bcam = m_bdd.getBCAM(liste_temp_bcam.at(i).getPrisms());
 
-                    }
-                    //break;
+                fichier<<"\t daq_source_mux_socket "<<bcam->getMuxSocket()<<"\n"
+                       <<"\t daq_source_driver_socket "<<bcam->getDriverSocket()<<"\n";
+                if(liste_temp_bcam.at(i).getNumChip() == 2)
+                {
+                    fichier<<"\t daq_device_element 1 \n"
+                           <<"\t daq_source_device_element \"3 4\" \n";
+                }
+                else
+                {
+                    fichier<<"\t daq_device_element 2 \n"
+                           <<"\t daq_source_device_element \"1 2\" \n";
                 }
 
                 fichier<<"\t daq_image_left 20 \n"
