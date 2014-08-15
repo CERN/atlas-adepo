@@ -401,9 +401,13 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
       num_port_mux->setData(0,liste_bcam->at(i).getMuxSocket());
       ui->tableWidget_liste_bcams->setItem(i,3,num_port_mux);
 
+      QTableWidgetItem *num_chip = new QTableWidgetItem();
+      num_chip->setData(0,liste_bcam->at(i).getNumChip());
+      ui->tableWidget_liste_bcams->setItem(i,4,num_chip);
+
       QTableWidgetItem *objet_vise = new QTableWidgetItem();
       objet_vise->setText(QString::fromStdString(liste_bcam->at(i).getPrisms()));
-      ui->tableWidget_liste_bcams->setItem(i,4,objet_vise);
+      ui->tableWidget_liste_bcams->setItem(i,5,objet_vise);
 
       QStringList prisms = QString::fromStdString(liste_bcam->at(i).getPrisms()).split('_');
       // Example:  PR001, PR001_PR023, PR010_PR034_PR045

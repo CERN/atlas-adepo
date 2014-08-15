@@ -28,7 +28,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="ConfigurationTab">
        <attribute name="title">
@@ -96,7 +96,7 @@
                   <bool>true</bool>
                  </property>
                  <attribute name="horizontalHeaderVisible">
-                  <bool>false</bool>
+                  <bool>true</bool>
                  </attribute>
                  <attribute name="horizontalHeaderCascadingSectionResizes">
                   <bool>false</bool>
@@ -320,7 +320,7 @@
                   <bool>true</bool>
                  </property>
                  <attribute name="horizontalHeaderVisible">
-                  <bool>false</bool>
+                  <bool>true</bool>
                  </attribute>
                  <attribute name="horizontalHeaderDefaultSectionSize">
                   <number>160</number>
@@ -370,6 +370,11 @@
                  <column>
                   <property name="text">
                    <string>PORT MUX</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>NUM CHIP</string>
                   </property>
                  </column>
                  <column>
