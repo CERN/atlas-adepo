@@ -28,7 +28,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="ConfigurationTab">
        <attribute name="title">
@@ -96,7 +96,7 @@
                   <bool>true</bool>
                  </property>
                  <attribute name="horizontalHeaderVisible">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </attribute>
                  <attribute name="horizontalHeaderCascadingSectionResizes">
                   <bool>false</bool>
@@ -320,7 +320,7 @@
                   <bool>true</bool>
                  </property>
                  <attribute name="horizontalHeaderVisible">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </attribute>
                  <attribute name="horizontalHeaderDefaultSectionSize">
                   <number>160</number>
@@ -526,17 +526,17 @@
             </column>
             <column>
              <property name="text">
-              <string>X (m)</string>
+              <string>X (mm)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Y (m)</string>
+              <string>Y (mm)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string> Z (m)</string>
+              <string> Z (mm)</string>
              </property>
             </column>
             <column>

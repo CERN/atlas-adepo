@@ -644,12 +644,12 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
         ui->tableWidget_results->setItem(row, 3, n);
 
         if (ui->fullPrecision->isChecked()) {
-            setResult(row, r.getValue(), 0, 8);
-            setResult(row, r.getStd(), 1, 8);
+            setResult(row, Point3f(r.getValue(), 1000), 0, 8);
+            setResult(row, Point3f(r.getStd(), 1000), 1, 8);
             setResult(row, Point3f(Point3f(r.getValue(), r.getOffset()), 1000), 2, 8);
         } else {
-            setResult(row, r.getValue(), 0, 6);
-            setResult(row, r.getStd(), 1, 3);
+            setResult(row, Point3f(r.getValue(), 1000), 0, 3);
+            setResult(row, Point3f(r.getStd(), 1000), 1, 3);
             setResult(row, Point3f(Point3f(r.getValue(), r.getOffset()), 1000), 2, 3);
         }
     }
