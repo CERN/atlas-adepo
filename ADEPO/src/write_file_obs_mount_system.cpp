@@ -98,7 +98,7 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                 if(i>0 && prism1.getName() == premier_prisme_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                     break;
 
-                fichier<<prism1.getName()<<" "<<prism1.getAirpad()<<"\n";
+                fichier<<prism1.getName()<<"\n";
                 for(unsigned int j=0; j<base_donnees.getMountCoordPrisms().size(); j++)
                 {
                     mount_coord_prism prism2 = base_donnees.getMountCoordPrisms().at(j);
