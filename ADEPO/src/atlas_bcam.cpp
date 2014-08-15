@@ -158,7 +158,7 @@ QString ATLAS_BCAM::appDirPath() {
 void ATLAS_BCAM::showBCAM(int row, int /* column */) {
     selectedBCAM = row;
     QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(
-                 ui->tableWidget_liste_bcams->item(row, 4)->text());
+                 ui->tableWidget_liste_bcams->item(row, 5)->text());
     ui->bcamLabel->setText(name);
     QPixmapCache::clear();
     QString imageName = lwdaqDir.absolutePath().append("/Tools/Data/").append(name).append(".gif");
