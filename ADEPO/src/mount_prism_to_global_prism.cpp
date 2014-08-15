@@ -4,12 +4,13 @@
 #include "mount_coord_prism.h"
 #include "global_coord_prism.h"
 
-void mount_prism_to_global_prism(bdd & base_donnees)
+void mount_prism_to_global_prism(bdd & base_donnees, bool airpads)
 {
     bool found = false;
     for(unsigned int i=0; i<base_donnees.getMountCoordPrisms().size(); i++)
     {
         mount_coord_prism prism = base_donnees.getMountCoordPrisms().at(i);
+        float airpad = airpads ? base_donnees.getDetector(prism.getBCAM())->getAirpad() : 0.0f;
 
         for(unsigned int j=0; j<base_donnees.getBCAMParams().size(); j++)
         {
@@ -20,7 +21,8 @@ void mount_prism_to_global_prism(bdd & base_donnees)
                  Point3f point_transforme = changement_repere(prism.getCoordPrismMountSys(),
                                                               params.getTranslation(),
                                                               params.getRotation());
-                 global_coord_prism pt_global(prism.getBCAM(), prism.getPrism(), point_transforme, prism.getAirpad());
+                 Point3f point_airpad(point_transforme.x(), point_transforme.y()+airpad, point_transforme.z());
+                 global_coord_prism pt_global(prism.getBCAM(), prism.getPrism(), point_airpad, airpad);
                  base_donnees.add(pt_global);
                  found = true;
             }

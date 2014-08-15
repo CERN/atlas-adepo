@@ -537,10 +537,10 @@ void ATLAS_BCAM::calcul_coord()
    img_coord_to_bcam_coord(m_bdd);
 
    //je calcule les coordonnees du prisme en 3D dans le repere MOUNT
-   calcul_coord_bcam_system(m_bdd, ui->comboBox_2->currentText() == "ON");
+   calcul_coord_bcam_system(m_bdd);
 
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
-   mount_prism_to_global_prism(m_bdd);
+   mount_prism_to_global_prism(m_bdd, ui->comboBox_2->currentText() == "ON");
 
    calculateResults(m_bdd, results);
 

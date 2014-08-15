@@ -3,7 +3,7 @@
 
 #define mm2m 0.001
 
-void calcul_coord_bcam_system(bdd & base_donnees, bool airpads)
+void calcul_coord_bcam_system(bdd & base_donnees)
 {
     bool found = false;
     for (unsigned int i=0; i<base_donnees.getMountCoordSpots().size(); i++) // je parcours la database qui contient les coord des observation dans le system MOUNT
@@ -91,11 +91,9 @@ void calcul_coord_bcam_system(bdd & base_donnees, bool airpads)
                         float coordPrisme_y = (prisme_y1+prisme_y2)/4;
                         float coordPrisme_z = (prisme_z1+prisme_z2)/4;
 
-                        float airpad = airpads ? base_donnees.getDetector(spot.getBCAM())->getAirpad() : 0.0f;
-
                         //ajout dans la base de donnees
-                        Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z+airpad);
-                        mount_coord_prism xyz_prism(spot.getBCAM(), spot.getPrism(), xyz, airpad);
+                        Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z);
+                        mount_coord_prism xyz_prism(spot.getBCAM(), spot.getPrism(), xyz);
                         base_donnees.add(xyz_prism);
                         found = true;
                     }

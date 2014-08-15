@@ -9,8 +9,8 @@
 class mount_coord_prism
 {
 public:
-    mount_coord_prism(std::string bcam, std::string prism, Point3f coordPrismMountSys, float airpad) :
-        mBCAM(bcam), mPrism(prism), mCoordPrismMountSys(coordPrismMountSys), mAirpad(airpad) {};
+    mount_coord_prism(std::string bcam, std::string prism, Point3f coordPrismMountSys) :
+        mBCAM(bcam), mPrism(prism), mCoordPrismMountSys(coordPrismMountSys) {};
     virtual ~mount_coord_prism() {};
 
     //getter setter
@@ -19,7 +19,6 @@ public:
     std::string getName() const { return getBCAM()+"_"+getPrism(); }
     Point3f getCoordPrismMountSys() const {return mCoordPrismMountSys; }
 
-    float getAirpad() { return mAirpad; }
 
     //methodes
     void print() {
@@ -35,7 +34,6 @@ private:
     std::string mBCAM;
     std::string mPrism;
     Point3f mCoordPrismMountSys;
-    float mAirpad;
 };
 
 #endif // MOUNT_COORD_PRISM_H
