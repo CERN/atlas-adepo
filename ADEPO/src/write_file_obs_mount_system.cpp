@@ -124,7 +124,7 @@ int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_don
                 fichier<<prism1.getName()<<" "<<prism1.getAirpad()<<"\n";
                 for(unsigned int j=0; j<base_donnees.getGlobalCoordPrisms().size(); j++)
                 {
-                    mount_coord_prism prism2 = base_donnees.getMountCoordPrisms().at(j);
+                    global_coord_prism prism2 = base_donnees.getGlobalCoordPrisms().at(j);
                     if(prism1.getName() == prism2.getName())
                     {
                         fichier<<prism2.getCoordPrismMountSys().x()<<" "<<prism2.getCoordPrismMountSys().y()<<" "<<prism2.getCoordPrismMountSys().z()<<"\n";
