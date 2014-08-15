@@ -22,8 +22,9 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
             // NumChip == 2 is Z+ direction (check?)
             int num_chip = base_donnees.getBCAM(spot.getBCAM())->getNumChip();
             bool directionOk = ((num_chip == 2) && (calib1.getCoordAxis().z() > 0)) || ((num_chip == 1) && (calib1.getCoordAxis().z() < 0));
+            std::cout << spot.getBCAM() << " " << num_chip << " " <<  directionOk << " " << calib1.getCoordAxis().z() << std::endl;
 
-            // chekc for name and direction.
+            // check for name and direction.
             if (spot.getBCAM() == calib1.getBCAM() && directionOk)
             {
                 //transformation des coordonnees IMAGE vers le repere MOUNT
