@@ -10,6 +10,8 @@
 #include <detector.h>
 #include <cstring>
 #include <stdlib.h>
+#include <QString>
+#include <QStringList>
 #include "unistd.h"
 #include "cstdlib"
 #include "math.h"
@@ -40,6 +42,7 @@ public:
     //getter
     //gestion des bcams dans le terrain a partir du fichier de configuration
     std::vector<BCAM> getBCAMs() const {return mBCAMs;}
+    std::vector<BCAM> getBCAMs(int id_detector);
     //gestion des detecteurs dans le fichier de configuration
     std::vector<detector> getDetectors() const {return mDetectors;}
     std::vector<calib1> getCalibs1() const {return mCalibs1;}
@@ -146,6 +149,8 @@ public:
 
 protected:
 private:
+    void addList(BCAM bcam, int numChip, QString side, std::vector<BCAM>& liste_bcam);
+
     std::vector<BCAM> mBCAMs;
     std::vector<detector> mDetectors;
     std::vector<calib1> mCalibs1;

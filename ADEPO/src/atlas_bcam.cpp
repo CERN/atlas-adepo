@@ -3,7 +3,7 @@
 #include "read_input.h"
 #include "ui_ATLAS_BCAM.h"
 #include "read_calibration_database.h"
-#include "liste_bcam_from_id_detector.h"
+#include "bdd.h"
 #include "write_aquisifier_script.h"
 #include "write_bash_script.h"
 #include "read_lwdaq_output.h"
@@ -365,7 +365,7 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
         QString id_detector = ui->tableWidget_liste_detectors->selectedItems().at(i*noColumn)->text();
 
         //recuperation des donnes a afficher
-        std::vector<BCAM> *m_liste_bcam = new std::vector<BCAM>(liste_bcam_from_id_detector(m_bdd, id_detector.toInt()));
+        std::vector<BCAM> *m_liste_bcam = new std::vector<BCAM>(m_bdd.getBCAMs(id_detector.toInt()));
 
         //insertion dans la tableWidget qui affiche les bcams
         liste_bcam->insert(liste_bcam->begin(), m_liste_bcam->begin(), m_liste_bcam->end());

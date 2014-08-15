@@ -7,7 +7,6 @@
 
 
 #include "clean_calib.h"
-#include "liste_bcam_from_id_detector.h"
 
 #include <QApplication>
 #include <QtGui>
@@ -25,6 +24,7 @@ QApplication app(argc, argv);
 QCoreApplication::setOrganizationName("ATLAS CERN");
 QCoreApplication::setOrganizationDomain("atlas.cern.ch");
 QCoreApplication::setApplicationName("ADEPO");
+QCoreApplication::setApplicationVersion("1.2");
 
 QString locale = QLocale::system().name().section('_', 0, 0);
 QTranslator translator;

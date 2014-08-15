@@ -8,7 +8,6 @@ HEADERS += \
     header/Point3f.h \
     header/mount_coord_spots.h \
     header/mount_coord_prism.h \
-    header/liste_bcam_from_id_detector.h \
     header/img_coord_to_bcam_coord.h \
     header/detector.h \
     header/clean_calib.h \
@@ -36,7 +35,6 @@ SOURCES += \
     src/read_lwdaq_output.cpp \
     src/read_input.cpp \
     src/read_calibration_database.cpp \
-    src/liste_bcam_from_id_detector.cpp \
     src/img_coord_to_bcam_coord.cpp \
     src/clean_calib.cpp \
     src/calcul_coord_bcam_system.cpp \
@@ -45,7 +43,8 @@ SOURCES += \
     src/helmert.cpp \
     src/changement_repere.cpp \
     src/mount_prism_to_global_prism.cpp \
-    src/lwdaq_client.cpp
+    src/lwdaq_client.cpp \
+    src/bdd.cpp
 
 FORMS += \
     ATLAS_BCAM.ui \
