@@ -85,6 +85,8 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     spot sp2(prisms[0].toStdString(), prisms[2].toStdString(),
                              atof(coord3_i_ccd), atof(coord3_j_ccd), atof(coord4_i_ccd), atof(coord4_j_ccd));
                     base_donnees.add(sp2);
+                    sp1.print();
+                    sp2.print();
                     break;
                 }
 
