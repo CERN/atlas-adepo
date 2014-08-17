@@ -25,6 +25,13 @@
 #define NBR_DETECTORS 8
 #define ID_LENGTH_BCAM 14
 
+#define INPUT_FOLDER "input_folder"
+#define AIRPAD_INDEX "airpad_index"
+#define MODE_INDEX "mode_index"
+#define TIME_VALUE "time_value"
+#define FULL_PRESICION_FORMAT "full_precision_format"
+#define SELECTED_DETECTORS "selected_detectors"
+
 /********************************************************************************************/
 #define NAME_CONFIGURATION_FILE "configuration_file.txt"
 #define NAME_CALIBRATION_FILE "BCAM_Parameters.txt"
@@ -37,13 +44,6 @@ QSettings settings;
 
 QString path_input_folder;
 bool input_folder_read = false;
-
-//valeur par defaut si l'utilisateur ne touche pas au spinbox
-QString time_value = "30";
-//valeur par defaut du mode d'utilisation est CLOSURE
-QString mode_adepo = "CLOSURE";
-//valeur par defaut du mode des airpads
-QString mode_airpad = "OFF";
 
 //nom du fichier script qui va lancer l'acquisition que sur les detecteurs selectionnes
 QString fichier_script = "Acquisifier_Script.tcl";
@@ -91,7 +91,7 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         ui->action_Aide->setShortcut(QKeySequence("Ctrl+A"));
 
         //clic detecteur-affichage bcam
-        QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)),this, SLOT(affiche_liste_BCAMs(int,int)));
+        QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAMTable()));
         QObject::connect(ui->tableWidget_liste_bcams, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAM(int,int)));
 
         //lancer les acquisitions (arret automoatique)
@@ -106,13 +106,10 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
 
-        QObject::connect(ui->fullPrecision,SIGNAL(clicked()),this,SLOT(changeFormat()));
-
-        //recuperer la valeur du temps d'acquisition
-        QObject::connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(save_time_value()));
-
-        //recuperer la valeur du mode : CLOSURE ou MONITORING
-        QObject::connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(get_mode()));
+        QObject::connect(ui->fullPrecision,SIGNAL(stateChanged(int)),this,SLOT(changedFormat(int)));
+        QObject::connect(ui->timeBox, SIGNAL(valueChanged(int)), this, SLOT(changedTimeValue(int)));
+        QObject::connect(ui->modeBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changedMode(int)));
+        QObject::connect(ui->airpadBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
 
         previousState = LWDAQ_Client::UNSET;
         needToCalculateResults = false;
@@ -133,12 +130,37 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         ui->tabWidget->setCurrentIndex(0);
 
-        path_input_folder = settings.value("input_folder").toString();
+        path_input_folder = settings.value(INPUT_FOLDER).value<QString>();
         if (path_input_folder != NULL) {
             openInputDir();
         }
 
-        m_bdd.getDetector("20MABNDA000444");
+        int timeValue = settings.value(TIME_VALUE).value<int>();
+        if (timeValue < 30) {
+            timeValue = 30;
+        }
+        ui->timeBox->setValue(timeValue);
+
+        int airpadIndex = settings.value(AIRPAD_INDEX).value<int>();
+        ui->airpadBox->setCurrentIndex(airpadIndex);
+
+        int modeIndex = settings.value(MODE_INDEX).value<int>();
+        ui->modeBox->setCurrentIndex(modeIndex);
+
+        int fullPrecisionFormat = settings.value(FULL_PRESICION_FORMAT).value<int>();
+        ui->fullPrecision->setChecked(fullPrecisionFormat);
+
+        QString selectedDetectors = settings.value(SELECTED_DETECTORS).value<QString>();
+        QStringList selectedDetectorList = selectedDetectors.split(" ");
+        for (int i=0; i<selectedDetectorList.size(); i++) {
+            for (int r=0; r<ui->tableWidget_liste_detectors->rowCount(); r++) {
+                if (selectedDetectorList[i] == ui->tableWidget_liste_detectors->item(r, 0)->text()) {
+                    ui->tableWidget_liste_detectors->selectRow(r);
+                }
+            }
+        }
+
+        showBCAMTable();
 }
 
 ATLAS_BCAM::~ATLAS_BCAM()
@@ -222,6 +244,10 @@ void ATLAS_BCAM::lwdaqStateChanged() {
     previousState = lwdaq_client->getState();
 }
 
+void ATLAS_BCAM::changedAirpad(int index) {
+    settings.setValue(AIRPAD_INDEX, index);
+}
+
 void ATLAS_BCAM::lwdaqTimeChanged() {
    QMainWindow::statusBar()->showMessage(QString("ADEPO ").append(QString::number(lwdaq_client->getRemainingTime()/1000)).
                                           append(" seconds remaining..."));
@@ -239,9 +265,9 @@ void ATLAS_BCAM::setEnabled(bool enabled) {
     ui->stop->setEnabled(!enabled);
 
     ui->tableWidget_liste_detectors->setEnabled(enabled);
-    ui->comboBox->setEnabled(enabled);
-    ui->comboBox_2->setEnabled(enabled);
-    ui->spinBox->setEnabled(enabled);
+    ui->modeBox->setEnabled(enabled);
+    ui->airpadBox->setEnabled(enabled);
+    ui->timeBox->setEnabled(enabled);
 }
 
 //ouverture d'une boite de dialogue                                                                 [----> ok
@@ -252,7 +278,7 @@ void ATLAS_BCAM::ouvrirDialogue()
 }
 
 void ATLAS_BCAM::openInputDir() {
-    settings.setValue("input_folder", path_input_folder);
+    settings.setValue(INPUT_FOLDER, path_input_folder);
 
     if(input_folder_read) //gestion du probleme lorsqu'on charge un fichier par dessus l'autre
     {
@@ -289,9 +315,9 @@ void ATLAS_BCAM::openInputDir() {
 }
 
 //fonction qui enregistre la valeur du temps d'acquisition entree par l'utilisateur                 [----> ok
-void ATLAS_BCAM::save_time_value()
+void ATLAS_BCAM::changedTimeValue(int value)
 {
-    time_value = ui->spinBox->text();
+    settings.setValue(TIME_VALUE, value);
 }
 
 //fonction d'ouverture de la fenêtre d'aide de l'outil ARCAPA                                       [----> not yet]
@@ -348,7 +374,7 @@ void ATLAS_BCAM::remplir_tableau_detectors()
 }
 
 //fonction permettant de charger la liste des BCAMs qui appartiennent a un detector                 [---> ok
-void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
+void ATLAS_BCAM::showBCAMTable()
 {
     int noColumn = ui->tableWidget_liste_detectors->columnCount();
 
@@ -358,11 +384,16 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
     //vecteur qui va contenir la liste des BCAMs temporaires selectionnees dans le tableau
     std::vector<BCAM> *liste_bcam = new std::vector<BCAM>;
 
+    QString selectedDetectors("");
+
     //recuperation des donnees a afficher
     for(int i=0; i<nb_detectors; i++)
     {
         //recuperation de l'identifiant du detecteur
         QString id_detector = ui->tableWidget_liste_detectors->selectedItems().at(i*noColumn)->text();
+
+        if (i > 0) selectedDetectors = selectedDetectors.append(" ");
+        selectedDetectors = selectedDetectors.append(id_detector);
 
         //recuperation des donnes a afficher
         std::vector<BCAM> *m_liste_bcam = new std::vector<BCAM>(m_bdd.getBCAMs(id_detector.toInt()));
@@ -376,6 +407,8 @@ void ATLAS_BCAM::affiche_liste_BCAMs(int /* ligne */, int /* colonne */)
         //on supprime le pointeur a la fin
         delete m_liste_bcam;
     }
+
+    settings.setValue(SELECTED_DETECTORS, selectedDetectors);
 
     // nombre de lignes dans la table
     ui->tableWidget_liste_bcams->setRowCount(liste_bcam->size());
@@ -494,7 +527,7 @@ void ATLAS_BCAM::lancer_acquisition()
     //lancement du programme LWDAQ + arret apres nombre de secondes specifiees par le user
     std::cout << "Starting LWDAQ on " << m_bdd.getDriverIpAddress() << std::endl;
 
-    lwdaq_client->startRun(dir, time_value.toInt());
+    lwdaq_client->startRun(dir, ui->timeBox->value());
 }
 
 //fonction qui permet d'arreter l'acquisition LWDAQ (seuleuement en mode monitoring)                [----> ok
@@ -514,7 +547,8 @@ void ATLAS_BCAM::resetDelta() {
     updateResults(results);
 }
 
-void ATLAS_BCAM::changeFormat() {
+void ATLAS_BCAM::changedFormat(int state) {
+    settings.setValue(FULL_PRESICION_FORMAT, state);
     updateResults(results);
 }
 
@@ -544,7 +578,7 @@ void ATLAS_BCAM::calcul_coord()
    calcul_coord_bcam_system(m_bdd);
 
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
-   mount_prism_to_global_prism(m_bdd, ui->comboBox_2->currentText() == "ON");
+   mount_prism_to_global_prism(m_bdd, ui->airpadBox->currentText() == "ON");
 
    calculateResults(m_bdd, results);
 
@@ -1090,32 +1124,32 @@ int ATLAS_BCAM::write_params_file(QString params_file)
 }
 
 //fonction qui gere les selections dans les checkbox                                                [----> ok
-void ATLAS_BCAM::get_mode()
+void ATLAS_BCAM::changedMode(int /* index */)
 {
-    mode_adepo = ui->comboBox->currentText();
+    QString mode_adepo = ui->modeBox->currentText();
     if(mode_adepo == "MONITORING")
     {
         //changement du texte
-        ui->textEdit_function_mode->setText("</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Frequence d\'acquisition (s) :</span></p></body></html>");
+        ui->textEdit_function_mode->setText("Frequence d\'acquisition (s) :");
         //changement des valeurs d'interval pour le temps
-        ui->spinBox->setMinimum(240);  //frequence maxi : 1 mesure toutes les 15 min: 900
-        ui->spinBox->setMaximum(86400); //frequence mini ; 1 mesure par jour
+        ui->timeBox->setMinimum(240);  //frequence maxi : 1 mesure toutes les 15 min: 900
+        ui->timeBox->setMaximum(86400); //frequence mini ; 1 mesure par jour
     }
     else
     {
         //changement du text
-        ui->textEdit_function_mode->setText("</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\"><p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Temps d\'acquisition (s) :</span></p></body></html>");
+        ui->textEdit_function_mode->setText("Temps d\'acquisition (s) :");
         //changement des valeurs d'interval pour le temps
-        ui->spinBox->setMinimum(11);
-        ui->spinBox->setMaximum(300);
-        ui->spinBox->setValue(30);
+        ui->timeBox->setMinimum(11);
+        ui->timeBox->setMaximum(300);
+        ui->timeBox->setValue(30);
     }
 }
 
 //fonction thread pour lancer les modes d'acquisition                                               [-----> ok
 void ATLAS_BCAM::startCalcul()
 {
-    if(mode_adepo == "CLOSURE")
+    if(ui->modeBox->currentText() == "CLOSURE")
     {
         ui->boutton_arreter->setEnabled(true);
 
@@ -1134,15 +1168,15 @@ void ATLAS_BCAM::startCalcul()
             //desactivation de toute la fenetre sauf le bouton stop qui permet de tuer le QTimer
             ui->boutton_arreter->setEnabled(true);
             ui->tableWidget_liste_detectors->setEnabled(false);
-            ui->comboBox->setEnabled(false);
-            ui->comboBox_2->setEnabled(false);
-            ui->spinBox->setEnabled(false);
+            ui->modeBox->setEnabled(false);
+            ui->airpadBox->setEnabled(false);
+            ui->timeBox->setEnabled(false);
             ui->Boutton_lancer->setEnabled(false);
             ui->tableWidget_liste_bcams->setEnabled(false);
             //lancement des acquisitions + calcul
             QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));
             //boucle selon la frequence precisee par le user
-            timer->start((time_value.toInt())*1000); //en mode monitoring time_value est utilisee comme frequence et non pas comme temps d'acquisition
+            timer->start(ui->timeBox->value()*1000); //en mode monitoring time_value est utilisee comme frequence et non pas comme temps d'acquisition
             // fire initial time
             lancer_acquisition();
         }
@@ -1151,6 +1185,5 @@ void ATLAS_BCAM::startCalcul()
         {
             //rien ne se passe
         }
-
     }
 }

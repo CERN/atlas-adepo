@@ -43,46 +43,26 @@ public:
     //fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ
     int write_params_file(QString params_file);
 
-
-
-
 public slots:
-    //fonction qui recupere la valeur du temps d'acqusiition specifiee par l'utilisateur
-    void save_time_value();
-
-    //fonction qui ouvre une fenetre de dialogue pour specifier l'emplacement du dossier input
-    void ouvrirDialogue();
-
-    //fonction qui ouvre une fenetre pour l'aide au logiciel
-    void aide_atlas_bcam();
-
-    //fonction qui affiche les BCAMs qui qppqrtiennent a la liste de detecteurs selectionnes
-    void affiche_liste_BCAMs(int ligne, int colonne);
-    void showBCAM(int row, int);
-
-    //fonction qui lance les acquisitions lorsqu'on clicke sur le boutton correspondant
-    void lancer_acquisition();
-
-    //fonction qui permet l'arret des acquisitions lorsqu'on clicke sur le boutton correspondant
-    void stop_acquisition();
-
-    //fonction qui gere les selections dans les checkbox
-    void get_mode();
-
-    //fonction qui agit apres un press bouton sur "Lancer"
-    void startCalcul();
-
-    void resetDelta();
-
-    void changeFormat();
-
 
 signals:
 
 
 private slots:
+    void showBCAMTable();
+    void showBCAM(int row, int);
     void lwdaqStateChanged();
     void lwdaqTimeChanged();
+    void changedAirpad(int index);
+    void changedMode(int);
+    void changedTimeValue(int value);
+    void changedFormat(int state);
+    void resetDelta();
+    void startCalcul();
+    void lancer_acquisition();
+    void stop_acquisition();
+    void aide_atlas_bcam();
+    void ouvrirDialogue();
 
 private:
     Ui::ATLAS_BCAM *ui;

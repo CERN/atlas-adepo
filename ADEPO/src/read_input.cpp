@@ -201,7 +201,7 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
 
                                BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_double_bcam),
                                               id_prisme_1.append("_").append(id_prisme_2).append("/").append(id_bcam_visee).append("_").append(id_prisme_3));
-                               bcam_data.print();
+//                               bcam_data.print();
                                base_donnees.add(bcam_data);
                            }
                            break;
