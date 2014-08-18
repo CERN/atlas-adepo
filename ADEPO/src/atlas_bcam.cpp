@@ -889,8 +889,8 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
         for(unsigned int i=0; i<liste_temp_bcam.size(); i++)
         {
             // on separe les visees BCAM-Prisme des visees BCAM-BCAM
-            if(liste_temp_bcam.at(i).getPrisms().length() == 14) //configuration de visee BCAM-BCAM
-            {
+            if(liste_temp_bcam.at(i).getPrisms().length() == 14)
+            { //configuration de visee BCAM-BCAM
                 fichier<<"acquire: \n"
                        <<"name: "<<liste_temp_bcam.at(i).getName().append("_").append(liste_temp_bcam.at(i).getPrisms())<<"\n"
                        <<"instrument: BCAM \n"
@@ -908,13 +908,13 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
                        <<"\t daq_source_driver_socket "<<bcam->getDriverSocket()<<"\n";
                 if(liste_temp_bcam.at(i).getNumChip() == 2)
                 {
-                    fichier<<"\t daq_device_element 1 \n"
-                           <<"\t daq_source_device_element \"3 4\" \n";
+                    fichier<<"\t daq_device_element 2 \n"
+                           <<"\t daq_source_device_element \"1 2\" \n";
                 }
                 else
                 {
-                    fichier<<"\t daq_device_element 2 \n"
-                           <<"\t daq_source_device_element \"1 2\" \n";
+                    fichier<<"\t daq_device_element 1 \n"
+                           <<"\t daq_source_device_element \"3 4\" \n";
                 }
 
                 fichier<<"\t daq_image_left 20 \n"
@@ -934,84 +934,80 @@ int ATLAS_BCAM::write_script_file(QString nom_fichier_script_acquisition, std::v
                        <<"time: 0 \n"
                        <<"config: \n";
 
-                if(liste_temp_bcam.at(i).getPrisms().length() == 5)         //cas de 1 bcam qui vise 1 prisme (port source et port enregistreure sont les memes)
-                {
-                           fichier<<"\t analysis_num_spots 2 \n"
-                                 <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
-                                  <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
-                                  <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
-                                  <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
-                                  <<"\t daq_device_element "<<liste_temp_bcam.at(i).getNumChip()<<"\n";
-                           if(liste_temp_bcam.at(i).getNumChip() == 2)
-                           {
-                               fichier<<"\t daq_source_device_element \"3 4\" \n";
-                           }
-                           else
-                           {
-                                fichier<<"\t daq_source_device_element \"1 2\" \n";
-                           }
-                           fichier<<"\t daq_image_left 20 \n"
-                                  <<"\t daq_image_top 1 \n"
-                                  <<"\t daq_image_right 343 \n"
-                                  <<"\t daq_image_bottom 243 \n"
-                                   <<"end. \n"
-                                  <<"\n";
+               if(liste_temp_bcam.at(i).getPrisms().length() == 5)
+               { //cas de 1 bcam qui vise 1 prisme (port source et port enregistreure sont les memes)
+                    fichier<<"\t analysis_num_spots 2 \n"
+                         <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                          <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                          <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                          <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                          <<"\t daq_device_element "<<liste_temp_bcam.at(i).getNumChip()<<"\n";
+                    if(liste_temp_bcam.at(i).getNumChip() == 2)
+                    {
+                       fichier<<"\t daq_source_device_element \"3 4\" \n";
+                    }
+                    else
+                    {
+                        fichier<<"\t daq_source_device_element \"1 2\" \n";
+                    }
+                    fichier<<"\t daq_image_left 20 \n"
+                          <<"\t daq_image_top 1 \n"
+                          <<"\t daq_image_right 343 \n"
+                          <<"\t daq_image_bottom 243 \n"
+                           <<"end. \n"
+                          <<"\n";
+               }
+               else if(liste_temp_bcam.at(i).getPrisms().length() == 11)
+               { //cas de 1 bcam qui vise 2 prismes (port source et port enregistreure sont les memes)
+                   fichier<<"\t analysis_num_spots 4 \n"
+                         <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                         <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                          <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                          <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                          <<"\t daq_device_element "<<liste_temp_bcam.at(i).getNumChip()<<"\n";
+                   if(liste_temp_bcam.at(i).getNumChip() == 2)
+                   {
+                       fichier<<"\t daq_source_device_element \"3 4\" \n";
+                   }
+                   else
+                   {
+                        fichier<<"\t daq_source_device_element \"1 2\" \n";
+                   }
+                   fichier<<"\t daq_image_left 20 \n"
+                          <<"\t daq_image_top 1 \n"
+                          <<"\t daq_image_right 343 \n"
+                          <<"\t daq_image_bottom 243 \n"
+                           <<"end. \n"
+                          <<"\n";
+               }
+               else
+               { //cas d'une BCAM qui vise 3 prismes (port source et port enregistreure sont les memes)
+                   fichier<<"\t analysis_num_spots 6 \n"
+                          <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                          <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
+                          <<"\t daq_device_element "<<liste_temp_bcam.at(i).getNumChip()<<"\n"
+                          <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                          <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
+                          <<"\t daq_image_left 20 \n"
+                          <<"\t daq_image_top 1 \n"
+                          <<"\t daq_image_right 343 \n"
+                          <<"\t daq_image_bottom 243 \n";
+                   if(liste_temp_bcam.at(i).getNumChip() == 2)
+                   {
+                       fichier<<"\t daq_source_device_element \"3 4\" \n";
+                   }
+                   else
+                   {
+                       fichier<<"\t daq_source_device_element \"1 2\" \n";
+                   }
+                   fichier<<"\t daq_image_left 20 \n"
+                          <<"\t daq_image_top 1 \n"
+                          <<"\t daq_image_right 343 \n"
+                          <<"\t daq_image_bottom 243 \n"
+                          <<"end. \n"
+                          <<"\n";
                 }
-                else if(liste_temp_bcam.at(i).getPrisms().length() == 11)   //cas de 1 bcam qui vise 2 prismes (port source et port enregistreure sont les memes)
-                {
-                           fichier<<"\t analysis_num_spots 4 \n"
-                                 <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
-                                 <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
-                                  <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
-                                  <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
-                                  <<"\t daq_device_element "<<liste_temp_bcam.at(i).getNumChip()<<"\n";
-                           if(liste_temp_bcam.at(i).getNumChip() == 2)
-                           {
-                               fichier<<"\t daq_source_device_element \"3 4\" \n";
-                           }
-                           else
-                           {
-                                fichier<<"\t daq_source_device_element \"1 2\" \n";
-                           }
-                           fichier<<"\t daq_image_left 20 \n"
-                                  <<"\t daq_image_top 1 \n"
-                                  <<"\t daq_image_right 343 \n"
-                                  <<"\t daq_image_bottom 243 \n"
-                                   <<"end. \n"
-                                  <<"\n";
-
-                 }
-                else  //cas d'une BCAM qui vise 3 prismes (port source et port enregistreure sont les memes)
-                       {
-                           fichier<<"\t analysis_num_spots 6 \n"
-                                  <<"\t daq_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
-                                  <<"\t daq_source_mux_socket "<<liste_temp_bcam.at(i).getMuxSocket()<<"\n"
-                                  <<"\t daq_device_element "<<liste_temp_bcam.at(i).getNumChip()<<"\n"
-                                  <<"\t daq_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
-                                  <<"\t daq_source_driver_socket "<<liste_temp_bcam.at(i).getDriverSocket()<<"\n"
-                                  <<"\t daq_image_left 20 \n"
-                                  <<"\t daq_image_top 1 \n"
-                                  <<"\t daq_image_right 343 \n"
-                                  <<"\t daq_image_bottom 243 \n";
-                          if(liste_temp_bcam.at(i).getNumChip() == 2)
-                          {
-                              fichier<<"\t daq_source_device_element \"3 4\" \n";
-                          }
-                          else
-                          {
-                               fichier<<"\t daq_source_device_element \"1 2\" \n";
-                          }
-                          fichier<<"\t daq_image_left 20 \n"
-                                 <<"\t daq_image_top 1 \n"
-                                 <<"\t daq_image_right 343 \n"
-                                 <<"\t daq_image_bottom 243 \n"
-                                  <<"end. \n"
-                                 <<"\n";
-
-                       }
             }
-
-
         }
 
         fichier.close();
