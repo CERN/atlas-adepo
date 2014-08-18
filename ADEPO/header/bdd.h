@@ -90,7 +90,7 @@ public:
         return NULL;
     }
 
-    detector* getDetectorx(std::string bcamName) {
+    detector* getDetector(std::string bcamName) {
         BCAM* bcam = getBCAM(bcamName);
         if (bcam == NULL) return NULL;
 
