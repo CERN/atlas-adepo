@@ -299,9 +299,10 @@ void helmert(bdd & base_donnees)
             BCAM_params parametres_bcam(id_bcam, translation, rotation);
             base_donnees.add(parametres_bcam);
      }
+
     //affichage des paramteres pour toutes les bcams
-    /*for(int i=0; i<base_donnees.Get_liste_BCAM_params().size(); i++)
+    for(unsigned int i=0; i<base_donnees.getBCAMParams().size(); i++)
     {
-        base_donnees.Get_liste_BCAM_params().at(i).Affiche();
-    }*/
+        base_donnees.getBCAMParams().at(i).print();
+    }
 }
