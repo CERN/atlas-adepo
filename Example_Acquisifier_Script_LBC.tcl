@@ -43,8 +43,8 @@ config:
 	 daq_mux_socket 7
 	 daq_source_driver_socket 4
 	 daq_source_mux_socket 7
-	 daq_device_element 2
-	 daq_source_device_element "3 4" 
+	 daq_device_element 1
+	 daq_source_device_element "1 2" 
 	 daq_image_left 20 
 	 daq_image_top 1 
 	 daq_image_right 343 
@@ -62,8 +62,8 @@ config:
 	 daq_source_driver_socket 4
 	 daq_mux_socket 7
 	 daq_source_mux_socket 7
-	 daq_device_element 1
-	 daq_source_device_element "1 2" 
+	 daq_device_element 2
+	 daq_source_device_element "3 4" 
 	 daq_image_left 20 
 	 daq_image_top 1 
 	 daq_image_right 343 
@@ -101,8 +101,8 @@ config:
 	 daq_mux_socket 7
 	 daq_source_driver_socket 3
 	 daq_source_mux_socket 7
-	 daq_device_element 1
-	 daq_source_device_element "1 2" 
+	 daq_device_element 2
+	 daq_source_device_element "3 4" 
 	 daq_image_left 20 
 	 daq_image_top 1 
 	 daq_image_right 343 
@@ -120,8 +120,8 @@ config:
 	 daq_source_driver_socket 3
 	 daq_mux_socket 7
 	 daq_source_mux_socket 7
-	 daq_device_element 2
-	 daq_source_device_element "3 4" 
+	 daq_device_element 1
+	 daq_source_device_element "1 2" 
 	 daq_image_left 20 
 	 daq_image_top 1 
 	 daq_image_right 343 

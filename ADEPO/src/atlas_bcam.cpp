@@ -586,7 +586,7 @@ void ATLAS_BCAM::calcul_coord()
    updateResults(results);
 
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
-   QDir(".").mkpath(appDirPath().append("/Archive1"));
+   QDir(".").mkpath(appDirPath().append("/Archive"));
 
    std::string resultMountFilePrefix = appDirPath().toStdString().append("/Archive/Observations_MOUNT_System_");
    write_file_obs_mount_system(resultMountFilePrefix, m_bdd);
