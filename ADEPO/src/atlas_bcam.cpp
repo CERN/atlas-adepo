@@ -178,6 +178,7 @@ QString ATLAS_BCAM::appDirPath() {
 }
 
 void ATLAS_BCAM::showBCAM(int row, int /* column */) {
+    std::cout << "Selected " << row << std::endl;
     selectedBCAM = row;
     QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(
                  ui->tableWidget_liste_bcams->item(row, 5)->text());
