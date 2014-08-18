@@ -84,7 +84,8 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
                     rotation(1,2)=0;
                     rotation(2,2)=-1;
                 }
-                std::cout<<spot.getBCAM()<<" "<<axis<<" "<<rotation<<std::endl;
+                std::cout<<spot.getBCAM()<<" "<<axis<<std::endl;
+                std::cout<<rotation<<std::endl;
 
                 //transformation1           //vecteur mount 1
                 Eigen::MatrixXd coord_mount1(3,1);
