@@ -49,7 +49,6 @@ SOURCES       = ../ADEPO/src/write_file_obs_mount_system.cpp \
 		../ADEPO/src/read_lwdaq_output.cpp \
 		../ADEPO/src/read_input.cpp \
 		../ADEPO/src/read_calibration_database.cpp \
-		../ADEPO/src/liste_bcam_from_id_detector.cpp \
 		../ADEPO/src/img_coord_to_bcam_coord.cpp \
 		../ADEPO/src/clean_calib.cpp \
 		../ADEPO/src/calcul_coord_bcam_system.cpp \
@@ -58,13 +57,13 @@ SOURCES       = ../ADEPO/src/write_file_obs_mount_system.cpp \
 		../ADEPO/src/helmert.cpp \
 		../ADEPO/src/changement_repere.cpp \
 		../ADEPO/src/mount_prism_to_global_prism.cpp \
-		../ADEPO/src/lwdaq_client.cpp moc_atlas_bcam.cpp \
+		../ADEPO/src/lwdaq_client.cpp \
+		../ADEPO/src/bdd.cpp moc_atlas_bcam.cpp \
 		moc_lwdaq_client.cpp
 OBJECTS       = write_file_obs_mount_system.o \
 		read_lwdaq_output.o \
 		read_input.o \
 		read_calibration_database.o \
-		liste_bcam_from_id_detector.o \
 		img_coord_to_bcam_coord.o \
 		clean_calib.o \
 		calcul_coord_bcam_system.o \
@@ -74,6 +73,7 @@ OBJECTS       = write_file_obs_mount_system.o \
 		changement_repere.o \
 		mount_prism_to_global_prism.o \
 		lwdaq_client.o \
+		bdd.o \
 		moc_atlas_bcam.o \
 		moc_lwdaq_client.o
 DIST          = ../../../Qt5.3.0-x86/5.3/gcc/mkspecs/features/spec_pre.prf \
@@ -188,7 +188,6 @@ DIST          = ../../../Qt5.3.0-x86/5.3/gcc/mkspecs/features/spec_pre.prf \
 		../ADEPO/src/read_lwdaq_output.cpp \
 		../ADEPO/src/read_input.cpp \
 		../ADEPO/src/read_calibration_database.cpp \
-		../ADEPO/src/liste_bcam_from_id_detector.cpp \
 		../ADEPO/src/img_coord_to_bcam_coord.cpp \
 		../ADEPO/src/clean_calib.cpp \
 		../ADEPO/src/calcul_coord_bcam_system.cpp \
@@ -197,7 +196,8 @@ DIST          = ../../../Qt5.3.0-x86/5.3/gcc/mkspecs/features/spec_pre.prf \
 		../ADEPO/src/helmert.cpp \
 		../ADEPO/src/changement_repere.cpp \
 		../ADEPO/src/mount_prism_to_global_prism.cpp \
-		../ADEPO/src/lwdaq_client.cpp
+		../ADEPO/src/lwdaq_client.cpp \
+		../ADEPO/src/bdd.cpp
 QMAKE_TARGET  = ADEPO
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = ADEPO
@@ -466,7 +466,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/ADEPO1.0.0 || mkdir -p .tmp/ADEPO1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/header/adepo.h ../ADEPO/header/write_file_obs_mount_system.h ../ADEPO/header/spot.h ../ADEPO/header/read_lwdaq_output.h ../ADEPO/header/read_input.h ../ADEPO/header/read_calibration_database.h ../ADEPO/header/Point3f.h ../ADEPO/header/mount_coord_spots.h ../ADEPO/header/mount_coord_prism.h ../ADEPO/header/liste_bcam_from_id_detector.h ../ADEPO/header/img_coord_to_bcam_coord.h ../ADEPO/header/detector.h ../ADEPO/header/clean_calib.h ../ADEPO/header/calib2.h ../ADEPO/header/calib1.h ../ADEPO/header/calcul_coord_bcam_system.h ../ADEPO/header/bdd.h ../ADEPO/header/bcam.h ../ADEPO/header/atlas_bcam.h ../ADEPO/header/bcam_adaptateur.h ../ADEPO/header/absolutes_distances.h ../ADEPO/header/atlas_coordinates.h ../ADEPO/header/helmert.h ../ADEPO/header/bcam_params.h ../ADEPO/header/changement_repere.h ../ADEPO/header/mount_prism_to_global_prism.h ../ADEPO/header/prism_correction.h ../ADEPO/header/result.h ../ADEPO/header/lwdaq_client.h ../ADEPO/header/adepo.h ../ADEPO/header/global_coord_prism.h .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/src/write_file_obs_mount_system.cpp ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/src/read_input.cpp ../ADEPO/src/read_calibration_database.cpp ../ADEPO/src/liste_bcam_from_id_detector.cpp ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/src/clean_calib.cpp ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/src/atlas_bcam.cpp ../ADEPO/src/main.cpp ../ADEPO/src/helmert.cpp ../ADEPO/src/changement_repere.cpp ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/src/lwdaq_client.cpp .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/ATLAS_BCAM.ui .tmp/ADEPO1.0.0/ && (cd `dirname .tmp/ADEPO1.0.0` && $(TAR) ADEPO1.0.0.tar ADEPO1.0.0 && $(COMPRESS) ADEPO1.0.0.tar) && $(MOVE) `dirname .tmp/ADEPO1.0.0`/ADEPO1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ADEPO1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/header/adepo.h ../ADEPO/header/write_file_obs_mount_system.h ../ADEPO/header/spot.h ../ADEPO/header/read_lwdaq_output.h ../ADEPO/header/read_input.h ../ADEPO/header/read_calibration_database.h ../ADEPO/header/Point3f.h ../ADEPO/header/mount_coord_spots.h ../ADEPO/header/mount_coord_prism.h ../ADEPO/header/img_coord_to_bcam_coord.h ../ADEPO/header/detector.h ../ADEPO/header/clean_calib.h ../ADEPO/header/calib2.h ../ADEPO/header/calib1.h ../ADEPO/header/calcul_coord_bcam_system.h ../ADEPO/header/bdd.h ../ADEPO/header/bcam.h ../ADEPO/header/atlas_bcam.h ../ADEPO/header/bcam_adaptateur.h ../ADEPO/header/absolutes_distances.h ../ADEPO/header/atlas_coordinates.h ../ADEPO/header/helmert.h ../ADEPO/header/bcam_params.h ../ADEPO/header/changement_repere.h ../ADEPO/header/mount_prism_to_global_prism.h ../ADEPO/header/prism_correction.h ../ADEPO/header/result.h ../ADEPO/header/lwdaq_client.h ../ADEPO/header/adepo.h ../ADEPO/header/global_coord_prism.h .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/src/write_file_obs_mount_system.cpp ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/src/read_input.cpp ../ADEPO/src/read_calibration_database.cpp ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/src/clean_calib.cpp ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/src/atlas_bcam.cpp ../ADEPO/src/main.cpp ../ADEPO/src/helmert.cpp ../ADEPO/src/changement_repere.cpp ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/src/lwdaq_client.cpp ../ADEPO/src/bdd.cpp .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/ATLAS_BCAM.ui .tmp/ADEPO1.0.0/ && (cd `dirname .tmp/ADEPO1.0.0` && $(TAR) ADEPO1.0.0.tar ADEPO1.0.0 && $(COMPRESS) ADEPO1.0.0.tar) && $(MOVE) `dirname .tmp/ADEPO1.0.0`/ADEPO1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ADEPO1.0.0
 
 
 clean:compiler_clean 
@@ -597,6 +597,8 @@ moc_atlas_bcam.cpp: ../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QMainWindow \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qicon.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
 		../ADEPO/header/bcam.h \
 		../ADEPO/header/spot.h \
 		../ADEPO/header/calib1.h \
@@ -648,7 +650,6 @@ moc_atlas_bcam.cpp: ../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QMainWindow \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdiriterator.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfileselector.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QObject \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfilesystemwatcher.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlockfile.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qloggingcategory.h \
@@ -821,7 +822,6 @@ moc_atlas_bcam.cpp: ../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QMainWindow \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/QtNetworkDepends \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qabstractnetworkcache.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qnetworkrequest.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QUrl \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QVariant \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qhttpmultipart.h \
@@ -1117,6 +1117,62 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 write_file_obs_mount_system.o: ../ADEPO/src/write_file_obs_mount_system.cpp ../ADEPO/header/write_file_obs_mount_system.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsystemdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qprocessordetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypeinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypetraits.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsysinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlogging.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qflags.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbasicatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qgenericatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_mips.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_x86.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_unix.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qalgorithms.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qscopedpointer.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiodevice.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiterator.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcoreevent.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmetatype.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qvarlengtharray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcontainerfwd.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qisenum.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
 		../ADEPO/header/bcam.h \
 		../ADEPO/header/spot.h \
 		../ADEPO/header/calib1.h \
@@ -1328,43 +1384,7 @@ write_file_obs_mount_system.o: ../ADEPO/src/write_file_obs_mount_system.cpp ../A
 		../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
 		../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/RealSchur_MKL.h \
 		../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/ComplexSchur_MKL.h \
-		../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsystemdetection.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qprocessordetection.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcompilerdetection.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypeinfo.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypetraits.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsysinfo.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlogging.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qflags.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbasicatomic.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_bootstrap.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qgenericatomic.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_msvc.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv7.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv6.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv5.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_ia64.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_mips.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_x86.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_cxx11.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_gcc.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_unix.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h
+		../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o write_file_obs_mount_system.o ../ADEPO/src/write_file_obs_mount_system.cpp
 
 read_lwdaq_output.o: ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/header/read_lwdaq_output.h \
@@ -1422,6 +1442,13 @@ read_lwdaq_output.o: ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/header/read_lwd
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject_impl.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
 		../ADEPO/header/bcam.h \
 		../ADEPO/header/spot.h \
 		../ADEPO/header/calib1.h \
@@ -1440,6 +1467,62 @@ read_lwdaq_output.o: ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/header/read_lwd
 read_input.o: ../ADEPO/src/read_input.cpp ../ADEPO/header/read_input.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsystemdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qprocessordetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypeinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypetraits.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsysinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlogging.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qflags.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbasicatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qgenericatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_mips.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_x86.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_unix.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qalgorithms.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qscopedpointer.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiodevice.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiterator.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcoreevent.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmetatype.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qvarlengtharray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcontainerfwd.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qisenum.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
 		../ADEPO/header/bcam.h \
 		../ADEPO/header/spot.h \
 		../ADEPO/header/calib1.h \
@@ -1458,6 +1541,62 @@ read_input.o: ../ADEPO/src/read_input.cpp ../ADEPO/header/read_input.h \
 read_calibration_database.o: ../ADEPO/src/read_calibration_database.cpp ../ADEPO/header/read_calibration_database.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsystemdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qprocessordetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypeinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypetraits.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsysinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlogging.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qflags.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbasicatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qgenericatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_mips.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_x86.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_unix.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qalgorithms.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qscopedpointer.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiodevice.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiterator.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcoreevent.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmetatype.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qvarlengtharray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcontainerfwd.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qisenum.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
 		../ADEPO/header/bcam.h \
 		../ADEPO/header/spot.h \
 		../ADEPO/header/calib1.h \
@@ -1473,29 +1612,66 @@ read_calibration_database.o: ../ADEPO/src/read_calibration_database.cpp ../ADEPO
 		../ADEPO/header/prism_correction.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o read_calibration_database.o ../ADEPO/src/read_calibration_database.cpp
 
-liste_bcam_from_id_detector.o: ../ADEPO/src/liste_bcam_from_id_detector.cpp ../ADEPO/header/adepo.h \
-		../ADEPO/header/liste_bcam_from_id_detector.h \
-		../ADEPO/header/bdd.h \
-		../ADEPO/header/detector.h \
-		../ADEPO/header/bcam.h \
-		../ADEPO/header/spot.h \
-		../ADEPO/header/calib1.h \
-		../ADEPO/header/Point3f.h \
-		../ADEPO/header/calib2.h \
-		../ADEPO/header/mount_coord_spots.h \
-		../ADEPO/header/mount_coord_prism.h \
-		../ADEPO/header/global_coord_prism.h \
-		../ADEPO/header/bcam_adaptateur.h \
-		../ADEPO/header/absolutes_distances.h \
-		../ADEPO/header/atlas_coordinates.h \
-		../ADEPO/header/bcam_params.h \
-		../ADEPO/header/prism_correction.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o liste_bcam_from_id_detector.o ../ADEPO/src/liste_bcam_from_id_detector.cpp
-
 img_coord_to_bcam_coord.o: ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/header/adepo.h \
 		../ADEPO/header/img_coord_to_bcam_coord.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsystemdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qprocessordetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypeinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypetraits.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsysinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlogging.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qflags.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbasicatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qgenericatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_mips.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_x86.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_unix.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qalgorithms.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qscopedpointer.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiodevice.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiterator.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcoreevent.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmetatype.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qvarlengtharray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcontainerfwd.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qisenum.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
 		../ADEPO/header/bcam.h \
 		../ADEPO/header/spot.h \
 		../ADEPO/header/calib1.h \
@@ -1635,6 +1811,62 @@ img_coord_to_bcam_coord.o: ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/hea
 clean_calib.o: ../ADEPO/src/clean_calib.cpp ../ADEPO/header/clean_calib.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsystemdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qprocessordetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypeinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypetraits.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsysinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlogging.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qflags.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbasicatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qgenericatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_mips.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_x86.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_unix.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qalgorithms.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qscopedpointer.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiodevice.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiterator.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcoreevent.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmetatype.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qvarlengtharray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcontainerfwd.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qisenum.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
 		../ADEPO/header/bcam.h \
 		../ADEPO/header/spot.h \
 		../ADEPO/header/calib1.h \
@@ -1654,6 +1886,62 @@ calcul_coord_bcam_system.o: ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/h
 		../ADEPO/header/calcul_coord_bcam_system.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsystemdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qprocessordetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypeinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypetraits.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsysinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlogging.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qflags.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbasicatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qgenericatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_mips.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_x86.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_unix.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qalgorithms.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qscopedpointer.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiodevice.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiterator.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcoreevent.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmetatype.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qvarlengtharray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcontainerfwd.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qisenum.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
 		../ADEPO/header/bcam.h \
 		../ADEPO/header/spot.h \
 		../ADEPO/header/calib1.h \
@@ -1775,6 +2063,8 @@ atlas_bcam.o: ../ADEPO/src/atlas_bcam.cpp ../ADEPO/header/atlas_bcam.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qicon.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
 		../ADEPO/header/bcam.h \
 		../ADEPO/header/spot.h \
 		../ADEPO/header/calib1.h \
@@ -1826,7 +2116,6 @@ atlas_bcam.o: ../ADEPO/src/atlas_bcam.cpp ../ADEPO/header/atlas_bcam.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdiriterator.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfileselector.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QObject \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfilesystemwatcher.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlockfile.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qloggingcategory.h \
@@ -1999,7 +2288,6 @@ atlas_bcam.o: ../ADEPO/src/atlas_bcam.cpp ../ADEPO/header/atlas_bcam.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/QtNetworkDepends \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qabstractnetworkcache.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qnetworkrequest.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QUrl \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QVariant \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qhttpmultipart.h \
@@ -2100,7 +2388,6 @@ atlas_bcam.o: ../ADEPO/src/atlas_bcam.cpp ../ADEPO/header/atlas_bcam.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtableview.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QVBoxLayout \
 		../ADEPO/header/read_calibration_database.h \
-		../ADEPO/header/liste_bcam_from_id_detector.h \
 		../ADEPO/header/write_aquisifier_script.h \
 		../ADEPO/header/write_bash_script.h \
 		../ADEPO/header/read_lwdaq_output.h \
@@ -2329,25 +2616,9 @@ atlas_bcam.o: ../ADEPO/src/atlas_bcam.cpp ../ADEPO/header/atlas_bcam.h \
 
 main.o: ../ADEPO/src/main.cpp ../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
-		../ADEPO/header/bcam.h \
-		../ADEPO/header/spot.h \
-		../ADEPO/header/calib1.h \
-		../ADEPO/header/Point3f.h \
-		../ADEPO/header/calib2.h \
-		../ADEPO/header/mount_coord_spots.h \
-		../ADEPO/header/mount_coord_prism.h \
-		../ADEPO/header/global_coord_prism.h \
-		../ADEPO/header/bcam_adaptateur.h \
-		../ADEPO/header/absolutes_distances.h \
-		../ADEPO/header/atlas_coordinates.h \
-		../ADEPO/header/bcam_params.h \
-		../ADEPO/header/prism_correction.h \
-		../ADEPO/header/read_input.h \
-		../ADEPO/header/read_lwdaq_output.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QFile \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfile.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfiledevice.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiodevice.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
@@ -2376,31 +2647,53 @@ main.o: ../ADEPO/src/main.cpp ../ADEPO/header/bdd.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs_impl.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qalgorithms.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qscopedpointer.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiodevice.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlist.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiterator.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcoreevent.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qscopedpointer.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmetatype.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qvarlengtharray.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcontainerfwd.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qisenum.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
+		../ADEPO/header/bcam.h \
+		../ADEPO/header/spot.h \
+		../ADEPO/header/calib1.h \
+		../ADEPO/header/Point3f.h \
+		../ADEPO/header/calib2.h \
+		../ADEPO/header/mount_coord_spots.h \
+		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
+		../ADEPO/header/bcam_adaptateur.h \
+		../ADEPO/header/absolutes_distances.h \
+		../ADEPO/header/atlas_coordinates.h \
+		../ADEPO/header/bcam_params.h \
+		../ADEPO/header/prism_correction.h \
+		../ADEPO/header/read_input.h \
+		../ADEPO/header/read_lwdaq_output.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QFile \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfile.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfiledevice.h \
 		../ADEPO/header/read_calibration_database.h \
 		../ADEPO/header/detect_flash.h \
 		../ADEPO/header/write_bash_script.h \
 		../ADEPO/header/clean_calib.h \
-		../ADEPO/header/liste_bcam_from_id_detector.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QApplication \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qapplication.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcoreapplication.h \
@@ -2418,11 +2711,6 @@ main.o: ../ADEPO/src/main.cpp ../ADEPO/header/bdd.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qpalette.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qcolor.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qrgb.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qbrush.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qvector.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qmatrix.h \
@@ -2478,7 +2766,6 @@ main.o: ../ADEPO/src/main.cpp ../ADEPO/header/bdd.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdiriterator.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfileselector.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QObject \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfilesystemwatcher.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlockfile.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qloggingcategory.h \
@@ -2668,7 +2955,6 @@ main.o: ../ADEPO/src/main.cpp ../ADEPO/header/bdd.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/QtNetworkDepends \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qabstractnetworkcache.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qnetworkrequest.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QUrl \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QVariant \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qhttpmultipart.h \
@@ -2716,6 +3002,62 @@ main.o: ../ADEPO/src/main.cpp ../ADEPO/header/bdd.h \
 helmert.o: ../ADEPO/src/helmert.cpp ../ADEPO/header/helmert.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsystemdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qprocessordetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypeinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypetraits.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsysinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlogging.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qflags.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbasicatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qgenericatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_mips.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_x86.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_unix.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qalgorithms.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qscopedpointer.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiodevice.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiterator.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcoreevent.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmetatype.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qvarlengtharray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcontainerfwd.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qisenum.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
 		../ADEPO/header/bcam.h \
 		../ADEPO/header/spot.h \
 		../ADEPO/header/calib1.h \
@@ -3067,6 +3409,62 @@ mount_prism_to_global_prism.o: ../ADEPO/src/mount_prism_to_global_prism.cpp ../A
 		../ADEPO/header/mount_prism_to_global_prism.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsystemdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qprocessordetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypeinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypetraits.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsysinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlogging.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qflags.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbasicatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qgenericatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_mips.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_x86.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_unix.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qalgorithms.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qscopedpointer.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiodevice.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiterator.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcoreevent.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmetatype.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qvarlengtharray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcontainerfwd.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qisenum.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
 		../ADEPO/header/bcam.h \
 		../ADEPO/header/spot.h \
 		../ADEPO/header/calib1.h \
@@ -3314,6 +3712,80 @@ lwdaq_client.o: ../ADEPO/src/lwdaq_client.cpp ../ADEPO/header/lwdaq_client.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qsslkey.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qtnetworkversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o lwdaq_client.o ../ADEPO/src/lwdaq_client.cpp
+
+bdd.o: ../ADEPO/src/bdd.cpp ../ADEPO/header/adepo.h \
+		../ADEPO/header/bdd.h \
+		../ADEPO/header/detector.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsystemdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qprocessordetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypeinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypetraits.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsysinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlogging.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qflags.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbasicatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qgenericatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_mips.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_x86.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_unix.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QStringList \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qalgorithms.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qdatastream.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qscopedpointer.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiodevice.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlist.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qiterator.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcoreevent.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmetatype.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qvarlengtharray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcontainerfwd.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qisenum.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject_impl.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qpair.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qregexp.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringmatcher.h \
+		../ADEPO/header/bcam.h \
+		../ADEPO/header/spot.h \
+		../ADEPO/header/calib1.h \
+		../ADEPO/header/Point3f.h \
+		../ADEPO/header/calib2.h \
+		../ADEPO/header/mount_coord_spots.h \
+		../ADEPO/header/mount_coord_prism.h \
+		../ADEPO/header/global_coord_prism.h \
+		../ADEPO/header/bcam_adaptateur.h \
+		../ADEPO/header/absolutes_distances.h \
+		../ADEPO/header/atlas_coordinates.h \
+		../ADEPO/header/bcam_params.h \
+		../ADEPO/header/prism_correction.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bdd.o ../ADEPO/src/bdd.cpp
 
 moc_atlas_bcam.o: moc_atlas_bcam.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_atlas_bcam.o moc_atlas_bcam.cpp
