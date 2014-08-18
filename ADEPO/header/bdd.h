@@ -69,13 +69,16 @@ public:
 
     std::string getName(std::string id) { return names.at(id); }
 
-    BCAM* getCurrentBCAM(std::string name) {
+    BCAM* getCurrentBCAM(std::string name_prism) {
         for(unsigned int i=0; i < mCurrentBCAMs.size(); i++) {
-            if (name == mCurrentBCAMs[i].getName()) {
-                return &mCurrentBCAMs[i];
+            QStringList prisms = QString::fromStdString(mCurrentBCAMs[i].getPrisms()).split('_');
+            for (int j=0; j<prisms.size(); j++) {
+                if (name_prism == mCurrentBCAMs[i].getName() + "_" + prisms[j].toStdString()) {
+                    return &mCurrentBCAMs[i];
+                }
             }
         }
-        std::cout << "WARNING BCAM with name " << name << " not defined in current selection." << std::endl;
+        std::cout << "WARNING BCAM with name " << name_prism << " not defined in current selection." << std::endl;
         return NULL;
     }
 
