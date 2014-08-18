@@ -15,7 +15,7 @@ void calcul_coord_bcam_system(bdd & base_donnees)
             calib1 calib1 = base_donnees.getCalibs1().at(j);
 
             // NumChip == 2 is Z+ direction (check?)
-            int num_chip = base_donnees.getBCAM(spot.getBCAM())->getNumChip();
+            int num_chip = base_donnees.getCurrentBCAM(spot.getBCAM())->getNumChip();
             bool directionOk1 = ((num_chip == 2) && (calib1.getDirection() == 1)) || ((num_chip == 1) && (calib1.getDirection() == -1));
 
             for(unsigned int k=0; k<base_donnees.getCalibs2().size(); k++) //je parcours la base de donnee de calibration 2
@@ -99,7 +99,7 @@ void calcul_coord_bcam_system(bdd & base_donnees)
 
                         //ajout dans la base de donnees (check multiplication by Z? )
                         std::cout << spot.getName() << " " << calib1.getCoordAxis().z() << " " << num_chip << std::endl;
-                        Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z * calib1.getCoordAxis().z());
+                        Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z);
                         mount_coord_prism xyz_prism(spot.getBCAM(), spot.getPrism(), xyz);
                         base_donnees.add(xyz_prism);
                         found = true;

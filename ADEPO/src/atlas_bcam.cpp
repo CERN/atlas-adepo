@@ -382,8 +382,7 @@ void ATLAS_BCAM::showBCAMTable()
     //recuperation du nombre de detecteurs
     int nb_detectors = ui->tableWidget_liste_detectors->selectedItems().size()/noColumn;
 
-    //vecteur qui va contenir la liste des BCAMs temporaires selectionnees dans le tableau
-    std::vector<BCAM> *liste_bcam = new std::vector<BCAM>;
+    m_bdd.getCurrentBCAMs().clear();
 
     QString selectedDetectors("");
 
@@ -400,10 +399,12 @@ void ATLAS_BCAM::showBCAMTable()
         std::vector<BCAM> *m_liste_bcam = new std::vector<BCAM>(m_bdd.getBCAMs(id_detector.toInt()));
 
         //insertion dans la tableWidget qui affiche les bcams
-        liste_bcam->insert(liste_bcam->begin(), m_liste_bcam->begin(), m_liste_bcam->end());
+        for (unsigned int j=0; j<m_liste_bcam->size(); j++) {
+            m_bdd.getCurrentBCAMs().push_back(m_liste_bcam->at(j));
+        }
 
         //ecriture du script d'acquisition des detecteurs selectionnees
-        write_script_file(appDirPath()+"/"+fichier_script, *liste_bcam);
+        write_script_file(appDirPath()+"/"+fichier_script, m_bdd.getCurrentBCAMs());
 
         //on supprime le pointeur a la fin
         delete m_liste_bcam;
@@ -412,38 +413,38 @@ void ATLAS_BCAM::showBCAMTable()
     settings.setValue(SELECTED_DETECTORS, selectedDetectors);
 
     // nombre de lignes dans la table
-    ui->tableWidget_liste_bcams->setRowCount(liste_bcam->size());
+    ui->tableWidget_liste_bcams->setRowCount(m_bdd.getCurrentBCAMs().size());
     ui->tableWidget_results->setRowCount(100);
 
     int row = 0;
-    for(unsigned int i=0; i<liste_bcam->size(); i++)
+    for(unsigned int i=0; i<m_bdd.getCurrentBCAMs().size(); i++)
     {
       //ajout dans la tableWidget qui affiche les BCAMs
       QTableWidgetItem *nom_bcam = new QTableWidgetItem();
-      nom_bcam->setText(QString::fromStdString(liste_bcam->at(i).getName()));
+      nom_bcam->setText(QString::fromStdString(m_bdd.getCurrentBCAMs().at(i).getName()));
       ui->tableWidget_liste_bcams->setItem(i,0,nom_bcam);
 
       QTableWidgetItem *num_detector = new QTableWidgetItem();
-      num_detector->setData(0,liste_bcam->at(i).getDetectorId());
+      num_detector->setData(0,m_bdd.getCurrentBCAMs().at(i).getDetectorId());
       ui->tableWidget_liste_bcams->setItem(i,1,num_detector);
 
       QTableWidgetItem *num_port_driver = new QTableWidgetItem();
-      num_port_driver->setData(0,liste_bcam->at(i).getDriverSocket());
+      num_port_driver->setData(0,m_bdd.getCurrentBCAMs().at(i).getDriverSocket());
       ui->tableWidget_liste_bcams->setItem(i,2,num_port_driver);
 
       QTableWidgetItem *num_port_mux = new QTableWidgetItem();
-      num_port_mux->setData(0,liste_bcam->at(i).getMuxSocket());
+      num_port_mux->setData(0,m_bdd.getCurrentBCAMs().at(i).getMuxSocket());
       ui->tableWidget_liste_bcams->setItem(i,3,num_port_mux);
 
       QTableWidgetItem *num_chip = new QTableWidgetItem();
-      num_chip->setData(0,liste_bcam->at(i).getNumChip());
+      num_chip->setData(0,m_bdd.getCurrentBCAMs().at(i).getNumChip());
       ui->tableWidget_liste_bcams->setItem(i,4,num_chip);
 
       QTableWidgetItem *objet_vise = new QTableWidgetItem();
-      objet_vise->setText(QString::fromStdString(liste_bcam->at(i).getPrisms()));
+      objet_vise->setText(QString::fromStdString(m_bdd.getCurrentBCAMs().at(i).getPrisms()));
       ui->tableWidget_liste_bcams->setItem(i,5,objet_vise);
 
-      QStringList prisms = QString::fromStdString(liste_bcam->at(i).getPrisms()).split('_');
+      QStringList prisms = QString::fromStdString(m_bdd.getCurrentBCAMs().at(i).getPrisms()).split('_');
       // Example:  PR001, PR001_PR023, PR010_PR034_PR045
 
       for (int j=0; j<prisms.size(); j++) {
@@ -453,7 +454,7 @@ void ATLAS_BCAM::showBCAMTable()
               ui->tableWidget_results->setItem(row, 0, name);
 
               QTableWidgetItem *bcam = new QTableWidgetItem();
-              bcam->setText(QString::fromStdString(liste_bcam->at(i).getName()));
+              bcam->setText(QString::fromStdString(m_bdd.getCurrentBCAMs().at(i).getName()));
               ui->tableWidget_results->setItem(row, 1, bcam);
 
               QTableWidgetItem *prism = new QTableWidgetItem();

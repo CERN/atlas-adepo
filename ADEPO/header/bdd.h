@@ -69,6 +69,17 @@ public:
 
     std::string getName(std::string id) { return names.at(id); }
 
+    BCAM* getCurrentBCAM(std::string name) {
+        for(unsigned int i=0; i < mCurrentBCAMs.size(); i++) {
+            if (name == mCurrentBCAMs[i].getName()) {
+                return &mCurrentBCAMs[i];
+            }
+        }
+        std::cout << "WARNING BCAM with name " << name << " not defined in current selection." << std::endl;
+        return NULL;
+    }
+
+
     BCAM* getBCAM(std::string name) {
         for(unsigned int i=0; i < mBCAMs.size(); i++) {
             if (name == mBCAMs[i].getName()) {
@@ -79,7 +90,7 @@ public:
         return NULL;
     }
 
-    detector* getDetector(std::string bcamName) {
+    detector* getDetectorx(std::string bcamName) {
         BCAM* bcam = getBCAM(bcamName);
         if (bcam == NULL) return NULL;
 
@@ -121,6 +132,8 @@ public:
     //gestion des correctiosn d'excentrement
     void add(prism_correction val) {mPrismCorrections.push_back(val);}
 
+    std::vector<BCAM>& getCurrentBCAMs() { return mCurrentBCAMs; }
+
     //vidage partiel de la bdd
     void vidage() {
         mSpots.clear();
@@ -132,6 +145,7 @@ public:
     //vidage complet de la bdd si on charge un second fichier
     void vidage_complet() {
         mBCAMs.clear();
+        mCurrentBCAMs.clear();
         mDetectors.clear();
         mCalibs1.clear();
 //        mCalibs1Clean.clear();
@@ -152,6 +166,7 @@ private:
     void addList(BCAM bcam, int numChip, QString side, std::vector<BCAM>& liste_bcam);
 
     std::vector<BCAM> mBCAMs;
+    std::vector<BCAM> mCurrentBCAMs;
     std::vector<detector> mDetectors;
     std::vector<calib1> mCalibs1;
 //    std::vector<calib1> mCalibs1Clean;
