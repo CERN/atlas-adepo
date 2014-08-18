@@ -82,7 +82,7 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
                     rotation(2,1)=0;
                     rotation(0,2)=0;
                     rotation(1,2)=0;
-                    rotation(2,2)=1;
+                    rotation(2,2)=-1;
                 }
                 std::cout<<spot.getBCAM()<<" "<<axis<<" "<<rotation<<std::endl;
 
