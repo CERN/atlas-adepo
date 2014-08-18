@@ -98,7 +98,7 @@ void calcul_coord_bcam_system(bdd & base_donnees)
                         float coordPrisme_z = (prisme_z1+prisme_z2)/4;
 
                         //ajout dans la base de donnees (check multiplication by Z? )
-                        std::cout << spot.getName() << " " << calib1.getCoordAxis().z() << std::endl;
+                        std::cout << spot.getName() << " " << calib1.getCoordAxis().z() << " " << num_chip << std::endl;
                         Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z * calib1.getCoordAxis().z());
                         mount_coord_prism xyz_prism(spot.getBCAM(), spot.getPrism(), xyz);
                         base_donnees.add(xyz_prism);
