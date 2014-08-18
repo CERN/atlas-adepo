@@ -1,3 +1,5 @@
+#include "adepo.h"
+
 #include "helmert.h"
 #include <iomanip>
 #include <iostream>
@@ -301,8 +303,10 @@ void helmert(bdd & base_donnees)
      }
 
     //affichage des paramteres pour toutes les bcams
+#ifdef ADEPO_DEBUG
     for(unsigned int i=0; i<base_donnees.getBCAMParams().size(); i++)
     {
         base_donnees.getBCAMParams().at(i).print();
     }
+#endif
 }
