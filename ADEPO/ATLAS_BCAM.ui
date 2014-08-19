@@ -546,32 +546,32 @@
             </column>
             <column>
              <property name="text">
-              <string>Sigma X (mm)</string>
+              <string>S X (mm)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Sigma Y (mm)</string>
+              <string>S Y (mm)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Sigma Z (mm)</string>
+              <string>S Z (mm)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>delta X (mm)</string>
+              <string>dX (mm)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>delta Y (mm)</string>
+              <string>dY (mm)</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>delta Z (mm)</string>
+              <string>dZ (mm)</string>
              </property>
             </column>
            </widget>
