@@ -2999,7 +2999,8 @@ main.o: ../ADEPO/src/main.cpp ../ADEPO/header/bdd.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QLibraryInfo
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../ADEPO/src/main.cpp
 
-helmert.o: ../ADEPO/src/helmert.cpp ../ADEPO/header/helmert.h \
+helmert.o: ../ADEPO/src/helmert.cpp ../ADEPO/header/adepo.h \
+		../ADEPO/header/helmert.h \
 		../ADEPO/header/bdd.h \
 		../ADEPO/header/detector.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
