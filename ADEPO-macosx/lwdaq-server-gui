@@ -1,1 +1,4 @@
-../bin/lwdaq-server-gui
+#!/bin/sh
+SCRIPT=$(readlink "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+$SCRIPTPATH/../LWDAQ/lwdaq --gui $SCRIPTPATH/../server.tcl

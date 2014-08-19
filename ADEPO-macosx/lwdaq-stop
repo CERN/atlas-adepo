@@ -1,1 +1,3 @@
-../bin/lwdaq-stop
+#!/bin/sh
+sudo killall tclsh
+
