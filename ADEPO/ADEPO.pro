@@ -54,6 +54,8 @@ INCLUDEPATH += ./eigen-eigen-ffa86ffb5570
 
 QT += core gui network widgets testlib
 
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
+
 unix:!mac{
   QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/lib
   QMAKE_RPATH=
