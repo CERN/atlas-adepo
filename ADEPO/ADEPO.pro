@@ -28,7 +28,8 @@ HEADERS += \
     header/result.h \
     header/lwdaq_client.h \
     header/adepo.h \
-    header/global_coord_prism.h
+    header/global_coord_prism.h \
+    header/float_table_widget_item.h
 
 SOURCES += \
     src/write_file_obs_mount_system.cpp \

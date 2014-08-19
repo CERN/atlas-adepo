@@ -13,6 +13,7 @@
 #include "helmert.h"
 #include "mythread.h"
 #include "mount_prism_to_global_prism.h"
+#include "float_table_widget_item.h"
 #include "Eigen/Eigen"
 
 #include <iostream>
@@ -357,7 +358,7 @@ void ATLAS_BCAM::remplir_tableau_detectors()
 
         //ajout du numero id du detetcteur
         QTableWidgetItem *item_num = new QTableWidgetItem();
-        item_num->setData(0,detectors_data.at(i).getId());
+        item_num->setData(Qt::DisplayRole,detectors_data.at(i).getId());
         ui->tableWidget_liste_detectors->setItem(i,0,item_num);
 
         //ajout du nom du detecteur
@@ -367,7 +368,7 @@ void ATLAS_BCAM::remplir_tableau_detectors()
 
         //ajout de la constante de airpad
         QTableWidgetItem *item_dist_const = new QTableWidgetItem();
-        item_dist_const->setData(0,detectors_data.at(i).getAirpad());
+        item_dist_const->setData(Qt::DisplayRole,detectors_data.at(i).getAirpad());
         ui->tableWidget_liste_detectors->setItem(i,2,item_dist_const);
     }
 
@@ -425,19 +426,19 @@ void ATLAS_BCAM::showBCAMTable()
       ui->tableWidget_liste_bcams->setItem(i,0,nom_bcam);
 
       QTableWidgetItem *num_detector = new QTableWidgetItem();
-      num_detector->setData(0,m_bdd.getCurrentBCAMs().at(i).getDetectorId());
+      num_detector->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getDetectorId());
       ui->tableWidget_liste_bcams->setItem(i,1,num_detector);
 
       QTableWidgetItem *num_port_driver = new QTableWidgetItem();
-      num_port_driver->setData(0,m_bdd.getCurrentBCAMs().at(i).getDriverSocket());
+      num_port_driver->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getDriverSocket());
       ui->tableWidget_liste_bcams->setItem(i,2,num_port_driver);
 
       QTableWidgetItem *num_port_mux = new QTableWidgetItem();
-      num_port_mux->setData(0,m_bdd.getCurrentBCAMs().at(i).getMuxSocket());
+      num_port_mux->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getMuxSocket());
       ui->tableWidget_liste_bcams->setItem(i,3,num_port_mux);
 
       QTableWidgetItem *num_chip = new QTableWidgetItem();
-      num_chip->setData(0,m_bdd.getCurrentBCAMs().at(i).getNumChip());
+      num_chip->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getNumChip());
       ui->tableWidget_liste_bcams->setItem(i,4,num_chip);
 
       QTableWidgetItem *objet_vise = new QTableWidgetItem();
@@ -461,7 +462,8 @@ void ATLAS_BCAM::showBCAMTable()
               prism->setText(prisms[j]);
               ui->tableWidget_results->setItem(row, 2, prism);
 
-              QTableWidgetItem *n = new QTableWidgetItem(QString::number(0));
+              QTableWidgetItem *n = new QTableWidgetItem();
+              n->setData(Qt::DisplayRole, 0);
               ui->tableWidget_results->setItem(row, 3, n);
 
               if (ui->fullPrecision->isChecked()) {
@@ -494,13 +496,13 @@ void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision)
     int firstColumn = 4;
 
     if (point.isValid()) {
-        QTableWidgetItem *x = new QTableWidgetItem(QString::number(point.x(), 'f', precision));
+        QTableWidgetItem *x = new FloatTableWidgetItem(QString::number(point.x(), 'f', precision));
         ui->tableWidget_results->setItem(row, firstColumn + (columnSet * 3), x);
 
-        QTableWidgetItem *y = new QTableWidgetItem(QString::number(point.y(), 'f', precision));
+        QTableWidgetItem *y = new FloatTableWidgetItem(QString::number(point.y(), 'f', precision));
         ui->tableWidget_results->setItem(row, firstColumn + 1 + (columnSet * 3), y);
 
-        QTableWidgetItem *z = new QTableWidgetItem(QString::number(point.z(), 'f', precision));
+        QTableWidgetItem *z = new FloatTableWidgetItem(QString::number(point.z(), 'f', precision));
         ui->tableWidget_results->setItem(row, firstColumn + 2 + (columnSet * 3), z);
     } else {
         for (int i=0; i<3; i++) {
