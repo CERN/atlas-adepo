@@ -1,1 +1,3 @@
-../bin/ADEPO-stop
+#!/bin/sh
+sudo killall ADEPO
+
