@@ -73,6 +73,9 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         ui->setupUi(this);
         ui->statusBar->addPermanentWidget(&lwdaqStatus);
+        QFont font = QFont();
+        font.setPointSize(10);
+        ui->tableWidget_results->setFont(font);
 
         // headers seem to become invisible after editing UI
         ui->tableWidget_liste_detectors->horizontalHeader()->setVisible(true);
