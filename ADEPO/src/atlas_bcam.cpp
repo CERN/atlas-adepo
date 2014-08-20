@@ -381,6 +381,7 @@ void ATLAS_BCAM::remplir_tableau_detectors()
 //fonction permettant de charger la liste des BCAMs qui appartiennent a un detector                 [---> ok
 void ATLAS_BCAM::showBCAMTable()
 {
+    std::cout << "Show BCAM Table" << std::endl;
     int noColumn = ui->tableWidget_liste_detectors->columnCount();
 
     //recuperation du nombre de detecteurs
@@ -453,6 +454,8 @@ void ATLAS_BCAM::showBCAMTable()
 
       for (int j=0; j<prisms.size(); j++) {
  //         if (prisms[j].startsWith("PR")) {
+              std::cout << "*" << prisms[j].toStdString() << std::endl;
+
               QTableWidgetItem *name = new QTableWidgetItem();
               name->setText(QString::fromStdString(m_bdd.getName(prisms[j].toStdString())));
               ui->tableWidget_results->setItem(row, 0, name);
