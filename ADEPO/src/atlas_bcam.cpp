@@ -555,8 +555,6 @@ void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision)
 //fonction qui lance les acquisitions LWDAQ                                                         ----> ok mais qu'est ce qui se passe apres les acquisitions ?
 void ATLAS_BCAM::lancer_acquisition()
 {
-    setEnabled(false);
-
     QString dir = appDirPath();
 
     write_params_file(dir + "/" + DEFAULT_PARAM_FILE);
@@ -564,9 +562,14 @@ void ATLAS_BCAM::lancer_acquisition()
     write_settings_file(dir + "/" + DEFAULT_SETTINGS_FILE);
 
     //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
-    resultFile.remove();
-
     std::cout << "*** Removing " << resultFile.fileName().toStdString() << std::endl;
+    if (!resultFile.remove()) {
+        std::cout << "WARNING Cannot remove result file " << resultFile.fileName().toStdString() << std::endl;
+        std::cout << "WARNING Start aborted." << std::endl;
+        return;
+    }
+
+    setEnabled(false);
 
     //lancement du programme LWDAQ + arret apres nombre de secondes specifiees par le user
     std::cout << "Starting LWDAQ on " << m_bdd.getDriverIpAddress() << std::endl;
