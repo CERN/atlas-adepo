@@ -295,10 +295,10 @@ void ATLAS_BCAM::openInputDir() {
     //path_input_folder = fenetre_ouverture->Get_path_fich();
 
     //appel pour la lecture de fichier
-    std::string inputFile = path_input_folder.toStdString().append("/").append(NAME_CONFIGURATION_FILE);
-    read_input(inputFile, m_bdd);
+    QString inputFile = path_input_folder.append("/").append(NAME_CONFIGURATION_FILE);
+    read_input(inputFile.toStdString(), m_bdd);
 
-    display(ui->configurationFile, inputFile);
+    display(ui->configurationFileLabel, ui->configurationFile, inputFile);
 
     //estimation des 6 parametres pour chaque BCAM
     helmert(m_bdd);
@@ -313,10 +313,10 @@ void ATLAS_BCAM::openInputDir() {
     }
 
     //lecture du fichier de calibration
-    std::string calibrationFile = path_input_folder.toStdString().append("/").append(NAME_CALIBRATION_FILE);
-    read_calibration_database(calibrationFile, m_bdd);
+    QString calibrationFile = path_input_folder.append("/").append(NAME_CALIBRATION_FILE);
+    read_calibration_database(calibrationFile.toStdString(), m_bdd);
 
-    display(ui->calibrationFile, calibrationFile);
+    display(ui->calibrationFileLabel, ui->calibrationFile, calibrationFile);
 
     //recuperation de la partie qui nous interesse du fichier de calibration
     //clean_calib(m_bdd);
@@ -325,23 +325,24 @@ void ATLAS_BCAM::openInputDir() {
     setEnabled(true);
 }
 
-void ATLAS_BCAM::display(QTextBrowser *browser, std::string filename) {
+void ATLAS_BCAM::display(QLabel *label, QTextBrowser *browser, QString filename) {
+    label->setText(filename);
     browser->setReadOnly(true);
 
-    std::ifstream file((char*)filename.c_str(), std::ios::in);
+    std::ifstream file((char*)filename.toStdString().c_str(), std::ios::in);
     if(!file) {
-        browser->setHtml(QString("Cannot find app") + QString::fromStdString(filename));
+        browser->setHtml(QString("Cannot find app") + filename);
     }
 
     std::string line;
-    QString text("<pre>");
+    QString text("<b><pre>");
 
     while(std::getline(file,line)) {
         text.append(QString::fromStdString(line));
         text.append('\n');
     }
     file.close();
-    text.append("</pre>");
+    text.append("</pre></b>");
 
     browser->setHtml(text);
 }
@@ -644,8 +645,7 @@ void ATLAS_BCAM::calcul_coord()
 
    write_file_obs_mount_system(fileName, datetime, m_bdd);
 
-   ui->resultFileLabel->setText(fileName);
-   display(ui->resultFile, fileName.toStdString());
+   display(ui->resultFileLabel, ui->resultFile, fileName);
 
    //vidage des acquisitions
    m_bdd.vidage();

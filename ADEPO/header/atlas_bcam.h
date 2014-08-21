@@ -86,7 +86,7 @@ private:
     void calculateResults(bdd &base_donnees, std::map<std::string, result> &results);
     void updateResults(std::map<std::string, result> &results);
     void setEnabled(bool enabled);
-    void display(QTextBrowser* textEdit, std::string filename);
+    void display(QLabel* label, QTextBrowser* textEdit, QString filename);
 };
 
 #endif // ATLAS_BCAM_H
