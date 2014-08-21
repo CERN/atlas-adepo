@@ -15,7 +15,7 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
 {
     //écriture dans un fichier
     std::ofstream fichier(fileName.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
-    if(fichier)
+    if(!fichier)
     {
         std::cout << "WARNING Cannot write output file " << fileName.toStdString() << std::endl;
         return 0;
