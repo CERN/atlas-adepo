@@ -4,6 +4,7 @@
 #include "math.h"
 #include "Eigen/Core"
 #include "iostream"
+#include "iomanip"
 #include "ctime"
 #include "sstream"
 #include <QString>
@@ -40,7 +41,8 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
                     spot spot2 = base_donnees.getSpots().at(j);
                     if(spot1.getName() == spot2.getName())
                     {
-                                fichier<<"Spot 1"<<" "<<spot2.getI1CCD()*um2m<<" "<<spot2.getJ1CCD()*um2m<<"\n"
+                                fichier<<std::fixed<<std::setprecision(8)
+                                       <<"Spot 1"<<" "<<spot2.getI1CCD()*um2m<<" "<<spot2.getJ1CCD()*um2m<<"\n"
                                        <<"Spot 2"<<" "<<spot2.getI2CCD()*um2m<<" "<<spot2.getJ2CCD()*um2m<<"\n";
                     }
                 }
