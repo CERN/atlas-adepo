@@ -32,6 +32,7 @@
 #define TIME_VALUE "time_value"
 #define FULL_PRESICION_FORMAT "full_precision_format"
 #define SELECTED_DETECTORS "selected_detectors"
+#define RESULT_FILE "result_file"
 
 /********************************************************************************************/
 #define NAME_CONFIGURATION_FILE "configuration_file.txt"
@@ -165,6 +166,9 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         }
 
         showBCAMTable();
+
+        QString resultFile = settings.value(RESULT_FILE).value<QString>();
+        display(ui->resultFileLabel, ui->resultFile, resultFile);
 }
 
 ATLAS_BCAM::~ATLAS_BCAM()
@@ -646,6 +650,8 @@ void ATLAS_BCAM::calcul_coord()
    write_file_obs_mount_system(fileName, datetime, m_bdd);
 
    display(ui->resultFileLabel, ui->resultFile, fileName);
+
+   settings.setValue(RESULT_FILE, fileName);
 
    //vidage des acquisitions
    m_bdd.vidage();
