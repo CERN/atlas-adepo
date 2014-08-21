@@ -25,10 +25,10 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_6">
-    <item row="0" column="0">
+    <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="ConfigurationTab">
        <attribute name="title">
@@ -577,6 +577,43 @@
            </widget>
           </item>
          </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="ResultFileTab">
+       <attribute name="title">
+        <string>Result File</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QLabel" name="resultFileLabel">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextBrowser" name="resultFile"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="ConfigurationFileTab">
+       <attribute name="title">
+        <string>Configuration File</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QTextBrowser" name="configurationFile"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="CalibrationFileTab">
+       <attribute name="title">
+        <string>Calibration File</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="QTextBrowser" name="calibrationFile"/>
         </item>
        </layout>
       </widget>
