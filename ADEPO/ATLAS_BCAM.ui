@@ -196,7 +196,7 @@
                  <item row="3" column="0">
                   <widget class="QPushButton" name="Boutton_lancer">
                    <property name="text">
-                    <string>Lancer</string>
+                    <string>Next Measurement</string>
                    </property>
                   </widget>
                  </item>
@@ -486,7 +486,7 @@
             <item>
              <widget class="QPushButton" name="reset">
               <property name="text">
-               <string>Reset</string>
+               <string>Reset dX,dY,dZ</string>
               </property>
              </widget>
             </item>
