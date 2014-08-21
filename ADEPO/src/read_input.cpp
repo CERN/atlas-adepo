@@ -5,7 +5,10 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
 {
 
     std::ifstream fichier((char*)fichier_configuration.c_str(), std::ios::in);
-    if(!fichier) return 0;
+    if(!fichier) {
+        std::cout << "WARNING Cannot read input file " << fichier_configuration << std::endl;
+        return 0;
+    }
 
     std::string ligne;  // déclaration d'une chaîne qui contiendra la ligne lue
 

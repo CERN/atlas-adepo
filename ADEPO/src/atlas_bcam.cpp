@@ -299,7 +299,8 @@ void ATLAS_BCAM::openInputDir() {
     //path_input_folder = fenetre_ouverture->Get_path_fich();
 
     //appel pour la lecture de fichier
-    QString inputFile = path_input_folder.append("/").append(NAME_CONFIGURATION_FILE);
+    QString inputFile = path_input_folder;
+    inputFile.append("/").append(NAME_CONFIGURATION_FILE);
     read_input(inputFile.toStdString(), m_bdd);
 
     display(ui->configurationFileLabel, ui->configurationFile, inputFile);
@@ -317,7 +318,8 @@ void ATLAS_BCAM::openInputDir() {
     }
 
     //lecture du fichier de calibration
-    QString calibrationFile = path_input_folder.append("/").append(NAME_CALIBRATION_FILE);
+    QString calibrationFile = path_input_folder;
+    calibrationFile.append("/").append(NAME_CALIBRATION_FILE);
     read_calibration_database(calibrationFile.toStdString(), m_bdd);
 
     display(ui->calibrationFileLabel, ui->calibrationFile, calibrationFile);
@@ -630,7 +632,8 @@ void ATLAS_BCAM::calcul_coord()
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
    QDir(".").mkpath(appDirPath().append("/Archive"));
 
-   QString fileName = appDirPath().append("/Archive/Observations_MOUNT_System_");
+   QString fileName = appDirPath();
+   fileName.append("/Archive/Observations_MOUNT_System_");
 
    // current date/time based on current system
    time_t now = time(0);
