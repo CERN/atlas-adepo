@@ -4,7 +4,8 @@
 #include <QMainWindow>
 #include "bdd.h"
 #include "result.h"
-#include "QWidget"
+#include <QWidget>
+#include <QTextBrowser>
 #include <QLineEdit>
 #include <QLabel>
 #include <QTextEdit>
@@ -85,6 +86,7 @@ private:
     void calculateResults(bdd &base_donnees, std::map<std::string, result> &results);
     void updateResults(std::map<std::string, result> &results);
     void setEnabled(bool enabled);
+    void display(QTextBrowser* textEdit, std::string filename);
 };
 
 #endif // ATLAS_BCAM_H

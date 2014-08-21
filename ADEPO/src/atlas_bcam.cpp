@@ -295,7 +295,10 @@ void ATLAS_BCAM::openInputDir() {
     //path_input_folder = fenetre_ouverture->Get_path_fich();
 
     //appel pour la lecture de fichier
-    read_input(path_input_folder.toStdString().append("/").append(NAME_CONFIGURATION_FILE),m_bdd);
+    std::string inputFile = path_input_folder.toStdString().append("/").append(NAME_CONFIGURATION_FILE);
+    read_input(inputFile, m_bdd);
+
+    display(ui->configurationFile, inputFile);
 
     //estimation des 6 parametres pour chaque BCAM
     helmert(m_bdd);
@@ -310,13 +313,37 @@ void ATLAS_BCAM::openInputDir() {
     }
 
     //lecture du fichier de calibration
-    read_calibration_database(path_input_folder.toStdString().append("/").append(NAME_CALIBRATION_FILE),m_bdd);
+    std::string calibrationFile = path_input_folder.toStdString().append("/").append(NAME_CALIBRATION_FILE);
+    read_calibration_database(calibrationFile, m_bdd);
+
+    display(ui->calibrationFile, calibrationFile);
 
     //recuperation de la partie qui nous interesse du fichier de calibration
     //clean_calib(m_bdd);
 
     //activation du boutton pour lancer les acquisitions
     setEnabled(true);
+}
+
+void ATLAS_BCAM::display(QTextBrowser *textEdit, std::string filename) {
+    textEdit->setReadOnly(true);
+
+    std::ifstream file((char*)filename.c_str(), std::ios::in);
+    if(!file) {
+        textEdit->setHtml(QString("Cannot find app") + QString::fromStdString(filename));
+    }
+
+    std::string line;
+    QString text("<pre>");
+
+    while(std::getline(file,line)) {
+        text.append(QString::fromStdString(line));
+        text.append('\n');
+    }
+    file.close();
+    text.append("</pre>");
+
+    textEdit->setHtml(text);
 }
 
 //fonction qui enregistre la valeur du temps d'acquisition entree par l'utilisateur                 [----> ok
