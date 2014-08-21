@@ -325,12 +325,12 @@ void ATLAS_BCAM::openInputDir() {
     setEnabled(true);
 }
 
-void ATLAS_BCAM::display(QTextBrowser *textEdit, std::string filename) {
-    textEdit->setReadOnly(true);
+void ATLAS_BCAM::display(QTextBrowser *browser, std::string filename) {
+    browser->setReadOnly(true);
 
     std::ifstream file((char*)filename.c_str(), std::ios::in);
     if(!file) {
-        textEdit->setHtml(QString("Cannot find app") + QString::fromStdString(filename));
+        browser->setHtml(QString("Cannot find app") + QString::fromStdString(filename));
     }
 
     std::string line;
@@ -343,7 +343,7 @@ void ATLAS_BCAM::display(QTextBrowser *textEdit, std::string filename) {
     file.close();
     text.append("</pre>");
 
-    textEdit->setHtml(text);
+    browser->setHtml(text);
 }
 
 //fonction qui enregistre la valeur du temps d'acquisition entree par l'utilisateur                 [----> ok
@@ -625,8 +625,27 @@ void ATLAS_BCAM::calcul_coord()
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
    QDir(".").mkpath(appDirPath().append("/Archive"));
 
-   std::string resultMountFilePrefix = appDirPath().toStdString().append("/Archive/Observations_MOUNT_System_");
-   write_file_obs_mount_system(resultMountFilePrefix, m_bdd);
+   QString fileName = appDirPath().append("/Archive/Observations_MOUNT_System_");
+
+   // current date/time based on current system
+   time_t now = time(0);
+   tm *ltm = localtime(&now);
+   // print various components of tm structure.
+   int year = 1900 + ltm->tm_year;
+   int month = 1 + ltm->tm_mon;
+   int day = ltm->tm_mday;
+   int hour = ltm->tm_hour;
+   int min = ltm->tm_min;
+   int sec = ltm->tm_sec;
+
+   QString datetime = QString("%1.%2.%3.%4.%5.%6").arg(year, 4).arg(month, 2, 10, QChar('0')).arg(day, 2, 10, QChar('0')).
+           arg(hour, 2, 10, QChar('0')).arg(min, 2, 10, QChar('0')).arg(sec, 2, 10, QChar('0'));
+   fileName = fileName.append(datetime).append(".txt");
+
+   write_file_obs_mount_system(fileName, datetime, m_bdd);
+
+   ui->resultFileLabel->setText(fileName);
+   display(ui->resultFile, fileName.toStdString());
 
    //vidage des acquisitions
    m_bdd.vidage();

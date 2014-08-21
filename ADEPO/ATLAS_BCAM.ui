@@ -28,7 +28,7 @@
     <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="ConfigurationTab">
        <attribute name="title">
@@ -588,7 +588,7 @@
         <item>
          <widget class="QLabel" name="resultFileLabel">
           <property name="text">
-           <string>TextLabel</string>
+           <string/>
           </property>
          </widget>
         </item>

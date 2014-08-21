@@ -10,30 +10,14 @@
 
 #define um2m 0.000001
 
-int write_file_obs_mount_system(std::string resultMountFilePrefix, bdd &base_donnees)
+int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_donnees)
 {
-
-    // current date/time based on current system
-    time_t now = time(0);
-    tm *ltm = localtime(&now);
-    // print various components of tm structure.
-    int year = 1900 + ltm->tm_year;
-    int month = 1 + ltm->tm_mon;
-    int day = ltm->tm_mday;
-    int hour = ltm->tm_hour;
-    int min = ltm->tm_min;
-    int sec = ltm->tm_sec;
-
-    QString datetime = QString("%1.%2.%3.%4.%5.%6").arg(year, 4).arg(month, 2, 10, QChar('0')).arg(day, 2, 10, QChar('0')).
-            arg(hour, 2, 10, QChar('0')).arg(min, 2, 10, QChar('0')).arg(sec, 2, 10, QChar('0'));
-    QString filename = QString::fromStdString(resultMountFilePrefix).append(datetime).append(".txt");
-
     //écriture dans un fichier
-    std::ofstream fichier(filename.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+    std::ofstream fichier(fileName.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
 
     if(fichier)
     {
-        std::cout << "Writing results into " << filename.toStdString() << std::endl;
+        std::cout << "Writing results into " << fileName.toStdString() << std::endl;
 
         fichier<<"********** Fichier qui contient une sauvegarde des coordonnees images + coordonnees images transformees dans le repere BCAM (MOUNT) + coordonnees des prismes dans le repere MOUNT********** \n"
                <<"********************************************************************** Unite en metres (m)************************************************************************************************** \n"
