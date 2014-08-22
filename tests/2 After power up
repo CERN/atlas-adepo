@@ -1,0 +1,1289 @@
+Analyzing 10.145.44.16:4090:00000000:1:1
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  65.001   4.988  70.373 -15.026  46.714 total_with_repeater_off
+ 15.071  65.028   4.988  70.341 -15.027  46.686 total_with_repeater_on
+ -0.002  -0.020  -0.001  -0.009   0.002   0.044 increase_with_0000
+ -0.028  46.068  -0.001   0.695   0.029  45.487 increase_with_0080
+  0.000  -0.007   0.000  -0.001   0.000  -0.027 increase_with_0001
+ -0.069  72.589  -0.001   1.018   0.004  45.336 increase_with_1080
+ -0.028  45.819  -0.001   0.761   0.029  45.281 increase_with_0480
+ -0.027  45.748  -0.001   0.711   0.028  45.193 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 750 ns.
+Current Error = 16.2 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:1:2
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  65.011   4.988  70.362 -15.026  46.679 total_with_repeater_off
+ 15.069  65.042   4.987  70.374 -15.026  46.654 total_with_repeater_on
+  0.000  -0.021   0.000  -0.014   0.001   0.008 increase_with_0000
+ -0.025  45.542   0.000   0.666   0.027  44.915 increase_with_0080
+  0.002  -0.003   0.001  -0.010  -0.001  -0.017 increase_with_0001
+ -0.081  81.623   0.000   0.965  -0.006  44.724 increase_with_1080
+ -0.025  45.297   0.000   0.737   0.027  44.678 increase_with_0480
+ -0.026  45.174   0.000   0.693   0.028  44.619 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 800 ns.
+Current Error = 12.3 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:1:3
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.072  65.045   4.987  70.379 -15.028  46.635 total_with_repeater_off
+ 15.070  65.024   4.987  70.333 -15.026  46.675 total_with_repeater_on
+  0.001  -0.002   0.001   0.051  -0.001  -0.032 increase_with_0000
+ -0.027  46.963   0.000   0.758   0.029  46.508 increase_with_0080
+  0.000   0.009   0.000   0.053   0.000   0.012 increase_with_0001
+ -0.065  72.722   0.000   1.032   0.004  46.310 increase_with_1080
+ -0.026  46.693   0.000   0.796   0.028  46.264 increase_with_0480
+ -0.026  46.561   0.000   0.737   0.028  46.197 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 825 ns.
+Current Error = 14.8 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:1:4
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  65.037   4.988  70.377 -15.026  46.665 total_with_repeater_off
+ 15.070  65.016   4.988  70.373 -15.026  46.667 total_with_repeater_on
+ -0.001  -0.013  -0.001  -0.014   0.001   0.016 increase_with_0000
+ -0.027  46.718  -0.001   0.713   0.028  45.997 increase_with_0080
+  0.001   0.017   0.000  -0.028  -0.001  -0.031 increase_with_0001
+ -0.065  70.608  -0.001   0.953   0.006  45.853 increase_with_1080
+ -0.027  46.407  -0.001   0.695   0.027  45.770 increase_with_0480
+ -0.028  46.346  -0.001   0.713   0.029  45.637 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 800 ns.
+Current Error = 17.0 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:1:5
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  65.009   4.988  70.355 -15.027  46.663 total_with_repeater_off
+ 15.070  65.020   4.987  70.339 -15.026  46.642 total_with_repeater_on
+  0.000   0.018   0.000   0.009   0.000   0.010 increase_with_0000
+ -0.027  47.200   0.000   0.727   0.027  46.603 increase_with_0080
+  0.000  -0.009   0.000   0.009   0.000   0.019 increase_with_0001
+ -0.085  84.611  -0.001   1.003  -0.005  46.368 increase_with_1080
+ -0.027  46.941   0.000   0.707   0.029  46.371 increase_with_0480
+ -0.027  46.822   0.000   0.717   0.028  46.231 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 875 ns.
+Current Error = 7.7 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:1:6
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.069  65.017   4.987  70.386 -15.026  46.646 total_with_repeater_off
+ 15.069  65.001   4.988  70.348 -15.026  46.689 total_with_repeater_on
+  0.002   0.026   0.000  -0.020   0.000  -0.028 increase_with_0000
+ -0.025  46.862  -0.001   0.724   0.027  46.170 increase_with_0080
+  0.002   0.019   0.000  -0.018  -0.001  -0.015 increase_with_0001
+ -0.081  83.052  -0.001   1.021  -0.006  45.949 increase_with_1080
+ -0.024  46.604   0.000   0.713   0.026  45.941 increase_with_0480
+ -0.025  46.504  -0.001   0.772   0.027  45.826 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 875 ns.
+Current Error = 8.8 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:1:7
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 18.982  59.700   6.282  73.888 -18.926  80.885 total_with_repeater_off
+ 15.071  65.018   4.988  70.324 -15.028  46.654 total_with_repeater_on
+ -0.002  -0.001   0.000   0.041   0.003  -0.005 increase_with_0000
+ -0.031  49.611  -0.001   0.702   0.028  46.853 increase_with_0080
+  0.000  -0.013   0.000  -0.016   0.001   0.020 increase_with_0001
+ -0.076  77.193  -0.002   1.000   0.005  46.688 increase_with_1080
+ -0.072  75.871  -0.001   0.997   0.004  46.549 increase_with_0480
+ -0.070  73.773  -0.001   0.971   0.007  46.500 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2051L-D A2051R-D.
+Loop Time = 825 ns.
+Current Error = 16.8 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:1:8
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.069  65.008   4.987  70.345 -15.025  46.662 total_with_repeater_off
+ 15.071  65.020   4.988  70.378 -15.027  46.625 total_with_repeater_on
+ -0.001  -0.024  -0.001  -0.060   0.001   0.001 increase_with_0000
+  0.000  -0.009   0.000  -0.011   0.000   0.023 increase_with_0080
+  0.000  -0.003   0.000  -0.005   0.000   0.021 increase_with_0001
+ -0.002  -0.025  -0.001  -0.026   0.002   0.029 increase_with_1080
+ -0.001  -0.013  -0.001   0.008   0.001   0.014 increase_with_0480
+  0.000  -0.003   0.000   0.000   0.000   0.029 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:1:9
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  64.995   4.988  70.347 -15.026  46.664 total_with_repeater_off
+ 15.069  65.011   4.987  70.321 -15.026  46.658 total_with_repeater_on
+  0.000  -0.010   0.000   0.042   0.001  -0.014 increase_with_0000
+  0.001  -0.014   0.001   0.049   0.000   0.019 increase_with_0080
+  0.001  -0.007   0.000   0.015   0.000  -0.008 increase_with_0001
+  0.002   0.003   0.001   0.074  -0.001  -0.008 increase_with_1080
+  0.000  -0.006   0.000   0.012   0.001  -0.016 increase_with_0480
+  0.001   0.010   0.000   0.023   0.000  -0.008 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:1:10
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  65.015   4.988  70.335 -15.026  46.649 total_with_repeater_off
+ 15.070  65.018   4.987  70.300 -15.026  46.625 total_with_repeater_on
+  0.000  -0.026   0.001   0.030   0.000   0.033 increase_with_0000
+  0.000  -0.004   0.001   0.046  -0.001   0.016 increase_with_0080
+ -0.001  -0.021   0.000   0.010   0.001   0.014 increase_with_0001
+  0.000  -0.044   0.000   0.039   0.001   0.009 increase_with_1080
+  0.000  -0.007   0.001   0.066   0.000   0.008 increase_with_0480
+  0.000   0.001   0.000   0.060   0.000   0.019 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:2:1
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.069  65.001   4.987  70.375 -15.025  46.614 total_with_repeater_off
+ 15.070  64.994   4.988  70.318 -15.026  46.655 total_with_repeater_on
+ -0.001  -0.004   0.000  -0.007   0.001  -0.001 increase_with_0000
+ -0.025  45.786   0.000   0.745   0.027  45.430 increase_with_0080
+  0.000   0.009   0.000  -0.015   0.000  -0.007 increase_with_0001
+ -0.065  71.781  -0.001   0.984   0.003  45.228 increase_with_1080
+ -0.026  45.523  -0.001   0.701   0.028  45.203 increase_with_0480
+ -0.026  45.431  -0.001   0.714   0.028  45.072 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 750 ns.
+Current Error = 17.2 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:2:2
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  64.996   4.988  70.329 -15.026  46.678 total_with_repeater_off
+ 15.070  65.018   4.988  70.324 -15.026  46.642 total_with_repeater_on
+ -0.001  -0.016  -0.001  -0.023   0.001   0.012 increase_with_0000
+ -0.028  47.401  -0.001   0.715   0.030  47.129 increase_with_0080
+  0.000  -0.003   0.000   0.033  -0.001  -0.015 increase_with_0001
+ -0.067  73.460  -0.001   1.012   0.005  46.895 increase_with_1080
+ -0.027  47.150  -0.001   0.790   0.028  46.872 increase_with_0480
+ -0.028  47.030  -0.001   0.707   0.029  46.779 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 825 ns.
+Current Error = 13.5 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:2:3
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  65.024   4.987  70.373 -15.026  46.625 total_with_repeater_off
+ 15.070  64.993   4.987  70.336 -15.025  46.677 total_with_repeater_on
+  0.001   0.022   0.001   0.014  -0.002  -0.045 increase_with_0000
+ -0.025  45.468   0.000   0.743   0.025  44.668 increase_with_0080
+  0.001   0.034   0.001   0.054  -0.002  -0.061 increase_with_0001
+ -0.083  82.209  -0.001   1.046  -0.007  44.441 increase_with_1080
+ -0.026  45.219   0.000   0.714   0.025  44.449 increase_with_0480
+ -0.026  45.114   0.000   0.730   0.026  44.337 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 800 ns.
+Current Error = 12.5 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:2:4
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.071  65.007   4.987  70.359 -15.027  46.649 total_with_repeater_off
+ 15.070  65.019   4.987  70.321 -15.025  46.629 total_with_repeater_on
+  0.002  -0.018   0.001   0.013  -0.002   0.020 increase_with_0000
+ -0.026  47.419   0.001   0.743   0.027  47.354 increase_with_0080
+  0.001  -0.019   0.001   0.036  -0.002   0.024 increase_with_0001
+ -0.067  73.587   0.000   1.013   0.004  47.132 increase_with_1080
+ -0.026  47.194   0.000   0.746   0.027  47.111 increase_with_0480
+ -0.026  47.092   0.000   0.737   0.027  47.025 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 800 ns.
+Current Error = 13.3 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:2:5
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.069  64.995   4.987  70.312 -15.026  46.644 total_with_repeater_off
+ 15.070  65.012   4.988  70.339 -15.026  46.627 total_with_repeater_on
+ -0.001  -0.005  -0.001  -0.018   0.000  -0.001 increase_with_0000
+ -0.027  45.994  -0.001   0.743   0.028  45.554 increase_with_0080
+ -0.001   0.000  -0.001  -0.003   0.001   0.005 increase_with_0001
+ -0.086  83.223  -0.002   1.004  -0.004  45.341 increase_with_1080
+ -0.027  45.718  -0.001   0.687   0.028  45.316 increase_with_0480
+ -0.026  45.611  -0.001   0.672   0.027  45.251 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 850 ns.
+Current Error = 10.7 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:2:6
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.071  65.028   4.988  70.350 -15.027  46.621 total_with_repeater_off
+ 15.069  64.985   4.987  70.308 -15.025  46.659 total_with_repeater_on
+  0.002   0.019   0.000   0.034  -0.002  -0.028 increase_with_0000
+ -0.024  46.729   0.001   0.742   0.025  46.036 increase_with_0080
+  0.002   0.017   0.001   0.019  -0.002  -0.012 increase_with_0001
+ -0.079  82.082   0.000   1.004  -0.006  45.810 increase_with_1080
+ -0.024  46.495   0.001   0.748   0.025  45.798 increase_with_0480
+ -0.023  46.369   0.001   0.761   0.025  45.730 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 875 ns.
+Current Error = 9.4 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:2:7
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  65.003   4.987  70.315 -15.026  46.638 total_with_repeater_off
+ 15.072  65.015   4.987  70.306 -15.027  46.640 total_with_repeater_on
+ -0.001  -0.024   0.001   0.005   0.001   0.023 increase_with_0000
+ -0.034  52.361   0.000   0.700   0.031  50.613 increase_with_0080
+ -0.001   0.006   0.001   0.040   0.000  -0.026 increase_with_0001
+ -0.074  78.813   0.000   0.934   0.006  50.381 increase_with_1080
+ -0.084  85.215  -0.001   0.927   0.000  50.197 increase_with_0480
+ -0.072  77.194   0.000   0.930   0.007  50.113 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2051L-D A2051R-D.
+Loop Time = 825 ns.
+Current Error = 11.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:2:8
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.069  64.986   4.987  70.308 -15.025  46.647 total_with_repeater_off
+ 15.070  65.009   4.987  70.316 -15.026  46.624 total_with_repeater_on
+  0.001  -0.017   0.001  -0.043   0.000   0.027 increase_with_0000
+  0.001  -0.035   0.001  -0.008  -0.001   0.016 increase_with_0080
+  0.001   0.009   0.001   0.035  -0.001   0.004 increase_with_0001
+  0.000  -0.022   0.001  -0.035   0.000   0.033 increase_with_1080
+  0.000   0.000   0.000  -0.004   0.000  -0.006 increase_with_0480
+  0.000  -0.004   0.001  -0.018   0.000   0.006 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:2:9
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.069  65.001   4.988  70.316 -15.025  46.608 total_with_repeater_off
+ 15.070  64.986   4.987  70.299 -15.025  46.652 total_with_repeater_on
+  0.001   0.003   0.001  -0.020  -0.002  -0.004 increase_with_0000
+  0.001   0.017   0.001   0.005  -0.002  -0.006 increase_with_0080
+  0.001   0.020   0.001   0.003  -0.002  -0.011 increase_with_0001
+  0.000   0.007   0.001  -0.017  -0.001  -0.010 increase_with_1080
+ -0.001   0.010   0.000   0.033   0.000  -0.027 increase_with_0480
+  0.002   0.007   0.001   0.006  -0.002  -0.007 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:2:10
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  64.971   4.987  70.311 -15.026  46.629 total_with_repeater_off
+ 15.070  64.986   4.987  70.312 -15.026  46.646 total_with_repeater_on
+  0.000  -0.008   0.001  -0.033   0.000  -0.023 increase_with_0000
+  0.000   0.006   0.001  -0.004   0.000  -0.025 increase_with_0080
+  0.001   0.016   0.000  -0.030  -0.001  -0.006 increase_with_0001
+  0.000   0.008   0.001   0.007   0.000  -0.009 increase_with_1080
+ -0.001   0.012   0.000  -0.002   0.001  -0.020 increase_with_0480
+ -0.001  -0.012   0.001  -0.013   0.001  -0.021 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:3:1
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.072  64.997   4.988  70.915 -15.028  46.609 total_with_repeater_off
+ 15.070  64.989   4.987  70.929 -15.026  46.624 total_with_repeater_on
+  0.001  -0.029   0.000  -0.056   0.000   0.048 increase_with_0000
+ -0.027  45.577   0.000   0.697   0.028  45.128 increase_with_0080
+  0.001   0.019   0.000  -0.032  -0.002   0.017 increase_with_0001
+ -0.064  69.644  -0.001   0.974   0.006  44.891 increase_with_1080
+ -0.026  45.324   0.000   0.698   0.027  44.850 increase_with_0480
+ -0.026  45.224   0.000   0.713   0.027  44.745 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 775 ns.
+Current Error = 19.2 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:3:2
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  64.989   4.988  70.945 -15.026  46.629 total_with_repeater_off
+ 14.936 180.885   4.982  78.642 -15.063  89.915 total_with_repeater_on
+ -0.001  -0.162  -0.001  -0.014   0.001  -0.203 increase_with_0000
+ -0.024  43.546  -0.001   0.701   0.029  43.445 increase_with_0080
+  0.000  -0.235   0.000  -0.023  -0.001  -0.366 increase_with_0001
+ -0.074  77.894  -0.001   0.958   0.001  43.077 increase_with_1080
+ -0.024  43.203  -0.001   0.720   0.028  43.084 increase_with_0480
+ -0.025  43.074  -0.001   0.704   0.029  42.919 increase_with_8280
+Multplexer-Repeater Detected = Yes.
+WARNING: Excessive current consumption by multiplexer-repeater.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 800 ns.
+Termination Current = 4.4 mA.
+Current Error = 18.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:3:3
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.071  64.983   4.988  71.047 -15.027  46.674 total_with_repeater_off
+ 15.071  64.999   4.987  71.043 -15.027  46.645 total_with_repeater_on
+  0.000   0.015   0.000  -0.046   0.000  -0.033 increase_with_0000
+ -0.026  47.312   0.000   0.670   0.029  47.324 increase_with_0080
+ -0.001   0.002   0.000  -0.034   0.001   0.012 increase_with_0001
+ -0.096  92.380  -0.001   0.928  -0.010  47.118 increase_with_1080
+ -0.028  47.078   0.000   0.639   0.030  47.149 increase_with_0480
+ -0.027  47.001   0.000   0.665   0.030  47.044 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 825 ns.
+Current Error = 10.2 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:3:4
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 180.633   4.982  78.372 -15.062  89.727 total_with_repeater_off
+ 15.070  65.008   4.987  70.346 -15.025  46.618 total_with_repeater_on
+  0.000  -0.021   0.001  -0.038   0.000   0.030 increase_with_0000
+ -0.026  45.976   0.000   0.730   0.026  45.256 increase_with_0080
+ -0.001  -0.016   0.000  -0.013  -0.001   0.025 increase_with_0001
+ -0.083  82.654  -0.001   1.015  -0.007  45.079 increase_with_1080
+ -0.024  45.714   0.001   0.727   0.024  45.077 increase_with_0480
+ -0.027  45.614   0.000   0.703   0.026  44.956 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 800 ns.
+Current Error = 11.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:3:5
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.942 177.381   4.986  71.575 -15.059  91.061 total_with_repeater_off
+ 14.939 178.411   4.987  70.756 -15.062  89.627 total_with_repeater_on
+  0.000  -0.048   0.000   0.003   0.000  -0.149 increase_with_0000
+ -0.024  44.766  -0.001   0.689   0.029  44.725 increase_with_0080
+  0.000  -0.110   0.000   0.016   0.000  -0.228 increase_with_0001
+ -0.073  79.059  -0.001   0.965   0.001  44.357 increase_with_1080
+ -0.023  44.503  -0.001   0.769   0.028  44.345 increase_with_0480
+ -0.024  44.356  -0.001   0.667   0.029  44.241 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 875 ns.
+Current Error = 14.6 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:3:6
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.072  65.021   4.984  78.128 -15.027  46.645 total_with_repeater_off
+ 14.983 149.829   4.983  78.390 -15.038  89.633 total_with_repeater_on
+  0.003  -1.942   0.004  -7.903   0.003   0.038 increase_with_0000
+  0.000   0.123  -0.001   0.947   0.001   0.442 increase_with_0080
+  0.000   0.007   0.000  -0.205  -0.001  -0.477 increase_with_0001
+  0.088 -84.836   0.005  -8.032   0.011 -42.994 increase_with_1080
+  0.000   0.202   0.000  -0.001  -0.001  -0.346 increase_with_0480
+ -0.046  29.687  -0.001   0.792  -0.023   0.305 increase_with_8280
+Multplexer-Repeater Detected = Yes.
+WARNING: Excessive current consumption by multiplexer-repeater.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Termination Current = 2.8 mA.
+WARNING: Unexpected termination current.
+Current Error = 100.3 mA.
+WARNING: Poor current signature match.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:3:7
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.937 179.735   4.981  79.319 -15.062  89.850 total_with_repeater_off
+ 15.038 112.929   4.983  78.129 -15.003  89.479 total_with_repeater_on
+  0.001  -0.058   0.001  -0.034  -0.001  -0.069 increase_with_0000
+ -0.032  51.690  -0.002   2.536   0.028  50.665 increase_with_0080
+  0.000  -0.130   0.000  -0.013  -0.001  -0.102 increase_with_0001
+ -0.074  80.410  -0.002   2.818   0.003  50.399 increase_with_1080
+ -0.073  80.033  -0.001   2.892   0.003  50.273 increase_with_0480
+ -0.073  79.190  -0.001   2.841   0.004  50.168 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2051L-D A2051R-D.
+Loop Time = 850 ns.
+Current Error = 11.3 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:3:8
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.982 149.411   4.983  78.137 -15.037  88.910 total_with_repeater_off
+ 15.071  64.995   4.982  80.757 -15.027  46.636 total_with_repeater_on
+ -0.001  -0.004   0.000  -0.047   0.001  -0.021 increase_with_0000
+ -0.001  -0.011  -0.001  -0.008   0.002  -0.003 increase_with_0080
+ -0.001  -0.016   0.000  -0.019   0.001  -0.020 increase_with_0001
+ -0.001  -0.001   0.000  -0.053   0.001  -0.037 increase_with_1080
+ -0.001  -0.008   0.000  -0.085   0.001  -0.014 increase_with_0480
+ -0.001  -0.003   0.000  -0.079   0.001  -0.020 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:3:9
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 180.254   4.982  78.383 -15.063  89.379 total_with_repeater_off
+ 14.936 180.171   4.982  78.390 -15.063  89.146 total_with_repeater_on
+  0.001  -0.025   0.000   0.045  -0.001  -0.097 increase_with_0000
+  0.000  -0.075   0.000  -0.001   0.000  -0.157 increase_with_0080
+ -0.001  -0.066   0.000  -0.037   0.000  -0.207 increase_with_0001
+  0.002  -0.041   0.001   0.034  -0.003  -0.225 increase_with_1080
+ -0.001  -0.107   0.000  -0.007   0.000  -0.257 increase_with_0480
+ -0.001  -0.131   0.001  -0.006   0.000  -0.270 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.6 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:3:10
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.070  65.009   4.987  70.371 -15.026  46.653 total_with_repeater_off
+ 14.937 180.168   4.982  78.353 -15.065  89.033 total_with_repeater_on
+ -0.002  -0.064   0.000   0.044   0.002  -0.138 increase_with_0000
+ -0.002  -0.094   0.000   0.002   0.002  -0.194 increase_with_0080
+ -0.001  -0.115   0.000   0.006   0.002  -0.194 increase_with_0001
+ -0.003  -0.150   0.000   0.020   0.003  -0.222 increase_with_1080
+ -0.002  -0.136   0.000   0.003   0.002  -0.248 increase_with_0480
+ -0.002  -0.163   0.000   0.011   0.002  -0.267 increase_with_8280
+Multplexer-Repeater Detected = Yes.
+WARNING: Excessive current consumption by multiplexer-repeater.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Termination Current = 0.1 mA.
+Current Error = 0.6 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:4:1
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 180.005   4.982  78.406 -15.064  88.751 total_with_repeater_off
+ 14.935 179.977   4.982  78.362 -15.063  88.725 total_with_repeater_on
+  0.001   0.034   0.000   0.107  -0.001  -0.066 increase_with_0000
+ -0.027  49.010   0.000   0.912   0.031  48.388 increase_with_0080
+  0.001   0.003   0.000   0.156  -0.001  -0.071 increase_with_0001
+ -0.076  84.645  -0.001   1.330   0.001  48.114 increase_with_1080
+ -0.027  48.665  -0.001   0.950   0.031  48.085 increase_with_0480
+ -0.026  48.564   0.000   0.983   0.030  47.973 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 775 ns.
+Current Error = 4.2 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:4:2
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.951   4.982  78.533 -15.064  88.595 total_with_repeater_off
+ 14.935 179.909   4.982  78.430 -15.063  88.587 total_with_repeater_on
+  0.000  -0.004   0.000  -0.053   0.000  -0.026 increase_with_0000
+ -0.024  45.482   0.000   0.775   0.028  44.984 increase_with_0080
+  0.001   0.008   0.000  -0.035  -0.001  -0.040 increase_with_0001
+ -0.078  82.074  -0.002   1.047   0.000  44.756 increase_with_1080
+ -0.024  45.243  -0.001   0.726   0.028  44.732 increase_with_0480
+ -0.024  45.131  -0.001   0.770   0.028  44.652 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 825 ns.
+Current Error = 12.2 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:4:3
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.937 179.916   4.982  78.440 -15.064  88.531 total_with_repeater_off
+ 14.936 179.895   4.983  78.365 -15.065  88.513 total_with_repeater_on
+  0.000  -0.026  -0.001   0.029   0.001  -0.027 increase_with_0000
+ -0.026  46.600  -0.001   0.778   0.031  46.249 increase_with_0080
+ -0.001  -0.065  -0.001   0.024   0.002  -0.062 increase_with_0001
+ -0.079  83.433  -0.002   1.135   0.001  45.999 increase_with_1080
+ -0.026  46.366  -0.001   0.829   0.030  45.992 increase_with_0480
+ -0.026  46.243  -0.002   0.837   0.031  45.892 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 825 ns.
+Current Error = 9.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:4:4
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.843   4.982  78.432 -15.063  88.472 total_with_repeater_off
+ 14.936 179.835   4.982  78.394 -15.064  88.459 total_with_repeater_on
+  0.000  -0.002   0.001  -0.025   0.000  -0.024 increase_with_0000
+ -0.026  46.402   0.000   0.665   0.029  45.941 increase_with_0080
+  0.000  -0.025   0.001  -0.064   0.000  -0.016 increase_with_0001
+ -0.077  82.160  -0.001   1.036   0.001  45.726 increase_with_1080
+ -0.025  46.168   0.000   0.754   0.029  45.654 increase_with_0480
+ -0.025  46.060   0.000   0.711   0.028  45.565 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 825 ns.
+Current Error = 9.9 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:4:5
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.827   4.982  78.379 -15.065  88.369 total_with_repeater_off
+ 14.936 179.788   4.982  78.363 -15.064  88.409 total_with_repeater_on
+  0.001   0.029   0.000   0.067  -0.001  -0.030 increase_with_0000
+ -0.024  45.750   0.000   0.813   0.027  45.109 increase_with_0080
+  0.000   0.017   0.001   0.035   0.000  -0.032 increase_with_0001
+ -0.077  82.448  -0.001   1.156  -0.001  44.851 increase_with_1080
+ -0.025  45.493   0.000   0.811   0.028  44.885 increase_with_0480
+ -0.026  45.394  -0.001   0.817   0.029  44.740 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 875 ns.
+Current Error = 11.7 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:4:6
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.937 179.783   4.982  78.432 -15.065  88.352 total_with_repeater_off
+ 14.934 179.745   4.982  78.394 -15.063  88.366 total_with_repeater_on
+  0.003   0.026   0.001   0.085  -0.002  -0.039 increase_with_0000
+ -0.024  48.344   0.000   0.930   0.028  47.707 increase_with_0080
+  0.003   0.022   0.001   0.085  -0.002  -0.051 increase_with_0001
+ -0.075  83.372  -0.001   1.295   0.002  47.452 increase_with_1080
+ -0.024  48.049   0.000   0.947   0.029  47.445 increase_with_0480
+ -0.025  47.894   0.000   0.856   0.029  47.333 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2048L A2048R A2051L-S A2051R-S.
+Loop Time = 900 ns.
+Current Error = 5.6 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:4:7
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 15.337 182.697   5.116  79.360 -15.469  92.563 total_with_repeater_off
+ 14.936 179.728   4.982  78.401 -15.065  88.304 total_with_repeater_on
+  0.000  -0.007   0.001  -0.002   0.001  -0.001 increase_with_0000
+ -0.029  51.556   0.000   0.714   0.031  49.776 increase_with_0080
+  0.000  -0.004   0.000   0.002   0.000  -0.021 increase_with_0001
+ -0.069  78.978  -0.001   1.037   0.009  49.532 increase_with_1080
+ -0.068  78.567  -0.001   1.052   0.010  49.390 increase_with_0480
+ -0.068  78.367  -0.001   1.032   0.010  49.294 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = A2051L-D A2051R-D.
+Loop Time = 850 ns.
+Current Error = 11.5 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:4:8
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.698   4.982  78.446 -15.064  88.258 total_with_repeater_off
+ 14.935 179.706   4.982  78.402 -15.064  88.253 total_with_repeater_on
+  0.001  -0.018   0.000  -0.020  -0.001   0.008 increase_with_0000
+  0.001  -0.004   0.000   0.040   0.000  -0.044 increase_with_0080
+  0.001  -0.013   0.000   0.005   0.000  -0.028 increase_with_0001
+ -0.001  -0.056   0.000  -0.068   0.001  -0.016 increase_with_1080
+  0.001  -0.036   0.000  -0.044   0.000  -0.012 increase_with_0480
+  0.001  -0.015   0.000   0.011   0.000  -0.030 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:4:9
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.699   4.982  78.392 -15.065  88.208 total_with_repeater_off
+ 14.937 179.671   4.982  78.446 -15.065  88.196 total_with_repeater_on
+ -0.001  -0.002   0.001  -0.028   0.001   0.020 increase_with_0000
+ -0.001   0.007   0.000  -0.016   0.001  -0.013 increase_with_0080
+ -0.001   0.012   0.000  -0.048   0.000   0.007 increase_with_0001
+  0.001   0.001   0.001  -0.070  -0.001   0.017 increase_with_1080
+ -0.001  -0.025   0.000  -0.045   0.000  -0.012 increase_with_0480
+ -0.001  -0.013   0.000  -0.022   0.001  -0.017 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:4:10
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.657   4.983  78.413 -15.064  88.153 total_with_repeater_off
+ 14.937 179.655   4.982  78.398 -15.065  88.151 total_with_repeater_on
+ -0.002  -0.032   0.000   0.008   0.002   0.003 increase_with_0000
+ -0.001  -0.015   0.000   0.020   0.001  -0.020 increase_with_0080
+ -0.001  -0.028   0.000  -0.009   0.000   0.006 increase_with_0001
+  0.001   0.006   0.000   0.004  -0.001   0.007 increase_with_1080
+  0.000   0.002   0.001  -0.005   0.000  -0.020 increase_with_0480
+ -0.001  -0.021   0.000  -0.018   0.001  -0.006 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:5:1
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.628   4.982  78.379 -15.064  88.140 total_with_repeater_off
+ 14.937 179.614   4.983  78.353 -15.065  88.137 total_with_repeater_on
+ -0.001   0.015  -0.001   0.044   0.000  -0.021 increase_with_0000
+ -0.002  -0.008  -0.001   0.040   0.002  -0.015 increase_with_0080
+  0.000   0.019   0.000  -0.013   0.000  -0.019 increase_with_0001
+  0.000   0.007   0.000   0.015   0.000  -0.019 increase_with_1080
+ -0.002  -0.021  -0.001  -0.014   0.001  -0.073 increase_with_0480
+ -0.001  -0.021  -0.001   0.005   0.001  -0.026 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:5:2
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.593   4.982  78.369 -15.065  88.106 total_with_repeater_off
+ 14.936 179.591   4.982  78.344 -15.065  88.118 total_with_repeater_on
+  0.000   0.015   0.000   0.009   0.001  -0.047 increase_with_0000
+  0.000  -0.011   0.000   0.032   0.001  -0.032 increase_with_0080
+  0.000   0.009   0.000  -0.001   0.001  -0.037 increase_with_0001
+  0.000   0.015   0.000   0.037   0.000  -0.050 increase_with_1080
+  0.000  -0.010   0.000   0.007   0.000  -0.036 increase_with_0480
+  0.000  -0.011   0.000   0.052   0.001  -0.036 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:5:3
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.581   4.983  78.364 -15.065  88.063 total_with_repeater_off
+ 14.936 179.575   4.982  78.377 -15.064  88.070 total_with_repeater_on
+  0.000   0.000   0.000  -0.017  -0.001  -0.030 increase_with_0000
+ -0.001  -0.012   0.000   0.000   0.000  -0.042 increase_with_0080
+  0.002   0.013   0.001  -0.014  -0.002  -0.020 increase_with_0001
+  0.000  -0.029   0.000  -0.030  -0.001  -0.014 increase_with_1080
+  0.000  -0.019   0.000  -0.046   0.000   0.007 increase_with_0480
+  0.000   0.011   0.000   0.011   0.000  -0.067 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:5:4
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.549   4.982  78.354 -15.064  88.040 total_with_repeater_off
+ 14.936 179.562   4.982  78.372 -15.065  88.044 total_with_repeater_on
+  0.000  -0.008   0.000  -0.032   0.000  -0.003 increase_with_0000
+ -0.002  -0.040   0.000  -0.051   0.002  -0.062 increase_with_0080
+  0.000  -0.025   0.000  -0.030   0.001  -0.027 increase_with_0001
+  0.000  -0.034   0.000  -0.007   0.001  -0.027 increase_with_1080
+ -0.001  -0.033   0.000  -0.022   0.002  -0.035 increase_with_0480
+  0.000  -0.016   0.000  -0.023   0.001  -0.047 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:5:5
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.938 179.520   4.983  78.369 -15.066  88.032 total_with_repeater_off
+ 14.936 179.512   4.982  78.355 -15.065  87.999 total_with_repeater_on
+  0.000   0.020   0.000   0.021   0.001  -0.010 increase_with_0000
+  0.000   0.019   0.000  -0.003   0.001   0.001 increase_with_0080
+  0.001   0.067   0.000  -0.013  -0.001  -0.041 increase_with_0001
+  0.000   0.024   0.000  -0.009   0.000   0.005 increase_with_1080
+  0.000   0.026   0.000  -0.007   0.000  -0.032 increase_with_0480
+  0.001   0.043   0.000   0.033   0.000  -0.038 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:5:6
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.518   4.982  78.350 -15.065  87.997 total_with_repeater_off
+ 14.935 179.503   4.982  78.336 -15.063  87.969 total_with_repeater_on
+  0.001   0.016   0.001   0.019  -0.002  -0.024 increase_with_0000
+  0.001  -0.010   0.000   0.009  -0.002   0.016 increase_with_0080
+  0.001  -0.012   0.000   0.003  -0.001   0.008 increase_with_0001
+  0.001   0.009   0.000   0.035  -0.002  -0.028 increase_with_1080
+  0.001   0.015   0.000   0.008  -0.002  -0.003 increase_with_0480
+  0.001  -0.001   0.001   0.039  -0.002  -0.008 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:5:7
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.933 179.498   4.982  78.334 -15.061  87.896 total_with_repeater_off
+ 14.936 179.487   4.983  78.369 -15.065  87.948 total_with_repeater_on
+  0.000   0.005  -0.001  -0.025   0.001  -0.004 increase_with_0000
+ -0.001   0.008  -0.001  -0.015   0.001  -0.017 increase_with_0080
+ -0.001  -0.012  -0.001   0.012   0.001  -0.023 increase_with_0001
+  0.000  -0.019  -0.001  -0.027   0.001   0.001 increase_with_1080
+  0.000   0.011  -0.001  -0.014   0.000  -0.035 increase_with_0480
+  0.001   0.004  -0.001  -0.002   0.000   0.000 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:5:8
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.472   4.982  78.342 -15.065  87.949 total_with_repeater_off
+ 14.935 179.479   4.982  78.389 -15.064  87.915 total_with_repeater_on
+  0.001   0.001   0.000  -0.020  -0.001   0.009 increase_with_0000
+  0.001   0.016   0.000  -0.017   0.000  -0.038 increase_with_0080
+  0.001   0.011   0.000  -0.017  -0.002  -0.001 increase_with_0001
+  0.000  -0.004   0.000  -0.032  -0.001  -0.035 increase_with_1080
+  0.000  -0.018   0.000  -0.017   0.000   0.008 increase_with_0480
+  0.001   0.014   0.000  -0.036  -0.001  -0.017 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:5:9
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.466   4.982  78.361 -15.064  87.925 total_with_repeater_off
+ 14.936 179.499   4.982  78.353 -15.065  87.868 total_with_repeater_on
+  0.000  -0.061   0.000  -0.005   0.001   0.034 increase_with_0000
+ -0.001  -0.060   0.000  -0.014   0.001   0.021 increase_with_0080
+  0.002  -0.012   0.001   0.006  -0.001   0.021 increase_with_0001
+ -0.001  -0.057   0.000  -0.022   0.001   0.001 increase_with_1080
+  0.002  -0.017   0.001  -0.018  -0.002   0.029 increase_with_0480
+  0.000  -0.037   0.000   0.003   0.000  -0.001 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:5:10
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.437   4.982  78.342 -15.064  87.887 total_with_repeater_off
+ 14.936 179.448   4.982  78.404 -15.064  87.842 total_with_repeater_on
+ -0.001  -0.019   0.000  -0.033   0.000   0.017 increase_with_0000
+  0.000  -0.004   0.001  -0.049  -0.001   0.026 increase_with_0080
+  0.000   0.009   0.000  -0.032  -0.001   0.011 increase_with_0001
+  0.001   0.007   0.000  -0.037  -0.001  -0.008 increase_with_1080
+  0.001   0.028   0.000  -0.026  -0.002   0.019 increase_with_0480
+  0.000  -0.007   0.001  -0.036   0.000   0.000 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:6:1
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.432   4.982  78.364 -15.064  87.865 total_with_repeater_off
+ 14.936 179.443   4.982  78.355 -15.064  87.840 total_with_repeater_on
+ -0.001  -0.036   0.000   0.006   0.001   0.003 increase_with_0000
+  0.000   0.009   0.001   0.026  -0.002  -0.026 increase_with_0080
+ -0.001  -0.009   0.000   0.019   0.000   0.016 increase_with_0001
+  0.000   0.002   0.000   0.010  -0.001  -0.002 increase_with_1080
+ -0.001  -0.046   0.000   0.000   0.000  -0.013 increase_with_0480
+ -0.001  -0.042   0.000   0.006   0.000  -0.007 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:6:2
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.435   4.982  78.346 -15.064  87.816 total_with_repeater_off
+ 14.935 179.396   4.982  78.335 -15.064  87.856 total_with_repeater_on
+ -0.001   0.022   0.000   0.040   0.001  -0.062 increase_with_0000
+  0.001   0.039   0.000   0.052   0.000  -0.061 increase_with_0080
+  0.001   0.007   0.000   0.036   0.000  -0.043 increase_with_0001
+  0.000  -0.004   0.000   0.023   0.001  -0.061 increase_with_1080
+  0.001   0.029   0.000   0.003  -0.001  -0.063 increase_with_0480
+  0.002   0.047   0.000   0.074  -0.001  -0.043 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.2 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:6:3
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.421   4.982  78.416 -15.064  87.806 total_with_repeater_off
+ 14.937 179.411   4.983  78.355 -15.065  87.805 total_with_repeater_on
+ -0.002  -0.033  -0.001  -0.003   0.001   0.017 increase_with_0000
+  0.000   0.018   0.000   0.003  -0.001   0.011 increase_with_0080
+ -0.001  -0.001  -0.001   0.016   0.000  -0.020 increase_with_0001
+  0.000   0.004   0.000  -0.002  -0.001  -0.013 increase_with_1080
+ -0.001   0.005   0.000   0.000  -0.001  -0.011 increase_with_0480
+ -0.002  -0.021  -0.001   0.034   0.001  -0.032 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:6:4
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.937 179.425   4.982  78.365 -15.065  87.747 total_with_repeater_off
+ 14.935 179.374   4.982  78.343 -15.064  87.790 total_with_repeater_on
+  0.001   0.024   0.000   0.039  -0.001  -0.018 increase_with_0000
+  0.001   0.008   0.000   0.011   0.000  -0.010 increase_with_0080
+  0.000   0.000   0.000   0.017   0.000  -0.001 increase_with_0001
+  0.003   0.061   0.000   0.032  -0.002  -0.015 increase_with_1080
+  0.001   0.039   0.001   0.093  -0.001  -0.063 increase_with_0480
+  0.000  -0.003   0.000   0.038   0.001  -0.033 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.2 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:6:5
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.410   4.982  78.382 -15.065  87.735 total_with_repeater_off
+ 14.937 179.412   4.983  78.391 -15.066  87.750 total_with_repeater_on
+  0.000  -0.020   0.000  -0.024   0.001   0.023 increase_with_0000
+ -0.002  -0.044  -0.001  -0.015   0.002  -0.001 increase_with_0080
+ -0.001  -0.021   0.000  -0.019   0.001   0.004 increase_with_0001
+ -0.002  -0.043  -0.001  -0.034   0.002   0.003 increase_with_1080
+ -0.001  -0.005   0.000  -0.037   0.001  -0.008 increase_with_0480
+ -0.001  -0.032  -0.001  -0.034   0.001  -0.016 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:6:6
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.383   4.982  78.379 -15.064  87.739 total_with_repeater_off
+ 14.935 179.348   4.982  78.398 -15.064  87.739 total_with_repeater_on
+  0.000   0.020   0.000  -0.033   0.000  -0.022 increase_with_0000
+  0.000   0.007   0.000  -0.065   0.000   0.012 increase_with_0080
+  0.002   0.029   0.001  -0.037  -0.002   0.005 increase_with_0001
+  0.001   0.009   0.000  -0.037  -0.001   0.014 increase_with_1080
+  0.002   0.044   0.001  -0.027  -0.002   0.000 increase_with_0480
+  0.002   0.037   0.001  -0.007  -0.002   0.003 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:6:7
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.359   4.982  78.347 -15.064  87.715 total_with_repeater_off
+ 14.936 179.373   4.983  78.381 -15.065  87.709 total_with_repeater_on
+ -0.001  -0.007  -0.001   0.017   0.001   0.003 increase_with_0000
+  0.000  -0.024  -0.001   0.020   0.001  -0.004 increase_with_0080
+  0.000  -0.003  -0.001   0.014   0.000  -0.008 increase_with_0001
+  0.000  -0.025  -0.001  -0.013   0.001  -0.009 increase_with_1080
+ -0.001  -0.024  -0.001  -0.011   0.001   0.005 increase_with_0480
+  0.000  -0.018  -0.001   0.013  -0.001  -0.004 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:6:8
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.344   4.982  78.418 -15.065  87.733 total_with_repeater_off
+ 14.936 179.337   4.982  78.358 -15.064  87.698 total_with_repeater_on
+  0.000   0.023   0.000   0.040  -0.001  -0.025 increase_with_0000
+  0.000   0.022   0.000  -0.007  -0.001  -0.012 increase_with_0080
+  0.000   0.026   0.000   0.042  -0.001  -0.015 increase_with_0001
+ -0.001   0.024   0.000   0.001   0.000  -0.004 increase_with_1080
+ -0.001   0.003   0.000   0.032   0.001  -0.011 increase_with_0480
+  0.000   0.049   0.000   0.035  -0.001  -0.039 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:6:9
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.342   4.982  78.332 -15.064  87.710 total_with_repeater_off
+ 14.935 179.339   4.982  78.371 -15.064  87.677 total_with_repeater_on
+  0.000   0.003   0.000   0.012  -0.001   0.020 increase_with_0000
+  0.001  -0.012   0.000  -0.010  -0.001   0.013 increase_with_0080
+  0.001  -0.008   0.000  -0.013  -0.001   0.037 increase_with_0001
+  0.001   0.057   0.000   0.036  -0.001  -0.023 increase_with_1080
+  0.000   0.018   0.000   0.000   0.000  -0.030 increase_with_0480
+  0.001   0.003   0.001   0.009  -0.001  -0.006 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:6:10
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.937 179.349   4.982  78.376 -15.066  87.666 total_with_repeater_off
+ 14.935 179.290   4.982  78.358 -15.064  87.688 total_with_repeater_on
+  0.000   0.043   0.000  -0.007  -0.001  -0.022 increase_with_0000
+  0.000   0.044   0.000   0.033   0.000  -0.045 increase_with_0080
+  0.001   0.036   0.000  -0.015   0.000  -0.027 increase_with_0001
+  0.000   0.046   0.000   0.016   0.001  -0.067 increase_with_1080
+  0.000   0.036   0.000  -0.006   0.000  -0.051 increase_with_0480
+  0.000   0.030   0.000  -0.002   0.000  -0.016 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:7:1
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.346   4.982  78.339 -15.065  87.658 total_with_repeater_off
+ 14.935 179.343   4.982  78.400 -15.064  87.657 total_with_repeater_on
+  0.000  -0.059   0.000  -0.070   0.001  -0.002 increase_with_0000
+  0.000  -0.018   0.000  -0.038   0.000  -0.027 increase_with_0080
+  0.001  -0.017   0.000  -0.032  -0.001  -0.019 increase_with_0001
+  0.001   0.011   0.000  -0.035  -0.001  -0.049 increase_with_1080
+  0.001  -0.027   0.000  -0.041  -0.001  -0.022 increase_with_0480
+  0.001  -0.029   0.000   0.000  -0.001  -0.012 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:7:2
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.319   4.982  78.372 -15.065  87.650 total_with_repeater_off
+ 14.935 179.302   4.982  78.376 -15.064  87.646 total_with_repeater_on
+  0.000  -0.004   0.000  -0.029   0.000   0.022 increase_with_0000
+  0.001   0.018   0.001  -0.042  -0.002  -0.017 increase_with_0080
+  0.000   0.010   0.000  -0.037   0.000  -0.039 increase_with_0001
+ -0.001  -0.024   0.000  -0.038   0.001  -0.014 increase_with_1080
+  0.000   0.004   0.000  -0.029  -0.001  -0.021 increase_with_0480
+  0.000  -0.001   0.000  -0.001   0.000  -0.028 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:7:3
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.302   4.982  78.360 -15.064  87.627 total_with_repeater_off
+ 14.935 179.292   4.982  78.352 -15.065  87.634 total_with_repeater_on
+  0.000   0.016   0.000   0.030   0.000   0.006 increase_with_0000
+  0.003   0.056   0.000   0.012  -0.002  -0.005 increase_with_0080
+  0.001   0.023   0.000   0.019   0.000  -0.034 increase_with_0001
+  0.002   0.017   0.001   0.031  -0.001  -0.020 increase_with_1080
+  0.001   0.010   0.000  -0.006   0.000  -0.009 increase_with_0480
+  0.000   0.013   0.000   0.020   0.001  -0.019 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:7:4
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.287   4.982  78.325 -15.064  87.629 total_with_repeater_off
+ 14.936 179.302   4.982  78.343 -15.065  87.630 total_with_repeater_on
+ -0.001  -0.002   0.000   0.045   0.002  -0.056 increase_with_0000
+  0.001   0.020   0.000   0.022  -0.001  -0.033 increase_with_0080
+  0.000   0.006   0.000   0.016   0.000  -0.011 increase_with_0001
+ -0.001   0.007   0.000   0.064   0.001  -0.050 increase_with_1080
+ -0.001  -0.028   0.000   0.048   0.001  -0.028 increase_with_0480
+  0.000  -0.012   0.000   0.066   0.000  -0.014 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.2 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:7:5
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.278   4.982  78.345 -15.065  87.611 total_with_repeater_off
+ 14.936 179.302   4.982  78.401 -15.065  87.595 total_with_repeater_on
+ -0.001  -0.016   0.000  -0.012   0.001  -0.006 increase_with_0000
+  0.000  -0.018   0.000  -0.049   0.000   0.010 increase_with_0080
+ -0.001  -0.013   0.000  -0.031   0.000  -0.004 increase_with_0001
+  0.000  -0.023   0.000  -0.022   0.000   0.001 increase_with_1080
+  0.000  -0.006   0.000  -0.008   0.000  -0.003 increase_with_0480
+  0.001  -0.006   0.000  -0.020   0.000  -0.026 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:7:6
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.302   4.982  78.362 -15.065  87.565 total_with_repeater_off
+ 14.937 179.296   4.982  78.380 -15.065  87.577 total_with_repeater_on
+  0.000  -0.013   0.001  -0.006  -0.001   0.009 increase_with_0000
+  0.000   0.033   0.001   0.035  -0.001  -0.015 increase_with_0080
+  0.000   0.015   0.000   0.004  -0.001  -0.005 increase_with_0001
+  0.000   0.004   0.001   0.006  -0.002   0.001 increase_with_1080
+  0.002   0.025   0.001   0.021  -0.003   0.007 increase_with_0480
+  0.000  -0.021   0.000   0.004  -0.001   0.015 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:7:7
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 19.358 207.252   6.456  84.888 -19.524 138.855 total_with_repeater_off
+ 14.936 179.301   4.982  78.364 -15.065  87.568 total_with_repeater_on
+  0.000   0.031   0.000   0.003   0.000  -0.009 increase_with_0000
+  0.000  -0.012   0.000   0.024   0.000   0.006 increase_with_0080
+ -0.002  -0.054   0.000   0.019   0.002   0.016 increase_with_0001
+  0.000  -0.032   0.000   0.012   0.001  -0.006 increase_with_1080
+ -0.001  -0.038   0.000  -0.012   0.000  -0.021 increase_with_0480
+  0.001  -0.006   0.000  -0.007  -0.002  -0.013 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:7:8
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.270   4.982  78.406 -15.064  87.528 total_with_repeater_off
+ 14.935 179.267   4.982  78.389 -15.064  87.536 total_with_repeater_on
+  0.000   0.009   0.001  -0.028   0.000   0.030 increase_with_0000
+  0.001  -0.019   0.001   0.005   0.000   0.010 increase_with_0080
+  0.000   0.002   0.000  -0.020   0.000   0.011 increase_with_0001
+  0.002   0.000   0.000  -0.072  -0.002   0.053 increase_with_1080
+  0.002   0.028   0.001  -0.032  -0.002   0.011 increase_with_0480
+  0.002   0.009   0.001  -0.034  -0.003   0.030 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:7:9
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.256   4.983  78.385 -15.064  87.577 total_with_repeater_off
+ 14.936 179.258   4.982  78.376 -15.065  87.519 total_with_repeater_on
+  0.000   0.031   0.000   0.009   0.000   0.012 increase_with_0000
+  0.001   0.007   0.000  -0.028   0.000   0.028 increase_with_0080
+  0.000   0.030   0.000  -0.020  -0.001   0.023 increase_with_0001
+  0.001   0.013   0.001   0.011  -0.001   0.012 increase_with_1080
+  0.000  -0.009   0.000  -0.051   0.000   0.059 increase_with_0480
+  0.001   0.007   0.000  -0.031   0.000   0.031 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:7:10
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.296   4.982  78.359 -15.065  87.524 total_with_repeater_off
+ 14.935 179.233   4.983  78.361 -15.064  87.531 total_with_repeater_on
+  0.000   0.025  -0.001   0.013   0.000  -0.026 increase_with_0000
+  0.001   0.022  -0.001   0.000  -0.001  -0.014 increase_with_0080
+  0.000   0.008  -0.001   0.000   0.000   0.026 increase_with_0001
+  0.001   0.020  -0.001   0.033  -0.001  -0.036 increase_with_1080
+  0.001   0.047  -0.001  -0.016  -0.001   0.008 increase_with_0480
+  0.001   0.014  -0.001   0.024  -0.001  -0.004 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:8:1
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.264   4.982  78.314 -15.065  87.546 total_with_repeater_off
+ 14.935 179.229   4.982  78.363 -15.065  87.541 total_with_repeater_on
+  0.000   0.034   0.000  -0.004   0.001  -0.040 increase_with_0000
+  0.000   0.015   0.000   0.012   0.000  -0.038 increase_with_0080
+  0.001   0.018   0.000   0.020   0.000  -0.014 increase_with_0001
+  0.002   0.048   0.000   0.004  -0.001  -0.059 increase_with_1080
+  0.000   0.006   0.000  -0.002   0.001  -0.009 increase_with_0480
+  0.002   0.051   0.001   0.006  -0.001  -0.040 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:8:2
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.228   4.982  78.350 -15.064  87.544 total_with_repeater_off
+ 14.935 179.245   4.982  78.338 -15.064  87.493 total_with_repeater_on
+  0.000   0.007   0.000   0.031  -0.001   0.028 increase_with_0000
+  0.001   0.015   0.000   0.022  -0.001   0.036 increase_with_0080
+  0.000   0.011   0.000   0.048   0.000  -0.005 increase_with_0001
+  0.001  -0.005   0.000   0.044  -0.001   0.014 increase_with_1080
+  0.001   0.003   0.000   0.062  -0.001   0.013 increase_with_0480
+  0.000  -0.039   0.000   0.030   0.000   0.033 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:8:3
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.247   4.982  78.367 -15.064  87.487 total_with_repeater_off
+ 14.937 179.276   4.982  78.401 -15.066  87.488 total_with_repeater_on
+ -0.001  -0.027   0.000  -0.039   0.001   0.018 increase_with_0000
+  0.000  -0.023   0.000  -0.010   0.000   0.058 increase_with_0080
+ -0.001  -0.030   0.000  -0.008   0.001  -0.009 increase_with_0001
+ -0.002  -0.049   0.000  -0.032   0.003  -0.004 increase_with_1080
+ -0.002  -0.071   0.000  -0.008   0.002   0.010 increase_with_0480
+  0.000  -0.033   0.000  -0.036   0.000   0.054 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:8:4
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.934 179.223   4.982  78.341 -15.064  87.510 total_with_repeater_off
+ 14.935 179.249   4.982  78.337 -15.064  87.490 total_with_repeater_on
+  0.001  -0.020   0.000   0.030  -0.001  -0.007 increase_with_0000
+  0.001  -0.016   0.000   0.056  -0.002   0.023 increase_with_0080
+  0.001   0.018   0.000   0.059  -0.001  -0.038 increase_with_0001
+  0.001  -0.007   0.001   0.025  -0.001   0.016 increase_with_1080
+  0.001  -0.038   0.001   0.005  -0.001   0.018 increase_with_0480
+  0.001  -0.019   0.001  -0.019  -0.001  -0.008 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:8:5
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.223   4.983  78.378 -15.065  87.498 total_with_repeater_off
+ 14.935 179.229   4.982  78.329 -15.064  87.470 total_with_repeater_on
+  0.001   0.017   0.000   0.075  -0.001  -0.009 increase_with_0000
+  0.002   0.049   0.000   0.069  -0.003   0.003 increase_with_0080
+  0.001   0.009   0.000   0.024  -0.001  -0.003 increase_with_0001
+  0.000  -0.030   0.000   0.041   0.000   0.005 increase_with_1080
+  0.000   0.016   0.000   0.074   0.000  -0.017 increase_with_0480
+  0.002   0.020   0.001   0.063  -0.002  -0.004 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.2 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:8:6
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.232   4.982  78.381 -15.065  87.473 total_with_repeater_off
+ 14.935 179.214   4.982  78.403 -15.064  87.465 total_with_repeater_on
+  0.001   0.035   0.000   0.001  -0.002   0.019 increase_with_0000
+  0.000   0.003   0.000  -0.016   0.000   0.043 increase_with_0080
+  0.002   0.018   0.001  -0.020  -0.003   0.009 increase_with_0001
+  0.001   0.025   0.000  -0.020  -0.002  -0.006 increase_with_1080
+  0.002   0.054   0.000  -0.012  -0.002   0.003 increase_with_0480
+  0.001  -0.005   0.001  -0.020  -0.001  -0.003 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:8:7
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 19.494 207.785   6.502  84.857 -19.662 140.528 total_with_repeater_off
+ 14.936 179.249   4.983  78.369 -15.066  87.452 total_with_repeater_on
+ -0.001  -0.024  -0.001   0.036   0.002   0.012 increase_with_0000
+  0.001  -0.015  -0.001   0.035   0.000   0.007 increase_with_0080
+  0.000  -0.041   0.000   0.038   0.001  -0.019 increase_with_0001
+  0.000  -0.024  -0.001   0.020   0.001   0.019 increase_with_1080
+  0.000  -0.005   0.000  -0.009   0.001  -0.018 increase_with_0480
+  0.001  -0.008   0.000   0.031   0.000   0.014 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:8:8
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.935 179.220   4.982  78.379 -15.065  87.457 total_with_repeater_off
+ 14.934 179.194   4.982  78.383 -15.063  87.429 total_with_repeater_on
+  0.004   0.050   0.000   0.032  -0.003   0.023 increase_with_0000
+  0.002   0.034   0.000  -0.008  -0.002   0.029 increase_with_0080
+  0.001   0.047   0.001   0.015  -0.002   0.006 increase_with_0001
+  0.002   0.027   0.000   0.011  -0.003   0.008 increase_with_1080
+  0.001   0.039   0.000  -0.016  -0.001   0.016 increase_with_0480
+  0.001   0.008   0.000  -0.012  -0.001   0.030 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:8:9
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.934 179.193   4.982  78.386 -15.064  87.467 total_with_repeater_off
+ 14.936 179.215   4.982  78.354 -15.065  87.435 total_with_repeater_on
+ -0.001  -0.012   0.000  -0.007   0.001   0.012 increase_with_0000
+  0.000  -0.001   0.001  -0.028   0.000  -0.020 increase_with_0080
+ -0.001  -0.009   0.000  -0.001   0.001   0.006 increase_with_0001
+  0.001   0.015   0.001   0.021  -0.002   0.028 increase_with_1080
+  0.001   0.009   0.001   0.026  -0.001   0.007 increase_with_0480
+  0.001   0.007   0.000   0.019  -0.001   0.020 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+Analyzing 10.145.44.16:4090:00000000:8:10
+ V1 (V)  I1 (mA)  V2 (V) I2 (mA) V3 (V)  I3 (mA)
+ 14.936 179.226   4.982  78.391 -15.065  87.433 total_with_repeater_off
+ 14.937 179.243   4.983  78.362 -15.066  87.451 total_with_repeater_on
+ -0.002  -0.023  -0.001   0.029   0.002  -0.029 increase_with_0000
+  0.000  -0.014   0.000   0.027   0.000  -0.024 increase_with_0080
+ -0.002  -0.018  -0.001   0.023   0.002  -0.047 increase_with_0001
+  0.000   0.006  -0.001   0.030   0.000  -0.037 increase_with_1080
+ -0.002  -0.023  -0.001   0.013   0.001  -0.022 increase_with_0480
+ -0.003  -0.041  -0.001  -0.019   0.002  -0.030 increase_with_8280
+Multplexer-Repeater Detected = No.
+Device Type = NONE.
+Loop Time = 3125 ns.
+Current Error = 0.1 mA.
+Done.
+
+
