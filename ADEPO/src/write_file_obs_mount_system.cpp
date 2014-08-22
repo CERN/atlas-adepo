@@ -8,6 +8,7 @@
 #include "ctime"
 #include "sstream"
 #include <QString>
+#include <stdio.h>
 
 #define um2m 0.000001
 
@@ -20,6 +21,7 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
         std::cout << "WARNING Cannot write output file " << fileName.toStdString() << std::endl;
         return 0;
     }
+    FILE* file = fopen("test", "w");  // ouverture en écriture avec effacement du fichier ouvert
 
   // setup default precision
     fichier<<std::fixed<<std::setprecision(8);
@@ -50,6 +52,9 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
                     fichier
                                    <<"Spot 1"<<" "<<spot2.getI1CCD()*um2m<<" "<<spot2.getJ1CCD()*um2m<<"\n"
                                    <<"Spot 2"<<" "<<spot2.getI2CCD()*um2m<<" "<<spot2.getJ2CCD()*um2m<<"\n";
+
+                    fprintf(file, "Spot 1 % .8f % .8f\n", spot2.getI1CCD()*um2m, spot2.getJ1CCD()*um2m);
+                    fprintf(file, "Spot 2 % .8f % .8f\n", spot2.getI2CCD()*um2m, spot2.getJ2CCD()*um2m);
                 }
             }
         }
@@ -198,6 +203,7 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
         }
 
     fichier.close();
+    fclose(file);
     return 1;
 }
 
