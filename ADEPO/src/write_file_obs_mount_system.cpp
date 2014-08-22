@@ -22,7 +22,7 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
     }
 
   // setup default precision
-//        fichier<<std::fixed<<std::setprecision(8);
+    fichier<<std::fixed<<std::setprecision(8);
 
     std::cout << "Writing results into " << fileName.toStdString() << std::endl;
 
