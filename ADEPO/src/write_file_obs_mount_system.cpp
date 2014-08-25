@@ -75,8 +75,8 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
                 mount_coord_spots spots2 = base_donnees.getMountCoordSpots().at(j);
                 if(spots1.getName() == spots2.getName())
                 {
-                    fichier<<"Spot 1"<<" "<<spots2.getCoord1().x()<<" "<<spots2.getCoord1().y()<<" "<<spots2.getCoord1().z()<<"\n"
-                           <<"Spot 2"<<" "<<spots2.getCoord2().x()<<" "<<spots2.getCoord2().y()<<" "<<spots2.getCoord2().z()<<"\n";
+                    fichier<<"Spot 1"<<" "<<setw(12)<<spots2.getCoord1().x()<<" "<<setw(12)<<spots2.getCoord1().y()<<" "<<setw(12)<<spots2.getCoord1().z()<<"\n"
+                           <<"Spot 2"<<" "<<setw(12)<<spots2.getCoord2().x()<<" "<<setw(12)<<spots2.getCoord2().y()<<" "<<setw(12)<<spots2.getCoord2().z()<<"\n";
                 }
             }
         }
@@ -99,7 +99,7 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
                 mount_coord_prism prism2 = base_donnees.getMountCoordPrisms().at(j);
                 if(prism1.getName() == prism2.getName())
                 {
-                    fichier<<prism2.getCoordPrismMountSys().x()<<" "<<prism2.getCoordPrismMountSys().y()<<" "<<prism2.getCoordPrismMountSys().z()<<"\n";
+                    fichier<<setw(12)<<prism2.getCoordPrismMountSys().x()<<" "<<setw(12)<<prism2.getCoordPrismMountSys().y()<<" "<<setw(12)<<prism2.getCoordPrismMountSys().z()<<"\n";
                 }
             }
         }
@@ -122,7 +122,7 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
                 global_coord_prism prism2 = base_donnees.getGlobalCoordPrisms().at(j);
                 if(prism1.getName() == prism2.getName())
                 {
-                    fichier<<prism2.getCoordPrismMountSys().x()<<" "<<prism2.getCoordPrismMountSys().y()<<" "<<prism2.getCoordPrismMountSys().z()<<"\n";
+                    fichier<<setw(12)<<prism2.getCoordPrismMountSys().x()<<" "<<setw(12)<<prism2.getCoordPrismMountSys().y()<<" "<<setw(12)<<prism2.getCoordPrismMountSys().z()<<"\n";
                 }
             }
         }
@@ -193,9 +193,10 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
                 }
             }
             //enregistrement dans le fichier de resultats
-            fichier<<name_bcam_atlas<<"_"<<name_prism_atlas<<" "<<datetime.toStdString()<<" "
-                 <<result_mean(0,0)+delta_x<<" "<<result_mean(0,1)+delta_y<<" "<<result_mean(0,2)+delta_z<<" "
-                 <<result_std(0,0)<<" "<<result_std(0,1)<<" "<<result_std(0,2)
+            std::string name = name_bcam_atlas.append("_").append(name_prism_atlas);
+            fichier<<left<<setw(27)<<name<<" "<<datetime.toStdString()<<" "
+                 <<setw(12)<<result_mean(0,0)+delta_x<<" "<<setw(12)<<result_mean(0,1)+delta_y<<" "<<setw(12)<<result_mean(0,2)+delta_z<<" "
+                 <<setw(12)<<result_std(0,0)<<" "<<setw(12)<<result_std(0,1)<<" "<<setw(12)<<result_std(0,2)
                  <<" "<<airpad<<" VRAI \n";
         }
 
