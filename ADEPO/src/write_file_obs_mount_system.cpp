@@ -11,6 +11,8 @@
 
 #define um2m 0.000001
 
+using namespace std;
+
 int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_donnees)
 {
     //écriture dans un fichier
@@ -48,8 +50,8 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
                 if(spot1.getName() == spot2.getName())
                 {
                     fichier
-                                   <<"Spot 1"<<" "<<spot2.getI1CCD()*um2m<<" "<<spot2.getJ1CCD()*um2m<<"\n"
-                                   <<"Spot 2"<<" "<<spot2.getI2CCD()*um2m<<" "<<spot2.getJ2CCD()*um2m<<"\n";
+                                   <<"Spot 1"<<" "<<setw(12)<<spot2.getI1CCD()*um2m<<" "<<setw(12)<<spot2.getJ1CCD()*um2m<<"\n"
+                                   <<"Spot 2"<<" "<<setw(12)<<spot2.getI2CCD()*um2m<<" "<<setw(12)<<spot2.getJ2CCD()*um2m<<"\n";
                 }
             }
         }
