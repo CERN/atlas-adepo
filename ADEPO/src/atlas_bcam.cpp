@@ -563,7 +563,7 @@ void ATLAS_BCAM::lancer_acquisition()
 
     //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
     std::cout << "*** Removing " << resultFile.fileName().toStdString() << std::endl;
-    if (!resultFile.remove()) {
+    if (resultFile.exists() && !resultFile.remove()) {
         std::cout << "WARNING Cannot remove result file " << resultFile.fileName().toStdString() << std::endl;
         std::cout << "WARNING Start aborted." << std::endl;
         return;
