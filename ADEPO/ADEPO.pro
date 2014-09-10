@@ -55,6 +55,7 @@ INCLUDEPATH += ./eigen-eigen-ffa86ffb5570
 
 QT += core gui network widgets testlib
 
+QMAKE_MAC_SDK = macosx10.9
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
 
 unix:!mac{
