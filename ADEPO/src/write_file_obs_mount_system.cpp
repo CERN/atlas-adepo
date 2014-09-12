@@ -194,7 +194,7 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
             }
             //enregistrement dans le fichier de resultats
             std::string name = name_bcam_atlas.append("_").append(name_prism_atlas);
-            fichier<<left<<setw(27)<<name<<" "<<datetime.toStdString()<<" "
+            fichier<<left<<setw(30)<<name<<" "<<datetime.toStdString()<<" "
                  <<right<<setw(14)<<result_mean(0,0)+delta_x<<" "<<setw(14)<<result_mean(0,1)+delta_y<<" "<<setw(14)<<result_mean(0,2)+delta_z<<" "
                  <<setw(14)<<result_std(0,0)<<" "<<setw(14)<<result_std(0,1)<<" "<<setw(14)<<result_std(0,2)
                  <<" "<<airpad<<" VRAI \n";

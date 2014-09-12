@@ -30,7 +30,7 @@ int write_ref(QString fileName, map<string, result> &results) {
 
         string datetime = result.getTime();
 
-        file << left << setw(14) << i->first << " "
+        file << left << setw(18) << i->first << " "
              << datetime << " "
              << right
              << setw(4) << result.getN() << " "
