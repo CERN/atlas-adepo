@@ -10,6 +10,7 @@ class Point3f
         //constructeurs et destructeurs
         Point3f() : mValid(true),mX(0),mY(0),mZ(0) {};
         Point3f(float X,float Y,float Z) : mValid(true),mX(X),mY(Y),mZ(Z) {};
+        Point3f(bool valid, float X,float Y,float Z) : mValid(valid),mX(X),mY(Y),mZ(Z) {};
         Point3f(bool valid) : mValid(valid),mX(0),mY(0),mZ(0) {};
         virtual ~Point3f() {};
         Point3f(const Point3f& copie) : mValid(copie.mValid),mX(copie.mX),mY(copie.mY),mZ(copie.mZ) {};
@@ -19,11 +20,8 @@ class Point3f
         //setter et getter
         bool isValid() { return mValid; }
         float x() const { return mX; }
-//        void Set_X(float val) { m_X = val; }
         float y() const { return mY; }
-//        void Set_Y(float val) { m_Y = val; }
         float z() const { return mZ; }
-//        void Set_Z(float val) { m_Z = val; }
 
         //methodes
         void print() {

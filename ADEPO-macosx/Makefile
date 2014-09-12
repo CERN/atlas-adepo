@@ -58,7 +58,8 @@ SOURCES       = ../ADEPO/src/write_file_obs_mount_system.cpp \
 		../ADEPO/src/changement_repere.cpp \
 		../ADEPO/src/mount_prism_to_global_prism.cpp \
 		../ADEPO/src/lwdaq_client.cpp \
-		../ADEPO/src/bdd.cpp moc_atlas_bcam.cpp \
+		../ADEPO/src/bdd.cpp \
+		../ADEPO/src/read_write_ref.cpp moc_atlas_bcam.cpp \
 		moc_lwdaq_client.cpp
 OBJECTS       = write_file_obs_mount_system.o \
 		read_lwdaq_output.o \
@@ -74,6 +75,7 @@ OBJECTS       = write_file_obs_mount_system.o \
 		mount_prism_to_global_prism.o \
 		lwdaq_client.o \
 		bdd.o \
+		read_write_ref.o \
 		moc_atlas_bcam.o \
 		moc_lwdaq_client.o
 DIST          = ../../../../Qt5.3.1/5.3/clang_64/mkspecs/features/spec_pre.prf \
@@ -206,7 +208,8 @@ DIST          = ../../../../Qt5.3.1/5.3/clang_64/mkspecs/features/spec_pre.prf \
 		../ADEPO/src/changement_repere.cpp \
 		../ADEPO/src/mount_prism_to_global_prism.cpp \
 		../ADEPO/src/lwdaq_client.cpp \
-		../ADEPO/src/bdd.cpp
+		../ADEPO/src/bdd.cpp \
+		../ADEPO/src/read_write_ref.cpp
 QMAKE_TARGET  = ADEPO
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = ADEPO.app/Contents/MacOS/ADEPO
@@ -516,7 +519,7 @@ ADEPO.app/Contents/Info.plist:
 	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@ICON@,,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.ADEPO,g" -e "s,@EXECUTABLE@,ADEPO,g" -e "s,@TYPEINFO@,????,g" ../../../../Qt5.3.1/5.3/clang_64/mkspecs/macx-clang/Info.plist.app >ADEPO.app/Contents/Info.plist
 dist: 
 	@test -d .tmp/ADEPO1.0.0 || mkdir -p .tmp/ADEPO1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/header/adepo.h ../ADEPO/header/write_file_obs_mount_system.h ../ADEPO/header/spot.h ../ADEPO/header/read_lwdaq_output.h ../ADEPO/header/read_input.h ../ADEPO/header/read_calibration_database.h ../ADEPO/header/Point3f.h ../ADEPO/header/mount_coord_spots.h ../ADEPO/header/mount_coord_prism.h ../ADEPO/header/img_coord_to_bcam_coord.h ../ADEPO/header/detector.h ../ADEPO/header/clean_calib.h ../ADEPO/header/calib2.h ../ADEPO/header/calib1.h ../ADEPO/header/calcul_coord_bcam_system.h ../ADEPO/header/bdd.h ../ADEPO/header/bcam.h ../ADEPO/header/atlas_bcam.h ../ADEPO/header/bcam_adaptateur.h ../ADEPO/header/absolutes_distances.h ../ADEPO/header/atlas_coordinates.h ../ADEPO/header/helmert.h ../ADEPO/header/bcam_params.h ../ADEPO/header/changement_repere.h ../ADEPO/header/mount_prism_to_global_prism.h ../ADEPO/header/prism_correction.h ../ADEPO/header/result.h ../ADEPO/header/lwdaq_client.h ../ADEPO/header/adepo.h ../ADEPO/header/global_coord_prism.h ../ADEPO/header/float_table_widget_item.h .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/src/write_file_obs_mount_system.cpp ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/src/read_input.cpp ../ADEPO/src/read_calibration_database.cpp ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/src/clean_calib.cpp ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/src/atlas_bcam.cpp ../ADEPO/src/main.cpp ../ADEPO/src/helmert.cpp ../ADEPO/src/changement_repere.cpp ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/src/lwdaq_client.cpp ../ADEPO/src/bdd.cpp .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/ATLAS_BCAM.ui .tmp/ADEPO1.0.0/ && (cd `dirname .tmp/ADEPO1.0.0` && $(TAR) ADEPO1.0.0.tar ADEPO1.0.0 && $(COMPRESS) ADEPO1.0.0.tar) && $(MOVE) `dirname .tmp/ADEPO1.0.0`/ADEPO1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ADEPO1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/header/adepo.h ../ADEPO/header/write_file_obs_mount_system.h ../ADEPO/header/spot.h ../ADEPO/header/read_lwdaq_output.h ../ADEPO/header/read_input.h ../ADEPO/header/read_calibration_database.h ../ADEPO/header/Point3f.h ../ADEPO/header/mount_coord_spots.h ../ADEPO/header/mount_coord_prism.h ../ADEPO/header/img_coord_to_bcam_coord.h ../ADEPO/header/detector.h ../ADEPO/header/clean_calib.h ../ADEPO/header/calib2.h ../ADEPO/header/calib1.h ../ADEPO/header/calcul_coord_bcam_system.h ../ADEPO/header/bdd.h ../ADEPO/header/bcam.h ../ADEPO/header/atlas_bcam.h ../ADEPO/header/bcam_adaptateur.h ../ADEPO/header/absolutes_distances.h ../ADEPO/header/atlas_coordinates.h ../ADEPO/header/helmert.h ../ADEPO/header/bcam_params.h ../ADEPO/header/changement_repere.h ../ADEPO/header/mount_prism_to_global_prism.h ../ADEPO/header/prism_correction.h ../ADEPO/header/result.h ../ADEPO/header/lwdaq_client.h ../ADEPO/header/adepo.h ../ADEPO/header/global_coord_prism.h ../ADEPO/header/float_table_widget_item.h ../ADEPO/header/read_write_ref.h .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/src/write_file_obs_mount_system.cpp ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/src/read_input.cpp ../ADEPO/src/read_calibration_database.cpp ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/src/clean_calib.cpp ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/src/atlas_bcam.cpp ../ADEPO/src/main.cpp ../ADEPO/src/helmert.cpp ../ADEPO/src/changement_repere.cpp ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/src/lwdaq_client.cpp ../ADEPO/src/bdd.cpp ../ADEPO/src/read_write_ref.cpp .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/ATLAS_BCAM.ui .tmp/ADEPO1.0.0/ && (cd `dirname .tmp/ADEPO1.0.0` && $(TAR) ADEPO1.0.0.tar ADEPO1.0.0 && $(COMPRESS) ADEPO1.0.0.tar) && $(MOVE) `dirname .tmp/ADEPO1.0.0`/ADEPO1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ADEPO1.0.0
 
 
 clean:compiler_clean 
@@ -2263,6 +2266,12 @@ bdd.o: ../ADEPO/src/bdd.cpp ../ADEPO/header/adepo.h \
 		../ADEPO/header/bcam_params.h \
 		../ADEPO/header/prism_correction.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bdd.o ../ADEPO/src/bdd.cpp
+
+read_write_ref.o: ../ADEPO/src/read_write_ref.cpp ../../../../Qt5.3.1/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		../../../../Qt5.3.1/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		../ADEPO/header/result.h \
+		../ADEPO/header/Point3f.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o read_write_ref.o ../ADEPO/src/read_write_ref.cpp
 
 moc_atlas_bcam.o: moc_atlas_bcam.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_atlas_bcam.o moc_atlas_bcam.cpp

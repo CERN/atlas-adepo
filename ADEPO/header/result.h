@@ -19,6 +19,10 @@ public:
         name = _name;
     }
 
+    std::string getName() {
+        return name;
+    }
+
     void setTime(tm *_ltm) {
         ltm = _ltm;
     }

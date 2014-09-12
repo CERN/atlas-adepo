@@ -15,6 +15,7 @@
 #include "mount_prism_to_global_prism.h"
 #include "float_table_widget_item.h"
 #include "Eigen/Eigen"
+#include "read_write_ref.h"
 
 #include <iostream>
 #include <QtGui>
@@ -327,6 +328,11 @@ void ATLAS_BCAM::openInputDir() {
     //recuperation de la partie qui nous interesse du fichier de calibration
     //clean_calib(m_bdd);
 
+    // read reference file
+    QString refFile = "test";
+    read_ref(refFile, results);
+    display(ui->refFileLabel, ui->refFile, refFile);
+
     //activation du boutton pour lancer les acquisitions
     setEnabled(true);
 }
@@ -592,6 +598,7 @@ void ATLAS_BCAM::resetDelta() {
         i->second.setOffset();
     }
     updateResults(results);
+    write_ref("test", results);
 }
 
 void ATLAS_BCAM::changedFormat(int state) {
@@ -747,6 +754,7 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
         std::cout << prism << std::endl;
 
         result& r = results[prism];
+        r.setName(prism);
         QTableWidgetItem *n = new QTableWidgetItem(QString::number(r.getN()));
         ui->tableWidget_results->setItem(row, 3, n);
 
