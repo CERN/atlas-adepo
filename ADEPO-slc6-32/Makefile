@@ -58,7 +58,8 @@ SOURCES       = ../ADEPO/src/write_file_obs_mount_system.cpp \
 		../ADEPO/src/changement_repere.cpp \
 		../ADEPO/src/mount_prism_to_global_prism.cpp \
 		../ADEPO/src/lwdaq_client.cpp \
-		../ADEPO/src/bdd.cpp moc_atlas_bcam.cpp \
+		../ADEPO/src/bdd.cpp \
+		../ADEPO/src/read_write_ref.cpp moc_atlas_bcam.cpp \
 		moc_lwdaq_client.cpp
 OBJECTS       = write_file_obs_mount_system.o \
 		read_lwdaq_output.o \
@@ -74,6 +75,7 @@ OBJECTS       = write_file_obs_mount_system.o \
 		mount_prism_to_global_prism.o \
 		lwdaq_client.o \
 		bdd.o \
+		read_write_ref.o \
 		moc_atlas_bcam.o \
 		moc_lwdaq_client.o
 DIST          = ../../../Qt5.3.0-x86/5.3/gcc/mkspecs/features/spec_pre.prf \
@@ -197,7 +199,8 @@ DIST          = ../../../Qt5.3.0-x86/5.3/gcc/mkspecs/features/spec_pre.prf \
 		../ADEPO/src/changement_repere.cpp \
 		../ADEPO/src/mount_prism_to_global_prism.cpp \
 		../ADEPO/src/lwdaq_client.cpp \
-		../ADEPO/src/bdd.cpp
+		../ADEPO/src/bdd.cpp \
+		../ADEPO/src/read_write_ref.cpp
 QMAKE_TARGET  = ADEPO
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = ADEPO
@@ -466,7 +469,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/ADEPO1.0.0 || mkdir -p .tmp/ADEPO1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/header/adepo.h ../ADEPO/header/write_file_obs_mount_system.h ../ADEPO/header/spot.h ../ADEPO/header/read_lwdaq_output.h ../ADEPO/header/read_input.h ../ADEPO/header/read_calibration_database.h ../ADEPO/header/Point3f.h ../ADEPO/header/mount_coord_spots.h ../ADEPO/header/mount_coord_prism.h ../ADEPO/header/img_coord_to_bcam_coord.h ../ADEPO/header/detector.h ../ADEPO/header/clean_calib.h ../ADEPO/header/calib2.h ../ADEPO/header/calib1.h ../ADEPO/header/calcul_coord_bcam_system.h ../ADEPO/header/bdd.h ../ADEPO/header/bcam.h ../ADEPO/header/atlas_bcam.h ../ADEPO/header/bcam_adaptateur.h ../ADEPO/header/absolutes_distances.h ../ADEPO/header/atlas_coordinates.h ../ADEPO/header/helmert.h ../ADEPO/header/bcam_params.h ../ADEPO/header/changement_repere.h ../ADEPO/header/mount_prism_to_global_prism.h ../ADEPO/header/prism_correction.h ../ADEPO/header/result.h ../ADEPO/header/lwdaq_client.h ../ADEPO/header/adepo.h ../ADEPO/header/global_coord_prism.h ../ADEPO/header/float_table_widget_item.h .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/src/write_file_obs_mount_system.cpp ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/src/read_input.cpp ../ADEPO/src/read_calibration_database.cpp ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/src/clean_calib.cpp ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/src/atlas_bcam.cpp ../ADEPO/src/main.cpp ../ADEPO/src/helmert.cpp ../ADEPO/src/changement_repere.cpp ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/src/lwdaq_client.cpp ../ADEPO/src/bdd.cpp .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/ATLAS_BCAM.ui .tmp/ADEPO1.0.0/ && (cd `dirname .tmp/ADEPO1.0.0` && $(TAR) ADEPO1.0.0.tar ADEPO1.0.0 && $(COMPRESS) ADEPO1.0.0.tar) && $(MOVE) `dirname .tmp/ADEPO1.0.0`/ADEPO1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ADEPO1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/header/adepo.h ../ADEPO/header/write_file_obs_mount_system.h ../ADEPO/header/spot.h ../ADEPO/header/read_lwdaq_output.h ../ADEPO/header/read_input.h ../ADEPO/header/read_calibration_database.h ../ADEPO/header/Point3f.h ../ADEPO/header/mount_coord_spots.h ../ADEPO/header/mount_coord_prism.h ../ADEPO/header/img_coord_to_bcam_coord.h ../ADEPO/header/detector.h ../ADEPO/header/clean_calib.h ../ADEPO/header/calib2.h ../ADEPO/header/calib1.h ../ADEPO/header/calcul_coord_bcam_system.h ../ADEPO/header/bdd.h ../ADEPO/header/bcam.h ../ADEPO/header/atlas_bcam.h ../ADEPO/header/bcam_adaptateur.h ../ADEPO/header/absolutes_distances.h ../ADEPO/header/atlas_coordinates.h ../ADEPO/header/helmert.h ../ADEPO/header/bcam_params.h ../ADEPO/header/changement_repere.h ../ADEPO/header/mount_prism_to_global_prism.h ../ADEPO/header/prism_correction.h ../ADEPO/header/result.h ../ADEPO/header/lwdaq_client.h ../ADEPO/header/adepo.h ../ADEPO/header/global_coord_prism.h ../ADEPO/header/float_table_widget_item.h ../ADEPO/header/read_write_ref.h .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/src/write_file_obs_mount_system.cpp ../ADEPO/src/read_lwdaq_output.cpp ../ADEPO/src/read_input.cpp ../ADEPO/src/read_calibration_database.cpp ../ADEPO/src/img_coord_to_bcam_coord.cpp ../ADEPO/src/clean_calib.cpp ../ADEPO/src/calcul_coord_bcam_system.cpp ../ADEPO/src/atlas_bcam.cpp ../ADEPO/src/main.cpp ../ADEPO/src/helmert.cpp ../ADEPO/src/changement_repere.cpp ../ADEPO/src/mount_prism_to_global_prism.cpp ../ADEPO/src/lwdaq_client.cpp ../ADEPO/src/bdd.cpp ../ADEPO/src/read_write_ref.cpp .tmp/ADEPO1.0.0/ && $(COPY_FILE) --parents ../ADEPO/ATLAS_BCAM.ui .tmp/ADEPO1.0.0/ && (cd `dirname .tmp/ADEPO1.0.0` && $(TAR) ADEPO1.0.0.tar ADEPO1.0.0 && $(COMPRESS) ADEPO1.0.0.tar) && $(MOVE) `dirname .tmp/ADEPO1.0.0`/ADEPO1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/ADEPO1.0.0
 
 
 clean:compiler_clean 
@@ -614,19 +617,21 @@ moc_atlas_bcam.cpp: ../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QMainWindow \
 		../ADEPO/header/prism_correction.h \
 		../ADEPO/header/result.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QWidget \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QLineEdit \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qlineedit.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QTextBrowser \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtextbrowser.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtextedit.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qabstractscrollarea.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qframe.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextdocument.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextoption.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextcursor.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextformat.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qpen.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextoption.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QLineEdit \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qlineedit.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QLabel \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qlabel.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QTextEdit \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtextedit.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qabstractscrollarea.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextdocument.h \
 		../ADEPO/header/mythread.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/QtGui \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/QtGuiDepends \
@@ -2080,19 +2085,21 @@ atlas_bcam.o: ../ADEPO/src/atlas_bcam.cpp ../ADEPO/header/atlas_bcam.h \
 		../ADEPO/header/prism_correction.h \
 		../ADEPO/header/result.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QWidget \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QLineEdit \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qlineedit.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QTextBrowser \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtextbrowser.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtextedit.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qabstractscrollarea.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qframe.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextdocument.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextoption.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextcursor.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextformat.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qpen.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextoption.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QLineEdit \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qlineedit.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QLabel \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qlabel.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QTextEdit \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtextedit.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qabstractscrollarea.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/qtextdocument.h \
 		../ADEPO/header/mythread.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/QtGui \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtGui/QtGuiDepends \
@@ -2596,6 +2603,7 @@ atlas_bcam.o: ../ADEPO/src/atlas_bcam.cpp ../ADEPO/header/atlas_bcam.h \
 		../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/RealSchur_MKL.h \
 		../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/ComplexSchur_MKL.h \
 		../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h \
+		../ADEPO/header/read_write_ref.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtTest/QTest \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtTest/qtest.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtTest/qtest_global.h \
@@ -2942,14 +2950,16 @@ main.o: ../ADEPO/src/main.cpp ../ADEPO/header/bdd.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtabwidget.h \
 		../ADEPO/header/result.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QWidget \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QTextBrowser \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtextbrowser.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtextedit.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qabstractscrollarea.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qframe.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QLineEdit \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qlineedit.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qframe.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QLabel \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qlabel.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QTextEdit \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtextedit.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qabstractscrollarea.h \
 		../ADEPO/header/mythread.h \
 		../ADEPO/header/lwdaq_client.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/QtNetwork \
@@ -3788,6 +3798,46 @@ bdd.o: ../ADEPO/src/bdd.cpp ../ADEPO/header/adepo.h \
 		../ADEPO/header/bcam_params.h \
 		../ADEPO/header/prism_correction.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bdd.o ../ADEPO/src/bdd.cpp
+
+read_write_ref.o: ../ADEPO/src/read_write_ref.cpp ../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QString \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstring.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qchar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobal.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qconfig.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qfeatures.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsystemdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qprocessordetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qcompilerdetection.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypeinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qtypetraits.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qsysinfo.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qlogging.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qflags.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbasicatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qgenericatomic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_msvc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv7.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv6.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_armv5.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_ia64.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_mips.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_x86.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_gcc.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qatomic_unix.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qglobalstatic.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qmutex.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnumeric.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qbytearray.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qrefcount.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qnamespace.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qarraydata.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qstringbuilder.h \
+		../ADEPO/header/result.h \
+		../ADEPO/header/Point3f.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o read_write_ref.o ../ADEPO/src/read_write_ref.cpp
 
 moc_atlas_bcam.o: moc_atlas_bcam.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_atlas_bcam.o moc_atlas_bcam.cpp
