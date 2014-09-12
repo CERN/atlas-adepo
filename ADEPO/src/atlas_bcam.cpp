@@ -599,7 +599,6 @@ void ATLAS_BCAM::stop_acquisition()
 }
 
 void ATLAS_BCAM::resetDelta() {
-    read_ref(refFile, results);
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
         std::string name = ui->tableWidget_results->item(row, 0)->text().toStdString();
         result& r = results[name];
@@ -608,7 +607,6 @@ void ATLAS_BCAM::resetDelta() {
     }
 
     updateResults(results);
-    write_ref(refFile, results);
 
     display(ui->refFileLabel, ui->refFile, refFile);
 }
@@ -779,6 +777,8 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
         setResult(row, r);
     }
     ui->tableWidget_results->resizeColumnsToContents();
+
+    write_ref(refFile, results);
 }
 
 //fonction qui verifie qu'il n'y a pas d'erreurs dans le fichier de configuration                   [----> ok mais peut etre amelioree
