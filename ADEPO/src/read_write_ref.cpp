@@ -10,52 +10,59 @@
 #include "result.h"
 #include "Point3f.h"
 
-int write_ref(QString fileName, std::map<std::string, result> &results) {
-    std::ofstream file(fileName.toStdString().c_str(), std::ios::out | std::ios::trunc);
+using namespace std;
+
+int write_ref(QString fileName, map<string, result> &results) {
+    ofstream file(fileName.toStdString().c_str(), ios::out | ios::trunc);
     if(!file) {
-        std::cout << "WARNING Cannot write reference file " << fileName.toStdString() << std::endl;
+        cout << "WARNING Cannot write reference file " << fileName.toStdString() << endl;
         return 0;
     }
 
     // setup default precision
-    file<<std::fixed<<std::setprecision(8);
+    file << fixed<< setprecision(8);
 
-    for (std::map<std::string, result>::iterator i = results.begin(); i != results.end(); i++) {
+    for (map<string, result>::iterator i = results.begin(); i != results.end(); i++) {
         result& result = i->second;
         Point3f offset = result.getOffset();
-        file << i->first << " " << offset.isValid() << " " << offset.x() << " " << offset.y() << " " << offset.z() << std::endl;
+        file << left << setw(14) << i->first
+             << right << setw(2) << offset.isValid()
+             << setw(12) << offset.x()
+             << setw(12) << offset.y()
+             << setw(12) << offset.z() << endl;
     }
 
     file.close();
     return 1;
 }
 
-int read_ref(QString fileName, std::map<std::string, result> &results) {
-    std::ifstream file(fileName.toStdString().c_str(), std::ios::in);
+int read_ref(QString fileName, map<string, result> &results) {
+    ifstream file(fileName.toStdString().c_str(), ios::in);
     if(!file) {
-        std::cout << "WARNING Cannot read reference file " << fileName.toStdString() << std::endl;
+        cout << "WARNING Cannot read reference file " << fileName.toStdString() << endl;
         return 0;
     }
 
-    std::string line;
+    string line;
 
-    while(std::getline(file,line)) {
+    while(getline(file,line)) {
         // take ending off the line
         line.erase(line.find_last_not_of(" \n\r\t")+1);
 
         if(!line.empty())
         {
             char *buffer = strdup((char*)line.c_str());
-            std::string name = strtok(buffer, " " );
+            string name = strtok(buffer, " " );
             char *valid = strtok( NULL, " " );
             char *x = strtok( NULL, " " );
             char *y = strtok( NULL, " " );
             char *z = strtok( NULL, " " );
-            Point3f value(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
-            result r;
+            Point3f offset(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
+
+            // get it and put it back
+            result r = results[name];
             r.setName(name);
-            r.setValue(value);
-            r.setOffset();
+            r.setOffset(offset);
             results[name] = r;
         }
     }

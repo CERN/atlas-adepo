@@ -75,6 +75,7 @@ private:
 
     QDir lwdaqDir;
     QFile resultFile;
+    QString refFile;
     LWDAQ_Client *lwdaq_client;
     QLabel lwdaqStatus;
     bool needToCalculateResults;

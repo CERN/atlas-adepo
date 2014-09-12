@@ -11,7 +11,7 @@ public:
         value = Point3f(false);
         std = Point3f(false);
         n = 0;
-        setOffset();
+        setOffset(value);
     }
     ~result() {};
 
@@ -46,7 +46,7 @@ public:
     void setValue(Point3f _value) {
         value = _value;
         if (value.isValid() && !offset.isValid()) {
-            setOffset();
+            setOffset(value);
         }
     }
 
@@ -54,8 +54,8 @@ public:
         return value;
     }
 
-    void setOffset() {
-        offset = value;
+    void setOffset(Point3f _offset) {
+        offset = _offset;
     }
 
     Point3f getOffset() {
@@ -63,11 +63,11 @@ public:
     }
 
     void toString() {
-        std::cout << name << " " << n << ""
-                  << value.isValid() << " " << value.x() << " " << value.y() << " " << value.z() << " "
-                  << std.isValid() << " " << std.x() << " " << std.y() << " " << std.z() << ""
-                  << offset.isValid() << " " << offset.x() << " " << offset.y() << " " << offset.z() <<
-                     std::endl;
+        std::cout << name << " " << n << " "
+                  << value.isValid() << " value(" << value.x() << " " << value.y() << " " << value.z() << ") "
+                  << std.isValid() << " std(" << std.x() << " " << std.y() << " " << std.z() << ") "
+                  << offset.isValid() << " offset(" << offset.x() << " " << offset.y() << " " << offset.z() << ")"
+                  << std::endl;
     }
 
 private:

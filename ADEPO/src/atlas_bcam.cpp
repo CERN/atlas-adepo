@@ -38,6 +38,7 @@
 /********************************************************************************************/
 #define NAME_CONFIGURATION_FILE "configuration_file.txt"
 #define NAME_CALIBRATION_FILE "BCAM_Parameters.txt"
+#define NAME_REF_FILE "reference_file.txt"
 #define NAME_LWDAQ_FOLDER "LWDAQ"
 /********************************************************************************************/
 
@@ -329,7 +330,8 @@ void ATLAS_BCAM::openInputDir() {
     //clean_calib(m_bdd);
 
     // read reference file
-    QString refFile = "test";
+    refFile = path_input_folder;
+    refFile.append("/").append(NAME_REF_FILE);
     read_ref(refFile, results);
     display(ui->refFileLabel, ui->refFile, refFile);
 
@@ -493,37 +495,34 @@ void ATLAS_BCAM::showBCAMTable()
       // Example:  PR001, PR001_PR023, PR010_PR034_PR045
 
       for (int j=0; j<prisms.size(); j++) {
- //         if (prisms[j].startsWith("PR")) {
-              std::cout << "*" << prisms[j].toStdString() << std::endl;
 
-              QTableWidgetItem *name = new QTableWidgetItem();
-              name->setText(QString::fromStdString(m_bdd.getName(prisms[j].toStdString())));
-              ui->tableWidget_results->setItem(row, 0, name);
+          QTableWidgetItem *name = new QTableWidgetItem();
+          name->setText(QString::fromStdString(m_bdd.getName(prisms[j].toStdString())));
+          ui->tableWidget_results->setItem(row, 0, name);
 
-              QTableWidgetItem *bcam = new QTableWidgetItem();
-              bcam->setText(QString::fromStdString(m_bdd.getCurrentBCAMs().at(i).getName()));
-              ui->tableWidget_results->setItem(row, 1, bcam);
+          QTableWidgetItem *bcam = new QTableWidgetItem();
+          bcam->setText(QString::fromStdString(m_bdd.getCurrentBCAMs().at(i).getName()));
+          ui->tableWidget_results->setItem(row, 1, bcam);
 
-              QTableWidgetItem *prism = new QTableWidgetItem();
-              prism->setText(prisms[j]);
-              ui->tableWidget_results->setItem(row, 2, prism);
+          QTableWidgetItem *prism = new QTableWidgetItem();
+          prism->setText(prisms[j]);
+          ui->tableWidget_results->setItem(row, 2, prism);
 
-              QTableWidgetItem *n = new QTableWidgetItem();
-              n->setData(Qt::DisplayRole, 0);
-              ui->tableWidget_results->setItem(row, 3, n);
+          QTableWidgetItem *n = new QTableWidgetItem();
+          n->setData(Qt::DisplayRole, 0);
+          ui->tableWidget_results->setItem(row, 3, n);
 
-              if (ui->fullPrecision->isChecked()) {
-                  setResult(row, Point3f(false), 0, 8);
-                  setResult(row, Point3f(false), 1, 8);
-                  setResult(row, Point3f(false), 2, 8);
-              } else {
-                  setResult(row, Point3f(false), 0, 6);
-                  setResult(row, Point3f(false), 1, 3);
-                  setResult(row, Point3f(false), 2, 3);
-              }
+          if (ui->fullPrecision->isChecked()) {
+              setResult(row, Point3f(false), 0, 8);
+              setResult(row, Point3f(false), 1, 8);
+              setResult(row, Point3f(false), 2, 8);
+          } else {
+              setResult(row, Point3f(false), 0, 6);
+              setResult(row, Point3f(false), 1, 3);
+              setResult(row, Point3f(false), 2, 3);
+          }
 
-              row++;
- //         }
+          row++;
       }
     }
 
@@ -594,11 +593,18 @@ void ATLAS_BCAM::stop_acquisition()
 }
 
 void ATLAS_BCAM::resetDelta() {
-    for (std::map<std::string, result>::iterator i = results.begin(); i != results.end(); i++) {
-        i->second.setOffset();
+    read_ref(refFile, results);
+    for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
+        std::string name = ui->tableWidget_results->item(row, 0)->text().toStdString();
+        result& r = results[name];
+        r.setOffset(r.getValue());
+        results[name] = r;
     }
+
     updateResults(results);
-    write_ref("test", results);
+    write_ref(refFile, results);
+
+    display(ui->refFileLabel, ui->refFile, refFile);
 }
 
 void ATLAS_BCAM::changedFormat(int state) {
@@ -745,16 +751,18 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
         }
 
         result.setValue(Point3f(mean(0,0) + dx, mean(0,1) + dy, mean(0,2) + dz));
+
+        results[name_prism_atlas] = result;
     }
 }
 
 void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
         std::string prism = ui->tableWidget_results->item(row, 0)->text().toStdString();
-        std::cout << prism << std::endl;
 
         result& r = results[prism];
         r.setName(prism);
+        results[prism] = r;
         QTableWidgetItem *n = new QTableWidgetItem(QString::number(r.getN()));
         ui->tableWidget_results->setItem(row, 3, n);
 
