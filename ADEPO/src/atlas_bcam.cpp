@@ -607,8 +607,6 @@ void ATLAS_BCAM::resetDelta() {
     }
 
     updateResults(results);
-
-    display(ui->refFileLabel, ui->refFile, refFile);
 }
 
 void ATLAS_BCAM::changedFormat(int state) {
@@ -779,6 +777,7 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
     ui->tableWidget_results->resizeColumnsToContents();
 
     write_ref(refFile, results);
+    display(ui->refFileLabel, ui->refFile, refFile);
 }
 
 //fonction qui verifie qu'il n'y a pas d'erreurs dans le fichier de configuration                   [----> ok mais peut etre amelioree
