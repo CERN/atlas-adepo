@@ -24,12 +24,29 @@ int write_ref(QString fileName, map<string, result> &results) {
 
     for (map<string, result>::iterator i = results.begin(); i != results.end(); i++) {
         result& result = i->second;
+        Point3f value = result.getValue();
+        Point3f std = result.getStd();
         Point3f offset = result.getOffset();
-        file << left << setw(14) << i->first
-             << right << setw(2) << offset.isValid()
+
+        string datetime = result.getTime();
+
+        file << left << setw(14) << i->first << " "
+             << datetime << " "
+             << right
+             << setw(4) << result.getN()
+             << setw(12) << value.x()
+             << setw(12) << value.y()
+             << setw(12) << value.z()
+             << setw(2) << value.isValid()
+             << setw(12) << std.x()
+             << setw(12) << std.y()
+             << setw(12) << std.z()
+             << setw(2) << std.isValid()
              << setw(12) << offset.x()
              << setw(12) << offset.y()
-             << setw(12) << offset.z() << endl;
+             << setw(12) << offset.z()
+             << setw(2) << offset.isValid()
+             << endl;
     }
 
     file.close();
@@ -49,19 +66,39 @@ int read_ref(QString fileName, map<string, result> &results) {
         // take ending off the line
         line.erase(line.find_last_not_of(" \n\r\t")+1);
 
+        char *x, *y, *z, *valid;
         if(!line.empty())
         {
             char *buffer = strdup((char*)line.c_str());
             string name = strtok(buffer, " " );
-            char *valid = strtok( NULL, " " );
-            char *x = strtok( NULL, " " );
-            char *y = strtok( NULL, " " );
-            char *z = strtok( NULL, " " );
+            string dateTime = strtok( NULL, " " );
+            char *n = strtok( NULL, " " );
+            // value
+            x = strtok( NULL, " " );
+            y = strtok( NULL, " " );
+            z = strtok( NULL, " " );
+            valid = strtok( NULL, " " );
+            Point3f value(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
+            // std
+            x = strtok( NULL, " " );
+            y = strtok( NULL, " " );
+            z = strtok( NULL, " " );
+            valid = strtok( NULL, " " );
+            Point3f std(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
+            // offset
+            x = strtok( NULL, " " );
+            y = strtok( NULL, " " );
+            z = strtok( NULL, " " );
+            valid = strtok( NULL, " " );
             Point3f offset(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
 
             // get it and put it back
             result r = results[name];
             r.setName(name);
+            r.setTime(dateTime);
+            r.setN(atoi(n));
+            r.setValue(value);
+            r.setStd(std);
             r.setOffset(offset);
             results[name] = r;
         }

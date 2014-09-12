@@ -496,8 +496,11 @@ void ATLAS_BCAM::showBCAMTable()
 
       for (int j=0; j<prisms.size(); j++) {
 
+          std::string prismName = m_bdd.getName(prisms[j].toStdString());
+          result& result = results[prismName];
+
           QTableWidgetItem *name = new QTableWidgetItem();
-          name->setText(QString::fromStdString(m_bdd.getName(prisms[j].toStdString())));
+          name->setText(QString::fromStdString(prismName));
           ui->tableWidget_results->setItem(row, 0, name);
 
           QTableWidgetItem *bcam = new QTableWidgetItem();
@@ -508,19 +511,7 @@ void ATLAS_BCAM::showBCAMTable()
           prism->setText(prisms[j]);
           ui->tableWidget_results->setItem(row, 2, prism);
 
-          QTableWidgetItem *n = new QTableWidgetItem();
-          n->setData(Qt::DisplayRole, 0);
-          ui->tableWidget_results->setItem(row, 3, n);
-
-          if (ui->fullPrecision->isChecked()) {
-              setResult(row, Point3f(false), 0, 8);
-              setResult(row, Point3f(false), 1, 8);
-              setResult(row, Point3f(false), 2, 8);
-          } else {
-              setResult(row, Point3f(false), 0, 6);
-              setResult(row, Point3f(false), 1, 3);
-              setResult(row, Point3f(false), 2, 3);
-          }
+          setResult(row, result);
 
           row++;
       }
@@ -534,6 +525,21 @@ void ATLAS_BCAM::showBCAMTable()
     if (ui->tableWidget_liste_bcams->rowCount() > 0) {
         ui->tableWidget_liste_bcams->selectRow(0);
         showBCAM(0, 0);
+    }
+}
+
+void ATLAS_BCAM::setResult(int row, result& result) {
+    QTableWidgetItem *n = new QTableWidgetItem(QString::number(result.getN()));
+    ui->tableWidget_results->setItem(row, 3, n);
+
+    if (ui->fullPrecision->isChecked()) {
+        setResult(row, Point3f(result.getValue(), 1000), 0, 8);
+        setResult(row, Point3f(result.getStd(), 1000), 1, 8);
+        setResult(row, Point3f(Point3f(result.getValue(), result.getOffset()), 1000), 2, 8);
+    } else {
+        setResult(row, Point3f(result.getValue(), 1000), 0, 3);
+        setResult(row, Point3f(result.getStd(), 1000), 1, 3);
+        setResult(row, Point3f(Point3f(result.getValue(), result.getOffset()), 1000), 2, 3);
     }
 }
 
@@ -652,21 +658,11 @@ void ATLAS_BCAM::calcul_coord()
    fileName.append("/Archive/Observations_MOUNT_System_");
 
    // current date/time based on current system
-   time_t now = time(0);
-   tm *ltm = localtime(&now);
-   // print various components of tm structure.
-   int year = 1900 + ltm->tm_year;
-   int month = 1 + ltm->tm_mon;
-   int day = ltm->tm_mday;
-   int hour = ltm->tm_hour;
-   int min = ltm->tm_min;
-   int sec = ltm->tm_sec;
+   QString now = getDateTime();
 
-   QString datetime = QString("%1.%2.%3.%4.%5.%6").arg(year, 4).arg(month, 2, 10, QChar('0')).arg(day, 2, 10, QChar('0')).
-           arg(hour, 2, 10, QChar('0')).arg(min, 2, 10, QChar('0')).arg(sec, 2, 10, QChar('0'));
-   fileName = fileName.append(datetime).append(".txt");
+   fileName = fileName.append(now).append(".txt");
 
-   write_file_obs_mount_system(fileName, datetime, m_bdd);
+   write_file_obs_mount_system(fileName, now, m_bdd);
 
    display(ui->resultFileLabel, ui->resultFile, fileName);
 
@@ -677,12 +673,28 @@ void ATLAS_BCAM::calcul_coord()
    }
 }
 
+QString ATLAS_BCAM::getDateTime() {
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+
+    // print various components of tm structure.
+    int year = 1900 + ltm->tm_year;
+    int month = 1 + ltm->tm_mon;
+    int day = ltm->tm_mday;
+    int hour = ltm->tm_hour;
+    int min = ltm->tm_min;
+    int sec = ltm->tm_sec;
+
+    QString dateTime = QString("%1.%2.%3.%4.%5.%6").arg(year, 4).arg(month, 2, 10, QChar('0')).arg(day, 2, 10, QChar('0')).
+            arg(hour, 2, 10, QChar('0')).arg(min, 2, 10, QChar('0')).arg(sec, 2, 10, QChar('0'));
+    return dateTime;
+}
+
 void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, result> &results) {
 
     //on parcourt tous les points transformes dans le repere global : moyenne + dispersion
     // current date/time based on current system
-    time_t now = time(0);
-    tm* ltm = localtime(&now);
+    QString now = getDateTime();
 
     //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
     std::string premier_prisme_atlas = base_donnees.getGlobalCoordPrisms().at(0).getName();
@@ -699,7 +711,7 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
 
         result& result = results[name_prism_atlas];
         result.setName(name_prism_atlas);
-        result.setTime(ltm);
+        result.setTime(now.toStdString());
 
         Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
         int ligne=0;
@@ -763,18 +775,8 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
         result& r = results[prism];
         r.setName(prism);
         results[prism] = r;
-        QTableWidgetItem *n = new QTableWidgetItem(QString::number(r.getN()));
-        ui->tableWidget_results->setItem(row, 3, n);
 
-        if (ui->fullPrecision->isChecked()) {
-            setResult(row, Point3f(r.getValue(), 1000), 0, 8);
-            setResult(row, Point3f(r.getStd(), 1000), 1, 8);
-            setResult(row, Point3f(Point3f(r.getValue(), r.getOffset()), 1000), 2, 8);
-        } else {
-            setResult(row, Point3f(r.getValue(), 1000), 0, 3);
-            setResult(row, Point3f(r.getStd(), 1000), 1, 3);
-            setResult(row, Point3f(Point3f(r.getValue(), r.getOffset()), 1000), 2, 3);
-        }
+        setResult(row, r);
     }
     ui->tableWidget_results->resizeColumnsToContents();
 }

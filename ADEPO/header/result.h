@@ -8,6 +8,7 @@ class result
 {
 public:
     result() {
+        dateTime = "1970.01.01.00.00.00";
         value = Point3f(false);
         std = Point3f(false);
         n = 0;
@@ -23,8 +24,12 @@ public:
         return name;
     }
 
-    void setTime(tm *_ltm) {
-        ltm = _ltm;
+    void setTime(std::string _dateTime) {
+        dateTime = _dateTime;
+    }
+
+    std::string getTime() {
+        return dateTime;
     }
 
     void setN(int _n) {
@@ -63,7 +68,7 @@ public:
     }
 
     void toString() {
-        std::cout << name << " " << n << " "
+        std::cout << name << "  " << dateTime << " " << n << " "
                   << value.isValid() << " value(" << value.x() << " " << value.y() << " " << value.z() << ") "
                   << std.isValid() << " std(" << std.x() << " " << std.y() << " " << std.z() << ") "
                   << offset.isValid() << " offset(" << offset.x() << " " << offset.y() << " " << offset.z() << ")"
@@ -72,7 +77,7 @@ public:
 
 private:
     std::string name;
-    tm *ltm;
+    std::string dateTime;
     Point3f value;
     Point3f std;
     int n;
