@@ -33,18 +33,18 @@ int write_ref(QString fileName, map<string, result> &results) {
         file << left << setw(14) << i->first << " "
              << datetime << " "
              << right
-             << setw(4) << result.getN()
-             << setw(12) << value.x()
-             << setw(12) << value.y()
-             << setw(12) << value.z()
-             << setw(2) << value.isValid()
-             << setw(12) << std.x()
-             << setw(12) << std.y()
-             << setw(12) << std.z()
-             << setw(2) << std.isValid()
-             << setw(12) << offset.x()
-             << setw(12) << offset.y()
-             << setw(12) << offset.z()
+             << setw(4) << result.getN() << " "
+             << setw(14) << value.x() << " "
+             << setw(14) << value.y() << " "
+             << setw(14) << value.z() << " "
+             << setw(2) << value.isValid() << " "
+             << setw(14) << std.x() << " "
+             << setw(14) << std.y() << " "
+             << setw(14) << std.z() << " "
+             << setw(2) << std.isValid() << " "
+             << setw(14) << offset.x() << " "
+             << setw(14) << offset.y() << " "
+             << setw(14) << offset.z() << " "
              << setw(2) << offset.isValid()
              << endl;
     }
