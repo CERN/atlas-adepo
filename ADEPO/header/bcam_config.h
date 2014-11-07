@@ -1,17 +1,17 @@
-#ifndef BCAM_H
-#define BCAM_H
+#ifndef BCAM_CONFIG_H
+#define BCAM_CONFIG_H
 
 #include <iostream>
 
 #include "prism.h"
 
-class BCAM
+class BCAMConfig
 {
 public:
     //constructeurs et destructeurs
-    BCAM(std::string name, int detectorId, int driverSocket, int muxSocket, Prism prism) :
-           mName(name), mDetectorId(detectorId), mDriverSocket(driverSocket), mMuxSocket(muxSocket), mPrism(prism) {};
-    virtual ~BCAM() {};
+    BCAMConfig(std::string name, int detectorId, int driverSocket, int muxSocket, std::vector<Prism> prisms) :
+           mName(name), mDetectorId(detectorId), mDriverSocket(driverSocket), mMuxSocket(muxSocket), mPrisms(prisms) {};
+    virtual ~BCAMConfig() {};
 
     //setter et getter
     std::string getName() const { return mName; }
@@ -22,16 +22,27 @@ public:
 
     int getMuxSocket() const { return mMuxSocket; }
 
-    Prism getPrism() const { return mPrism; }
+    std::vector<Prism> getPrisms() const { return mPrisms; }
+
+    std::string getPrismsAsString() {
+        std::string s;
+        for (unsigned int i = 0; i < mPrisms.size(); i++) {
+            if (i > 0) {
+                s.append("_");
+            }
+            s.append(mPrisms[i].getName());
+        }
+        return s;
+    }
 
     //methodes
     void print() {
-        std::cout<<"*******************************************BCAM*******************************************"<<std::endl;
+        std::cout<<"*******************************************Infos BCAM*******************************************"<<std::endl;
         std::cout<<"Nom de la BCAM : "<<getName()<<std::endl;
         std::cout<<"Identifiant du detecteur auquel la BCAM appartient : "<<getDetectorId()<<std::endl;
         std::cout<<"Numéro du port Driver : "<<getDriverSocket()<<std::endl;
         std::cout<<"Numéro du port Multiplexer : "<<getMuxSocket()<<std::endl;
-        std::cout<<"Objet visee : "<<getPrism().getName()<<std::endl;
+//        std::cout<<"Objet visee : "<<getPrisms()<<std::endl;
         std::cout<<"************************************************************************************************"<<std::endl;
     }
 
@@ -41,7 +52,7 @@ private:
     int mDetectorId;
     int mDriverSocket;
     int mMuxSocket;
-    Prism mPrism;
+    std::vector<Prism> mPrisms;
 };
 
-#endif // BCAM_H
+#endif // BCAM_CONFIG_H

@@ -10,13 +10,13 @@
 
 void helmert(bdd & base_donnees)
 {
-    for(unsigned int i=0; i<base_donnees.getBCAMs().size(); i++) //je parcours la liste des BCAMs dont je dispose
+    for(unsigned int i=0; i<base_donnees.getBCAMConfigs().size(); i++) //je parcours la liste des BCAMs dont je dispose
     {
         //definition de 2 sous-vecteurs d'observations
         Eigen::VectorXd l_terrain(12); l_terrain.setZero();
         Eigen::VectorXd l_modele(12);  l_modele.setZero();
 
-        if(base_donnees.getBCAMs().at(i).getName().substr(7,1) == "A" || base_donnees.getBCAMs().at(i).getName().substr(7,1) == "L") //si la bcam est noire
+        if(base_donnees.getBCAMConfigs().at(i).getName().substr(7,1) == "A" || base_donnees.getBCAMConfigs().at(i).getName().substr(7,1) == "L") //si la bcam est noire
         {
             int cmpt=0;
             for(unsigned int j=0; j<base_donnees.getBCAMAdapters().size(); j++) //je parcours la liste des coordonnees modele
@@ -31,7 +31,7 @@ void helmert(bdd & base_donnees)
             }
 
         }
-        if(base_donnees.getBCAMs().at(i).getName().substr(7,1) == "B" || base_donnees.getBCAMs().at(i).getName().substr(7,1) == "M")
+        if(base_donnees.getBCAMConfigs().at(i).getName().substr(7,1) == "B" || base_donnees.getBCAMConfigs().at(i).getName().substr(7,1) == "M")
         {
             int cmpt=0;
             for(unsigned int j=0; j<base_donnees.getBCAMAdapters().size(); j++) //je parcours la liste des coordonnees modele
@@ -51,7 +51,7 @@ void helmert(bdd & base_donnees)
         int cmpt=0;
         for(unsigned int j=0; j<base_donnees.getATLASCoordinates().size(); j++)
         {
-            if(base_donnees.getBCAMs().at(i).getName() == base_donnees.getATLASCoordinates().at(j).getBCAM())
+            if(base_donnees.getBCAMConfigs().at(i).getName() == base_donnees.getATLASCoordinates().at(j).getBCAM())
             {
                     l_terrain(3*cmpt,0)=base_donnees.getATLASCoordinates().at(j).getTarget().x();
                     l_terrain(3*cmpt+1,0)=base_donnees.getATLASCoordinates().at(j).getTarget().y();
@@ -295,7 +295,7 @@ void helmert(bdd & base_donnees)
 
           }
             //enregistrement dans la base de donnees des parametres de chaque BCAM
-            std::string id_bcam = base_donnees.getBCAMs().at(i).getName();
+            std::string id_bcam = base_donnees.getBCAMConfigs().at(i).getName();
             Point3f translation(Tx0,Ty0,Tz0);
             Point3f rotation(phi0,teta0,psi0);
             BCAM_params parametres_bcam(id_bcam, translation, rotation);

@@ -30,7 +30,9 @@ HEADERS += \
     header/adepo.h \
     header/global_coord_prism.h \
     header/float_table_widget_item.h \
-    header/read_write_ref.h
+    header/read_write_ref.h \
+    header/prism.h \
+    header/bcam_config.h
 
 SOURCES += \
     src/write_file_obs_mount_system.cpp \
@@ -47,7 +49,8 @@ SOURCES += \
     src/mount_prism_to_global_prism.cpp \
     src/lwdaq_client.cpp \
     src/bdd.cpp \
-    src/read_write_ref.cpp
+    src/read_write_ref.cpp \
+    src/write_script.cpp
 
 FORMS += \
     ATLAS_BCAM.ui \

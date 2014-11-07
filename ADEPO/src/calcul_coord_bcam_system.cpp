@@ -15,7 +15,7 @@ void calcul_coord_bcam_system(bdd & base_donnees)
             calib1 calib1 = base_donnees.getCalibs1().at(j);
 
             // NumChip == 2 is Z+ direction
-            int num_chip = base_donnees.getCurrentBCAM(spot.getName())->getNumChip();
+            int num_chip = base_donnees.getCurrentBCAM(spot.getName())->getPrism().getNumChip();
             bool directionOk1 = ((num_chip == 2) && (calib1.getDirection() == 1)) || ((num_chip == 1) && (calib1.getDirection() == -1));
 
             for(unsigned int k=0; k<base_donnees.getCalibs2().size(); k++) //je parcours la base de donnee de calibration 2

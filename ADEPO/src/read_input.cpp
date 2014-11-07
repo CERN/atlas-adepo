@@ -152,78 +152,74 @@ int read_input(std::string fichier_configuration, bdd &base_donnees)
                        char *buffer = strdup((char*)ligne.c_str());
                        //recuperation des donnees de la BCAM
                        int nb_string = std::count(ligne.begin(), ligne.end(), ' '); //nombre de colonne dans la ligne
-//                           std::cout<<nb_string << ":" << ligne << ":" << std::endl;
 
-                       switch(nb_string)
-                       {
-                           case 5: //cas ou une BCAM simple ou double vise un prisme
-                           {    // 20MABNDA000318 3 2 1 PR004 2
-                               std::string nom_BCAM = strtok(buffer," ");
-                               char *id_detector = strtok( NULL, " " );
-                               char *num_Port_Driver = strtok( NULL, " " );
-                               char *num_Port_Multiplexer = strtok( NULL, " " );
-                               std::string id_prisme = strtok( NULL, " " );
-                               char *num_chip_bcam_single = strtok( NULL, " " );
-                               BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_bcam_single),
-                                              id_prisme);
-                               //std::cout<<nb_string<<std::endl;
-                               // bcam_data.print();
-                               base_donnees.add(bcam_data);
-                           }
-                           break;
+                       if (nb_string < 5) {
+                            std::cout << "Error in config: " << nb_string << ":" << ligne << ":" << std::endl;
+                       } else {
+                           // 20MABNDA000318 3 2 1 PR004 ...
+                           std::string nom_BCAM = strtok(buffer," ");
+                           char *id_detector = strtok( NULL, " " );
+                           char *num_Port_Driver = strtok( NULL, " " );
+                           char *num_Port_Multiplexer = strtok( NULL, " " );
+                           std::vector<Prism> prisms;
+                           std::string prism1 = strtok( NULL, " " );
 
-                           case 7: //cas ou une BCAM double vise deux prisme d'un cote et une autre BCAM de l'autre cote
-                           {    // 20MABNDL000077 1 2 7 PR002 PR003 1 20MABNDM000168
-                               std::string nom_BCAM = strtok(buffer," ");
-                               char *id_detector = strtok( NULL, " " );
-                               char *num_Port_Driver = strtok( NULL, " " );
-                               char *num_Port_Multiplexer = strtok( NULL, " " );
-                               std::string id_prisme_1 = strtok( NULL, " " );
-                               std::string id_prisme_2 = strtok( NULL, " " );
-                               char *num_chip_double_bcam = strtok( NULL, " " );
-                               std::string id_bcam_visee = strtok( NULL, " " );
-                               BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_double_bcam),
-                                              id_prisme_1.append("_").append(id_prisme_2).append("/").append(id_bcam_visee));
-                               // bcam_data.print();
-                               base_donnees.add(bcam_data);
-                           }
-                           break;
+                           switch(nb_string)
+                           {
+                               default:
+                                   std::cout << "Error in config: " << nb_string << ":" << ligne << ":" << std::endl;
+                                   break;
+                               case 5: //cas ou une BCAM simple ou double vise un prisme
+                               {    // 20MABNDA000318 3 2 1 PR004 2
+                                   char *num_chip = strtok( NULL, " " );
+                                   prisms.push_back(Prism(prism1, atoi(num_chip)));
+                                   BCAMConfig bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), prisms);
+                                   //std::cout<<nb_string<<std::endl;
+                                   // bcam_data.print();
+                                   base_donnees.add(bcam_data);
+                               }
+                               break;
 
-                           case 8: //cas ou une BCAM double vise 2 prismes d'un cote et une bcam de l'autre cote avec prisme
-                           {    // 20MABNDL000077 1 2 7 PR002 PR003 1 20MABNDM000168 PR024
-                               // NOT CORRECT YET
-                               std::string nom_BCAM = strtok(buffer," ");
-                               char *id_detector = strtok( NULL, " " );
-                               char *num_Port_Driver = strtok( NULL, " " );
-                               char *num_Port_Multiplexer = strtok( NULL, " " );
-                               std::string id_prisme_1 = strtok( NULL, " " );
-                               std::string id_prisme_2 = strtok( NULL, " " );
-                               char *num_chip_double_bcam = strtok( NULL, " " );
-                               std::string id_bcam_visee = strtok( NULL, " " );
-                               std::string id_prisme_3 = strtok( NULL, " " );
+                               case 7: //cas ou une BCAM double vise deux prisme d'un cote et une autre BCAM de l'autre cote
+                               {    // 20MABNDL000077 1 2 7 PR002 PR003 1 20MABNDM000168
+                                   std::string prism2 = strtok( NULL, " " );
+                                   char *num_chip = strtok( NULL, " " );
+                                   prisms.push_back(Prism(prism1, atoi(num_chip)));
+                                   prisms.push_back(Prism(prism2, atoi(num_chip)));
+                                   prisms.push_back(Prism(strtok( NULL, " " ), atoi(num_chip) == 1 ? 2 : 1));
+                                   BCAMConfig bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), prisms);
+                                   // bcam_data.print();
+                                   base_donnees.add(bcam_data);
+                               }
+                               break;
 
-                               BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_double_bcam),
-                                              id_prisme_1.append("_").append(id_prisme_2).append("/").append(id_bcam_visee).append("_").append(id_prisme_3));
-//                               bcam_data.print();
-                               base_donnees.add(bcam_data);
-                           }
-                           break;
+                               case 8: //cas ou une BCAM double vise 2 prismes d'un cote et une bcam de l'autre cote avec prisme
+                               {    // 20MABNDL000077 1 2 7 PR002 PR003 1 20MABNDM000168 PR024
+                                   std::string prism2 = strtok( NULL, " " );
+                                   char *num_chip = strtok( NULL, " " );
+                                   prisms.push_back(Prism(prism1, atoi(num_chip)));
+                                   prisms.push_back(Prism(prism2, atoi(num_chip)));
+                                   prisms.push_back(Prism(strtok( NULL, " " ), atoi(num_chip) == 1 ? 2 : 1));
+                                   prisms.push_back(Prism(strtok( NULL, " " ), atoi(num_chip) == 1 ? 2 : 1));
 
-                           case 6: //cas ou une bcam simple vise deux prismes
-                           {    // 20MABNDA000035 8 3 6 PR044 PR047 2
-                               std::string nom_BCAM = strtok(buffer," ");
-                               char *id_detector = strtok( NULL, " " );
-                               char *num_Port_Driver = strtok( NULL, " " );
-                               char *num_Port_Multiplexer = strtok( NULL, " " );
-                               std::string id_prisme_1 = strtok( NULL, " " );
-                               std::string id_prisme_2 = strtok( NULL, " " );
-                               char *num_chip_single_bcam = strtok( NULL, " " );
-                               BCAM bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), atoi(num_chip_single_bcam),
-                                              id_prisme_1.append("_").append(id_prisme_2));
-                               // bcam_data.print();
-                               base_donnees.add(bcam_data);
-                           }
-                           break;
+                                   BCAMConfig bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), prisms);
+    //                               bcam_data.print();
+                                   base_donnees.add(bcam_data);
+                               }
+                               break;
+
+                               case 6: //cas ou une bcam simple vise deux prismes
+                               {    // 20MABNDA000035 8 3 6 PR044 PR047 2
+                                   std::string prism2 = strtok( NULL, " " );
+                                   char *num_chip = strtok( NULL, " " );
+                                   prisms.push_back(Prism(prism1, atoi(num_chip)));
+                                   prisms.push_back(Prism(prism2, atoi(num_chip)));
+                                   BCAMConfig bcam_data(nom_BCAM, atoi(id_detector), atoi(num_Port_Driver), atoi(num_Port_Multiplexer), prisms);
+                                   // bcam_data.print();
+                                   base_donnees.add(bcam_data);
+                               }
+                               break;
+                            }
                         }
                     }
                     break;

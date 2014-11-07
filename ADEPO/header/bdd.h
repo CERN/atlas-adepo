@@ -17,6 +17,7 @@
 #include "math.h"
 ////////////////////////////////////////////
 #include "bcam.h"
+#include "bcam_config.h"
 #include "detector.h"
 #include "spot.h"
 #include "calib1.h"
@@ -41,7 +42,7 @@ public:
 
     //getter
     //gestion des bcams dans le terrain a partir du fichier de configuration
-    std::vector<BCAM> getBCAMs() const {return mBCAMs;}
+    std::vector<BCAMConfig> getBCAMConfigs() const {return mBCAMConfigs;}
     std::vector<BCAM> getBCAMs(int id_detector);
     //gestion des detecteurs dans le fichier de configuration
     std::vector<detector> getDetectors() const {return mDetectors;}
@@ -69,32 +70,29 @@ public:
 
     std::string getName(std::string id) { return names.at(id); }
 
-    BCAM* getCurrentBCAM(std::string name_prism) {
+    BCAM* getCurrentBCAM(std::string bcam_prism) {
         for(unsigned int i=0; i < mCurrentBCAMs.size(); i++) {
-            QStringList prisms = QString::fromStdString(mCurrentBCAMs[i].getPrisms()).split('_');
-            for (int j=0; j<prisms.size(); j++) {
-                if (name_prism == mCurrentBCAMs[i].getName() + "_" + prisms[j].toStdString()) {
-                    return &mCurrentBCAMs[i];
-                }
-            }
+           if (bcam_prism == mCurrentBCAMs[i].getName() + "_" + mCurrentBCAMs[i].getPrism().getName()) {
+               return &mCurrentBCAMs[i];
+           }
         }
-        std::cout << "WARNING BCAM with name " << name_prism << " not defined in current selection." << std::endl;
+        std::cout << "WARNING BCAM with name " << bcam_prism << " not defined in current selection." << std::endl;
         return NULL;
     }
 
 
-    BCAM* getBCAM(std::string name) {
-        for(unsigned int i=0; i < mBCAMs.size(); i++) {
-            if (name == mBCAMs[i].getName()) {
-                return &mBCAMs[i];
+    BCAMConfig* getBCAMConfig(std::string name) {
+        for(unsigned int i=0; i < mBCAMConfigs.size(); i++) {
+            if (name == mBCAMConfigs[i].getName()) {
+                return &mBCAMConfigs[i];
             }
         }
-        std::cout << "WARNING BCAM with name " << name << " not defined in configuration." << std::endl;
+        std::cout << "WARNING BCAMConfig with name " << name << " not defined in configuration." << std::endl;
         return NULL;
     }
 
     detector* getDetector(std::string bcamName) {
-        BCAM* bcam = getBCAM(bcamName);
+        BCAMConfig* bcam = getBCAMConfig(bcamName);
         if (bcam == NULL) return NULL;
 
         for(unsigned int j=0; j < mDetectors.size(); j++) {
@@ -108,7 +106,7 @@ public:
 
 
    //methodes d'ajout
-    void add(BCAM val) { mBCAMs.push_back(val); }
+    void add(BCAMConfig val) { mBCAMConfigs.push_back(val); }
     void add(detector val) {mDetectors.push_back(val);}
     void add(calib1 val) { mCalibs1.push_back(val); }
 //    void addClean(calib1 val) {mCalibs1Clean.push_back(val);}
@@ -147,7 +145,7 @@ public:
 
     //vidage complet de la bdd si on charge un second fichier
     void vidage_complet() {
-        mBCAMs.clear();
+        mBCAMConfigs.clear();
         mCurrentBCAMs.clear();
         mDetectors.clear();
         mCalibs1.clear();
@@ -166,9 +164,7 @@ public:
 
 protected:
 private:
-    void addList(BCAM bcam, int numChip, QString side, std::vector<BCAM>& liste_bcam);
-
-    std::vector<BCAM> mBCAMs;
+    std::vector<BCAMConfig> mBCAMConfigs;
     std::vector<BCAM> mCurrentBCAMs;
     std::vector<detector> mDetectors;
     std::vector<calib1> mCalibs1;
