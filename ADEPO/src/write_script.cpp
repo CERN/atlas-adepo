@@ -56,11 +56,16 @@ int ATLAS_BCAM::write_script_file(QString fileName, std::vector<BCAM> &bcams)
             int muxSocket = bcams.at(i).getMuxSocket();
             int sourceDriverSocket = driverSocket;
             int sourceMuxSocket = muxSocket;
-            int spots;
-            std::string sourceDeviceElement;
 
             Prism prism = bcams.at(i).getPrism();
             int deviceElement = prism.getNumChip();
+            int left = prism.getLeft();
+            int right = prism.getRight();
+            int top = prism.getTop();
+            int bottom = prism.getBottom();
+
+            int spots;
+            std::string sourceDeviceElement;
 
             if (prism.isPrism()) {
                 spots = 2;
@@ -87,10 +92,10 @@ int ATLAS_BCAM::write_script_file(QString fileName, std::vector<BCAM> &bcams)
                 <<"\t daq_source_driver_socket "<< sourceDriverSocket <<"\n"
                 <<"\t daq_device_element " << deviceElement << " \n"
                 <<"\t daq_source_device_element \"" << sourceDeviceElement << "\" \n"
-                <<"\t daq_image_left 20 \n"
-                <<"\t daq_image_top 1 \n"
-                <<"\t daq_image_right 343 \n"
-                <<"\t daq_image_bottom 243 \n"
+                <<"\t daq_image_left " << left << " \n"
+                <<"\t daq_image_top " << top << " \n"
+                <<"\t daq_image_right " << right << " \n"
+                <<"\t daq_image_bottom " << bottom << " \n"
                 <<"end. \n"
                 <<"\n";
         }
