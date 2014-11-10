@@ -90,6 +90,8 @@ private:
     void updateResults(std::map<std::string, result> &results);
     void setEnabled(bool enabled);
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);
+
+    int write_bcam_script(std::ofstream& file, BCAM bcam, int spots, std::string sourceDeviceElement);
 };
 
 #endif // ATLAS_BCAM_H

@@ -40,7 +40,6 @@ int ATLAS_BCAM::write_script_file(QString fileName, std::vector<BCAM> &bcams)
            <<"\t image_source daq \n"
            <<"\t analysis_enable 1 \n"
            <<"\t daq_flash_seconds 0.0000033 \n"
-           <<"\t daq_adjust_flash 1 \n"
            <<"\t daq_ip_addr "<< ipAddress <<"\n"
            <<"\t daq_source_ip_addr * \n"
            <<"\t ambient_exposure_seconds 0 \n"
@@ -51,53 +50,24 @@ int ATLAS_BCAM::write_script_file(QString fileName, std::vector<BCAM> &bcams)
         //écriture dans le fichier de la partie acquisition du script : un paragraphe par BCAM
         for(unsigned int i=0; i<bcams.size(); i++)
         {
-            std::string name = bcams.at(i).getName().append("_").append(bcams.at(i).getPrism().getName());
-            int driverSocket = bcams.at(i).getDriverSocket();
-            int muxSocket = bcams.at(i).getMuxSocket();
-            int sourceDriverSocket = driverSocket;
-            int sourceMuxSocket = muxSocket;
+            BCAM bcam = bcams.at(i);
+            Prism prism = bcam.getPrism();
 
-            Prism prism = bcams.at(i).getPrism();
-            int deviceElement = prism.getNumChip();
-            int left = prism.getLeft();
-            int right = prism.getRight();
-            int top = prism.getTop();
-            int bottom = prism.getBottom();
-
-            int spots;
-            std::string sourceDeviceElement;
-
-            if (prism.isPrism()) {
-                spots = 2;
-                sourceDeviceElement = prism.getNumChip() == 2 ? "3 4" : "1 2";
+            if (prism.flashSeparate()) {
+                if (prism.isPrism()) {
+                    write_bcam_script(file, bcam, 1, prism.getNumChip() == 2 ? "3" : "1");
+                    write_bcam_script(file, bcam, 1, prism.getNumChip() == 2 ? "4" : "2");
+                } else {
+                    write_bcam_script(file, bcam, 1, prism.getNumChip() == 2 ? "1" : "3");
+                    write_bcam_script(file, bcam, 1, prism.getNumChip() == 2 ? "2" : "4");
+                }
             } else {
-                spots = 2;
-                BCAMConfig* bcamConfig = m_bdd.getBCAMConfig(bcams.at(i).getPrism().getName());
-                sourceDriverSocket = bcamConfig->getDriverSocket();
-                sourceMuxSocket = bcamConfig->getMuxSocket();
-                sourceDeviceElement = prism.getNumChip() == 2 ? "1 2" : "3 4";
+                if (prism.isPrism()) {
+                    write_bcam_script(file, bcam, 2, prism.getNumChip() == 2 ? "3 4" : "1 2");
+                } else {
+                    write_bcam_script(file, bcam, 2, prism.getNumChip() == 2 ? "1 2" : "3 4");
+                }
             }
-
-            file<<"acquire: \n"
-                <<"name: "<< name <<"\n"
-                <<"instrument: BCAM \n"
-                <<"result: None \n"
-                <<"time: 0 \n"
-                <<"config: \n"
-                <<"\n"
-                <<"\t analysis_num_spots " << spots << " \n"
-                <<"\t daq_driver_socket "<< driverSocket <<"\n"
-                <<"\t daq_mux_socket "<< muxSocket <<"\n"
-                <<"\t daq_source_mux_socket "<< sourceMuxSocket <<"\n"
-                <<"\t daq_source_driver_socket "<< sourceDriverSocket <<"\n"
-                <<"\t daq_device_element " << deviceElement << " \n"
-                <<"\t daq_source_device_element \"" << sourceDeviceElement << "\" \n"
-                <<"\t daq_image_left " << left << " \n"
-                <<"\t daq_image_top " << top << " \n"
-                <<"\t daq_image_right " << right << " \n"
-                <<"\t daq_image_bottom " << bottom << " \n"
-                <<"end. \n"
-                <<"\n";
         }
 
         file.close();
@@ -108,6 +78,54 @@ int ATLAS_BCAM::write_script_file(QString fileName, std::vector<BCAM> &bcams)
         std::cout << "Could not write script" << std::endl;
         return 0;
     }
+}
+
+
+int ATLAS_BCAM::write_bcam_script(std::ofstream &file, BCAM bcam, int spots, std::string sourceDeviceElement) {
+
+    Prism prism = bcam.getPrism();
+    std::string name = bcam.getName().append("_").append(prism.getName());
+    int driverSocket = bcam.getDriverSocket();
+    int muxSocket = bcam.getMuxSocket();
+    int sourceDriverSocket = driverSocket;
+    int sourceMuxSocket = muxSocket;
+
+    int deviceElement = prism.getNumChip();
+    int left = prism.getLeft();
+    int right = prism.getRight();
+    int top = prism.getTop();
+    int bottom = prism.getBottom();
+    std::string adjustFlash = prism.flashAdjust() ? "1" : "0";
+
+    if (!prism.isPrism()) {
+        BCAMConfig* bcamConfig = m_bdd.getBCAMConfig(prism.getName());
+        sourceDriverSocket = bcamConfig->getDriverSocket();
+        sourceMuxSocket = bcamConfig->getMuxSocket();
+    }
+
+    file<<"acquire: \n"
+        <<"name: "<< name <<"\n"
+        <<"instrument: BCAM \n"
+        <<"result: None \n"
+        <<"time: 0 \n"
+        <<"config: \n"
+        <<"\n"
+        <<"\t daq_adjust_flash " << adjustFlash << " \n"
+        <<"\t analysis_num_spots " << spots << " \n"
+        <<"\t daq_driver_socket "<< driverSocket <<"\n"
+        <<"\t daq_mux_socket "<< muxSocket <<"\n"
+        <<"\t daq_source_mux_socket "<< sourceMuxSocket <<"\n"
+        <<"\t daq_source_driver_socket "<< sourceDriverSocket <<"\n"
+        <<"\t daq_device_element " << deviceElement << " \n"
+        <<"\t daq_source_device_element \"" << sourceDeviceElement << "\" \n"
+        <<"\t daq_image_left " << left << " \n"
+        <<"\t daq_image_top " << top << " \n"
+        <<"\t daq_image_right " << right << " \n"
+        <<"\t daq_image_bottom " << bottom << " \n"
+        <<"end. \n"
+        <<"\n";
+
+    return 0;
 }
 
 
