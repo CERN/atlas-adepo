@@ -443,19 +443,15 @@ void ATLAS_BCAM::showBCAMTable()
         selectedDetectors = selectedDetectors.append(id_detector);
 
         //recuperation des donnes a afficher
-        // FIXME sure we need a new here ?
-        std::vector<BCAM> *m_liste_bcam = new std::vector<BCAM>(m_bdd.getBCAMs(id_detector.toInt()));
+        std::vector<BCAM> bcams = m_bdd.getBCAMs(id_detector.toInt());
 
         //insertion dans la tableWidget qui affiche les bcams
-        for (unsigned int j=0; j<m_liste_bcam->size(); j++) {
-            m_bdd.getBCAMs().push_back(m_liste_bcam->at(j));
+        for (unsigned int j=0; j<bcams.size(); j++) {
+            m_bdd.getBCAMs().push_back(bcams.at(j));
         }
 
         //ecriture du script d'acquisition des detecteurs selectionnees
         write_script_file(appDirPath()+"/"+fichier_script, m_bdd.getBCAMs());
-
-        //on supprime le pointeur a la fin
-        delete m_liste_bcam;
     }
 
     settings.setValue(SELECTED_DETECTORS, selectedDetectors);
