@@ -50,8 +50,8 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
                 if(spot1.getName() == spot2.getName())
                 {
                     fichier
-                                   <<"Spot 1"<<" "<<setw(14)<<spot2.getI1CCD()*um2m<<" "<<setw(14)<<spot2.getJ1CCD()*um2m<<"\n"
-                                   <<"Spot 2"<<" "<<setw(14)<<spot2.getI2CCD()*um2m<<" "<<setw(14)<<spot2.getJ2CCD()*um2m<<"\n";
+                                   <<"Spot 1"<<" "<<setw(14)<<spot2.getSpot1().i()*um2m<<" "<<setw(14)<<spot2.getSpot1().j()*um2m<<"\n"
+                                   <<"Spot 2"<<" "<<setw(14)<<spot2.getSpot2().i()*um2m<<" "<<setw(14)<<spot2.getSpot2().j()*um2m<<"\n";
                 }
             }
         }

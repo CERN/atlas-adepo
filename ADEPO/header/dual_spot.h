@@ -3,21 +3,20 @@
 
 #include "iostream"
 #include "bcam.h"
+#include "spot.h"
 
 class DualSpot
 {
 public:
-    DualSpot(BCAM* bcam, double i1CCD, double j1CCD, double i2CCD, double j2CCD) :
-        mBCAM(bcam), mI1CCD(i1CCD), mJ1CCD(j1CCD), mI2CCD(i2CCD), mJ2CCD(j2CCD) {};
+    DualSpot(BCAM* bcam, double i1, double j1, double i2, double j2) :
+        mBCAM(bcam), mSpot1(Spot(bcam, i1, j1)), mSpot2(Spot(bcam, i2, j2)) {};
     virtual ~DualSpot() {};
 
     //setter et getter
     BCAM* getBCAM() const { return mBCAM; }
     Prism getPrism() const { return mBCAM->getPrism(); }
-    double getI1CCD() const { return mI1CCD; }
-    double getJ1CCD() const { return mJ1CCD; }
-    double getI2CCD() const { return mI2CCD; }
-    double getJ2CCD() const { return mJ2CCD; }
+    Spot getSpot1() const { return mSpot1; }
+    Spot getSpot2() const { return mSpot2; }
 
     std::string getName() const { return getBCAM()->getName()+"_"+getPrism().getName(); }
 
@@ -26,19 +25,15 @@ public:
         std::cout<<"*******************************************Coord Spots*******************************************"<<std::endl;
         std::cout<<"Nom de la BCAM : "<<getBCAM()->getName()<<std::endl;
         std::cout<<"Nom de la Prism : "<<getPrism().getName()<<std::endl;
-        std::cout<<"Coord i1 : "<<getI1CCD()<<std::endl;
-        std::cout<<"Coord j1 : "<<getJ1CCD()<<std::endl;
-        std::cout<<"Coord i2 : "<<getI2CCD()<<std::endl;
-        std::cout<<"Coord j2 : "<<getJ2CCD()<<std::endl;
+        std::cout<<"Coord spot 1 : "<<getSpot1().toString()<<std::endl;
+        std::cout<<"Coord spot 2 : "<<getSpot2().toString()<<std::endl;
     }
 
 protected:
 private:
     BCAM* mBCAM;
-    double mI1CCD;
-    double mJ1CCD;
-    double mI2CCD;
-    double mJ2CCD;
+    Spot mSpot1;
+    Spot mSpot2;
 };
 
 #endif // DUAL_SPOT_H

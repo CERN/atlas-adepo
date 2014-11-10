@@ -7,8 +7,17 @@
 class Spot
 {
 public:
-    Spot(std::string bcam, std::string prism, double i1CCD, double j1CCD, double i2CCD, double j2CCD) : mBCAM(bcam), mPrism(prism), mI1CCD(i1CCD), mJ1CCD(j1CCD), mI2CCD(i2CCD), mJ2CCD(j2CCD) {};
+    Spot(BCAM* bcam, double i, double j) : mBCAM(bcam), mI(i), mJ(j) {};
     virtual ~Spot() {};
+
+    BCAM* getBCAM() const { return mBCAM; }
+    double i() const { return mI; }
+    double j() const { return mJ; }
+    std::string toString() const { return "tbd"; }
+
+private:
+    BCAM* mBCAM;
+    double mI, mJ;
 };
 
 #endif // SPOT_H

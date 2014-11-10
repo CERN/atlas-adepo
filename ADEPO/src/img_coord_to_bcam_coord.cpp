@@ -30,14 +30,14 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
                 //transformation des coordonnees IMAGE vers le repere MOUNT
 
                 Eigen::MatrixXd ccd1(1,3);       //vecteur des coordonnees images1
-                ccd1(0,0)=spot.getI1CCD()*um2m;
-                ccd1(0,1)=spot.getJ1CCD()*um2m;
+                ccd1(0,0)=spot.getSpot1().i()*um2m;
+                ccd1(0,1)=spot.getSpot1().j()*um2m;
                 ccd1(0,2)=0;
                 //std::cout<<ccd<<std::endl;
 
                 Eigen::MatrixXd ccd2(1,3);       //vecteur des coordonnees images2
-                ccd2(0,0)=spot.getI2CCD()*um2m;
-                ccd2(0,1)=spot.getJ2CCD()*um2m;
+                ccd2(0,0)=spot.getSpot2().i()*um2m;
+                ccd2(0,1)=spot.getSpot2().j()*um2m;
                 ccd2(0,2)=0;
                 //std::cout<<ccd<<std::endl;
 
