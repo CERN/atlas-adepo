@@ -8,22 +8,22 @@
 class DualSpot
 {
 public:
-    DualSpot(BCAM* bcam, double i1, double j1, double i2, double j2) :
+    DualSpot(BCAM bcam, double i1, double j1, double i2, double j2) :
         mBCAM(bcam), mSpot1(Spot(bcam, i1, j1)), mSpot2(Spot(bcam, i2, j2)) {};
     virtual ~DualSpot() {};
 
     //setter et getter
-    BCAM* getBCAM() const { return mBCAM; }
-    Prism getPrism() const { return mBCAM->getPrism(); }
+    BCAM getBCAM() const { return mBCAM; }
+    Prism getPrism() const { return mBCAM.getPrism(); }
     Spot getSpot1() const { return mSpot1; }
     Spot getSpot2() const { return mSpot2; }
 
-    std::string getName() const { return getBCAM()->getName()+"_"+getPrism().getName(); }
+    std::string getName() const { return getBCAM().getName()+"_"+getPrism().getName(); }
 
     //methodes
     void print() {
         std::cout<<"*******************************************Coord Spots*******************************************"<<std::endl;
-        std::cout<<"Nom de la BCAM : "<<getBCAM()->getName()<<std::endl;
+        std::cout<<"Nom de la BCAM : "<<getBCAM().getName()<<std::endl;
         std::cout<<"Nom de la Prism : "<<getPrism().getName()<<std::endl;
         std::cout<<"Coord spot 1 : "<<getSpot1().toString()<<std::endl;
         std::cout<<"Coord spot 2 : "<<getSpot2().toString()<<std::endl;
@@ -31,7 +31,7 @@ public:
 
 protected:
 private:
-    BCAM* mBCAM;
+    BCAM mBCAM;
     Spot mSpot1;
     Spot mSpot2;
 };

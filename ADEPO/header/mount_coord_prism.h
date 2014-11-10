@@ -4,26 +4,27 @@
 #include <iostream>
 #include "vector"
 #include "Point3f.h"
+#include "bcam.h"
 
 
 class mount_coord_prism
 {
 public:
-    mount_coord_prism(BCAM* bcam, Point3f coordPrismMountSys) :
+    mount_coord_prism(BCAM bcam, Point3f coordPrismMountSys) :
         mBCAM(bcam), mCoordPrismMountSys(coordPrismMountSys) {};
     virtual ~mount_coord_prism() {};
 
     //getter setter
-    BCAM* getBCAM() const {return mBCAM; }
-    Prism getPrism() const {return mBCAM->getPrism(); }
-    std::string getName() const { return getBCAM()->getName()+"_"+getPrism().getName(); }
+    BCAM getBCAM() const {return mBCAM; }
+    Prism getPrism() const {return mBCAM.getPrism(); }
+    std::string getName() const { return getBCAM().getName()+"_"+getPrism().getName(); }
     Point3f getCoordPrismMountSys() const {return mCoordPrismMountSys; }
 
 
     //methodes
     void print() {
         std::cout<<"*******************************************Mount coordinates of prism*******************************************"<<std::endl;
-        std::cout<<"Objet BCAM : "<<getBCAM()->getName()<<std::endl;
+        std::cout<<"Objet BCAM : "<<getBCAM().getName()<<std::endl;
         std::cout<<"Objet Prism : "<<getPrism().getName()<<std::endl;
         std::cout<<"Coordonnées du prisme dans le systeme MOUNT : "<<std::endl;
         getCoordPrismMountSys().print();
@@ -31,7 +32,7 @@ public:
 
 protected:
 private:
-    BCAM* mBCAM;
+    BCAM mBCAM;
     Point3f mCoordPrismMountSys;
 };
 

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
+#include <stdexcept>
 #include <detector.h>
 #include <cstring>
 #include <stdlib.h>
@@ -70,38 +71,36 @@ public:
 
     std::string getName(std::string id) { return names.at(id); }
 
-    BCAM* getCurrentBCAM(std::string bcam_prism) {
-        for(unsigned int i=0; i < mCurrentBCAMs.size(); i++) {
-           if (bcam_prism == mCurrentBCAMs[i].getName() + "_" + mCurrentBCAMs[i].getPrism().getName()) {
-               return &mCurrentBCAMs[i];
+    BCAM getBCAM(std::string bcam_prism) {
+        for(unsigned int i=0; i < mBCAMs.size(); i++) {
+           if (bcam_prism == mBCAMs[i].getName() + "_" + mBCAMs[i].getPrism().getName()) {
+               return mBCAMs[i];
            }
         }
         std::cout << "WARNING BCAM with name " << bcam_prism << " not defined in current selection." << std::endl;
-        return NULL;
+        throw std::invalid_argument(bcam_prism);
     }
 
 
-    BCAMConfig* getBCAMConfig(std::string name) {
+    BCAMConfig getBCAMConfig(std::string name) {
         for(unsigned int i=0; i < mBCAMConfigs.size(); i++) {
             if (name == mBCAMConfigs[i].getName()) {
-                return &mBCAMConfigs[i];
+                return mBCAMConfigs[i];
             }
         }
         std::cout << "WARNING BCAMConfig with name " << name << " not defined in configuration." << std::endl;
-        return NULL;
+        throw std::invalid_argument(name);
     }
 
-    detector* getDetector(std::string bcamName) {
-        BCAMConfig* bcam = getBCAMConfig(bcamName);
-        if (bcam == NULL) return NULL;
-
+    detector getDetector(std::string bcamName) {
+        BCAMConfig bcam = getBCAMConfig(bcamName);
         for(unsigned int j=0; j < mDetectors.size(); j++) {
-            if (bcam->getDetectorId() == mDetectors[j].getId()) {
-                return &mDetectors[j];
+            if (bcam.getDetectorId() == mDetectors[j].getId()) {
+                return mDetectors[j];
             }
         }
-        std::cout << "WARNING detector with id " << bcam->getDetectorId() << " not defined in configuration." << std::endl;
-        return NULL;
+        std::cout << "WARNING detector with id " << bcam.getDetectorId() << " not defined in configuration." << std::endl;
+        throw std::invalid_argument(bcamName);
     }
 
 
@@ -133,7 +132,7 @@ public:
     //gestion des correctiosn d'excentrement
     void add(prism_correction val) {mPrismCorrections.push_back(val);}
 
-    std::vector<BCAM>& getCurrentBCAMs() { return mCurrentBCAMs; }
+    std::vector<BCAM>& getBCAMs() { return mBCAMs; }
 
     //vidage partiel de la bdd
     void vidage() {
@@ -146,7 +145,7 @@ public:
     //vidage complet de la bdd si on charge un second fichier
     void vidage_complet() {
         mBCAMConfigs.clear();
-        mCurrentBCAMs.clear();
+        mBCAMs.clear();
         mDetectors.clear();
         mCalibs1.clear();
 //        mCalibs1Clean.clear();
@@ -165,7 +164,7 @@ public:
 protected:
 private:
     std::vector<BCAMConfig> mBCAMConfigs;
-    std::vector<BCAM> mCurrentBCAMs;
+    std::vector<BCAM> mBCAMs;
     std::vector<detector> mDetectors;
     std::vector<calib1> mCalibs1;
 //    std::vector<calib1> mCalibs1Clean;

@@ -429,7 +429,7 @@ void ATLAS_BCAM::showBCAMTable()
     //recuperation du nombre de detecteurs
     int nb_detectors = ui->tableWidget_liste_detectors->selectedItems().size()/noColumn;
 
-    m_bdd.getCurrentBCAMs().clear();
+    m_bdd.getBCAMs().clear();
 
     QString selectedDetectors("");
 
@@ -443,15 +443,16 @@ void ATLAS_BCAM::showBCAMTable()
         selectedDetectors = selectedDetectors.append(id_detector);
 
         //recuperation des donnes a afficher
+        // FIXME sure we need a new here ?
         std::vector<BCAM> *m_liste_bcam = new std::vector<BCAM>(m_bdd.getBCAMs(id_detector.toInt()));
 
         //insertion dans la tableWidget qui affiche les bcams
         for (unsigned int j=0; j<m_liste_bcam->size(); j++) {
-            m_bdd.getCurrentBCAMs().push_back(m_liste_bcam->at(j));
+            m_bdd.getBCAMs().push_back(m_liste_bcam->at(j));
         }
 
         //ecriture du script d'acquisition des detecteurs selectionnees
-        write_script_file(appDirPath()+"/"+fichier_script, m_bdd.getCurrentBCAMs());
+        write_script_file(appDirPath()+"/"+fichier_script, m_bdd.getBCAMs());
 
         //on supprime le pointeur a la fin
         delete m_liste_bcam;
@@ -460,30 +461,32 @@ void ATLAS_BCAM::showBCAMTable()
     settings.setValue(SELECTED_DETECTORS, selectedDetectors);
 
     // nombre de lignes dans la table
-    ui->tableWidget_liste_bcams->setRowCount(m_bdd.getCurrentBCAMs().size());
+    ui->tableWidget_liste_bcams->setRowCount(m_bdd.getBCAMs().size());
     ui->tableWidget_results->setRowCount(100);
 
     int row = 0;
-    for(unsigned int i=0; i<m_bdd.getCurrentBCAMs().size(); i++)
+    for(unsigned int i=0; i<m_bdd.getBCAMs().size(); i++)
     {
+        BCAM bcam = m_bdd.getBCAMs().at(i);
+
       //ajout dans la tableWidget qui affiche les BCAMs
       QTableWidgetItem *nom_bcam = new QTableWidgetItem();
-      nom_bcam->setText(QString::fromStdString(m_bdd.getCurrentBCAMs().at(i).getName()));
+      nom_bcam->setText(QString::fromStdString(bcam.getName()));
       ui->tableWidget_liste_bcams->setItem(i,0,nom_bcam);
 
       QTableWidgetItem *num_detector = new QTableWidgetItem();
-      num_detector->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getDetectorId());
+      num_detector->setData(Qt::DisplayRole,bcam.getDetectorId());
       ui->tableWidget_liste_bcams->setItem(i,1,num_detector);
 
       QTableWidgetItem *num_port_driver = new QTableWidgetItem();
-      num_port_driver->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getDriverSocket());
+      num_port_driver->setData(Qt::DisplayRole,bcam.getDriverSocket());
       ui->tableWidget_liste_bcams->setItem(i,2,num_port_driver);
 
       QTableWidgetItem *num_port_mux = new QTableWidgetItem();
-      num_port_mux->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getMuxSocket());
+      num_port_mux->setData(Qt::DisplayRole,bcam.getMuxSocket());
       ui->tableWidget_liste_bcams->setItem(i,3,num_port_mux);
 
-      Prism prism = m_bdd.getCurrentBCAMs().at(i).getPrism();
+      Prism prism = bcam.getPrism();
 
       QTableWidgetItem *num_chip = new QTableWidgetItem();
       num_chip->setData(Qt::DisplayRole,prism.getNumChip());
@@ -494,19 +497,19 @@ void ATLAS_BCAM::showBCAMTable()
       ui->tableWidget_liste_bcams->setItem(i,5,objet_vise);
 
       QTableWidgetItem *left = new QTableWidgetItem();
-      left->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getPrism().getLeft());
+      left->setData(Qt::DisplayRole,prism.getLeft());
       ui->tableWidget_liste_bcams->setItem(i,6,left);
 
       QTableWidgetItem *right = new QTableWidgetItem();
-      right->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getPrism().getRight());
+      right->setData(Qt::DisplayRole,prism.getRight());
       ui->tableWidget_liste_bcams->setItem(i,7,right);
 
       QTableWidgetItem *separate = new QTableWidgetItem();
-      separate->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getPrism().flashSeparate() ? "Yes" : "No");
+      separate->setData(Qt::DisplayRole,prism.flashSeparate() ? "Yes" : "No");
       ui->tableWidget_liste_bcams->setItem(i,8,separate);
 
       QTableWidgetItem *adjust = new QTableWidgetItem();
-      adjust->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getPrism().flashAdjust() ? "Yes" : "No");
+      adjust->setData(Qt::DisplayRole,prism.flashAdjust() ? "Yes" : "No");
       ui->tableWidget_liste_bcams->setItem(i,9,adjust);
 
       // Result Table
@@ -517,9 +520,9 @@ void ATLAS_BCAM::showBCAMTable()
       name->setText(QString::fromStdString(prismName));
       ui->tableWidget_results->setItem(row, 0, name);
 
-      QTableWidgetItem *bcam = new QTableWidgetItem();
-      bcam->setText(QString::fromStdString(m_bdd.getCurrentBCAMs().at(i).getName()));
-      ui->tableWidget_results->setItem(row, 1, bcam);
+      QTableWidgetItem *bcamName = new QTableWidgetItem();
+      bcamName->setText(QString::fromStdString(bcam.getName()));
+      ui->tableWidget_results->setItem(row, 1, bcamName);
 
       QTableWidgetItem *prismCell = new QTableWidgetItem();
       prismCell->setText(QString::fromStdString(prism.getName()));

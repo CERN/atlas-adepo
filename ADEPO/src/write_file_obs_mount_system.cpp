@@ -173,7 +173,7 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
 
             //nomenclature dans le repere ATLAS
             global_coord_prism prism = prism1;
-            std::string name_bcam_atlas = base_donnees.getName(prism.getBCAM()->getName());
+            std::string name_bcam_atlas = base_donnees.getName(prism.getBCAM().getName());
             std::string name_prism_atlas = base_donnees.getName(prism.getPrism().getName());
             float airpad = prism1.getAirpad();
 
