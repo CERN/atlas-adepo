@@ -15,7 +15,8 @@ public:
         QStringList list = s.split("(");
         s = list.size() == 1 ? s : list.at(0);
         if (list.size() > 1) {
-            list = list.at(1).right(list.at(1).length()-1).split(",");
+            list = list.at(1).left(list.at(1).length()-1).split(",");
+            std::cout << list.at(0).toStdString() << " " << list.at(1).toStdString() << std::endl;
             left = list.at(0).toInt();
             right = list.at(1).toInt();
         }

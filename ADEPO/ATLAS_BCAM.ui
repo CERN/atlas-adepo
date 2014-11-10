@@ -28,7 +28,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="ConfigurationTab">
        <attribute name="title">
@@ -286,6 +286,12 @@
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>1111</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="sizeIncrement">
                   <size>
                    <width>0</width>
@@ -320,28 +326,34 @@
                   <bool>true</bool>
                  </property>
                  <attribute name="horizontalHeaderVisible">
+                  <bool>true</bool>
+                 </attribute>
+                 <attribute name="horizontalHeaderCascadingSectionResizes">
                   <bool>false</bool>
                  </attribute>
                  <attribute name="horizontalHeaderDefaultSectionSize">
-                  <number>160</number>
+                  <number>100</number>
                  </attribute>
                  <attribute name="horizontalHeaderHighlightSections">
                   <bool>false</bool>
                  </attribute>
                  <attribute name="horizontalHeaderMinimumSectionSize">
-                  <number>160</number>
+                  <number>50</number>
                  </attribute>
                  <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
                   <bool>true</bool>
                  </attribute>
                  <attribute name="horizontalHeaderStretchLastSection">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </attribute>
                  <attribute name="verticalHeaderVisible">
                   <bool>false</bool>
                  </attribute>
                  <attribute name="verticalHeaderCascadingSectionResizes">
                   <bool>false</bool>
+                 </attribute>
+                 <attribute name="verticalHeaderDefaultSectionSize">
+                  <number>30</number>
                  </attribute>
                  <attribute name="verticalHeaderMinimumSectionSize">
                   <number>30</number>
@@ -354,32 +366,52 @@
                  </attribute>
                  <column>
                   <property name="text">
-                   <string>BCAM NAME</string>
+                   <string>BCAM</string>
                   </property>
                  </column>
                  <column>
                   <property name="text">
-                   <string>DETECTOR ID</string>
+                   <string>DET. ID</string>
                   </property>
                  </column>
                  <column>
                   <property name="text">
-                   <string>PORT DRIVER</string>
+                   <string>DRIVER</string>
                   </property>
                  </column>
                  <column>
                   <property name="text">
-                   <string>PORT MUX</string>
+                   <string>MUX</string>
                   </property>
                  </column>
                  <column>
                   <property name="text">
-                   <string>NUM CHIP</string>
+                   <string>DEV. EL.</string>
                   </property>
                  </column>
                  <column>
                   <property name="text">
                    <string>PRISM</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>LEFT</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>RIGHT</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>SEPARATE</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>ADJUST</string>
                   </property>
                  </column>
                 </widget>
