@@ -8,6 +8,7 @@
 class Prism
 {
 public:
+    // possible names: PR005 PR005* PR005+ PR005*+ PR005+* PR005(20,180), 20MABNDM000020, 20MABNDM000020+, etc and combinations...
     Prism(std::string name, int numChip) : mNumChip(numChip), left(20), right(343), top(1), bottom(243),
             separate(false), adjust(false) {
 
@@ -16,30 +17,25 @@ public:
         s = list.size() == 1 ? s : list.at(0);
         if (list.size() > 1) {
             list = list.at(1).left(list.at(1).length()-1).split(",");
-            std::cout << list.at(0).toStdString() << " " << list.at(1).toStdString() << std::endl;
             left = list.at(0).toInt();
             right = list.at(1).toInt();
         }
 
-        // * (flash separate), + (search) or *+ is allowed
+        prism = s.startsWith("PR");
 
-        if (s.endsWith("+")) {
-            adjust = true;
-            s = s.left(s.length()-1);
-        }
+        mName = s.left(prism ? 5 : 14).toStdString();
+        s = s.mid(prism ? 5 : 14);
 
-        if (s.endsWith("*")) {
-            separate = true;
-            s = s.left(s.length()-1);
-        }
+        // * (flash separate), + (search), *+ and +* are also allowed
+        separate = s.contains("*");
+        adjust = s.contains("+");
 
-        mName = s.toStdString();
-        std::cout << mName << " " << left << " " << right << " " << separate << " " << adjust << std::endl;
+//        std::cout << mName << " " << left << " " << right << " " << separate << " " << adjust << std::endl;
     };
     virtual ~Prism() {};
 
     std::string getName() const { return mName; }
-    bool isPrism() const { return mName.length() == 5 && mName[0] == 'P' && mName[1] == 'R'; }
+    bool isPrism() const { return prism; }
 
     int getNumChip() const { return mNumChip; }
     int getLeft() const { return left; }
@@ -52,6 +48,7 @@ public:
 
 private:
     std::string mName;
+    bool prism;
     int mNumChip;
     int left;
     int right;
