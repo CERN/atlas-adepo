@@ -955,6 +955,7 @@ int ATLAS_BCAM::write_settings_file(QString settings_file)
            <<"set Acquisifier_config(auto_run) \"0\" \n"
            <<"set Acquisifier_config(cycle_period_seconds) \"0\" \n"
            <<"set Acquisifier_config(daq_script) \""<<appDirPath().append("/").append(fichier_script).toStdString()<<"\" \n"
+           <<"set Acquisifier_config(run_results) \""<<appDirPath().append("/").append("test").toStdString()<<"\" \n"
            <<"set Acquisifier_config(analysis_color) \"green\" \n"
            <<"set Acquisifier_config(auto_quit) \"0\" \n"
            <<"set Acquisifier_config(result_color) \"green\" \n"
