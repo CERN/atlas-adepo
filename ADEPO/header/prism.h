@@ -9,7 +9,7 @@ class Prism
 {
 public:
     Prism(std::string name, int numChip) : mNumChip(numChip), left(20), right(343), top(1), bottom(243),
-            separate(false), search(false) {
+            separate(false), adjust(false) {
 
         QString s = QString::fromStdString(name);
         QStringList list = s.split("(");
@@ -23,7 +23,7 @@ public:
         // * (flash separate), + (search) or *+ is allowed
 
         if (s.endsWith("+")) {
-            search = true;
+            adjust = true;
             s = s.left(s.length()-1);
         }
 
@@ -33,7 +33,7 @@ public:
         }
 
         mName = s.toStdString();
-        std::cout << mName << " " << left << " " << right << " " << separate << " " << search << std::endl;
+        std::cout << mName << " " << left << " " << right << " " << separate << " " << adjust << std::endl;
     };
     virtual ~Prism() {};
 
@@ -47,7 +47,7 @@ public:
     int getBottom() const { return bottom; }
 
     bool flashSeparate() const { return separate; }
-    bool shouldSearch() const { return search; }
+    bool flashAdjust() const { return adjust; }
 
 private:
     std::string mName;
@@ -57,7 +57,7 @@ private:
     int top;
     int bottom;
     bool separate;
-    bool search;
+    bool adjust;
 };
 
 #endif // PRISM_H
