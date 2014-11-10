@@ -501,6 +501,14 @@ void ATLAS_BCAM::showBCAMTable()
       right->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getPrism().getRight());
       ui->tableWidget_liste_bcams->setItem(i,7,right);
 
+      QTableWidgetItem *separate = new QTableWidgetItem();
+      separate->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getPrism().flashSeparate() ? "Yes" : "No");
+      ui->tableWidget_liste_bcams->setItem(i,8,separate);
+
+      QTableWidgetItem *adjust = new QTableWidgetItem();
+      adjust->setData(Qt::DisplayRole,m_bdd.getCurrentBCAMs().at(i).getPrism().flashAdjust() ? "Yes" : "No");
+      ui->tableWidget_liste_bcams->setItem(i,9,adjust);
+
       // Result Table
       std::string prismName = m_bdd.getName(prism.getName());
       result& result = results[prismName];
