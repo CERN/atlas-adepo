@@ -20,18 +20,20 @@ public:
             right = list.at(1).toInt();
         }
 
-        if (s.endsWith("*")) {
-            separate = true;
-            s = s.right(s.length()-1);
-        }
+        // * (flash separate), + (search) or *+ is allowed
 
         if (s.endsWith("+")) {
             search = true;
-            s = s.right(s.length()-1);
+            s = s.left(s.length()-1);
+        }
+
+        if (s.endsWith("*")) {
+            separate = true;
+            s = s.left(s.length()-1);
         }
 
         mName = s.toStdString();
-//        std::cout << mName << " " << left << " " << right << std::endl;
+        std::cout << mName << " " << left << " " << right << " " << separate << " " << search << std::endl;
     };
     virtual ~Prism() {};
 
