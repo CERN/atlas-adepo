@@ -33,20 +33,20 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
            <<"\n";
 
         //premiere visee BCAM-Prisme de la liste des observations
-        std::string premier_objet_img= base_donnees.getSpots().at(0).getName();
+        std::string premier_objet_img= base_donnees.getDualSpots().at(0).getName();
 
         //sauvegarde des coordonnees images
         fichier<<"*******************************************************************coordonnees images dans le repere CCD *********************************************************************************** \n";
-        for(unsigned int i=0; i<base_donnees.getSpots().size(); i++)
+        for(unsigned int i=0; i<base_donnees.getDualSpots().size(); i++)
         {
-            spot spot1 = base_donnees.getSpots().at(i);
+            DualSpot spot1 = base_donnees.getDualSpots().at(i);
             if(i>0 && spot1.getName() == premier_objet_img) //si on a tout parcourut et on revient au premier objet ==> fin
                 break;
 
             fichier<<spot1.getName()<<"\n";
-            for(unsigned int j=0; j<base_donnees.getSpots().size(); j++)
+            for(unsigned int j=0; j<base_donnees.getDualSpots().size(); j++)
             {
-                spot spot2 = base_donnees.getSpots().at(j);
+                DualSpot spot2 = base_donnees.getDualSpots().at(j);
                 if(spot1.getName() == spot2.getName())
                 {
                     fichier

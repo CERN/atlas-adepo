@@ -1,7 +1,6 @@
 HEADERS += \
     header/adepo.h \
     header/write_file_obs_mount_system.h \
-    header/spot.h \
     header/read_lwdaq_output.h \
     header/read_input.h \
     header/read_calibration_database.h \
@@ -32,7 +31,8 @@ HEADERS += \
     header/float_table_widget_item.h \
     header/read_write_ref.h \
     header/prism.h \
-    header/bcam_config.h
+    header/bcam_config.h \
+    header/dual_spot.h
 
 SOURCES += \
     src/write_file_obs_mount_system.cpp \

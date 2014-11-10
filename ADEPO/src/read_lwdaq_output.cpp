@@ -39,9 +39,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord2_i_ccd = strtok( NULL, " " );
                     char *coord2_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    spot sp(prisms[0].toStdString(), prisms[1].toStdString(),
+                    DualSpot dsp(prisms[0].toStdString(), prisms[1].toStdString(),
                             atof(coord1_i_ccd), atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
-                    base_donnees.add(sp);
+                    base_donnees.add(dsp);
 //                    sp.print();
                     break;
                 }
@@ -63,9 +63,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord2_i_ccd = strtok( NULL, " " );
                     char *coord2_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    spot sp1(prisms[0].toStdString(), prisms[1].toStdString(),
+                    DualSpot dsp1(prisms[0].toStdString(), prisms[1].toStdString(),
                              atof(coord1_i_ccd),atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
-                    base_donnees.add(sp1);
+                    base_donnees.add(dsp1);
                     //sauter les 4 prochaines valeurs
                     for(int i=0; i<4; i++)
                     {
@@ -83,9 +83,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord4_i_ccd = strtok( NULL, " " );
                     char *coord4_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    spot sp2(prisms[0].toStdString(), prisms[2].toStdString(),
+                    DualSpot dsp2(prisms[0].toStdString(), prisms[2].toStdString(),
                              atof(coord3_i_ccd), atof(coord3_j_ccd), atof(coord4_i_ccd), atof(coord4_j_ccd));
-                    base_donnees.add(sp2);
+                    base_donnees.add(dsp2);
 //                    sp1.print();
 //                    sp2.print();
                     break;
@@ -108,9 +108,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord2_i_ccd = strtok( NULL, " " );
                     char *coord2_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    spot sp1(prisms[0].toStdString(), prisms[1].toStdString(),
+                    DualSpot dsp1(prisms[0].toStdString(), prisms[1].toStdString(),
                              atof(coord1_i_ccd),atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
-                    base_donnees.add(sp1);
+                    base_donnees.add(dsp1);
                     //sauter les 4 prochaines valeurs
                     for(int i=0; i<4; i++)
                     {
@@ -128,9 +128,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord4_i_ccd = strtok( NULL, " " );
                     char *coord4_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    spot sp2(prisms[0].toStdString(), prisms[2].toStdString(),
+                    DualSpot dsp2(prisms[0].toStdString(), prisms[2].toStdString(),
                              atof(coord3_i_ccd), atof(coord3_j_ccd), atof(coord4_i_ccd), atof(coord4_j_ccd));
-                    base_donnees.add(sp2);
+                    base_donnees.add(dsp2);
                     //sauter les 4 prochaines valeurs
                     for(int i=0; i<4; i++)
                     {
@@ -148,9 +148,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord6_i_ccd = strtok( NULL, " " );
                     char *coord6_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    spot sp3(prisms[0].toStdString(), prisms[3].toStdString(),
+                    DualSpot dsp3(prisms[0].toStdString(), prisms[3].toStdString(),
                              atof(coord5_i_ccd), atof(coord5_j_ccd), atof(coord6_i_ccd), atof(coord6_j_ccd));
-                    base_donnees.add(sp3);
+                    base_donnees.add(dsp3);
                     break;
                 }
 

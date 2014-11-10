@@ -19,7 +19,7 @@
 #include "bcam.h"
 #include "bcam_config.h"
 #include "detector.h"
-#include "spot.h"
+#include "dual_spot.h"
 #include "calib1.h"
 #include "calib2.h"
 #include "mount_coord_spots.h"
@@ -50,7 +50,7 @@ public:
 //    std::vector<calib1> getCalibs1Clean() const {return m_liste_calib1_clean;}
     std::vector<calib2> getCalibs2() const {return mCalibs2;}
 //    std::vector<calib2> Get_liste_calib2_clean() const {return m_liste_calib2_clean;}
-    std::vector<spot> getSpots() const {return mSpots;}
+    std::vector<DualSpot> getDualSpots() const {return mDualSpots;}
     std::vector<mount_coord_spots> getMountCoordSpots() const {return mMountCoordSpots;}
     std::vector<mount_coord_prism> getMountCoordPrisms() const {return mMountCoordPrisms;}
     //gestion de l'adresse IP
@@ -112,7 +112,7 @@ public:
 //    void addClean(calib1 val) {mCalibs1Clean.push_back(val);}
     void add(calib2 val) {mCalibs2.push_back(val);}
 //    void Add_calib2_clean(calib2 val) {m_liste_calib2_clean.push_back(val);}
-    void add(spot val) {mSpots.push_back(val);}
+    void add(DualSpot val) {mDualSpots.push_back(val);}
     void add(mount_coord_spots val) {mMountCoordSpots.push_back(val);}
     void add(mount_coord_prism val) {mMountCoordPrisms.push_back(val);}
     //gestion de l'adresse IP
@@ -137,7 +137,7 @@ public:
 
     //vidage partiel de la bdd
     void vidage() {
-        mSpots.clear();
+        mDualSpots.clear();
         mMountCoordSpots.clear();
         mMountCoordPrisms.clear();
         mGlobalCoordPrisms.clear();
@@ -152,7 +152,7 @@ public:
 //        mCalibs1Clean.clear();
         mCalibs2.clear();
 //        m_liste_calib2_clean.clear();
-        mSpots.clear();
+        mDualSpots.clear();
         mMountCoordSpots.clear();
         mMountCoordPrisms.clear();
         mGlobalCoordPrisms.clear();
@@ -171,7 +171,7 @@ private:
 //    std::vector<calib1> mCalibs1Clean;
     std::vector<calib2> mCalibs2;
 //    std::vector<calib2> m_liste_calib2_clean;
-    std::vector<spot> mSpots;
+    std::vector<DualSpot> mDualSpots;
     std::vector<mount_coord_spots> mMountCoordSpots;
     std::vector<mount_coord_prism> mMountCoordPrisms;
     std::string mDriverIpAddress;

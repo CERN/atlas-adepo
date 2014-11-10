@@ -13,11 +13,11 @@
 void img_coord_to_bcam_coord(bdd & base_donnees)
 {
     bool found = false;
-    for(unsigned int i=0; i<base_donnees.getSpots().size(); i++) //je parcours la base de donnees des coordonnees images
+    for(unsigned int i=0; i<base_donnees.getDualSpots().size(); i++) //je parcours la base de donnees des coordonnees images
     {
         for (unsigned int j=0; j<base_donnees.getCalibs1().size(); j++) //je parcours la base de donnees qui contient les informations de calibration
         {
-            spot spot = base_donnees.getSpots().at(i);
+            DualSpot spot = base_donnees.getDualSpots().at(i);
             calib1 calib1 = base_donnees.getCalibs1().at(j);
             // NumChip == 2 is Z+ direction
             int num_chip = base_donnees.getCurrentBCAM(spot.getName())->getPrism().getNumChip();

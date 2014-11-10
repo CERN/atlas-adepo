@@ -1,14 +1,14 @@
-#ifndef SPOT_H
-#define SPOT_H
+#ifndef DUAL_SPOT_H
+#define DUAL_SPOT_H
 
 #include "iostream"
 #include "bcam.h"
 
-class spot
+class DualSpot
 {
 public:
-    spot(std::string bcam, std::string prism, double i1CCD, double j1CCD, double i2CCD, double j2CCD) : mBCAM(bcam), mPrism(prism), mI1CCD(i1CCD), mJ1CCD(j1CCD), mI2CCD(i2CCD), mJ2CCD(j2CCD) {};
-    virtual ~spot() {};
+    DualSpot(std::string bcam, std::string prism, double i1CCD, double j1CCD, double i2CCD, double j2CCD) : mBCAM(bcam), mPrism(prism), mI1CCD(i1CCD), mJ1CCD(j1CCD), mI2CCD(i2CCD), mJ2CCD(j2CCD) {};
+    virtual ~DualSpot() {};
 
     //setter et getter
     std::string getBCAM() const { return mBCAM; }
@@ -41,4 +41,4 @@ private:
     double mJ2CCD;
 };
 
-#endif // SPOT_H
+#endif // DUAL_SPOT_H
