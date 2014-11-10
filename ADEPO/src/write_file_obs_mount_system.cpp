@@ -173,8 +173,8 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
 
             //nomenclature dans le repere ATLAS
             global_coord_prism prism = prism1;
-            std::string name_bcam_atlas = base_donnees.getName(prism.getBCAM());
-            std::string name_prism_atlas = base_donnees.getName(prism.getPrism());
+            std::string name_bcam_atlas = base_donnees.getName(prism.getBCAM()->getName());
+            std::string name_prism_atlas = base_donnees.getName(prism.getPrism().getName());
             float airpad = prism1.getAirpad();
 
             //delta selon composantes axiales
@@ -185,7 +185,7 @@ int write_file_obs_mount_system(QString fileName, QString datetime, bdd &base_do
             for(unsigned int n=0; n<base_donnees.getPrismCorrections().size(); n++)
             {
                 prism_correction correction = base_donnees.getPrismCorrections().at(n);
-                if(prism1.getPrism() == correction.getPrism())
+                if(prism1.getPrism().getName() == correction.getPrism())
                 {
                     delta_x = correction.getDelta().x();
                     delta_y = correction.getDelta().y();

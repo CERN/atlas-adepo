@@ -698,7 +698,7 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
         global_coord_prism prism = base_donnees.getGlobalCoordPrisms().at(i);
 
         //nomenclature dans le repere ATLAS
-        std::string name_prism_atlas = base_donnees.getName(prism.getPrism());
+        std::string name_prism_atlas = base_donnees.getName(prism.getPrism().getName());
 
         result& result = results[name_prism_atlas];
         result.setName(name_prism_atlas);
@@ -745,7 +745,7 @@ void ATLAS_BCAM::calculateResults(bdd &base_donnees, std::map<std::string, resul
         for(unsigned int n=0; n<base_donnees.getPrismCorrections().size(); n++)
         {
             prism_correction correction = base_donnees.getPrismCorrections().at(n);
-            if(base_donnees.getGlobalCoordPrisms().at(i).getPrism() == correction.getPrism())
+            if(base_donnees.getGlobalCoordPrisms().at(i).getPrism().getName() == correction.getPrism())
             {
                 dx = correction.getDelta().x();
                 dy = correction.getDelta().y();

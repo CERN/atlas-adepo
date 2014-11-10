@@ -9,30 +9,29 @@
 class mount_coord_prism
 {
 public:
-    mount_coord_prism(std::string bcam, std::string prism, Point3f coordPrismMountSys) :
-        mBCAM(bcam), mPrism(prism), mCoordPrismMountSys(coordPrismMountSys) {};
+    mount_coord_prism(BCAM* bcam, Point3f coordPrismMountSys) :
+        mBCAM(bcam), mCoordPrismMountSys(coordPrismMountSys) {};
     virtual ~mount_coord_prism() {};
 
     //getter setter
-    std::string getBCAM() const {return mBCAM; }
-    std::string getPrism() const {return mPrism; }
-    std::string getName() const { return getBCAM()+"_"+getPrism(); }
+    BCAM* getBCAM() const {return mBCAM; }
+    Prism getPrism() const {return mBCAM->getPrism(); }
+    std::string getName() const { return getBCAM()->getName()+"_"+getPrism().getName(); }
     Point3f getCoordPrismMountSys() const {return mCoordPrismMountSys; }
 
 
     //methodes
     void print() {
         std::cout<<"*******************************************Mount coordinates of prism*******************************************"<<std::endl;
-        std::cout<<"Objet BCAM : "<<getBCAM()<<std::endl;
-        std::cout<<"Objet Prism : "<<getPrism()<<std::endl;
+        std::cout<<"Objet BCAM : "<<getBCAM()->getName()<<std::endl;
+        std::cout<<"Objet Prism : "<<getPrism().getName()<<std::endl;
         std::cout<<"Coordonnées du prisme dans le systeme MOUNT : "<<std::endl;
         getCoordPrismMountSys().print();
     }
 
 protected:
 private:
-    std::string mBCAM;
-    std::string mPrism;
+    BCAM* mBCAM;
     Point3f mCoordPrismMountSys;
 };
 

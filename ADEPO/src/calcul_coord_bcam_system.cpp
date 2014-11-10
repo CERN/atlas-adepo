@@ -29,8 +29,8 @@ void calcul_coord_bcam_system(bdd & base_donnees)
                 {
                     absolutes_distances absolutes_distances = base_donnees.getAbsoluteDistances().at(l);
 
-                    if(spot.getBCAM() == calib1.getBCAM() && directionOk1 &&
-                            spot.getBCAM() == calib2k.getBCAM() && directionOk2 &&
+                    if(spot.getBCAM()->getName() == calib1.getBCAM() && directionOk1 &&
+                            spot.getBCAM()->getName() == calib2k.getBCAM() && directionOk2 &&
                             spot.getName() == absolutes_distances.getName())
                     {
                         //calcul du mileu de la distance entre les 2 spots sur le ccd
@@ -100,7 +100,7 @@ void calcul_coord_bcam_system(bdd & base_donnees)
                         //ajout dans la base de donnees (check multiplication by Z? )
 //                        std::cout << spot.getName() << " " << calib1.getCoordAxis().z() << " " << num_chip << std::endl;
                         Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z);
-                        mount_coord_prism xyz_prism(spot.getBCAM(), spot.getPrism(), xyz);
+                        mount_coord_prism xyz_prism(spot.getBCAM(), xyz);
                         base_donnees.add(xyz_prism);
                         found = true;
                     }

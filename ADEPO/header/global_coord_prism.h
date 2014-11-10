@@ -4,14 +4,14 @@
 class global_coord_prism
 {
 public:
-    global_coord_prism(std::string bcam, std::string prism, Point3f coordPrismMountSys, float airpad) :
-        mBCAM(bcam), mPrism(prism), mCoordPrismMountSys(coordPrismMountSys), mAirpad(airpad) {};
+    global_coord_prism(BCAM* bcam, Point3f coordPrismMountSys, float airpad) :
+        mBCAM(bcam), mCoordPrismMountSys(coordPrismMountSys), mAirpad(airpad) {};
     virtual ~global_coord_prism() {};
 
     //getter setter
-    std::string getBCAM() const {return mBCAM; }
-    std::string getPrism() const {return mPrism; }
-    std::string getName() const { return getBCAM()+"_"+getPrism(); }
+    BCAM* getBCAM() const {return mBCAM; }
+    Prism getPrism() const {return mBCAM->getPrism(); }
+    std::string getName() const { return getBCAM()->getName()+"_"+getPrism().getName(); }
     Point3f getCoordPrismMountSys() const {return mCoordPrismMountSys; }
 
     float getAirpad() { return mAirpad; }
@@ -19,16 +19,15 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************global coordinates of prism*******************************************"<<std::endl;
-        std::cout<<"Objet BCAM : "<<getBCAM()<<std::endl;
-        std::cout<<"Objet Prism : "<<getPrism()<<std::endl;
+        std::cout<<"Objet BCAM : "<<getBCAM()->getName()<<std::endl;
+        std::cout<<"Objet Prism : "<<getPrism().getName()<<std::endl;
         std::cout<<"Coordonnées du prisme dans le systeme global : "<<std::endl;
         getCoordPrismMountSys().print();
     }
 
 protected:
 private:
-    std::string mBCAM;
-    std::string mPrism;
+    BCAM* mBCAM;
     Point3f mCoordPrismMountSys;
     float mAirpad;
 };

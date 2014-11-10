@@ -27,7 +27,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet + coordonnées images du premier spot
                     std::string name = strtok(buffer," ");
-                    QStringList prisms = QString::fromStdString(name).split('_');
+                    BCAM* bcam = base_donnees.getCurrentBCAM(name);
                     char *coord1_i_ccd = strtok( NULL, " " );
                     char *coord1_j_ccd = strtok( NULL, " " );
                     //sauter les 4 prochaines valeurs
@@ -39,7 +39,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord2_i_ccd = strtok( NULL, " " );
                     char *coord2_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    DualSpot dsp(prisms[0].toStdString(), prisms[1].toStdString(),
+                    DualSpot dsp(bcam,
                             atof(coord1_i_ccd), atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
                     base_donnees.add(dsp);
 //                    sp.print();
@@ -51,7 +51,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet(S) + coordonnées images du premier spot
                     std::string name = strtok(buffer," ");
-                    QStringList prisms = QString::fromStdString(name).split('_');
+                    BCAM* bcam = base_donnees.getCurrentBCAM(name);
                     char *coord1_i_ccd = strtok( NULL, " " );
                     char *coord1_j_ccd = strtok( NULL, " " );
                     //sauter les 4 prochaines valeurs
@@ -63,7 +63,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord2_i_ccd = strtok( NULL, " " );
                     char *coord2_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    DualSpot dsp1(prisms[0].toStdString(), prisms[1].toStdString(),
+                    DualSpot dsp1(bcam,
                              atof(coord1_i_ccd),atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
                     base_donnees.add(dsp1);
                     //sauter les 4 prochaines valeurs
@@ -83,7 +83,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord4_i_ccd = strtok( NULL, " " );
                     char *coord4_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    DualSpot dsp2(prisms[0].toStdString(), prisms[2].toStdString(),
+                    DualSpot dsp2(bcam,
                              atof(coord3_i_ccd), atof(coord3_j_ccd), atof(coord4_i_ccd), atof(coord4_j_ccd));
                     base_donnees.add(dsp2);
 //                    sp1.print();
@@ -96,7 +96,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet(S) + coordonnées images du premier spot
                     std::string name = strtok(buffer," ");
-                    QStringList prisms = QString::fromStdString(name).split('_');
+                    BCAM* bcam = base_donnees.getCurrentBCAM(name);
                     char *coord1_i_ccd = strtok( NULL, " " );
                     char *coord1_j_ccd = strtok( NULL, " " );
                     //sauter les 4 prochaines valeurs
@@ -108,7 +108,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord2_i_ccd = strtok( NULL, " " );
                     char *coord2_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    DualSpot dsp1(prisms[0].toStdString(), prisms[1].toStdString(),
+                    DualSpot dsp1(bcam,
                              atof(coord1_i_ccd),atof(coord1_j_ccd), atof(coord2_i_ccd), atof(coord2_j_ccd));
                     base_donnees.add(dsp1);
                     //sauter les 4 prochaines valeurs
@@ -128,7 +128,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord4_i_ccd = strtok( NULL, " " );
                     char *coord4_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    DualSpot dsp2(prisms[0].toStdString(), prisms[2].toStdString(),
+                    DualSpot dsp2(bcam,
                              atof(coord3_i_ccd), atof(coord3_j_ccd), atof(coord4_i_ccd), atof(coord4_j_ccd));
                     base_donnees.add(dsp2);
                     //sauter les 4 prochaines valeurs
@@ -148,7 +148,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *coord6_i_ccd = strtok( NULL, " " );
                     char *coord6_j_ccd = strtok( NULL, " " );
                     //ajout dans la base de donnees
-                    DualSpot dsp3(prisms[0].toStdString(), prisms[3].toStdString(),
+                    DualSpot dsp3(bcam,
                              atof(coord5_i_ccd), atof(coord5_j_ccd), atof(coord6_i_ccd), atof(coord6_j_ccd));
                     base_donnees.add(dsp3);
                     break;

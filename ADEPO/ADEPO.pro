@@ -32,7 +32,8 @@ HEADERS += \
     header/read_write_ref.h \
     header/prism.h \
     header/bcam_config.h \
-    header/dual_spot.h
+    header/dual_spot.h \
+    header/spot.h
 
 SOURCES += \
     src/write_file_obs_mount_system.cpp \

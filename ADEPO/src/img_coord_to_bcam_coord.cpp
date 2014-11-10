@@ -25,7 +25,7 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
 //            std::cout << spot.getBCAM() << " " << calib1.getBCAM() << " " << directionOk << " " <<  num_chip << " " << calib1.getCoordAxis().z() << std::endl;
 
             // check for name and direction.
-            if (spot.getBCAM() == calib1.getBCAM() && directionOk)
+            if (spot.getBCAM()->getName() == calib1.getBCAM() && directionOk)
             {
                 //transformation des coordonnees IMAGE vers le repere MOUNT
 
@@ -99,7 +99,7 @@ void img_coord_to_bcam_coord(bdd & base_donnees)
                 //sauvegarde dans la base de donnee
                 Point3f mount_sp1(coord_mount1(0,0), coord_mount1(0,1), coord_mount1(0,2));
                 Point3f mount_sp2(coord_mount2(0,0), coord_mount2(0,1), coord_mount2(0,2));
-                mount_coord_spots mount_couple_spots(spot.getBCAM(), spot.getPrism(), mount_sp1, mount_sp2);
+                mount_coord_spots mount_couple_spots(spot.getBCAM(), mount_sp1, mount_sp2);
                 base_donnees.add(mount_couple_spots);
 
                 found = true;
