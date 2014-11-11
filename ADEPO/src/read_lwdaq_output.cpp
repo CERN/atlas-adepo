@@ -10,6 +10,8 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
     if(fichier)
     {
         std::string ligne;  // déclaration d'une chaîne qui contiendra la ligne lue
+        double savedSpotI, savedSpotJ;
+        bool savedSpotReady;
 
         while(std::getline(fichier,ligne)) // tant que l'on arrive pas a la fin du fichier
         {
@@ -22,6 +24,25 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
 
                 switch(nb_colonnes)
                 {
+                case 1: // 1 spots, wait for second one...
+                {
+                    char *buffer = strdup((char*)ligne.c_str());
+                    //recuperation du nom de la BCAM_Objet + coordonnées images du spot
+                    std::string name = strtok(buffer," ");
+                    BCAM bcam = base_donnees.getBCAM(name);
+                    char *coord_i_ccd = strtok( NULL, " " );
+                    char *coord_j_ccd = strtok( NULL, " " );
+                    if (savedSpotReady) {
+                        DualSpot dsp(bcam, savedSpotI, savedSpotJ, atof(coord_i_ccd), atof(coord_j_ccd));
+                        base_donnees.add(dsp);
+                        savedSpotReady = false;
+                    } else {
+                        savedSpotI = atof(coord_i_ccd);
+                        savedSpotJ = atof(coord_j_ccd);
+                        savedSpotReady = true;
+                    }
+                }
+
                 case 12: // 2 spots
                 {
                     char *buffer = strdup((char*)ligne.c_str());
