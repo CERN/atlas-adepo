@@ -198,9 +198,9 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
     int deviceElement = ui->tableWidget_liste_bcams->item(row, 4)->text().toStdString() == "2" ? 2 : 1;
     ui->bcamLabel->setText(name);
     QPixmapCache::clear();
-    QString dir = appDirPath();
+    QString imageName1 = appDirPath();
     QString suffix1 = QString::fromStdString(getSourceDeviceElement(isPrism, flashSeparate, deviceElement, true)).replace(" ", "-");
-    QString imageName1 = dir.append("/").append(name).append("-").append(suffix1).append(".gif");
+    imageName1.append("/").append(name).append("-").append(suffix1).append(".gif");
 //    QList<QByteArray> list = QImageReader::supportedImageFormats();
 //    for (int i=0; i<list.size(); i++) {
 //        std::cout << QString(list[i]).toStdString() << std::endl;
@@ -211,10 +211,11 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
         QPixmap pix1(imageName1);
         ui->bcamImage1->setPixmap(pix1);
         ui->bcamDateTime->setText(dateTime.toString());
-//        ui->bcamImage2->setVisible(flashSeparate);
+        ui->bcamImage2->setVisible(flashSeparate);
         if (flashSeparate) {
             QString suffix2 = QString::fromStdString(getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false));
-            QString imageName2 = dir.append("/").append(name).append("-").append(suffix2).append(".gif");
+            QString imageName2 = appDirPath();
+            imageName2.append("/").append(name).append("-").append(suffix2).append(".gif");
             std::cout << imageName1.toStdString() << std::endl;
             std::cout << imageName2.toStdString() << std::endl;
             QPixmap pix2(imageName2);
@@ -222,7 +223,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
         }
     } else {
         ui->bcamImage1->setText("No BCAM Image");
-//        ui->bcamImage2->setVisible(false);
+        ui->bcamImage2->setVisible(false);
         ui->bcamDateTime->setText("");
     }
 }
