@@ -30,9 +30,13 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet + coordonnées images du spot
                     std::string name = strtok(buffer," ");
+                    std::cout << name << std::endl;
                     BCAM bcam = base_donnees.getBCAM(name);
+                    bcam.print();
                     char *coord_i_ccd = strtok( NULL, " " );
                     char *coord_j_ccd = strtok( NULL, " " );
+                    std::cout << coord_i_ccd << std::endl;
+                    std::cout << coord_j_ccd << std::endl;
                     //sauter les 4 prochaines valeurs
                     for(int i=0; i<4; i++)
                     {
