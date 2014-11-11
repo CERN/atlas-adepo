@@ -50,7 +50,7 @@ QString path_input_folder;
 bool input_folder_read = false;
 
 //nom du fichier script qui va lancer l'acquisition que sur les detecteurs selectionnes
-QString fichier_script = "Acquisifier_Script.tcl";
+QString fichier_script = DEFAULT_SCRIPT_FILE;
 
 //bool pour savoir si y a eu une erreur dans le format de l'input
 //format_input = 1 --> tout est bon
