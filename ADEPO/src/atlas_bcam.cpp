@@ -211,17 +211,18 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
         QPixmap pix1(imageName1);
         ui->bcamImage1->setPixmap(pix1);
         ui->bcamDateTime->setText(dateTime.toString());
-        ui->bcamImage2->setVisible(flashSeparate);
+//        ui->bcamImage2->setVisible(flashSeparate);
         if (flashSeparate) {
             QString suffix2 = QString::fromStdString(getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false));
             QString imageName2 = dir.append("/").append(name).append("-").append(suffix2).append(".gif");
+            std::cout << imageName1.toStdString() << std::endl;
+            std::cout << imageName2.toStdString() << std::endl;
             QPixmap pix2(imageName2);
             ui->bcamImage2->setPixmap(pix2);
-            ui->bcamImage2->setText("Test=");
         }
     } else {
         ui->bcamImage1->setText("No BCAM Image");
-        ui->bcamImage2->setVisible(false);
+//        ui->bcamImage2->setVisible(false);
         ui->bcamDateTime->setText("");
     }
 }
