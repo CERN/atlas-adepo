@@ -54,21 +54,11 @@ int ATLAS_BCAM::write_script_file(QString fileName, std::vector<BCAM> &bcams)
         {
             BCAM bcam = bcams.at(i);
             Prism prism = bcam.getPrism();
+            int spots = prism.flashSeparate() ? 1 : 2;
 
+            write_bcam_script(file, bcam, spots, getSourceDeviceElement(prism.isPrism(), prism.flashSeparate(), prism.getNumChip(), true));
             if (prism.flashSeparate()) {
-                if (prism.isPrism()) {
-                    write_bcam_script(file, bcam, 1, prism.getNumChip() == 2 ? "3" : "1");
-                    write_bcam_script(file, bcam, 1, prism.getNumChip() == 2 ? "4" : "2");
-                } else {
-                    write_bcam_script(file, bcam, 1, prism.getNumChip() == 2 ? "1" : "3");
-                    write_bcam_script(file, bcam, 1, prism.getNumChip() == 2 ? "2" : "4");
-                }
-            } else {
-                if (prism.isPrism()) {
-                    write_bcam_script(file, bcam, 2, prism.getNumChip() == 2 ? "3 4" : "1 2");
-                } else {
-                    write_bcam_script(file, bcam, 2, prism.getNumChip() == 2 ? "1 2" : "3 4");
-                }
+                write_bcam_script(file, bcam, spots, getSourceDeviceElement(prism.isPrism(), prism.flashSeparate(), prism.getNumChip(), false));
             }
         }
 
@@ -130,4 +120,20 @@ int ATLAS_BCAM::write_bcam_script(std::ofstream &file, BCAM bcam, int spots, std
     return 0;
 }
 
+
+std::string ATLAS_BCAM::getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first) {
+    if (flashSeparate) {
+        if (isPrism) {
+            return deviceElement == 2 ? first ? "3" : "4" : first ? "1" : "2";
+        } else {
+            return deviceElement == 2 ? first ? "1" : "2" : first ? "3" : "4";
+        }
+    } else {
+        if (isPrism) {
+            return deviceElement == 2 ? "3 4" : "1 2";
+        } else {
+            return deviceElement == 2 ? "1 2" : "3 4";
+        }
+    }
+}
 

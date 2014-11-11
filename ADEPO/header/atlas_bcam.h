@@ -92,6 +92,7 @@ private:
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);
 
     int write_bcam_script(std::ofstream& file, BCAM bcam, int spots, std::string sourceDeviceElement);
+    std::string getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first);
 };
 
 #endif // ATLAS_BCAM_H
