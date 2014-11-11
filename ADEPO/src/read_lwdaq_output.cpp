@@ -25,7 +25,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
 
                 switch(nb_colonnes)
                 {
-                case 6: // 1 spots, wait for second one...
+                case 6: // 1 spot, wait for second one...
                 {
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet + coordonnées images du spot
@@ -33,6 +33,12 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                     BCAM bcam = base_donnees.getBCAM(name);
                     char *coord_i_ccd = strtok( NULL, " " );
                     char *coord_j_ccd = strtok( NULL, " " );
+                    //sauter les 4 prochaines valeurs
+                    for(int i=0; i<4; i++)
+                    {
+                        strtok( NULL, " " );
+                    }
+
                     if (savedSpotReady) {
                         DualSpot dsp(bcam, savedSpotI, savedSpotJ, atof(coord_i_ccd), atof(coord_j_ccd));
                         base_donnees.add(dsp);
