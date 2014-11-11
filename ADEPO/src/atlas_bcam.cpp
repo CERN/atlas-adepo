@@ -131,7 +131,8 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
             std::cout << "Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
         }
 
-        resultFile.setFileName(lwdaqDir.absolutePath().append("/Tools/Data/").append("Acquisifier_Results.txt"));
+        QString dir = appDirPath();
+        resultFile.setFileName(dir.append("/").append(DEFAULT_RESULTS_FILE));
 
         lwdaq_client->init();
 
@@ -194,7 +195,8 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
                  ui->tableWidget_liste_bcams->item(row, 5)->text());
     ui->bcamLabel->setText(name);
     QPixmapCache::clear();
-    QString imageName = lwdaqDir.absolutePath().append("/Tools/Data/").append(name).append(".gif");
+    QString dir = appDirPath();
+    QString imageName = dir.append("/").append(name).append(".gif");
 //    QList<QByteArray> list = QImageReader::supportedImageFormats();
 //    for (int i=0; i<list.size(); i++) {
 //        std::cout << QString(list[i]).toStdString() << std::endl;
@@ -954,7 +956,7 @@ int ATLAS_BCAM::write_settings_file(QString settings_file)
            <<"set Acquisifier_config(auto_run) \"0\" \n"
            <<"set Acquisifier_config(cycle_period_seconds) \"0\" \n"
            <<"set Acquisifier_config(daq_script) \""<<appDirPath().append("/").append(fichier_script).toStdString()<<"\" \n"
-           <<"set Acquisifier_config(run_results) \""<<appDirPath().append("/").append("test").toStdString()<<"\" \n"
+           <<"set Acquisifier_config(run_results) \""<<resultFile.fileName().toStdString()<<"\" \n"
            <<"set Acquisifier_config(analysis_color) \"green\" \n"
            <<"set Acquisifier_config(auto_quit) \"0\" \n"
            <<"set Acquisifier_config(result_color) \"green\" \n"
