@@ -194,8 +194,8 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
     QString prism = ui->tableWidget_liste_bcams->item(row,5)->text();
     QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(prism);
     bool isPrism = prism.startsWith("PR");
-    bool flashSeparate = ui->tableWidget_liste_bcams->item(row, 8)->text() == "Yes";
-    int deviceElement = ui->tableWidget_liste_bcams->item(row, 4)->text() == "2" ? 2 : 1;
+    bool flashSeparate = ui->tableWidget_liste_bcams->item(row, 8)->text().toStdString() == "Yes";
+    int deviceElement = ui->tableWidget_liste_bcams->item(row, 4)->text().toStdString() == "2" ? 2 : 1;
     ui->bcamLabel->setText(name);
     QPixmapCache::clear();
     QString dir = appDirPath();
