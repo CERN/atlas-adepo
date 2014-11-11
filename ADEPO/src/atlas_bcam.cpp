@@ -191,26 +191,32 @@ QString ATLAS_BCAM::appDirPath() {
 void ATLAS_BCAM::showBCAM(int row, int /* column */) {
 //    std::cout << "Selected " << row << std::endl;
     selectedBCAM = row;
-    QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(
-                 ui->tableWidget_liste_bcams->item(row, 5)->text());
-    bool separate = ui->tableWidget_liste_bcams->item(row, 8)->text().toStdString() == "Yes";
+    QString prism = ui->tableWidget_liste_bcams->item(row,5)->text();
+    QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(prism);
+    bool isPrism = prism.startsWith("PR");
+    bool flashSeparate = ui->tableWidget_liste_bcams->item(row, 8)->text() == "Yes";
+    int deviceElement = ui->tableWidget_liste_bcams->item(row, 4)->text() == "2" ? 2 : 1;
     ui->bcamLabel->setText(name);
     QPixmapCache::clear();
     QString dir = appDirPath();
-    QString imageName = dir.append("/").append(name).append(".gif");
+    QString suffix1 = QString::fromStdString(getSourceDeviceElement(isPrism, flashSeparate, deviceElement, true)).replace(" ", "-");
+    QString imageName1 = dir.append("/").append(name).append("-").append(suffix1).append(".gif");
 //    QList<QByteArray> list = QImageReader::supportedImageFormats();
 //    for (int i=0; i<list.size(); i++) {
 //        std::cout << QString(list[i]).toStdString() << std::endl;
 //    }
-    QFileInfo file1(imageName);
-    if (file1.exists()) {
-        QDateTime dateTime = file1.lastModified();
-        QPixmap pix(imageName);
-        ui->bcamImage1->setPixmap(pix);
+    QFileInfo file(imageName1);
+    if (file.exists()) {
+        QDateTime dateTime = file.lastModified();
+        QPixmap pix1(imageName1);
+        ui->bcamImage1->setPixmap(pix1);
         ui->bcamDateTime->setText(dateTime.toString());
-        ui->bcamImage2->setVisible(separate);
-        if (separate) {
-            ui->bcamImage2->setText("Second Image");
+        ui->bcamImage2->setVisible(flashSeparate);
+        if (flashSeparate) {
+            QString suffix2 = QString::fromStdString(getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false));
+            QString imageName2 = dir.append("/").append(name).append("-").append(suffix2).append(".gif");
+            QPixmap pix2(imageName2);
+            ui->bcamImage2->setPixmap(pix2);
         }
     } else {
         ui->bcamImage1->setText("No BCAM Image");
