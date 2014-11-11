@@ -24,7 +24,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
 
                 switch(nb_colonnes)
                 {
-                case 1: // 1 spots, wait for second one...
+                case 6: // 1 spots, wait for second one...
                 {
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet + coordonnées images du spot
