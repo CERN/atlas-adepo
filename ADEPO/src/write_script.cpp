@@ -98,9 +98,9 @@ int ATLAS_BCAM::write_bcam_script(std::ofstream &file, BCAM bcam, int spots, std
     std::string adjustFlash = prism.flashAdjust() ? "1" : "0";
 
     if (!prism.isPrism()) {
-        BCAMConfig* bcamConfig = m_bdd.getBCAMConfig(prism.getName());
-        sourceDriverSocket = bcamConfig->getDriverSocket();
-        sourceMuxSocket = bcamConfig->getMuxSocket();
+        BCAMConfig bcamConfig = m_bdd.getBCAMConfig(prism.getName());
+        sourceDriverSocket = bcamConfig.getDriverSocket();
+        sourceMuxSocket = bcamConfig.getMuxSocket();
     }
 
     file<<"acquire: \n"

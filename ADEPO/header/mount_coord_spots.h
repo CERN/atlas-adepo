@@ -3,17 +3,18 @@
 
 #include <iostream>
 #include "Point3f.h"
+#include "bcam.h"
 
 class mount_coord_spots
 {
 public:
-    mount_coord_spots(BCAM* bcam, Point3f coord1, Point3f coord2) :
+    mount_coord_spots(BCAM bcam, Point3f coord1, Point3f coord2) :
         mBCAM(bcam), mCoord1(coord1), mCoord2(coord2) {};
     virtual ~mount_coord_spots() {};
 
-    BCAM* getBCAM() const { return mBCAM; }
-    Prism getPrism() const { return mBCAM->getPrism(); }
-    std::string getName() const { return getBCAM()->getName()+"_"+getPrism().getName(); }
+    BCAM getBCAM() const { return mBCAM; }
+    Prism getPrism() const { return mBCAM.getPrism(); }
+    std::string getName() const { return getBCAM().getName()+"_"+getPrism().getName(); }
 
     Point3f getCoord1() const {return mCoord1; }
     Point3f getCoord2() const {return mCoord2; }
@@ -21,7 +22,7 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************Mount coordinates*******************************************"<<std::endl;
-        std::cout<<"BCAM : "<<getBCAM()->getName()<<std::endl;
+        std::cout<<"BCAM : "<<getBCAM().getName()<<std::endl;
         std::cout<<"Prism : "<<getPrism().getName()<<std::endl;
         std::cout<<"Coordonnées dans le systeme MOUNT (spot 1) : "<<std::endl;
         this->getCoord1().print();
@@ -31,7 +32,7 @@ public:
 
 protected:
 private:
-    BCAM* mBCAM;
+    BCAM mBCAM;
     Point3f mCoord1;
     Point3f mCoord2;
 };

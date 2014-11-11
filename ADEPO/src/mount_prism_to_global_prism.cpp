@@ -10,13 +10,13 @@ void mount_prism_to_global_prism(bdd & base_donnees, bool airpads)
     for(unsigned int i=0; i<base_donnees.getMountCoordPrisms().size(); i++)
     {
         mount_coord_prism prism = base_donnees.getMountCoordPrisms().at(i);
-        float airpad = airpads ? base_donnees.getDetector(prism.getBCAM()->getName())->getAirpad() : 0.0f;
+        float airpad = airpads ? base_donnees.getDetector(prism.getBCAM().getName()).getAirpad() : 0.0f;
 
         for(unsigned int j=0; j<base_donnees.getBCAMParams().size(); j++)
         {
             BCAM_params params = base_donnees.getBCAMParams().at(j);
 
-            if(prism.getBCAM()->getName() == params.getBCAM())
+            if(prism.getBCAM().getName() == params.getBCAM())
             {
                  Point3f point_transforme = changement_repere(prism.getCoordPrismMountSys(),
                                                               params.getTranslation(),

@@ -15,7 +15,7 @@ void calcul_coord_bcam_system(bdd & base_donnees)
             calib1 calib1 = base_donnees.getCalibs1().at(j);
 
             // NumChip == 2 is Z+ direction
-            int num_chip = base_donnees.getCurrentBCAM(spot.getName())->getPrism().getNumChip();
+            int num_chip = base_donnees.getBCAM(spot.getName()).getPrism().getNumChip();
             bool directionOk1 = ((num_chip == 2) && (calib1.getDirection() == 1)) || ((num_chip == 1) && (calib1.getDirection() == -1));
 
             for(unsigned int k=0; k<base_donnees.getCalibs2().size(); k++) //je parcours la base de donnee de calibration 2
@@ -29,8 +29,8 @@ void calcul_coord_bcam_system(bdd & base_donnees)
                 {
                     absolutes_distances absolutes_distances = base_donnees.getAbsoluteDistances().at(l);
 
-                    if(spot.getBCAM()->getName() == calib1.getBCAM() && directionOk1 &&
-                            spot.getBCAM()->getName() == calib2k.getBCAM() && directionOk2 &&
+                    if(spot.getBCAM().getName() == calib1.getBCAM() && directionOk1 &&
+                            spot.getBCAM().getName() == calib2k.getBCAM() && directionOk2 &&
                             spot.getName() == absolutes_distances.getName())
                     {
                         //calcul du mileu de la distance entre les 2 spots sur le ccd
