@@ -193,6 +193,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
     selectedBCAM = row;
     QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(
                  ui->tableWidget_liste_bcams->item(row, 5)->text());
+    bool separate = ui->tableWidget_liste_bcams->item(row, 8)->text().toStdString() == "Yes";
     ui->bcamLabel->setText(name);
     QPixmapCache::clear();
     QString dir = appDirPath();
@@ -201,14 +202,19 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
 //    for (int i=0; i<list.size(); i++) {
 //        std::cout << QString(list[i]).toStdString() << std::endl;
 //    }
-    QFileInfo file(imageName);
-    if (file.exists()) {
-        QDateTime dateTime = file.lastModified();
+    QFileInfo file1(imageName);
+    if (file1.exists()) {
+        QDateTime dateTime = file1.lastModified();
         QPixmap pix(imageName);
-        ui->bcamImage->setPixmap(pix);
+        ui->bcamImage1->setPixmap(pix);
         ui->bcamDateTime->setText(dateTime.toString());
+        ui->bcamImage2->setVisible(separate);
+        if (separate) {
+            ui->bcamImage2->setText("Second Image");
+        }
     } else {
-        ui->bcamImage->setText("No BCAM Image");
+        ui->bcamImage1->setText("No BCAM Image");
+        ui->bcamImage2->setVisible(false);
         ui->bcamDateTime->setText("");
     }
 }
