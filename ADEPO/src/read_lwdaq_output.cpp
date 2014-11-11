@@ -10,8 +10,9 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
     if(fichier)
     {
         std::string ligne;  // déclaration d'une chaîne qui contiendra la ligne lue
-        double savedSpotI, savedSpotJ;
-        bool savedSpotReady;
+        double savedSpotI = 0;
+        double savedSpotJ = 0;
+        bool savedSpotReady = false;
 
         while(std::getline(fichier,ligne)) // tant que l'on arrive pas a la fin du fichier
         {
