@@ -217,6 +217,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
             QString imageName2 = dir.append("/").append(name).append("-").append(suffix2).append(".gif");
             QPixmap pix2(imageName2);
             ui->bcamImage2->setPixmap(pix2);
+            ui->bcamImage2->setText("Test=");
         }
     } else {
         ui->bcamImage1->setText("No BCAM Image");
