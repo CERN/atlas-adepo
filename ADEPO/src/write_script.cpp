@@ -31,7 +31,7 @@ int ATLAS_BCAM::write_script_file(QString fileName, std::vector<BCAM> &bcams)
            <<" puts $f $result \n"
            <<" close $f \n"
            <<" LWDAQ_print $info(text) \"Appended modified result to [file tail $config(run_results)].\" blue ;  \n"
-           <<" set fn [file join [file dirname $config(run_results)] $(name)_$(sourceDeviceElement).gif] \n"
+           <<" set fn [file join [file dirname $config(run_results)] $name-$sourceDeviceElement.gif] \n"
            <<" LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
            <<" LWDAQ_print $info(text) \"Saved raw image to $fn\" blue ; \n"
            <<" } \n"
