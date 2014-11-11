@@ -52,6 +52,7 @@ int read_lwdaq_output(QFile &file, bdd & base_donnees)
                         savedSpotJ = atof(coord_j_ccd);
                         savedSpotReady = true;
                     }
+                    break;
                 }
 
                 case 12: // 2 spots
