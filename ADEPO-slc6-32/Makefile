@@ -12,7 +12,7 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/det/ti/PosMov/git/adepo-test/ADEPO-slc6-32\"
+DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6-32\"
 CFLAGS        = -m32 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -m32 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I../../../Qt5.3.0-x86/5.3/gcc/mkspecs/linux-g++-32 -I../ADEPO -I../ADEPO/header -I../ADEPO/eigen-eigen-ffa86ffb5570 -I../../../Qt5.3.0-x86/5.3/gcc/include -I../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets -I../../../Qt5.3.0-x86/5.3/gcc/include/QtTest -I../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork -I../../../Qt5.3.0-x86/5.3/gcc/include/QtGui -I../../../Qt5.3.0-x86/5.3/gcc/include/QtCore -I. -I. -I.
@@ -873,7 +873,7 @@ moc_atlas_bcam.cpp: ../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QMainWindow \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qsslkey.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qtnetworkversion.h \
 		../ADEPO/header/atlas_bcam.h
-	/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/mkspecs/linux-g++-32 -I/det/ti/PosMov/git/adepo-test/ADEPO -I/det/ti/PosMov/git/adepo-test/ADEPO/header -I/det/ti/PosMov/git/adepo-test/ADEPO/eigen-eigen-ffa86ffb5570 -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtWidgets -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtTest -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtNetwork -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtGui -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtCore -I. ../ADEPO/header/atlas_bcam.h -o moc_atlas_bcam.cpp
+	/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/mkspecs/linux-g++-32 -I/det/ti/PosMov/git/atlas-adepo/ADEPO -I/det/ti/PosMov/git/atlas-adepo/ADEPO/header -I/det/ti/PosMov/git/atlas-adepo/ADEPO/eigen-eigen-ffa86ffb5570 -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtWidgets -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtTest -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtNetwork -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtGui -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtCore -I. ../ADEPO/header/atlas_bcam.h -o moc_atlas_bcam.cpp
 
 moc_lwdaq_client.cpp: ../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QObject \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/qobject.h \
@@ -1105,7 +1105,7 @@ moc_lwdaq_client.cpp: ../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QObject \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qsslkey.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtNetwork/qtnetworkversion.h \
 		../ADEPO/header/lwdaq_client.h
-	/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/mkspecs/linux-g++-32 -I/det/ti/PosMov/git/adepo-test/ADEPO -I/det/ti/PosMov/git/adepo-test/ADEPO/header -I/det/ti/PosMov/git/adepo-test/ADEPO/eigen-eigen-ffa86ffb5570 -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtWidgets -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtTest -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtNetwork -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtGui -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtCore -I. ../ADEPO/header/lwdaq_client.h -o moc_lwdaq_client.cpp
+	/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/mkspecs/linux-g++-32 -I/det/ti/PosMov/git/atlas-adepo/ADEPO -I/det/ti/PosMov/git/atlas-adepo/ADEPO/header -I/det/ti/PosMov/git/atlas-adepo/ADEPO/eigen-eigen-ffa86ffb5570 -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtWidgets -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtTest -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtNetwork -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtGui -I/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/include/QtCore -I. ../ADEPO/header/lwdaq_client.h -o moc_lwdaq_client.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -2384,6 +2384,46 @@ atlas_bcam.o: ../ADEPO/src/atlas_bcam.cpp ../ADEPO/header/atlas_bcam.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qfiledialog.h \
 		../ADEPO/header/read_input.h \
 		ui_ATLAS_BCAM.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QAction \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qaction.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qactiongroup.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QApplication \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qapplication.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qdesktopwidget.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QButtonGroup \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qbuttongroup.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QCheckBox \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qcheckbox.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QComboBox \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qcombobox.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qstyleoption.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qslider.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qabstractslider.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qstyle.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtabbar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qrubberband.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QGridLayout \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QGroupBox \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qgroupbox.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QHeaderView \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qheaderview.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qabstractitemview.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QMenu \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qmenu.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QMenuBar \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qmenubar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QSpacerItem \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QSpinBox \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qspinbox.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QStatusBar \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qstatusbar.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QTabWidget \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QTableWidget \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtablewidget.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qtableview.h \
+		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/QVBoxLayout \
 		../ADEPO/header/read_calibration_database.h \
 		../ADEPO/header/write_aquisifier_script.h \
 		../ADEPO/header/write_bash_script.h \
@@ -2608,8 +2648,6 @@ atlas_bcam.o: ../ADEPO/src/atlas_bcam.cpp ../ADEPO/header/atlas_bcam.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtTest/qtestevent.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtTest/qtestkeyboard.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtTest/qtestspontaneevent.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qapplication.h \
-		../../../Qt5.3.0-x86/5.3/gcc/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtTest/qtestmouse.h \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtCore/QDebug \
 		../../../Qt5.3.0-x86/5.3/gcc/include/QtTest/qtesttouch.h
