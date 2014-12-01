@@ -138,6 +138,8 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         ui->tabWidget->setCurrentIndex(0);
 
+        std::cout << "Using " << settings.fileName().toStdString() << std::endl;
+
         path_input_folder = settings.value(INPUT_FOLDER).value<QString>();
         if (path_input_folder != NULL) {
             openInputDir();
