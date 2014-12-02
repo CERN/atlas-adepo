@@ -16,6 +16,7 @@ It will generate Makefiles with references to afs, but you can edit those later.
 - glibc-devel.i686
 - libgcc.i686
 - dejavu-lgc-sans-fonts-2.30-2.el6.noarch fonts
+- libGL
 - make
 
 (all i686 needed to cross-compile for 32 bit on a 64 bit machine)

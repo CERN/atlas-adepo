@@ -44,7 +44,7 @@
 
 
 //declaration des variables globales
-QSettings settings;
+QSettings settings("atlas.cern.ch", "ADEPO");
 
 QString path_input_folder;
 bool input_folder_read = false;
