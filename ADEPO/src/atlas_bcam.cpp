@@ -31,6 +31,7 @@
 #define AIRPAD_INDEX "airpad_index"
 #define MODE_INDEX "mode_index"
 #define TIME_VALUE "time_value"
+#define WAITING_TIME_VALUE "waiting_time_value"
 #define FULL_PRESICION_FORMAT "full_precision_format"
 #define SELECTED_DETECTORS "selected_detectors"
 #define RESULT_FILE "result_file"
@@ -115,6 +116,7 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         QObject::connect(ui->fullPrecision,SIGNAL(stateChanged(int)),this,SLOT(changedFormat(int)));
         QObject::connect(ui->timeBox, SIGNAL(valueChanged(int)), this, SLOT(changedTimeValue(int)));
+        QObject::connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
         QObject::connect(ui->modeBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changedMode(int)));
         QObject::connect(ui->airpadBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
 
@@ -150,6 +152,12 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
             timeValue = 30;
         }
         ui->timeBox->setValue(timeValue);
+
+        int waitingTimeValue = settings.value(WAITING_TIME_VALUE).value<int>();
+        if (waitingTimeValue < 60) {
+            waitingTimeValue = 60;
+        }
+        ui->waitingTime->setValue(waitingTimeValue);
 
         int airpadIndex = settings.value(AIRPAD_INDEX).value<int>();
         ui->airpadBox->setCurrentIndex(airpadIndex);
@@ -250,16 +258,20 @@ void ATLAS_BCAM::lwdaqStateChanged() {
             setEnabled(false);
             break;
         case LWDAQ_Client::STOP:
+            ui->repeatButton->setEnabled(false);
             ui->Boutton_lancer->setEnabled(false);
             ui->nextMeasurement->setEnabled(false);
             ui->boutton_arreter->setEnabled(false);
             ui->stop->setEnabled(false);
+            ui->stopButton->setEnabled(false);
             break;
         case LWDAQ_Client::INIT:
+            ui->repeatButton->setEnabled(false);
             ui->Boutton_lancer->setEnabled(false);
             ui->boutton_arreter->setEnabled(false);
             ui->boutton_arreter->setEnabled(false);
             ui->stop->setEnabled(false);
+            ui->stopButton->setEnabled(false);
             needToCalculateResults = false;
             break;
 
@@ -289,13 +301,16 @@ void ATLAS_BCAM::setEnabled(bool enabled) {
             lwdaq_client->getState() > LWDAQ_Client::INIT;
     ui->Boutton_lancer->setEnabled(canStart);
     ui->nextMeasurement->setEnabled(canStart);
+    ui->repeatButton->setEnabled(canStart);
     ui->boutton_arreter->setEnabled(!enabled);
+    ui->stopButton->setEnabled(!enabled);
     ui->stop->setEnabled(!enabled);
 
     ui->tableWidget_liste_detectors->setEnabled(enabled);
     ui->modeBox->setEnabled(enabled);
     ui->airpadBox->setEnabled(enabled);
     ui->timeBox->setEnabled(enabled);
+    ui->waitingTime->setEnabled(enabled);
 }
 
 //ouverture d'une boite de dialogue                                                                 [----> ok
@@ -382,6 +397,11 @@ void ATLAS_BCAM::display(QLabel *label, QTextBrowser *browser, QString filename)
 void ATLAS_BCAM::changedTimeValue(int value)
 {
     settings.setValue(TIME_VALUE, value);
+}
+
+void ATLAS_BCAM::changedWaitingTimeValue(int value)
+{
+    settings.setValue(WAITING_TIME_VALUE, value);
 }
 
 //fonction d'ouverture de la fenêtre d'aide de l'outil ARCAPA                                       [----> not yet]
@@ -1070,7 +1090,7 @@ void ATLAS_BCAM::changedMode(int /* index */)
         //changement du text
         ui->textEdit_function_mode->setText("Temps d\'acquisition (s) :");
         //changement des valeurs d'interval pour le temps
-        ui->timeBox->setMinimum(11);
+        ui->timeBox->setMinimum(10);
         ui->timeBox->setMaximum(300);
         ui->timeBox->setValue(30);
     }
@@ -1101,7 +1121,9 @@ void ATLAS_BCAM::startCalcul()
             ui->modeBox->setEnabled(false);
             ui->airpadBox->setEnabled(false);
             ui->timeBox->setEnabled(false);
+            ui->waitingTime->setEnabled(false);
             ui->Boutton_lancer->setEnabled(false);
+            ui->repeatButton->setEnabled(false);
             ui->tableWidget_liste_bcams->setEnabled(false);
             //lancement des acquisitions + calcul
             QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));

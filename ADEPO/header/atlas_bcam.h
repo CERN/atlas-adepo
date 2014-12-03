@@ -57,6 +57,7 @@ private slots:
     void changedAirpad(int index);
     void changedMode(int);
     void changedTimeValue(int value);
+    void changedWaitingTimeValue(int value);
     void changedFormat(int state);
     void resetDelta();
     void startCalcul();
