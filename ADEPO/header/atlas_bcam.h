@@ -21,6 +21,8 @@ class ATLAS_BCAM : public QMainWindow
         Q_OBJECT
 
 public:
+    enum state { IDLE, RUN, STOP, WAITING };
+
     explicit ATLAS_BCAM(QWidget *parent = 0);
     ~ATLAS_BCAM();
     //fonction qui remplie le tableau de detecteurs affiche dans l'interface
@@ -53,7 +55,7 @@ private slots:
     void showBCAMTable();
     void showBCAM(int row, int);
     void lwdaqStateChanged();
-    void lwdaqTimeChanged();
+    void timeChanged();
     void changedAirpad(int index);
     void changedTimeValue(int value);
     void changedWaitingTimeValue(int value);
@@ -63,6 +65,7 @@ private slots:
     void startMonitoring();
     void lancer_acquisition();
     void stop_acquisition();
+    void stop_repeat_acquisition();
     void aide_atlas_bcam();
     void ouvrirDialogue();
 
@@ -83,6 +86,11 @@ private:
     bool needToCalculateResults;
     LWDAQ_Client::state previousState;
 
+    state adepoState;
+    bool askQuestion;
+    QTimer *waitingTimer;
+    QTimer *updateTimer;
+
     QString getDateTime();
     QString appDirPath();
     void openInputDir();
@@ -96,6 +104,8 @@ private:
 
     int write_bcam_script(std::ofstream& file, BCAM bcam, int spots, std::string sourceDeviceElement);
     std::string getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first);
+    QString getStateAsString();
+    void updateStatusBar();
 };
 
 #endif // ATLAS_BCAM_H

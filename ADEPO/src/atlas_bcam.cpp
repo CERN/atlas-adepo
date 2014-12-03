@@ -63,9 +63,6 @@ int format_input=1;
 
 //compteur pour savoir combien de fois l'utilisateur a charge un fichier d'input
 
-//timer pour le mode monitoring
-QTimer *timer = new QTimer();
-
 ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ATLAS_BCAM)                                                                        //[---> ok
@@ -76,7 +73,7 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         // connect to LWDAQ server
         lwdaq_client = new LWDAQ_Client("localhost", 1090, this);
         connect(lwdaq_client, SIGNAL(stateChanged()), this, SLOT(lwdaqStateChanged()));
-        connect(lwdaq_client, SIGNAL(remainingTimeChanged()), this, SLOT(lwdaqTimeChanged()));
+        connect(lwdaq_client, SIGNAL(remainingTimeChanged()), this, SLOT(timeChanged()));
 
         ui->setupUi(this);
         ui->statusBar->addPermanentWidget(&lwdaqStatus);
@@ -114,7 +111,7 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         //stopper l'acquisition
         QObject::connect(ui->boutton_arreter,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
         QObject::connect(ui->stop,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
-        QObject::connect(ui->stopButton,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
+        QObject::connect(ui->stopButton,SIGNAL(clicked()),this,SLOT(stop_repeat_acquisition()));
 
         QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
 
@@ -127,6 +124,17 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         needToCalculateResults = false;
 
         setMode(CLOSURE);
+        askQuestion = true;
+
+        adepoState = IDLE;
+        waitingTimer = new QTimer();
+        waitingTimer->setSingleShot(true);
+        connect(waitingTimer, SIGNAL(timeout()), this, SLOT(startMonitoring()));
+
+        updateTimer = new QTimer(this);
+        updateTimer->setInterval(FAST_UPDATE_TIME*1000);
+        updateTimer->setSingleShot(false);
+        connect(updateTimer, SIGNAL(timeout()), this, SLOT(timeChanged()));
 
         setEnabled(true);
 
@@ -246,12 +254,23 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
 
 void ATLAS_BCAM::lwdaqStateChanged() {
     std::cout << "state changed to " << lwdaq_client->getStateAsString().toStdString() << std::endl;
-    lwdaqStatus.setText(lwdaq_client->getStateAsString());
-    QMainWindow::statusBar()->showMessage("ADEPO");  // Used for Adepos status later on
+    updateStatusBar();
 
     switch (lwdaq_client->getState()) {
         case LWDAQ_Client::IDLE:
-            setEnabled(true);
+            if (mode == MONITORING) {
+                adepoState = WAITING;
+                setEnabled(false);
+
+                waitingTimer->start(ui->waitingTime->value()*1000);
+                updateTimer->start();
+            } else {
+                adepoState = IDLE;
+                askQuestion = true;
+                setEnabled(true);
+                waitingTimer->stop();
+                updateTimer->stop();
+            }
 
             if (needToCalculateResults) {
                 // rename startup script file
@@ -263,9 +282,11 @@ void ATLAS_BCAM::lwdaqStateChanged() {
             }
             break;
         case LWDAQ_Client::RUN:
+            adepoState = RUN;
             setEnabled(false);
             break;
         case LWDAQ_Client::STOP:
+            adepoState = mode == MONITORING ? WAITING : IDLE;
             ui->repeatButton->setEnabled(false);
             ui->Boutton_lancer->setEnabled(false);
             ui->nextMeasurement->setEnabled(false);
@@ -274,6 +295,7 @@ void ATLAS_BCAM::lwdaqStateChanged() {
             ui->stopButton->setEnabled(false);
             break;
         case LWDAQ_Client::INIT:
+            adepoState = IDLE;
             ui->repeatButton->setEnabled(false);
             ui->Boutton_lancer->setEnabled(false);
             ui->boutton_arreter->setEnabled(false);
@@ -292,14 +314,55 @@ void ATLAS_BCAM::lwdaqStateChanged() {
     previousState = lwdaq_client->getState();
 }
 
+QString ATLAS_BCAM::getStateAsString() {
+    switch(adepoState) {
+    case IDLE: return "IDLE";
+    case RUN: return "RUN";
+    case STOP: return "STOP";
+    case WAITING: return "WAITING";
+    default: return "Unknown State";
+    }
+}
+
 void ATLAS_BCAM::changedAirpad(int index) {
     settings.setValue(AIRPAD_INDEX, index);
 }
 
-void ATLAS_BCAM::lwdaqTimeChanged() {
-   QMainWindow::statusBar()->showMessage(QString("ADEPO ").append(QString::number(lwdaq_client->getRemainingTime()/1000)).
-                                          append(" seconds remaining..."));
-   showBCAM(selectedBCAM, 0);
+void ATLAS_BCAM::updateStatusBar() {
+    QString lwdaq;
+    QString adepo;
+    switch (lwdaq_client->getState()) {
+        case LWDAQ_Client::RUN:
+            lwdaq = lwdaq_client->getStateAsString();
+            adepo = getStateAsString().append(" ").append(QString::number(lwdaq_client->getRemainingTime()/1000)).
+                    append(" seconds remaining...");
+            break;
+        default:
+            lwdaq = lwdaq_client->getStateAsString();
+
+            break;
+    }
+
+    switch (adepoState) {
+        case RUN:
+            // filled already
+            break;
+        case WAITING:
+            adepo = getStateAsString().append(" ").append(QString::number(waitingTimer->remainingTime()/1000)).
+                    append(" seconds remaining...");
+            break;
+        default:
+            adepo = getStateAsString();
+            break;
+    }
+
+    lwdaqStatus.setText("LWDAQ: "+lwdaq);
+    QMainWindow::statusBar()->showMessage("ADEPO: "+adepo);
+}
+
+void ATLAS_BCAM::timeChanged() {
+    updateStatusBar();
+    showBCAM(selectedBCAM, 0);
 }
 
 void ATLAS_BCAM::setEnabled(bool enabled) {
@@ -310,9 +373,10 @@ void ATLAS_BCAM::setEnabled(bool enabled) {
     ui->Boutton_lancer->setEnabled(canStart);
     ui->nextMeasurement->setEnabled(canStart);
     ui->repeatButton->setEnabled(canStart);
-    ui->boutton_arreter->setEnabled(!enabled);
-    ui->stopButton->setEnabled(!enabled);
-    ui->stop->setEnabled(!enabled);
+
+    ui->boutton_arreter->setEnabled(!enabled && mode == CLOSURE);
+    ui->stop->setEnabled(!enabled && mode == CLOSURE);
+    ui->stopButton->setEnabled(!enabled && mode == MONITORING);
 
     ui->tableWidget_liste_detectors->setEnabled(enabled);
     ui->modeBox->setEnabled(enabled);
@@ -653,6 +717,26 @@ void ATLAS_BCAM::stop_acquisition()
 
     setEnabled(true);
 }
+
+void ATLAS_BCAM::stop_repeat_acquisition()
+{
+    needToCalculateResults = false;
+    setMode(CLOSURE);
+    waitingTimer->stop();
+    updateTimer->stop();
+
+    switch (lwdaq_client->getState()) {
+    case LWDAQ_Client::IDLE:
+        adepoState = IDLE;
+        break;
+    default:
+        lwdaq_client->stopRun();
+        break;
+    }
+
+    setEnabled(true);
+}
+
 
 void ATLAS_BCAM::resetDelta() {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
@@ -1099,23 +1183,20 @@ void ATLAS_BCAM::startMonitoring()
 {
     setMode(MONITORING);
 
-//    ui->stopButton->setEnabled(true);
-
-    //boite de dialogue avant de debuter le mode monitoring
-    int reponse = QMessageBox::question(this, "Monitoring Mode",
-                                        "Attention, you are in monitoring mode. Make sure you have selected the correct set of detectors.",
-                                        QMessageBox::Yes | QMessageBox::No);
-    //si la reponse est positive
-    if (reponse == QMessageBox::Yes) {
-        //lancement des acquisitions + calcul
-//            QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));
-        //boucle selon la frequence precisee par le user
-//            timer->start(ui->timeBox->value()*1000); //en mode monitoring time_value est utilisee comme frequence et non pas comme temps d'acquisition
-        // fire initial time
-
-        needToCalculateResults = true;
-        lancer_acquisition();
-    } else {
-        setMode(CLOSURE);
+    if (askQuestion) {
+        //boite de dialogue avant de debuter le mode monitoring
+        int reponse = QMessageBox::question(this, "Monitoring Mode",
+                                            "Attention, you are in monitoring mode. Make sure you have selected the correct set of detectors.",
+                                            QMessageBox::Yes | QMessageBox::No);
+        //si la reponse est positive
+        if (reponse == QMessageBox::No) {
+            setMode(CLOSURE);
+            return;
+        }
     }
+
+    askQuestion = false;
+    needToCalculateResults = true;
+    lancer_acquisition();
+
 }
