@@ -55,12 +55,12 @@ private slots:
     void lwdaqStateChanged();
     void lwdaqTimeChanged();
     void changedAirpad(int index);
-    void changedMode(int);
     void changedTimeValue(int value);
     void changedWaitingTimeValue(int value);
     void changedFormat(int state);
     void resetDelta();
-    void startCalcul();
+    void startClosure();
+    void startMonitoring();
     void lancer_acquisition();
     void stop_acquisition();
     void aide_atlas_bcam();
@@ -73,6 +73,7 @@ private:
     mythread *thread; // this is our thread
     std::map<std::string, result> results;
     int selectedBCAM;
+    std::string mode;
 
     QDir lwdaqDir;
     QFile resultFile;
@@ -91,6 +92,7 @@ private:
     void updateResults(std::map<std::string, result> &results);
     void setEnabled(bool enabled);
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);
+    void setMode(std::string mode);
 
     int write_bcam_script(std::ofstream& file, BCAM bcam, int spots, std::string sourceDeviceElement);
     std::string getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first);

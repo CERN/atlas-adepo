@@ -36,6 +36,9 @@
 #define SELECTED_DETECTORS "selected_detectors"
 #define RESULT_FILE "result_file"
 
+#define CLOSURE "Closure"
+#define MONITORING "Monitoring"
+
 /********************************************************************************************/
 #define NAME_CONFIGURATION_FILE "configuration_file.txt"
 #define NAME_CALIBRATION_FILE "BCAM_Parameters.txt"
@@ -102,26 +105,28 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAMTable()));
         QObject::connect(ui->tableWidget_liste_bcams, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAM(int,int)));
 
-        //lancer les acquisitions (arret automoatique)
-        QObject::connect(ui->Boutton_lancer,SIGNAL(clicked()), this,SLOT(startCalcul()));
-        QObject::connect(ui->nextMeasurement,SIGNAL(clicked()), this,SLOT(startCalcul()));
-
+        //lancer les acquisitions
+        QObject::connect(ui->Boutton_lancer,SIGNAL(clicked()), this,SLOT(startClosure()));
+        QObject::connect(ui->nextMeasurement,SIGNAL(clicked()), this,SLOT(startClosure()));
+        QObject::connect(ui->repeatButton,SIGNAL(clicked()), this,SLOT(startMonitoring()));
         //QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));
 
-        //stopper l'acquisition (arret force)
+        //stopper l'acquisition
         QObject::connect(ui->boutton_arreter,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
         QObject::connect(ui->stop,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
+        QObject::connect(ui->stopButton,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
 
         QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
 
         QObject::connect(ui->fullPrecision,SIGNAL(stateChanged(int)),this,SLOT(changedFormat(int)));
         QObject::connect(ui->timeBox, SIGNAL(valueChanged(int)), this, SLOT(changedTimeValue(int)));
         QObject::connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
-        QObject::connect(ui->modeBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changedMode(int)));
         QObject::connect(ui->airpadBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
 
         previousState = LWDAQ_Client::UNSET;
         needToCalculateResults = false;
+
+        setMode(CLOSURE);
 
         setEnabled(true);
 
@@ -162,9 +167,6 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         int airpadIndex = settings.value(AIRPAD_INDEX).value<int>();
         ui->airpadBox->setCurrentIndex(airpadIndex);
 
-        int modeIndex = settings.value(MODE_INDEX).value<int>();
-        ui->modeBox->setCurrentIndex(modeIndex);
-
         int fullPrecisionFormat = settings.value(FULL_PRESICION_FORMAT).value<int>();
         ui->fullPrecision->setChecked(fullPrecisionFormat);
 
@@ -187,6 +189,12 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 ATLAS_BCAM::~ATLAS_BCAM()
 {
     delete ui;
+}
+
+void ATLAS_BCAM::setMode(std::string mode) {
+    this->mode = mode;
+    ui->modeBox->setText(QString::fromStdString(mode));
+    ui->modeBox->setReadOnly(true);
 }
 
 QString ATLAS_BCAM::appDirPath() {
@@ -1073,69 +1081,41 @@ int ATLAS_BCAM::write_params_file(QString params_file)
     return 1;
 }
 
-//fonction qui gere les selections dans les checkbox                                                [----> ok
-void ATLAS_BCAM::changedMode(int /* index */)
+
+void ATLAS_BCAM::startClosure()
 {
-    QString mode_adepo = ui->modeBox->currentText();
-    if(mode_adepo == "MONITORING")
-    {
-        //changement du texte
-        ui->textEdit_function_mode->setText("Frequence d\'acquisition (s) :");
-        //changement des valeurs d'interval pour le temps
-        ui->timeBox->setMinimum(240);  //frequence maxi : 1 mesure toutes les 15 min: 900
-        ui->timeBox->setMaximum(86400); //frequence mini ; 1 mesure par jour
-    }
-    else
-    {
-        //changement du text
-        ui->textEdit_function_mode->setText("Temps d\'acquisition (s) :");
-        //changement des valeurs d'interval pour le temps
-        ui->timeBox->setMinimum(10);
-        ui->timeBox->setMaximum(300);
-        ui->timeBox->setValue(30);
-    }
+    setMode(CLOSURE);
+
+//     ui->boutton_arreter->setEnabled(true);
+//     ui->stop->setEnabled(true);
+
+    needToCalculateResults = true;
+
+    //lancement des acquisitions + calcul
+    lancer_acquisition();
 }
 
-//fonction thread pour lancer les modes d'acquisition                                               [-----> ok
-void ATLAS_BCAM::startCalcul()
+void ATLAS_BCAM::startMonitoring()
 {
-    if(ui->modeBox->currentText() == "CLOSURE")
-    {
-        ui->boutton_arreter->setEnabled(true);
+    setMode(MONITORING);
+
+//    ui->stopButton->setEnabled(true);
+
+    //boite de dialogue avant de debuter le mode monitoring
+    int reponse = QMessageBox::question(this, "Monitoring Mode",
+                                        "Attention, you are in monitoring mode. Make sure you have selected the correct set of detectors.",
+                                        QMessageBox::Yes | QMessageBox::No);
+    //si la reponse est positive
+    if (reponse == QMessageBox::Yes) {
+        //lancement des acquisitions + calcul
+//            QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));
+        //boucle selon la frequence precisee par le user
+//            timer->start(ui->timeBox->value()*1000); //en mode monitoring time_value est utilisee comme frequence et non pas comme temps d'acquisition
+        // fire initial time
 
         needToCalculateResults = true;
-
-        //lancement des acquisitions + calcul
         lancer_acquisition();
-    }
-    else
-    {
-        //boite de dialogue avant de debuter le mode monitoring
-        int reponse = QMessageBox::question(this, "Mode monitoring", "Attention, vous etes en mode monitoring. Assurez vous d'avoir selectionner tous les detecteurs avant de continuer.", QMessageBox::Yes | QMessageBox::No);
-        //si la reponse est positive
-        if (reponse == QMessageBox::Yes)
-        {
-            //desactivation de toute la fenetre sauf le bouton stop qui permet de tuer le QTimer
-            ui->boutton_arreter->setEnabled(true);
-            ui->tableWidget_liste_detectors->setEnabled(false);
-            ui->modeBox->setEnabled(false);
-            ui->airpadBox->setEnabled(false);
-            ui->timeBox->setEnabled(false);
-            ui->waitingTime->setEnabled(false);
-            ui->Boutton_lancer->setEnabled(false);
-            ui->repeatButton->setEnabled(false);
-            ui->tableWidget_liste_bcams->setEnabled(false);
-            //lancement des acquisitions + calcul
-            QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));
-            //boucle selon la frequence precisee par le user
-            timer->start(ui->timeBox->value()*1000); //en mode monitoring time_value est utilisee comme frequence et non pas comme temps d'acquisition
-            // fire initial time
-            lancer_acquisition();
-        }
-        //si la reponse est negative
-        else if (reponse == QMessageBox::No)
-        {
-            //rien ne se passe
-        }
+    } else {
+        setMode(CLOSURE);
     }
 }
