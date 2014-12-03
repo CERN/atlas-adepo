@@ -21,7 +21,7 @@ class ATLAS_BCAM : public QMainWindow
         Q_OBJECT
 
 public:
-    enum state { IDLE, RUN, STOP, WAITING };
+    enum state { IDLE, RUN, STOP, WAITING, CALCULATING };
 
     explicit ATLAS_BCAM(QWidget *parent = 0);
     ~ATLAS_BCAM();

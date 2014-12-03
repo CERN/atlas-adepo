@@ -190,6 +190,8 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         showBCAMTable();
 
+        updateStatusBar();
+
         QString resultFile = settings.value(RESULT_FILE).value<QString>();
         display(ui->resultFileLabel, ui->resultFile, resultFile);
 }
@@ -258,6 +260,17 @@ void ATLAS_BCAM::lwdaqStateChanged() {
 
     switch (lwdaq_client->getState()) {
         case LWDAQ_Client::IDLE:
+            if (needToCalculateResults) {
+                // rename startup script file
+                // TODO
+
+                // calculate
+                adepoState = CALCULATING;
+                updateStatusBar();
+                calcul_coord();
+                needToCalculateResults = false;
+            }
+
             if (mode == MONITORING) {
                 adepoState = WAITING;
                 setEnabled(false);
@@ -271,22 +284,16 @@ void ATLAS_BCAM::lwdaqStateChanged() {
                 waitingTimer->stop();
                 updateTimer->stop();
             }
-
-            if (needToCalculateResults) {
-                // rename startup script file
-                // TODO
-
-                // calculate
-                calcul_coord();
-                needToCalculateResults = false;
-            }
+            updateStatusBar();
             break;
         case LWDAQ_Client::RUN:
             adepoState = RUN;
+            updateStatusBar();
             setEnabled(false);
             break;
         case LWDAQ_Client::STOP:
             adepoState = mode == MONITORING ? WAITING : IDLE;
+            updateStatusBar();
             ui->repeatButton->setEnabled(false);
             ui->Boutton_lancer->setEnabled(false);
             ui->nextMeasurement->setEnabled(false);
@@ -296,6 +303,7 @@ void ATLAS_BCAM::lwdaqStateChanged() {
             break;
         case LWDAQ_Client::INIT:
             adepoState = IDLE;
+            updateStatusBar();
             ui->repeatButton->setEnabled(false);
             ui->Boutton_lancer->setEnabled(false);
             ui->boutton_arreter->setEnabled(false);
@@ -320,6 +328,7 @@ QString ATLAS_BCAM::getStateAsString() {
     case RUN: return "RUN";
     case STOP: return "STOP";
     case WAITING: return "WAITING";
+    case CALCULATING: return "CALCULATING";
     default: return "Unknown State";
     }
 }
@@ -728,6 +737,7 @@ void ATLAS_BCAM::stop_repeat_acquisition()
     switch (lwdaq_client->getState()) {
     case LWDAQ_Client::IDLE:
         adepoState = IDLE;
+        updateStatusBar();
         break;
     default:
         lwdaq_client->stopRun();
