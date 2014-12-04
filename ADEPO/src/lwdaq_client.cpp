@@ -236,15 +236,15 @@ void LWDAQ_Client::readStatus() {
     if (line.startsWith("Idle")) {
         stateChange(IDLE);
         statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
-        statusTimer->start();
+        statusTimer->stop();
     } else if (line.startsWith("Run")) {
         stateChange(RUN);
         statusTimer->setInterval(FAST_UPDATE_TIME*1000);
-        statusTimer->start();
+        statusTimer->stop();
     } else if (line.startsWith("Repeat_Run")) {
         stateChange(RUN);
         statusTimer->setInterval(FAST_UPDATE_TIME*1000);
-        statusTimer->start();
+        statusTimer->stop();
     } else if (line.startsWith("Stop")) {
         stateChange(STOP);
         statusTimer->setInterval(FAST_UPDATE_TIME*1000);
@@ -290,7 +290,7 @@ void LWDAQ_Client::stateChange(state newState) {
     }
     if (currentState == INIT && newState > INIT) {
         std::cout << "Starting update timer " << statusTimer->interval() << std::endl;
-        statusTimer->start();
+    //    statusTimer->start();
     }
     currentState = newState;
     stateChanged();
