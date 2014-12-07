@@ -12,37 +12,58 @@ $last = array_search($argv[2], $files);
 
 $files = array_slice($files, $first, $last-$first+1);
 
+$headerWritten = false;
+
 foreach($files as $file) {
     $content = file_get_contents($file);
 
     $lines = preg_split ('/$\R?^/m', $content);
 
-    $dateWritten = false;
+    $record = null;
+    $header = null;
+    $sequence = 1;
 
     foreach($lines as $line) {
     	if (startsWith($line, "CAM")) {
-	    $parts = preg_split("/[\s,]+/", trim($line));
+	       $parts = preg_split("/[\s,]+/", trim($line));
 
-            if (!$dateWritten) {
-                $dateWritten = true;
-                print('"'.$parts[1].'", ');
-		print(", , , , , , , , , ");
+            if ($record === null) {
+                $record = $parts[1];
+                $header = "datetime";
             }
 
-            print('"'.$parts[0].'", ');
+            $record .= ', '.$parts[0];
+            $header .= ', cam-'.$sequence.'-name';
 
-            print('"'.$parts[2].'", ');
-            print('"'.$parts[3].'", ');
-            print('"'.$parts[4].'", ');
+            $record .= ', '.$parts[2];
+            $header .= ', cam-'.$sequence.'-avgX';
 
-            print('"'.$parts[5].'", ');
-            print('"'.$parts[6].'", ');
-            print('"'.$parts[7].'", ');
+            $record .= ', '.$parts[3];
+            $header .= ', cam-'.$sequence.'-avgY';
 
-            print(", , ,");
+            $record .= ', '.$parts[4];
+            $header .= ', cam-'.$sequence.'-avgZ';
+
+
+            $record .= ', '.$parts[5];
+            $header .= ', cam-'.$sequence.'-stdX';
+
+            $record .= ', '.$parts[6];
+            $header .= ', cam-'.$sequence.'-stdY';
+
+            $record .= ', '.$parts[7];
+            $header .= ', cam-'.$sequence.'-stdZ';
+
+            $sequence++;
         }	
     }
-    print("\n");
+
+    if (!$headerWritten) {
+        print($header."\n");
+        $headerWritten = true;
+    } 
+
+    print($record."\n");
 }
 
 ?>
