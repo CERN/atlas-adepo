@@ -1,13 +1,9 @@
-/.qmake.stash
-/*.o
-/*.gif
-/ADEPO.app
-/moc_atlas_bcam.cpp
-/moc_ouverture_projet.cpp
-/moc_lwdaq_client.cpp
-/ui_ATLAS_BCAM.h
-/Acquisifier_Results.txt
-/Acquisifier_Params.tcl
-/Acquisifier_Settings.tcl
-/Acquisifier_Script.tcl
+.qmake.stash
+*.o
+*.gif
+*.a
+Acquisifier_Results.txt
+Acquisifier_Params.tcl
+Acquisifier_Settings.tcl
+Acquisifier_Script.tcl
 

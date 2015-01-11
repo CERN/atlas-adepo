@@ -1,0 +1,59 @@
+QT       += core websockets
+QT       -= gui
+
+TARGET = adepo-server
+CONFIG   += console
+CONFIG   -= app_bundle
+
+TEMPLATE = lib
+CONFIG+= staticlib
+
+INCLUDEPATH += ../eigen-eigen-ffa86ffb5570
+
+SOURCES += \
+    bdd.cpp \
+    calcul_coord_bcam_system.cpp \
+    changement_repere.cpp \
+    helmert.cpp \
+    img_coord_to_bcam_coord.cpp \
+    lwdaq_client.cpp \
+    mount_prism_to_global_prism.cpp \
+    read_calibration_database.cpp \
+    read_lwdaq_output.cpp \
+    write_file_obs_mount_system.cpp \
+    write_script_file.cpp
+
+HEADERS += \
+    adepo.h \
+    bcam.h \
+    bcam_params.h \
+    bdd.h \
+    calcul_coord_bcam_system.h \
+    calib1.h \
+    calib2.h \
+    changement_repere.h \
+    dual_spot.h \
+    global_coord_prism.h \
+    helmert.h \
+    img_coord_to_bcam_coord.h \
+    lwdaq_client.h \
+    mount_coord_prism.h \
+    mount_coord_spots.h \
+    mount_prism_to_global_prism.h \
+    read_calibration_database.h \
+    read_lwdaq_output.h \
+    spot.h \
+    write_file_obs_mount_system.h
+
+unix:!mac{
+  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.0/lib
+  QMAKE_RPATH=
+}
+
+
+unix: LIBS += -L$$OUT_PWD/../server/ -ladepo-common
+
+INCLUDEPATH += $$PWD/../common
+DEPENDPATH += $$PWD/../common
+
+unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libadepo-common.a
