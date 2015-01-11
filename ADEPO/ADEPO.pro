@@ -65,6 +65,6 @@ QMAKE_MAC_SDK = macosx10.9
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
 
 unix:!mac{
-  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.3.0-x86/5.3/gcc/lib
+  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.0/lib
   QMAKE_RPATH=
 }
