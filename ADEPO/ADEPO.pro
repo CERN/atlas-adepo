@@ -59,7 +59,7 @@ FORMS += \
 INCLUDEPATH += ./header
 INCLUDEPATH += ./eigen-eigen-ffa86ffb5570
 
-QT += core gui network widgets testlib
+QT += core gui network widgets testlib websockets
 
 QMAKE_MAC_SDK = macosx10.9
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
