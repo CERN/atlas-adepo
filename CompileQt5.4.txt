@@ -1,0 +1,24 @@
+see http://doc.qt.io/qt-5/linux-building.html
+
+./configure -qt-xcb -no-dbus -prefix /det/ti/PosMov/Qt5.4.0
+gmake
+gmake install
+
+export QT_HOME=/det/ti/PosMov/Qt5.4.0
+export PATH=$QT_HOME/bin:$PATH
+
+for the application
+
+edit ADEPO/ADEPO.pro
+make sure LFLAGS refer to /det/ti/PosMov/Qt5.4.0
+qmake -spec linux-g++ -o Makefile ../ADEPO/ADEPO.pro
+
+#<Did not work for 5.4.0>
+#for the static library to link:
+#
+#./configure -qt-xcb -no-dbus -prefix /det/ti/PosMov/Qt5.4.0-static -static
+#make sub-src
+
+#http://doc.qt.io/qt-5/linux-deployment.html
+
+
