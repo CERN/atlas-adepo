@@ -3,7 +3,7 @@
 
 #include "iostream"
 #include "vector"
-#include "Point3f.h"
+#include "point3f.h"
 
 class ATLASCoordinates
 {

@@ -2,7 +2,7 @@
 #define PRISM_CORRECTION_H
 
 #include "iostream"
-#include "Point3f.h"
+#include "point3f.h"
 
 class PrismCorrection
 {

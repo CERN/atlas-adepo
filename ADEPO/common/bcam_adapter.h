@@ -2,7 +2,7 @@
 #define BCAM_ADAPTER_H
 
 #include "iostream"
-#include "Point3f.h"
+#include "point3f.h"
 
 class BCAMAdapter
 {
