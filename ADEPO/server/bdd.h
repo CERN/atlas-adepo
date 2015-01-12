@@ -37,6 +37,7 @@ public:
 
     //getter
     std::vector<BCAM> getBCAMs(int id_detector, Configuration& config);
+    std::vector<BCAM>& getBCAMs() { return mBCAMs; }
     std::vector<DualSpot> getDualSpots() const {return mDualSpots;}
     std::vector<MountCoordSpots> getMountCoordSpots() const {return mMountCoordSpots;}
     std::vector<MountCoordPrism> getMountCoordPrisms() const {return mMountCoordPrisms;}
@@ -64,8 +65,6 @@ public:
     //gestion de la liste des coordonnees du prisme dans le repre global
     void add(GlobalCoordPrism val) {mGlobalCoordPrisms.push_back(val);}
 
-
-    std::vector<BCAM>& getBCAMs() { return mBCAMs; }
 
     //vidage partiel de la bdd
     void vidage() {
