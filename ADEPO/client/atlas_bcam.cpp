@@ -391,7 +391,7 @@ void ATLAS_BCAM::openInputDir() {
 
     if(input_folder_read) //gestion du probleme lorsqu'on charge un fichier par dessus l'autre
     {
-        m_bdd.vidage_complet(); //on vide tout car nouveau fichier
+        m_bdd.clear(); //on vide tout car nouveau fichier
     }
     input_folder_read = true;
 
@@ -532,7 +532,7 @@ void ATLAS_BCAM::showBCAMTable()
     //recuperation du nombre de detecteurs
     int nb_detectors = ui->tableWidget_liste_detectors->selectedItems().size()/noColumn;
 
-    m_bdd.getBCAMs().clear();
+    setup.getBCAMs().clear();
 
     QString selectedDetectors("");
 
@@ -546,27 +546,27 @@ void ATLAS_BCAM::showBCAMTable()
         selectedDetectors = selectedDetectors.append(id_detector);
 
         //recuperation des donnes a afficher
-        std::vector<BCAM> bcams = m_bdd.getBCAMs(id_detector.toInt(), config);
+        std::vector<BCAM> bcams = setup.getBCAMs(id_detector.toInt(), config);
 
         //insertion dans la tableWidget qui affiche les bcams
         for (unsigned int j=0; j<bcams.size(); j++) {
-            m_bdd.getBCAMs().push_back(bcams.at(j));
+            setup.getBCAMs().push_back(bcams.at(j));
         }
 
         //ecriture du script d'acquisition des detecteurs selectionnees
-        server.write_script_file(config, appDirPath()+"/"+fichier_script, m_bdd.getBCAMs());
+        server.write_script_file(config, appDirPath()+"/"+fichier_script, setup.getBCAMs());
     }
 
     settings.setValue(SELECTED_DETECTORS, selectedDetectors);
 
     // nombre de lignes dans la table
-    ui->tableWidget_liste_bcams->setRowCount(m_bdd.getBCAMs().size());
+    ui->tableWidget_liste_bcams->setRowCount(setup.getBCAMs().size());
     ui->tableWidget_results->setRowCount(100);
 
     int row = 0;
-    for(unsigned int i=0; i<m_bdd.getBCAMs().size(); i++)
+    for(unsigned int i=0; i<setup.getBCAMs().size(); i++)
     {
-        BCAM bcam = m_bdd.getBCAMs().at(i);
+        BCAM bcam = setup.getBCAMs().at(i);
 
       //ajout dans la tableWidget qui affiche les BCAMs
       QTableWidgetItem *nom_bcam = new QTableWidgetItem();
@@ -753,7 +753,7 @@ void ATLAS_BCAM::changedFormat(int state) {
 void ATLAS_BCAM::calculateCoordinates()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
-   int lecture_output_result = readLWDAQOutput(resultFile, m_bdd);
+   int lecture_output_result = readLWDAQOutput(resultFile, m_bdd, setup);
 
    if(lecture_output_result == 0 )
    {
@@ -769,10 +769,10 @@ void ATLAS_BCAM::calculateCoordinates()
    else
    {
    //je fais la transformation du capteur CCD au systeme MOUNT. Attention, la lecture du fichier de calibration est deja faite !
-   img_coord_to_bcam_coord(m_bdd, calibration);
+   img_coord_to_bcam_coord(m_bdd, calibration, setup);
 
    //je calcule les coordonnees du prisme en 3D dans le repere MOUNT
-   calcul_coord_bcam_system(m_bdd, config, calibration);
+   calcul_coord_bcam_system(m_bdd, config, calibration, setup);
 
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mount_prism_to_global_prism(m_bdd, config, ui->airpadBox->currentText() == "ON");
@@ -800,7 +800,7 @@ void ATLAS_BCAM::calculateCoordinates()
    settings.setValue(RESULT_FILE, fileName);
 
    //vidage des acquisitions
-   m_bdd.vidage();
+   m_bdd.clear();
    }
 }
 

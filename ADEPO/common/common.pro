@@ -10,11 +10,13 @@ CONFIG += staticlib
 SOURCES += \
     configuration.cpp \
     util.cpp \
-    calibration.cpp
+    calibration.cpp \
+    setup.cpp
 
 HEADERS += \
     absolute_distances.h \
     atlas_coordinates.h \
+    bcam.h \
     bcam_adapter.h \
     bcam_config.h \
     calib1.h \
@@ -25,4 +27,5 @@ HEADERS += \
     prism.h \
     prism_correction.h \
     util.h \
-    calibration.h
+    calibration.h \
+    setup.h

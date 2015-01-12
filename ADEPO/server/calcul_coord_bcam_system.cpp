@@ -5,7 +5,7 @@
 
 #define mm2m 0.001
 
-void calcul_coord_bcam_system(BDD & base_donnees, Configuration& config, Calibration &calibration)
+void calcul_coord_bcam_system(BDD & base_donnees, Configuration& config, Calibration &calibration, Setup& setup)
 {
     bool found = false;
     for (unsigned int i=0; i<base_donnees.getMountCoordSpots().size(); i++) // je parcours la database qui contient les coord des observation dans le system MOUNT
@@ -17,7 +17,7 @@ void calcul_coord_bcam_system(BDD & base_donnees, Configuration& config, Calibra
             Calib1 calib1 = calibration.getCalibs1().at(j);
 
             // NumChip == 2 is Z+ direction
-            int num_chip = base_donnees.getBCAM(spot.getName()).getPrism().getNumChip();
+            int num_chip = setup.getBCAM(spot.getName()).getPrism().getNumChip();
             bool directionOk1 = ((num_chip == 2) && (calib1.getDirection() == 1)) || ((num_chip == 1) && (calib1.getDirection() == -1));
 
             for(unsigned int k=0; k<calibration.getCalibs2().size(); k++) //je parcours la base de donnee de calibration 2

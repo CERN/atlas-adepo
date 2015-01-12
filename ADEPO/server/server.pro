@@ -24,7 +24,6 @@ SOURCES += \
 
 HEADERS += \
     adepo.h \
-    bcam.h \
     bcam_params.h \
     bdd.h \
     calcul_coord_bcam_system.h \

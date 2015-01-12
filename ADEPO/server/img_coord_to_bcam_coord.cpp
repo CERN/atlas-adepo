@@ -10,7 +10,7 @@
 
 
 //fonction de transformation du repere ccd au repere BCAM (MOUNT)
-void img_coord_to_bcam_coord(BDD & base_donnees, Calibration &calibration)
+void img_coord_to_bcam_coord(BDD & base_donnees, Calibration &calibration, Setup& setup)
 {
     bool found = false;
     for(unsigned int i=0; i<base_donnees.getDualSpots().size(); i++) //je parcours la base de donnees des coordonnees images
@@ -20,7 +20,7 @@ void img_coord_to_bcam_coord(BDD & base_donnees, Calibration &calibration)
             DualSpot spot = base_donnees.getDualSpots().at(i);
             Calib1 calib1 = calibration.getCalibs1().at(j);
             // NumChip == 2 is Z+ direction
-            int num_chip = base_donnees.getBCAM(spot.getName()).getPrism().getNumChip();
+            int num_chip = setup.getBCAM(spot.getName()).getPrism().getNumChip();
             bool directionOk = ((num_chip == 2) && (calib1.getDirection() == 1)) || ((num_chip == 1) && (calib1.getDirection() == -1));
 //            std::cout << spot.getBCAM() << " " << calib1.getBCAM() << " " << directionOk << " " <<  num_chip << " " << calib1.getCoordAxis().z() << std::endl;
 

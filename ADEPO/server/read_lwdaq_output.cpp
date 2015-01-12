@@ -4,7 +4,7 @@
 #include <QString>
 #include <QStringList>
 
-int readLWDAQOutput(QFile &file, BDD & base_donnees)
+int readLWDAQOutput(QFile &file, BDD & base_donnees, Setup& setup)
 {
     std::ifstream fichier((char*)file.fileName().toStdString().c_str(), std::ios::in);
     if(fichier)
@@ -30,7 +30,7 @@ int readLWDAQOutput(QFile &file, BDD & base_donnees)
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet + coordonnées images du spot
                     std::string name = strtok(buffer," ");
-                    BCAM bcam = base_donnees.getBCAM(name);
+                    BCAM bcam = setup.getBCAM(name);
                     char *coord_i_ccd = strtok( NULL, " " );
                     char *coord_j_ccd = strtok( NULL, " " );
                     //sauter les 4 prochaines valeurs
@@ -56,7 +56,7 @@ int readLWDAQOutput(QFile &file, BDD & base_donnees)
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet + coordonnées images du premier spot
                     std::string name = strtok(buffer," ");
-                    BCAM bcam = base_donnees.getBCAM(name);
+                    BCAM bcam = setup.getBCAM(name);
                     char *coord1_i_ccd = strtok( NULL, " " );
                     char *coord1_j_ccd = strtok( NULL, " " );
                     //sauter les 4 prochaines valeurs
@@ -80,7 +80,7 @@ int readLWDAQOutput(QFile &file, BDD & base_donnees)
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet(S) + coordonnées images du premier spot
                     std::string name = strtok(buffer," ");
-                    BCAM bcam = base_donnees.getBCAM(name);
+                    BCAM bcam = setup.getBCAM(name);
                     char *coord1_i_ccd = strtok( NULL, " " );
                     char *coord1_j_ccd = strtok( NULL, " " );
                     //sauter les 4 prochaines valeurs
@@ -125,7 +125,7 @@ int readLWDAQOutput(QFile &file, BDD & base_donnees)
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet(S) + coordonnées images du premier spot
                     std::string name = strtok(buffer," ");
-                    BCAM bcam = base_donnees.getBCAM(name);
+                    BCAM bcam = setup.getBCAM(name);
                     char *coord1_i_ccd = strtok( NULL, " " );
                     char *coord1_j_ccd = strtok( NULL, " " );
                     //sauter les 4 prochaines valeurs

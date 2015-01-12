@@ -625,7 +625,7 @@ moc_atlas_bcam.cpp: /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Ver
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/mount_coord_spots.h \
@@ -732,7 +732,7 @@ atlas_bcam.o: ../../ADEPO/client/atlas_bcam.cpp /Users/duns/Qt5.4.0/5.4/clang_64
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/mount_coord_spots.h \
@@ -753,6 +753,7 @@ atlas_bcam.o: ../../ADEPO/client/atlas_bcam.cpp /Users/duns/Qt5.4.0/5.4/clang_64
 		../../ADEPO/server/read_lwdaq_output.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/server/img_coord_to_bcam_coord.h \
 		../../ADEPO/server/mount_prism_to_global_prism.h \
 		../../ADEPO/server/calcul_coord_bcam_system.h \
@@ -1128,7 +1129,7 @@ main.o: ../../ADEPO/client/main.cpp /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidge
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/mount_coord_spots.h \

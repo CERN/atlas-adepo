@@ -193,7 +193,6 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/yacc.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/lex.prf \
 		../../ADEPO/server/server.pro ../../ADEPO/server/adepo.h \
-		../../ADEPO/server/bcam.h \
 		../../ADEPO/server/bcam_params.h \
 		../../ADEPO/server/bdd.h \
 		../../ADEPO/server/calcul_coord_bcam_system.h \
@@ -539,7 +538,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/bdd.h ../../ADEPO/server/calcul_coord_bcam_system.h ../../ADEPO/server/changement_repere.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/helmert.h ../../ADEPO/server/img_coord_to_bcam_coord.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/mount_prism_to_global_prism.h ../../ADEPO/server/read_lwdaq_output.h ../../ADEPO/server/spot.h ../../ADEPO/server/write_file_obs_mount_system.h ../../ADEPO/server/server.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/bdd.h ../../ADEPO/server/calcul_coord_bcam_system.h ../../ADEPO/server/changement_repere.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/helmert.h ../../ADEPO/server/img_coord_to_bcam_coord.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/mount_prism_to_global_prism.h ../../ADEPO/server/read_lwdaq_output.h ../../ADEPO/server/spot.h ../../ADEPO/server/write_file_obs_mount_system.h ../../ADEPO/server/server.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/server/bdd.cpp ../../ADEPO/server/calcul_coord_bcam_system.cpp ../../ADEPO/server/changement_repere.cpp ../../ADEPO/server/helmert.cpp ../../ADEPO/server/img_coord_to_bcam_coord.cpp ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/mount_prism_to_global_prism.cpp ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server/write_file_obs_mount_system.cpp ../../ADEPO/server/server.cpp $(DISTDIR)/
 
 
@@ -635,7 +634,7 @@ bdd.o: ../../ADEPO/server/bdd.cpp ../../ADEPO/server/adepo.h \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/mount_coord_spots.h \
@@ -660,13 +659,17 @@ calcul_coord_bcam_system.o: ../../ADEPO/server/calcul_coord_bcam_system.cpp ../.
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
-		../../ADEPO/server/bcam_params.h
+		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/common/calibration.h \
+		../../ADEPO/common/calib1.h \
+		../../ADEPO/common/calib2.h \
+		../../ADEPO/common/setup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calcul_coord_bcam_system.o ../../ADEPO/server/calcul_coord_bcam_system.cpp
 
 changement_repere.o: ../../ADEPO/server/changement_repere.cpp ../../ADEPO/server/changement_repere.h \
@@ -1017,7 +1020,7 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/mount_coord_spots.h \
@@ -1042,13 +1045,17 @@ img_coord_to_bcam_coord.o: ../../ADEPO/server/img_coord_to_bcam_coord.cpp ../../
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/common/calibration.h \
+		../../ADEPO/common/calib1.h \
+		../../ADEPO/common/calib2.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Core \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/DisableStupidWarnings.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/Macros.h \
@@ -1226,7 +1233,7 @@ mount_prism_to_global_prism.o: ../../ADEPO/server/mount_prism_to_global_prism.cp
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/mount_coord_spots.h \
@@ -1253,13 +1260,14 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
-		../../ADEPO/server/bcam_params.h
+		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/common/setup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o read_lwdaq_output.o ../../ADEPO/server/read_lwdaq_output.cpp
 
 write_file_obs_mount_system.o: ../../ADEPO/server/write_file_obs_mount_system.cpp ../../ADEPO/server/write_file_obs_mount_system.h \
@@ -1277,7 +1285,7 @@ write_file_obs_mount_system.o: ../../ADEPO/server/write_file_obs_mount_system.cp
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/mount_coord_spots.h \
@@ -1499,7 +1507,7 @@ server.o: ../../ADEPO/server/server.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/util.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o ../../ADEPO/server/server.cpp
 

@@ -15,6 +15,7 @@
 
 #include "server.h"
 #include "calibration.h"
+#include "setup.h"
 
 namespace Ui {
 class ATLAS_BCAM;
@@ -67,6 +68,7 @@ private:
     // tbr
     Server server;
     Calibration calibration;
+    Setup setup;
 
     Ui::ATLAS_BCAM *ui;
     BDD m_bdd;

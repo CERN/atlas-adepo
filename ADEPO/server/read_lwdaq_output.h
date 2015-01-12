@@ -3,8 +3,9 @@
 
 #include <QFile>
 
-#include <bdd.h>
+#include "bdd.h"
+#include "setup.h"
 
-int readLWDAQOutput(QFile& file, BDD & base_donnees);
+int readLWDAQOutput(QFile& file, BDD & base_donnees, Setup &setup);
 
 #endif // READ_LWDAQ_OUTPUT_H
