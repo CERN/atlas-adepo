@@ -2,7 +2,7 @@
 #define RESULT_H
 
 #include "ctime"
-#include "Point3f.h"
+#include "point3f.h"
 
 class result
 {
