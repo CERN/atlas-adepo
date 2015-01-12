@@ -4,7 +4,7 @@
 #include <QString>
 #include <QStringList>
 
-int read_lwdaq_output(QFile &file, BDD & base_donnees)
+int readLWDAQOutput(QFile &file, BDD & base_donnees)
 {
     std::ifstream fichier((char*)file.fileName().toStdString().c_str(), std::ios::in);
     if(fichier)

@@ -8,18 +8,21 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 SOURCES += \
-    read_input.cpp \
-    util.cpp
+    configuration.cpp \
+    util.cpp \
+    calibration.cpp
 
 HEADERS += \
     absolute_distances.h \
     atlas_coordinates.h \
     bcam_adapter.h \
     bcam_config.h \
+    calib1.h \
+    calib2.h \
     configuration.h \
     detector.h \
     point3f.h \
     prism.h \
     prism_correction.h \
-    read_input.h \
-    util.h
+    util.h \
+    calibration.h

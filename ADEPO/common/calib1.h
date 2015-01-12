@@ -5,12 +5,12 @@
 
 #include "iostream"
 
-class calib1
+class Calib1
 {
 public:
-    calib1(std::string bcam, std::string tpsCalib, Point3f coordPivot, Point3f coordAxis, float ccdToPivot, float ccdRotation) :
+    Calib1(std::string bcam, std::string tpsCalib, Point3f coordPivot, Point3f coordAxis, float ccdToPivot, float ccdRotation) :
         mBCAM(bcam), mTpsCalib(tpsCalib), mCoordPivot(coordPivot), mCoordAxis(coordAxis), mCcdToPivot(ccdToPivot), mCcdRotation(ccdRotation) {};
-    virtual ~calib1() {};
+    virtual ~Calib1() {};
 
     //setter et getter
     std::string getBCAM() const { return mBCAM; }

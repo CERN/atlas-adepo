@@ -52,7 +52,6 @@ SOURCES       = ../../ADEPO/server/bdd.cpp \
 		../../ADEPO/server/img_coord_to_bcam_coord.cpp \
 		../../ADEPO/server/lwdaq_client.cpp \
 		../../ADEPO/server/mount_prism_to_global_prism.cpp \
-		../../ADEPO/server/read_calibration_database.cpp \
 		../../ADEPO/server/read_lwdaq_output.cpp \
 		../../ADEPO/server/write_file_obs_mount_system.cpp \
 		../../ADEPO/server/server.cpp moc_lwdaq_client.cpp
@@ -63,7 +62,6 @@ OBJECTS       = bdd.o \
 		img_coord_to_bcam_coord.o \
 		lwdaq_client.o \
 		mount_prism_to_global_prism.o \
-		read_calibration_database.o \
 		read_lwdaq_output.o \
 		write_file_obs_mount_system.o \
 		server.o \
@@ -199,8 +197,6 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../ADEPO/server/bcam_params.h \
 		../../ADEPO/server/bdd.h \
 		../../ADEPO/server/calcul_coord_bcam_system.h \
-		../../ADEPO/server/calib1.h \
-		../../ADEPO/server/calib2.h \
 		../../ADEPO/server/changement_repere.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/global_coord_prism.h \
@@ -210,7 +206,6 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/mount_prism_to_global_prism.h \
-		../../ADEPO/server/read_calibration_database.h \
 		../../ADEPO/server/read_lwdaq_output.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/write_file_obs_mount_system.h \
@@ -221,7 +216,6 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../ADEPO/server/img_coord_to_bcam_coord.cpp \
 		../../ADEPO/server/lwdaq_client.cpp \
 		../../ADEPO/server/mount_prism_to_global_prism.cpp \
-		../../ADEPO/server/read_calibration_database.cpp \
 		../../ADEPO/server/read_lwdaq_output.cpp \
 		../../ADEPO/server/write_file_obs_mount_system.cpp \
 		../../ADEPO/server/server.cpp
@@ -545,8 +539,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/bdd.h ../../ADEPO/server/calcul_coord_bcam_system.h ../../ADEPO/server/calib1.h ../../ADEPO/server/calib2.h ../../ADEPO/server/changement_repere.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/helmert.h ../../ADEPO/server/img_coord_to_bcam_coord.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/mount_prism_to_global_prism.h ../../ADEPO/server/read_calibration_database.h ../../ADEPO/server/read_lwdaq_output.h ../../ADEPO/server/spot.h ../../ADEPO/server/write_file_obs_mount_system.h ../../ADEPO/server/server.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/server/bdd.cpp ../../ADEPO/server/calcul_coord_bcam_system.cpp ../../ADEPO/server/changement_repere.cpp ../../ADEPO/server/helmert.cpp ../../ADEPO/server/img_coord_to_bcam_coord.cpp ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/mount_prism_to_global_prism.cpp ../../ADEPO/server/read_calibration_database.cpp ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server/write_file_obs_mount_system.cpp ../../ADEPO/server/server.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/bdd.h ../../ADEPO/server/calcul_coord_bcam_system.h ../../ADEPO/server/changement_repere.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/helmert.h ../../ADEPO/server/img_coord_to_bcam_coord.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/mount_prism_to_global_prism.h ../../ADEPO/server/read_lwdaq_output.h ../../ADEPO/server/spot.h ../../ADEPO/server/write_file_obs_mount_system.h ../../ADEPO/server/server.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/server/bdd.cpp ../../ADEPO/server/calcul_coord_bcam_system.cpp ../../ADEPO/server/changement_repere.cpp ../../ADEPO/server/helmert.cpp ../../ADEPO/server/img_coord_to_bcam_coord.cpp ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/mount_prism_to_global_prism.cpp ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server/write_file_obs_mount_system.cpp ../../ADEPO/server/server.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -628,24 +622,22 @@ compiler_clean: compiler_moc_header_clean
 
 bdd.o: ../../ADEPO/server/bdd.cpp ../../ADEPO/server/adepo.h \
 		../../ADEPO/server/bdd.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
 		../../ADEPO/server/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
-		../../ADEPO/server/calib1.h \
-		../../ADEPO/server/calib2.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
@@ -655,24 +647,22 @@ bdd.o: ../../ADEPO/server/bdd.cpp ../../ADEPO/server/adepo.h \
 calcul_coord_bcam_system.o: ../../ADEPO/server/calcul_coord_bcam_system.cpp ../../ADEPO/server/adepo.h \
 		../../ADEPO/server/calcul_coord_bcam_system.h \
 		../../ADEPO/server/bdd.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
 		../../ADEPO/server/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
-		../../ADEPO/server/calib1.h \
-		../../ADEPO/server/calib2.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
@@ -1014,24 +1004,22 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../ADEPO/server/adepo.h \
 		../../ADEPO/server/helmert.h \
 		../../ADEPO/server/bdd.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
 		../../ADEPO/server/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
-		../../ADEPO/server/calib1.h \
-		../../ADEPO/server/calib2.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
@@ -1041,24 +1029,22 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 img_coord_to_bcam_coord.o: ../../ADEPO/server/img_coord_to_bcam_coord.cpp ../../ADEPO/server/adepo.h \
 		../../ADEPO/server/img_coord_to_bcam_coord.h \
 		../../ADEPO/server/bdd.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
 		../../ADEPO/server/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
-		../../ADEPO/server/calib1.h \
-		../../ADEPO/server/calib2.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
@@ -1227,24 +1213,22 @@ lwdaq_client.o: ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/lwdaq_cli
 mount_prism_to_global_prism.o: ../../ADEPO/server/mount_prism_to_global_prism.cpp ../../ADEPO/server/adepo.h \
 		../../ADEPO/server/mount_prism_to_global_prism.h \
 		../../ADEPO/server/bdd.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
 		../../ADEPO/server/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
-		../../ADEPO/server/calib1.h \
-		../../ADEPO/server/calib2.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
@@ -1252,54 +1236,26 @@ mount_prism_to_global_prism.o: ../../ADEPO/server/mount_prism_to_global_prism.cp
 		../../ADEPO/server/changement_repere.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mount_prism_to_global_prism.o ../../ADEPO/server/mount_prism_to_global_prism.cpp
 
-read_calibration_database.o: ../../ADEPO/server/read_calibration_database.cpp ../../ADEPO/server/read_calibration_database.h \
-		../../ADEPO/server/bdd.h \
-		../../ADEPO/common/configuration.h \
-		../../ADEPO/common/detector.h \
-		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
-		../../ADEPO/common/bcam_config.h \
-		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
-		../../ADEPO/common/absolute_distances.h \
-		../../ADEPO/common/atlas_coordinates.h \
-		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h \
-		../../ADEPO/server/dual_spot.h \
-		../../ADEPO/server/spot.h \
-		../../ADEPO/server/calib1.h \
-		../../ADEPO/server/calib2.h \
-		../../ADEPO/server/mount_coord_spots.h \
-		../../ADEPO/server/mount_coord_prism.h \
-		../../ADEPO/server/global_coord_prism.h \
-		../../ADEPO/server/bcam_params.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o read_calibration_database.o ../../ADEPO/server/read_calibration_database.cpp
-
 read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server/read_lwdaq_output.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
 		../../ADEPO/server/bdd.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
 		../../ADEPO/server/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
-		../../ADEPO/server/calib1.h \
-		../../ADEPO/server/calib2.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
@@ -1308,24 +1264,22 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 
 write_file_obs_mount_system.o: ../../ADEPO/server/write_file_obs_mount_system.cpp ../../ADEPO/server/write_file_obs_mount_system.h \
 		../../ADEPO/server/bdd.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
 		../../ADEPO/server/bcam.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/spot.h \
-		../../ADEPO/server/calib1.h \
-		../../ADEPO/server/calib2.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
@@ -1545,7 +1499,8 @@ server.o: ../../ADEPO/server/server.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/bcam.h
+		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/util.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o ../../ADEPO/server/server.cpp
 
 moc_lwdaq_client.o: moc_lwdaq_client.cpp 

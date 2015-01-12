@@ -10,15 +10,15 @@
 
 
 //fonction de transformation du repere ccd au repere BCAM (MOUNT)
-void img_coord_to_bcam_coord(BDD & base_donnees)
+void img_coord_to_bcam_coord(BDD & base_donnees, Calibration &calibration)
 {
     bool found = false;
     for(unsigned int i=0; i<base_donnees.getDualSpots().size(); i++) //je parcours la base de donnees des coordonnees images
     {
-        for (unsigned int j=0; j<base_donnees.getCalibs1().size(); j++) //je parcours la base de donnees qui contient les informations de calibration
+        for (unsigned int j=0; j<calibration.getCalibs1().size(); j++) //je parcours la base de donnees qui contient les informations de calibration
         {
             DualSpot spot = base_donnees.getDualSpots().at(i);
-            calib1 calib1 = base_donnees.getCalibs1().at(j);
+            Calib1 calib1 = calibration.getCalibs1().at(j);
             // NumChip == 2 is Z+ direction
             int num_chip = base_donnees.getBCAM(spot.getName()).getPrism().getNumChip();
             bool directionOk = ((num_chip == 2) && (calib1.getDirection() == 1)) || ((num_chip == 1) && (calib1.getDirection() == -1));

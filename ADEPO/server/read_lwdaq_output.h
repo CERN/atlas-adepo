@@ -5,6 +5,6 @@
 
 #include <bdd.h>
 
-int read_lwdaq_output(QFile& file, BDD & base_donnees);
+int readLWDAQOutput(QFile& file, BDD & base_donnees);
 
 #endif // READ_LWDAQ_OUTPUT_H

@@ -1,30 +1,21 @@
-#include "atlas_bcam.h"
-#include "read_input.h"
-#include "ui_ATLAS_BCAM.h"
-#include "read_calibration_database.h"
-#include "bdd.h"
-#include "read_lwdaq_output.h"
-#include "img_coord_to_bcam_coord.h"
-#include "write_file_obs_mount_system.h"
-#include "calcul_coord_bcam_system.h"
-#include "helmert.h"
-#include "mount_prism_to_global_prism.h"
-#include "float_table_widget_item.h"
-#include "Eigen/Eigen"
-#include "read_write_ref.h"
-#include "server.h"
-
-#include <iostream>
-#include <QtGui>
-#include "QWidget"
-#include "QtTest/QTest"
-#include <time.h>
-#include <QString>
+#include <QSettings>
+#include <QPixmapCache>
 #include <QFileDialog>
 #include <QMessageBox>
 
-#define NBR_DETECTORS 8
-#define ID_LENGTH_BCAM 14
+#include "atlas_bcam.h"
+#include "ui_ATLAS_BCAM.h"
+#include "float_table_widget_item.h"
+
+#include "helmert.h"
+#include "read_calibration_database.h"
+#include "read_write_ref.h"
+#include "read_lwdaq_output.h"
+#include "img_coord_to_bcam_coord.h"
+#include "mount_prism_to_global_prism.h"
+#include "calcul_coord_bcam_system.h"
+#include "Eigen/Eigen"
+#include "write_file_obs_mount_system.h"
 
 #define INPUT_FOLDER "input_folder"
 #define AIRPAD_INDEX "airpad_index"
@@ -54,11 +45,6 @@ bool input_folder_read = false;
 
 //nom du fichier script qui va lancer l'acquisition que sur les detecteurs selectionnes
 QString fichier_script = DEFAULT_SCRIPT_FILE;
-
-//bool pour savoir si y a eu une erreur dans le format de l'input
-//format_input = 1 --> tout est bon
-//format_input = 0 --> il y a une erreur et on ne charge pas le fichier
-int format_input=1;
 
 //compteur pour savoir combien de fois l'utilisateur a charge un fichier d'input
 
@@ -415,7 +401,7 @@ void ATLAS_BCAM::openInputDir() {
     //appel pour la lecture de fichier
     QString inputFile = path_input_folder;
     inputFile.append("/").append(NAME_CONFIGURATION_FILE);
-    read_input(inputFile.toStdString(), config);
+    config.read(inputFile.toStdString());
 
     display(ui->configurationFileLabel, ui->configurationFile, inputFile);
 
@@ -423,18 +409,18 @@ void ATLAS_BCAM::openInputDir() {
     helmert(m_bdd, config);
 
     //verification des infos du fichier d'entree
-    checkInputData();
-
-    //remplissage tableau detectors que si le format du fichier input est bon !
-    if(format_input == 1)
-    {
-        fillDetectorTable();
+    std::string result = config.check();
+    if (result != "") {
+        std::cerr << result << std::endl;
+        std::exit(1);
     }
+
+    fillDetectorTable();
 
     //lecture du fichier de calibration
     QString calibrationFile = path_input_folder;
     calibrationFile.append("/").append(NAME_CALIBRATION_FILE);
-    read_calibration_database(calibrationFile.toStdString(), m_bdd);
+    calibration.read(calibrationFile.toStdString());
 
     display(ui->calibrationFileLabel, ui->calibrationFile, calibrationFile);
 
@@ -444,7 +430,7 @@ void ATLAS_BCAM::openInputDir() {
     // read reference file
     refFile = path_input_folder;
     refFile.append("/").append(NAME_REF_FILE);
-    read_ref(refFile, results);
+    readRef(refFile, results);
     display(ui->refFileLabel, ui->refFile, refFile);
 
     //activation du boutton pour lancer les acquisitions
@@ -767,7 +753,7 @@ void ATLAS_BCAM::changedFormat(int state) {
 void ATLAS_BCAM::calculateCoordinates()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
-   int lecture_output_result = read_lwdaq_output(resultFile, m_bdd);
+   int lecture_output_result = readLWDAQOutput(resultFile, m_bdd);
 
    if(lecture_output_result == 0 )
    {
@@ -783,10 +769,10 @@ void ATLAS_BCAM::calculateCoordinates()
    else
    {
    //je fais la transformation du capteur CCD au systeme MOUNT. Attention, la lecture du fichier de calibration est deja faite !
-   img_coord_to_bcam_coord(m_bdd);
+   img_coord_to_bcam_coord(m_bdd, calibration);
 
    //je calcule les coordonnees du prisme en 3D dans le repere MOUNT
-   calcul_coord_bcam_system(m_bdd, config);
+   calcul_coord_bcam_system(m_bdd, config, calibration);
 
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mount_prism_to_global_prism(m_bdd, config, ui->airpadBox->currentText() == "ON");
@@ -925,153 +911,8 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
     }
     ui->tableWidget_results->resizeColumnsToContents();
 
-    write_ref(refFile, results);
+    writeRef(refFile, results);
     display(ui->refFileLabel, ui->refFile, refFile);
-}
-
-//fonction qui verifie qu'il n'y a pas d'erreurs dans le fichier de configuration                   [----> ok mais peut etre amelioree
-void ATLAS_BCAM::checkInputData()
-{
-    //test des numéros des ports driver : sur les driver les numéros de ports possibles sont compris entre 1 et 8
-    for (unsigned int i=0; i<config.getBCAMConfigs().size(); i++)
-    {
-        if(config.getBCAMConfigs().at(i).getDriverSocket()>8 || config.getBCAMConfigs().at(i).getDriverSocket()<1)
-        {
-            QMessageBox::critical(this,"Attention","les numéros des ports driver sont impérativement compris entre 1 et 8");
-            //mauvais format
-            format_input = 0;
-            //arrêt du programme
-            std::exit(EXIT_FAILURE);
-        }
-    }
-
-    //test des numéros des ports multiplexer : sur les multiplexer les numéros des ports possibles sont compris entre 1 et 10
-    for (unsigned int i=0; i<config.getBCAMConfigs().size(); i++)
-    {
-        if(config.getBCAMConfigs().at(i).getMuxSocket()>10 || config.getBCAMConfigs().at(i).getMuxSocket()<1)
-        {
-            QMessageBox::critical(this,"Attention","les numéros des ports multiplexer sont impérativement compris entre 1 et 10");
-            //mauvais format
-            format_input = 0;
-            //arrêt du programme
-            std::exit(EXIT_FAILURE);
-        }
-    }
-
-    //test sur le nombre de détecteurs (ce nombre == 8 )
-    if (config.getDetectors().size() != NBR_DETECTORS)
-    {
-        int nbr_detectors = config.getDetectors().size();
-        QString str;
-        str.setNum(nbr_detectors);
-
-        QMessageBox::information(this,"Information","Le nombre de detecteurs est different de 7", QMessageBox::Ok, QMessageBox::Cancel);
-    }
-
-    //test pour vérifier si dans le fichier d'entrée, il y a un seul et unique détecteur avec un seul et unique identifiant
-    for (unsigned int i=0; i<config.getDetectors().size(); i++)
-    {
-
-         for (unsigned int j=0; j<config.getDetectors().size(); j++)
-        {
-             if( j != i && config.getDetectors().at(i).getName() == config.getDetectors().at(j).getName())
-             {
-                 QMessageBox::critical(this,"Attention","Vous avez entre 2 fois le meme nom de detecteur !");
-                 //mauvais format
-                 format_input = 0;
-                 //arrêt du programme
-                 std::exit(EXIT_FAILURE);
-             }
-             if(j != i && config.getDetectors().at(i).getId() == config.getDetectors().at(j).getId())
-             {
-                 QMessageBox::critical(this,"Attention","Vous avez entre 2 fois le meme numero d'identifiant pour un detectuer !");
-                 //mauvais format
-                 format_input = 0;
-                 //arrêt du programme
-                 std::exit(EXIT_FAILURE);
-             }
-        }
-    }
-
-    //test sur la longueur des chaînes de caractères (identifiant des BCAMs)
-    for (unsigned int i=0; i<config.getBCAMConfigs().size(); i++)
-    {
-        if(config.getBCAMConfigs().at(i).getName().size() != ID_LENGTH_BCAM)
-        {
-            QMessageBox::critical(this,"Attention","Au moins 1 BCAM comporte un identifiant de longueur inapropriee !");
-            //mauvais format
-            format_input = 0;
-            //arrêt du programme
-            std::exit(EXIT_FAILURE);
-        }
-    }
-
-
-    //test pour vérifier si dans le fichier d'entrée, il y a une seule et unique BCAM (vu la structure du fichier elle appartient à un unique detecteur)
-    for (unsigned int i=0; i<config.getBCAMConfigs().size(); i++)
-    {
-        for (unsigned int j=0; j<config.getBCAMConfigs().size(); j++)
-        {
-            if(j != i && config.getBCAMConfigs().at(i).getName() == config.getBCAMConfigs().at(j).getName())
-            {
-                QMessageBox::critical(this,"Attention","Vous avez entre 2 fois le meme numero d'identifiant de BCAM !");
-                //mauvais format
-                format_input = 0;
-                //arrêt du programme
-                std::exit(EXIT_FAILURE);
-            }
-        }
-    }
-
-    //test pour éviter que 2 BCAMs ne soient branchées sur le même port multiplexer et même port driver à la fois
-    for (unsigned int i=0; i<config.getBCAMConfigs().size(); i++)
-    {
-        for (unsigned int j=0; j<config.getBCAMConfigs().size(); j++)
-        {
-            if((i != j) && (config.getBCAMConfigs().at(i).getDriverSocket() == config.getBCAMConfigs().at(j).getDriverSocket()) &&
-                    (config.getBCAMConfigs().at(i).getMuxSocket() == config.getBCAMConfigs().at(j).getMuxSocket()))
-            {
-                QMessageBox::critical(this,"Attention","2 BCAMs ne peut pas être branchée sur le même port driver et multiplexer à la fois !");
-                //mauvais format
-                format_input = 0;
-                //arrêt du programme
-                std::exit(EXIT_FAILURE);
-            }
-        }
-    }
-}
-
-//fonction qui verifie si toutes les BCAMS sont contenues dans le fichier de calibration            [----> not yet, on suppose que le fichier de calibration est correct
-void ATLAS_BCAM::checkCalibrationDatabase()
-{
-    /*int exist_l1 = 0;
-    int exist_l2 = 0;
-
-    //verifier si toutes les informations de calibration existent dans le fichier
-    for(int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
-    {
-        for(int j=0; j<m_bdd.Get_liste_calib1().size(); j++)
-        {
-            if(m_bdd.Get_liste_BCAM().at(i).Get_nom_BCAM() == m_bdd.Get_liste_calib1().at(j).Get_id_BCAM())
-            {
-                exist_l1++;
-            }
-        }
-    }
-
-    for(int i=0; i<m_bdd.Get_liste_BCAM().size(); i++)
-    {
-        for(int j=0; j<m_bdd.Get_liste_calib2().size(); j++)
-        {
-            if(m_bdd.Get_liste_BCAM().at(i).Get_nom_BCAM() == m_bdd.Get_liste_calib1().at(j).Get_id_BCAM())
-            {
-                exist_l2++;
-            }
-        }
-    }
-    // si les variables ont ete incrementees d'au moins le nombre de BCAM
-    if(exist_l1 <= m_bdd.Get_liste_BCAM().size() || exist_l2 <= m_bdd.Get_liste_BCAM().size())
-    QMessageBox::critical(this,"Attention","Il manque des donnees de calibration pour au moins 1 BCAM");*/
 }
 
 

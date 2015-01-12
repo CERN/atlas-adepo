@@ -7,7 +7,7 @@
 
 #include "result.h"
 
-int write_ref(QString fileName, std::map<std::string, result> &results);
-int read_ref(QString fileName, std::map<std::string, result> &results);
+int writeRef(QString fileName, std::map<std::string, result> &results);
+int readRef(QString fileName, std::map<std::string, result> &results);
 
 #endif // WRITE_REF_H

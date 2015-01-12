@@ -1,10 +1,11 @@
 #include <QApplication>
 #include <QtGui>
-#include "atlas_bcam.h"
 #include <QApplication>
 #include <QTranslator>
 #include <QLocale>
 #include <QLibraryInfo>
+
+#include "atlas_bcam.h"
 
 int main(int argc, char *argv[])
 {

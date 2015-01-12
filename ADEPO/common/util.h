@@ -10,6 +10,8 @@ public:
     virtual ~Util() {};
 
     static std::string getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first);
+
+    static void checkCalibrationDatabase();
 };
 
 #endif // UTIL_H

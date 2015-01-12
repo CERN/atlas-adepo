@@ -45,10 +45,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../../ADEPO/common/read_input.cpp \
-		../../ADEPO/common/util.cpp 
-OBJECTS       = read_input.o \
-		util.o
+SOURCES       = ../../ADEPO/common/configuration.cpp \
+		../../ADEPO/common/util.cpp \
+		../../ADEPO/common/calibration.cpp 
+OBJECTS       = configuration.o \
+		util.o \
+		calibration.o
 DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/qdevice.pri \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/device_config.prf \
@@ -179,14 +181,17 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
+		../../ADEPO/common/calib1.h \
+		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/prism.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/common/read_input.h \
-		../../ADEPO/common/util.h ../../ADEPO/common/read_input.cpp \
-		../../ADEPO/common/util.cpp
+		../../ADEPO/common/util.h \
+		../../ADEPO/common/calibration.h ../../ADEPO/common/configuration.cpp \
+		../../ADEPO/common/util.cpp \
+		../../ADEPO/common/calibration.cpp
 QMAKE_TARGET  = adepo-common
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = libadepo-common.a
@@ -503,8 +508,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/common/absolute_distances.h ../../ADEPO/common/atlas_coordinates.h ../../ADEPO/common/bcam_adapter.h ../../ADEPO/common/bcam_config.h ../../ADEPO/common/configuration.h ../../ADEPO/common/detector.h ../../ADEPO/common/point3f.h ../../ADEPO/common/prism.h ../../ADEPO/common/prism_correction.h ../../ADEPO/common/read_input.h ../../ADEPO/common/util.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/common/read_input.cpp ../../ADEPO/common/util.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/common/absolute_distances.h ../../ADEPO/common/atlas_coordinates.h ../../ADEPO/common/bcam_adapter.h ../../ADEPO/common/bcam_config.h ../../ADEPO/common/calib1.h ../../ADEPO/common/calib2.h ../../ADEPO/common/configuration.h ../../ADEPO/common/detector.h ../../ADEPO/common/point3f.h ../../ADEPO/common/prism.h ../../ADEPO/common/prism_correction.h ../../ADEPO/common/util.h ../../ADEPO/common/calibration.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/common/configuration.cpp ../../ADEPO/common/util.cpp ../../ADEPO/common/calibration.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -545,8 +550,7 @@ compiler_clean:
 
 ####### Compile
 
-read_input.o: ../../ADEPO/common/read_input.cpp ../../ADEPO/common/read_input.h \
-		../../ADEPO/common/configuration.h \
+configuration.o: ../../ADEPO/common/configuration.cpp ../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
@@ -559,10 +563,13 @@ read_input.o: ../../ADEPO/common/read_input.cpp ../../ADEPO/common/read_input.h 
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o read_input.o ../../ADEPO/common/read_input.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o configuration.o ../../ADEPO/common/configuration.cpp
 
 util.o: ../../ADEPO/common/util.cpp ../../ADEPO/common/util.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o util.o ../../ADEPO/common/util.cpp
+
+calibration.o: ../../ADEPO/common/calibration.cpp ../../ADEPO/common/calibration.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calibration.o ../../ADEPO/common/calibration.cpp
 
 ####### Install
 

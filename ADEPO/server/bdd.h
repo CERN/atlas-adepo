@@ -1,16 +1,6 @@
 #ifndef BDD_H
 #define BDD_H
 
-#include "configuration.h"
-#include "bcam.h"
-#include "dual_spot.h"
-#include "calib1.h"
-#include "calib2.h"
-#include "mount_coord_spots.h"
-#include "mount_coord_prism.h"
-#include "global_coord_prism.h"
-#include "bcam_params.h"
-
 #include <vector>
 #include <map>
 #include <string>
@@ -20,11 +10,22 @@
 #include <stdexcept>
 #include <cstring>
 #include <stdlib.h>
+#include <unistd.h>
+#include <cstdlib>
+#include <cmath>
+
 #include <QString>
 #include <QStringList>
-#include "unistd.h"
-#include "cstdlib"
-#include "math.h"
+
+#include "configuration.h"
+#include "bcam.h"
+#include "dual_spot.h"
+#include "mount_coord_spots.h"
+#include "mount_coord_prism.h"
+#include "global_coord_prism.h"
+#include "bcam_params.h"
+
+
 
 class BDD
 {
@@ -36,10 +37,6 @@ public:
 
     //getter
     std::vector<BCAM> getBCAMs(int id_detector, Configuration& config);
-    std::vector<calib1> getCalibs1() const {return mCalibs1;}
-//    std::vector<calib1> getCalibs1Clean() const {return m_liste_calib1_clean;}
-    std::vector<calib2> getCalibs2() const {return mCalibs2;}
-//    std::vector<calib2> Get_liste_calib2_clean() const {return m_liste_calib2_clean;}
     std::vector<DualSpot> getDualSpots() const {return mDualSpots;}
     std::vector<MountCoordSpots> getMountCoordSpots() const {return mMountCoordSpots;}
     std::vector<MountCoordPrism> getMountCoordPrisms() const {return mMountCoordPrisms;}
@@ -59,10 +56,6 @@ public:
     }
 
    //methodes d'ajout
-    void add(calib1 val) { mCalibs1.push_back(val); }
-//    void addClean(calib1 val) {mCalibs1Clean.push_back(val);}
-    void add(calib2 val) {mCalibs2.push_back(val);}
-//    void Add_calib2_clean(calib2 val) {m_liste_calib2_clean.push_back(val);}
     void add(DualSpot val) {mDualSpots.push_back(val);}
     void add(MountCoordSpots val) {mMountCoordSpots.push_back(val);}
     void add(MountCoordPrism val) {mMountCoordPrisms.push_back(val);}
@@ -85,10 +78,6 @@ public:
     //vidage complet de la bdd si on charge un second fichier
     void vidage_complet() {
         mBCAMs.clear();
-        mCalibs1.clear();
-//        mCalibs1Clean.clear();
-        mCalibs2.clear();
-//        m_liste_calib2_clean.clear();
         mDualSpots.clear();
         mMountCoordSpots.clear();
         mMountCoordPrisms.clear();
@@ -98,10 +87,6 @@ public:
 protected:
 private:
     std::vector<BCAM> mBCAMs;
-    std::vector<calib1> mCalibs1;
-//    std::vector<calib1> mCalibs1Clean;
-    std::vector<calib2> mCalibs2;
-//    std::vector<calib2> m_liste_calib2_clean;
     std::vector<DualSpot> mDualSpots;
     std::vector<MountCoordSpots> mMountCoordSpots;
     std::vector<MountCoordPrism> mMountCoordPrisms;

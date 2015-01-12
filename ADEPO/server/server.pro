@@ -18,7 +18,6 @@ SOURCES += \
     img_coord_to_bcam_coord.cpp \
     lwdaq_client.cpp \
     mount_prism_to_global_prism.cpp \
-    read_calibration_database.cpp \
     read_lwdaq_output.cpp \
     write_file_obs_mount_system.cpp \
     server.cpp
@@ -29,8 +28,6 @@ HEADERS += \
     bcam_params.h \
     bdd.h \
     calcul_coord_bcam_system.h \
-    calib1.h \
-    calib2.h \
     changement_repere.h \
     dual_spot.h \
     global_coord_prism.h \
@@ -40,7 +37,6 @@ HEADERS += \
     mount_coord_prism.h \
     mount_coord_spots.h \
     mount_prism_to_global_prism.h \
-    read_calibration_database.h \
     read_lwdaq_output.h \
     spot.h \
     write_file_obs_mount_system.h \

@@ -12,7 +12,9 @@
 #include "bdd.h"
 #include "result.h"
 #include "util.h"
+
 #include "server.h"
+#include "calibration.h"
 
 namespace Ui {
 class ATLAS_BCAM;
@@ -30,16 +32,10 @@ public:
     //fonction qui remplie le tableau de detecteurs affiche dans l'interface
     void fillDetectorTable();
 
-    //fonction qui verifie si les donnees en entree dans le fichier de configuration sont correctes
-    void checkInputData();
-
-    //fonction qui verifie si les donnees de fichier de calibration existent pour chaque BCAM
-    void checkCalibrationDatabase();
-
     //fonction qui permet de calculer les coordonnees de chaque prisme
     void calculateCoordinates();
 
-    ////fonction qui ecrit un fichier tcl avec les parametres par defaut pour l'onglet acquisifier de LWDAQ et lance automatiquement l'auto-run
+    //fonction qui ecrit un fichier tcl avec les parametres par defaut pour l'onglet acquisifier de LWDAQ et lance automatiquement l'auto-run
     int writeSettingsFile(QString settings_file);
 
     //fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ
@@ -48,7 +44,6 @@ public:
 public slots:
 
 signals:
-
 
 private slots:
     void showBCAMTable();
@@ -71,6 +66,7 @@ private slots:
 private:
     // tbr
     Server server;
+    Calibration calibration;
 
     Ui::ATLAS_BCAM *ui;
     BDD m_bdd;

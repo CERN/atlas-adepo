@@ -5,11 +5,11 @@
 
 #include "iostream"
 
-class calib2
+class Calib2
 {
 public:
-    calib2(std::string bcam, Point3f coordFlash1, Point3f coordFlash2) : mBCAM(bcam), mCoordFlash1(coordFlash1), mCoordFlash2(coordFlash2) {};
-    virtual ~calib2() {};
+    Calib2(std::string bcam, Point3f coordFlash1, Point3f coordFlash2) : mBCAM(bcam), mCoordFlash1(coordFlash1), mCoordFlash2(coordFlash2) {};
+    virtual ~Calib2() {};
 
     //setter et getter
     std::string getBCAM() const { return mBCAM; }

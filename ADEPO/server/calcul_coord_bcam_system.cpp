@@ -1,28 +1,29 @@
 #include "adepo.h"
 #include "calcul_coord_bcam_system.h"
 #include "configuration.h"
+#include "calibration.h"
 
 #define mm2m 0.001
 
-void calcul_coord_bcam_system(BDD & base_donnees, Configuration& config)
+void calcul_coord_bcam_system(BDD & base_donnees, Configuration& config, Calibration &calibration)
 {
     bool found = false;
     for (unsigned int i=0; i<base_donnees.getMountCoordSpots().size(); i++) // je parcours la database qui contient les coord des observation dans le system MOUNT
     {
         MountCoordSpots spot = base_donnees.getMountCoordSpots().at(i);
 
-        for (unsigned int j=0; j<base_donnees.getCalibs1().size(); j++) //je parcours la base de donnee de calibration 1
+        for (unsigned int j=0; j<calibration.getCalibs1().size(); j++) //je parcours la base de donnee de calibration 1
         {
-            calib1 calib1 = base_donnees.getCalibs1().at(j);
+            Calib1 calib1 = calibration.getCalibs1().at(j);
 
             // NumChip == 2 is Z+ direction
             int num_chip = base_donnees.getBCAM(spot.getName()).getPrism().getNumChip();
             bool directionOk1 = ((num_chip == 2) && (calib1.getDirection() == 1)) || ((num_chip == 1) && (calib1.getDirection() == -1));
 
-            for(unsigned int k=0; k<base_donnees.getCalibs2().size(); k++) //je parcours la base de donnee de calibration 2
+            for(unsigned int k=0; k<calibration.getCalibs2().size(); k++) //je parcours la base de donnee de calibration 2
             {
-                calib2 calib2k = base_donnees.getCalibs2().at(k);
-                calib2 calib2j = base_donnees.getCalibs2().at(j);
+                Calib2 calib2k = calibration.getCalibs2().at(k);
+                Calib2 calib2j = calibration.getCalibs2().at(j);
 
                 bool directionOk2 = ((num_chip == 2) && (calib2k.getDirection() == 1)) || ((num_chip == 1) && (calib2k.getDirection() == -1));
 
