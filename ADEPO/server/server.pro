@@ -43,7 +43,8 @@ HEADERS += \
     read_calibration_database.h \
     read_lwdaq_output.h \
     spot.h \
-    write_file_obs_mount_system.h
+    write_file_obs_mount_system.h \
+    server.h
 
 unix:!mac{
   QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.0/lib

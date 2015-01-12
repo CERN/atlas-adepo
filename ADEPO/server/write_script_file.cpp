@@ -1,7 +1,9 @@
-#include "atlas_bcam.h"
+#include "server.h"
+
+#include "bcam_config.h"
 
 //fonction qui permet de generer un script d'acquisition                                            [---> ok
-int ATLAS_BCAM::write_script_file(QString fileName, std::vector<BCAM> &bcams)
+int Server::write_script_file(QString fileName, std::vector<BCAM> &bcams)
 {
     std::string ipAddress = config.getDriverIpAddress();
 
@@ -73,7 +75,7 @@ int ATLAS_BCAM::write_script_file(QString fileName, std::vector<BCAM> &bcams)
 }
 
 
-int ATLAS_BCAM::write_bcam_script(std::ofstream &file, BCAM bcam, int spots, std::string sourceDeviceElement) {
+int Server::write_bcam_script(std::ofstream &file, BCAM bcam, int spots, std::string sourceDeviceElement) {
 
     Prism prism = bcam.getPrism();
     std::string name = bcam.getName().append("_").append(prism.getName());
@@ -121,7 +123,7 @@ int ATLAS_BCAM::write_bcam_script(std::ofstream &file, BCAM bcam, int spots, std
 }
 
 
-std::string ATLAS_BCAM::getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first) {
+std::string Server::getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first) {
     if (flashSeparate) {
         if (isPrism) {
             return deviceElement == 2 ? first ? "3" : "4" : first ? "1" : "2";

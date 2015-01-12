@@ -33,9 +33,6 @@ public:
     //fonction qui verifie si les donnees de fichier de calibration existent pour chaque BCAM
     void check_calibration_database();
 
-    //fonction qui genere un script tcl pour lancer les acquisitions LWDAQ que sur la liste de detetcteurs selectionnes
-    int write_script_file(QString nom_fichier_script_acquisition, std::vector<BCAM> &liste_temp_bcam);
-
     //fonction qui permet de calculer les coordonnees de chaque prisme
     void calcul_coord();
 

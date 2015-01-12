@@ -213,7 +213,8 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../ADEPO/server/read_calibration_database.h \
 		../../ADEPO/server/read_lwdaq_output.h \
 		../../ADEPO/server/spot.h \
-		../../ADEPO/server/write_file_obs_mount_system.h ../../ADEPO/server/bdd.cpp \
+		../../ADEPO/server/write_file_obs_mount_system.h \
+		../../ADEPO/server/server.h ../../ADEPO/server/bdd.cpp \
 		../../ADEPO/server/calcul_coord_bcam_system.cpp \
 		../../ADEPO/server/changement_repere.cpp \
 		../../ADEPO/server/helmert.cpp \
@@ -544,7 +545,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/bdd.h ../../ADEPO/server/calcul_coord_bcam_system.h ../../ADEPO/server/calib1.h ../../ADEPO/server/calib2.h ../../ADEPO/server/changement_repere.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/helmert.h ../../ADEPO/server/img_coord_to_bcam_coord.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/mount_prism_to_global_prism.h ../../ADEPO/server/read_calibration_database.h ../../ADEPO/server/read_lwdaq_output.h ../../ADEPO/server/spot.h ../../ADEPO/server/write_file_obs_mount_system.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/bdd.h ../../ADEPO/server/calcul_coord_bcam_system.h ../../ADEPO/server/calib1.h ../../ADEPO/server/calib2.h ../../ADEPO/server/changement_repere.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/helmert.h ../../ADEPO/server/img_coord_to_bcam_coord.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/mount_prism_to_global_prism.h ../../ADEPO/server/read_calibration_database.h ../../ADEPO/server/read_lwdaq_output.h ../../ADEPO/server/spot.h ../../ADEPO/server/write_file_obs_mount_system.h ../../ADEPO/server/server.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/server/bdd.cpp ../../ADEPO/server/calcul_coord_bcam_system.cpp ../../ADEPO/server/changement_repere.cpp ../../ADEPO/server/helmert.cpp ../../ADEPO/server/img_coord_to_bcam_coord.cpp ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/mount_prism_to_global_prism.cpp ../../ADEPO/server/read_calibration_database.cpp ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server/write_file_obs_mount_system.cpp ../../ADEPO/server/write_script_file.cpp $(DISTDIR)/
 
 
@@ -1530,7 +1531,13 @@ write_file_obs_mount_system.o: ../../ADEPO/server/write_file_obs_mount_system.cp
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o write_file_obs_mount_system.o ../../ADEPO/server/write_file_obs_mount_system.cpp
 
-write_script_file.o: ../../ADEPO/server/write_script_file.cpp 
+write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server/server.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		../../ADEPO/server/bcam.h \
+		../../ADEPO/common/prism.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o write_script_file.o ../../ADEPO/server/write_script_file.cpp
 
 moc_lwdaq_client.o: moc_lwdaq_client.cpp 
