@@ -12,6 +12,7 @@
 #include "float_table_widget_item.h"
 #include "Eigen/Eigen"
 #include "read_write_ref.h"
+#include "server.h"
 
 #include <iostream>
 #include <QtGui>
@@ -225,7 +226,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
     ui->bcamLabel->setText(name);
     QPixmapCache::clear();
     QString imageName1 = appDirPath();
-    QString suffix1 = QString::fromStdString(getSourceDeviceElement(isPrism, flashSeparate, deviceElement, true)).replace(" ", "-");
+    QString suffix1 = QString::fromStdString(Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, true)).replace(" ", "-");
     imageName1.append("/").append(name).append("-").append(suffix1).append(".gif");
 //    QList<QByteArray> list = QImageReader::supportedImageFormats();
 //    for (int i=0; i<list.size(); i++) {
@@ -239,7 +240,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
         ui->bcamDateTime->setText(dateTime.toString());
         ui->bcamImage2->setVisible(flashSeparate);
         if (flashSeparate) {
-            QString suffix2 = QString::fromStdString(getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false));
+            QString suffix2 = QString::fromStdString(Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false));
             QString imageName2 = appDirPath();
             imageName2.append("/").append(name).append("-").append(suffix2).append(".gif");
             QPixmap pix2(imageName2);
@@ -265,7 +266,7 @@ void ATLAS_BCAM::lwdaqStateChanged() {
                 // calculate
                 adepoState = CALCULATING;
                 updateStatusBar();
-                calcul_coord();
+                calculateCoordinates();
                 needToCalculateResults = false;
             }
 
@@ -393,7 +394,7 @@ void ATLAS_BCAM::setEnabled(bool enabled) {
 }
 
 //ouverture d'une boite de dialogue                                                                 [----> ok
-void ATLAS_BCAM::ouvrirDialogue()
+void ATLAS_BCAM::openDialog()
 {
     path_input_folder = QFileDialog::getExistingDirectory(this, "Chemin du dossier", QString());
     openInputDir();
@@ -422,12 +423,12 @@ void ATLAS_BCAM::openInputDir() {
     helmert(m_bdd, config);
 
     //verification des infos du fichier d'entree
-    check_input_data();
+    checkInputData();
 
     //remplissage tableau detectors que si le format du fichier input est bon !
     if(format_input == 1)
     {
-        remplir_tableau_detectors();
+        fillDetectorTable();
     }
 
     //lecture du fichier de calibration
@@ -484,7 +485,7 @@ void ATLAS_BCAM::changedWaitingTimeValue(int value)
 }
 
 //fonction d'ouverture de la fenêtre d'aide de l'outil ARCAPA                                       [----> not yet]
-void ATLAS_BCAM::aide_atlas_bcam()
+void ATLAS_BCAM::helpAtlasBCAM()
 {
     QDialog *aideatlasbcam = new QDialog(this);
 
@@ -505,7 +506,7 @@ void ATLAS_BCAM::aide_atlas_bcam()
 }
 
 //fonction permettant de charger la liste des detectors après ouverture d'un projet                 [---> ok
-void ATLAS_BCAM::remplir_tableau_detectors()
+void ATLAS_BCAM::fillDetectorTable()
 {
     //recuperation de la liste des nom des detecteurs
     std::vector<Detector> detectors_data = config.getDetectors();
@@ -567,7 +568,7 @@ void ATLAS_BCAM::showBCAMTable()
         }
 
         //ecriture du script d'acquisition des detecteurs selectionnees
-        write_script_file(appDirPath()+"/"+fichier_script, m_bdd.getBCAMs());
+        server.write_script_file(config, appDirPath()+"/"+fichier_script, m_bdd.getBCAMs());
     }
 
     settings.setValue(SELECTED_DETECTORS, selectedDetectors);
@@ -691,13 +692,13 @@ void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision)
 }
 
 //fonction qui lance les acquisitions LWDAQ                                                         ----> ok mais qu'est ce qui se passe apres les acquisitions ?
-void ATLAS_BCAM::lancer_acquisition()
+void ATLAS_BCAM::startAcquisition()
 {
     QString dir = appDirPath();
 
-    write_params_file(dir + "/" + DEFAULT_PARAM_FILE);
+    writeParamsFile(dir + "/" + DEFAULT_PARAM_FILE);
 
-    write_settings_file(dir + "/" + DEFAULT_SETTINGS_FILE);
+    writeSettingsFile(dir + "/" + DEFAULT_SETTINGS_FILE);
 
     //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
     std::cout << "*** Removing " << resultFile.fileName().toStdString() << std::endl;
@@ -716,7 +717,7 @@ void ATLAS_BCAM::lancer_acquisition()
 }
 
 //fonction qui permet d'arreter l'acquisition LWDAQ (seuleuement en mode monitoring)                [----> ok
-void ATLAS_BCAM::stop_acquisition()
+void ATLAS_BCAM::stopAcquisition()
 {
     needToCalculateResults = false;
 
@@ -725,7 +726,7 @@ void ATLAS_BCAM::stop_acquisition()
     setEnabled(true);
 }
 
-void ATLAS_BCAM::stop_repeat_acquisition()
+void ATLAS_BCAM::stopRepeatAcquisition()
 {
     needToCalculateResults = false;
     setMode(CLOSURE);
@@ -763,7 +764,7 @@ void ATLAS_BCAM::changedFormat(int state) {
 }
 
 //fonction qui calcule les coordonnees de chaque prisme dans le repere BCAM + suavegarde            [----> ok
-void ATLAS_BCAM::calcul_coord()
+void ATLAS_BCAM::calculateCoordinates()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
    int lecture_output_result = read_lwdaq_output(resultFile, m_bdd);
@@ -929,7 +930,7 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
 }
 
 //fonction qui verifie qu'il n'y a pas d'erreurs dans le fichier de configuration                   [----> ok mais peut etre amelioree
-void ATLAS_BCAM::check_input_data()
+void ATLAS_BCAM::checkInputData()
 {
     //test des numéros des ports driver : sur les driver les numéros de ports possibles sont compris entre 1 et 8
     for (unsigned int i=0; i<config.getBCAMConfigs().size(); i++)
@@ -1041,7 +1042,7 @@ void ATLAS_BCAM::check_input_data()
 }
 
 //fonction qui verifie si toutes les BCAMS sont contenues dans le fichier de calibration            [----> not yet, on suppose que le fichier de calibration est correct
-void ATLAS_BCAM::check_calibration_database()
+void ATLAS_BCAM::checkCalibrationDatabase()
 {
     /*int exist_l1 = 0;
     int exist_l2 = 0;
@@ -1075,7 +1076,7 @@ void ATLAS_BCAM::check_calibration_database()
 
 
 //fonction qui ecrit un fichier tcl avec les parametres par defaut pour la fenetre Acquisifier      [---> ok
-int ATLAS_BCAM::write_settings_file(QString settings_file)
+int ATLAS_BCAM::writeSettingsFile(QString settings_file)
 {
     //écriture dans un fichier
     std::ofstream fichier(settings_file.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
@@ -1104,7 +1105,7 @@ int ATLAS_BCAM::write_settings_file(QString settings_file)
 }
 
 //fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ   [----> ok
-int ATLAS_BCAM::write_params_file(QString params_file)
+int ATLAS_BCAM::writeParamsFile(QString params_file)
 {
     //écriture dans un fichier
     std::ofstream fichier(params_file.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
@@ -1184,7 +1185,7 @@ void ATLAS_BCAM::startClosure()
     needToCalculateResults = true;
 
     //lancement des acquisitions + calcul
-    lancer_acquisition();
+    startAcquisition();
 }
 
 void ATLAS_BCAM::startMonitoring()
@@ -1205,6 +1206,6 @@ void ATLAS_BCAM::startMonitoring()
 
     askQuestion = false;
     needToCalculateResults = true;
-    lancer_acquisition();
+    startAcquisition();
 
 }

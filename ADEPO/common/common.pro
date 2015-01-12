@@ -8,7 +8,8 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 SOURCES += \
-    read_input.cpp
+    read_input.cpp \
+    util.cpp
 
 HEADERS += \
     absolute_distances.h \
@@ -20,4 +21,5 @@ HEADERS += \
     point3f.h \
     prism.h \
     prism_correction.h \
-    read_input.h
+    read_input.h \
+    util.h

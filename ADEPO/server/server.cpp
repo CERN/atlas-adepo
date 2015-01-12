@@ -1,9 +1,10 @@
 #include "server.h"
 
 #include "bcam_config.h"
+#include "util.h"
 
 //fonction qui permet de generer un script d'acquisition                                            [---> ok
-int Server::write_script_file(QString fileName, std::vector<BCAM> &bcams)
+int Server::write_script_file(Configuration& config, QString fileName, std::vector<BCAM> &bcams)
 {
     std::string ipAddress = config.getDriverIpAddress();
 
@@ -58,9 +59,9 @@ int Server::write_script_file(QString fileName, std::vector<BCAM> &bcams)
             Prism prism = bcam.getPrism();
             int spots = prism.flashSeparate() ? 1 : 2;
 
-            write_bcam_script(file, bcam, spots, getSourceDeviceElement(prism.isPrism(), prism.flashSeparate(), prism.getNumChip(), true));
+            write_bcam_script(config, file, bcam, spots, Util::getSourceDeviceElement(prism.isPrism(), prism.flashSeparate(), prism.getNumChip(), true));
             if (prism.flashSeparate()) {
-                write_bcam_script(file, bcam, spots, getSourceDeviceElement(prism.isPrism(), prism.flashSeparate(), prism.getNumChip(), false));
+                write_bcam_script(config, file, bcam, spots, Util::getSourceDeviceElement(prism.isPrism(), prism.flashSeparate(), prism.getNumChip(), false));
             }
         }
 
@@ -75,7 +76,7 @@ int Server::write_script_file(QString fileName, std::vector<BCAM> &bcams)
 }
 
 
-int Server::write_bcam_script(std::ofstream &file, BCAM bcam, int spots, std::string sourceDeviceElement) {
+int Server::write_bcam_script(Configuration& config, std::ofstream &file, BCAM bcam, int spots, std::string sourceDeviceElement) {
 
     Prism prism = bcam.getPrism();
     std::string name = bcam.getName().append("_").append(prism.getName());
@@ -122,20 +123,4 @@ int Server::write_bcam_script(std::ofstream &file, BCAM bcam, int spots, std::st
     return 0;
 }
 
-
-std::string Server::getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first) {
-    if (flashSeparate) {
-        if (isPrism) {
-            return deviceElement == 2 ? first ? "3" : "4" : first ? "1" : "2";
-        } else {
-            return deviceElement == 2 ? first ? "1" : "2" : first ? "3" : "4";
-        }
-    } else {
-        if (isPrism) {
-            return deviceElement == 2 ? "3 4" : "1 2";
-        } else {
-            return deviceElement == 2 ? "1 2" : "3 4";
-        }
-    }
-}
 

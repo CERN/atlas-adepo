@@ -12,16 +12,13 @@
 class Server
 {
 public:
-    Server(Configuration& configuration) : config(configuration) {};
+    Server() {};
     virtual ~Server() {};
 
-    int write_script_file(QString fileName, std::vector<BCAM> &bcams);
+    int write_script_file(Configuration& config, QString fileName, std::vector<BCAM> &bcams);
 
 private:
-    int write_bcam_script(std::ofstream &file, BCAM bcam, int spots, std::string sourceDeviceElement);
-    std::string getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first);
-
-    Configuration& config;
+    int write_bcam_script(Configuration &configuration, std::ofstream &file, BCAM bcam, int spots, std::string sourceDeviceElement);
 };
 
 #endif // SERVER_H

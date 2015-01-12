@@ -2,14 +2,17 @@
 #define ATLAS_BCAM_H
 
 #include <QMainWindow>
-#include "bdd.h"
-#include "result.h"
 #include <QWidget>
 #include <QTextBrowser>
 #include <QLineEdit>
 #include <QLabel>
 #include <QTextEdit>
+
 #include "lwdaq_client.h"
+#include "bdd.h"
+#include "result.h"
+#include "util.h"
+#include "server.h"
 
 namespace Ui {
 class ATLAS_BCAM;
@@ -25,22 +28,22 @@ public:
     explicit ATLAS_BCAM(QWidget *parent = 0);
     ~ATLAS_BCAM();
     //fonction qui remplie le tableau de detecteurs affiche dans l'interface
-    void remplir_tableau_detectors();
+    void fillDetectorTable();
 
     //fonction qui verifie si les donnees en entree dans le fichier de configuration sont correctes
-    void check_input_data();
+    void checkInputData();
 
     //fonction qui verifie si les donnees de fichier de calibration existent pour chaque BCAM
-    void check_calibration_database();
+    void checkCalibrationDatabase();
 
     //fonction qui permet de calculer les coordonnees de chaque prisme
-    void calcul_coord();
+    void calculateCoordinates();
 
     ////fonction qui ecrit un fichier tcl avec les parametres par defaut pour l'onglet acquisifier de LWDAQ et lance automatiquement l'auto-run
-    int write_settings_file(QString settings_file);
+    int writeSettingsFile(QString settings_file);
 
     //fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ
-    int write_params_file(QString params_file);
+    int writeParamsFile(QString params_file);
 
 public slots:
 
@@ -59,13 +62,16 @@ private slots:
     void resetDelta();
     void startClosure();
     void startMonitoring();
-    void lancer_acquisition();
-    void stop_acquisition();
-    void stop_repeat_acquisition();
-    void aide_atlas_bcam();
-    void ouvrirDialogue();
+    void startAcquisition();
+    void stopAcquisition();
+    void stopRepeatAcquisition();
+    void helpAtlasBCAM();
+    void openDialog();
 
 private:
+    // tbr
+    Server server;
+
     Ui::ATLAS_BCAM *ui;
     BDD m_bdd;
     Configuration config;
@@ -98,7 +104,7 @@ private:
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);
     void setMode(std::string mode);
 
-    int write_bcam_script(std::ofstream& file, BCAM bcam, int spots, std::string sourceDeviceElement);
+    int writeBCAMScript(std::ofstream& file, BCAM bcam, int spots, std::string sourceDeviceElement);
     std::string getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first);
     QString getStateAsString();
     void updateStatusBar();

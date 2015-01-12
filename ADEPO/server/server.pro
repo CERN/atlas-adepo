@@ -21,7 +21,7 @@ SOURCES += \
     read_calibration_database.cpp \
     read_lwdaq_output.cpp \
     write_file_obs_mount_system.cpp \
-    write_script_file.cpp
+    server.cpp
 
 HEADERS += \
     adepo.h \
