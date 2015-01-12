@@ -1,7 +1,7 @@
 #ifndef CALIB2_H
 #define CALIB2_H
 
-#include "Point3f.h"
+#include "point3f.h"
 
 #include "iostream"
 
