@@ -23,12 +23,12 @@ DEPENDPATH += $$PWD/../common
 unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a
 
 
-unix: LIBS += -L$$OUT_PWD/../server/ -lserver
+unix: LIBS += -L$$OUT_PWD/../bridge/ -lbridge
 
-INCLUDEPATH += $$PWD/../server
-DEPENDPATH += $$PWD/../server
+INCLUDEPATH += $$PWD/../bridge
+DEPENDPATH += $$PWD/../bridge
 
-unix: PRE_TARGETDEPS += $$OUT_PWD/../server/libserver.a
+unix: PRE_TARGETDEPS += $$OUT_PWD/../bridge/libbridge.a
 
 
 unix: LIBS += -L$$OUT_PWD/../client/ -lclient

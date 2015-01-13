@@ -15,7 +15,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_TESTLIB_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo\"
 CFLAGS        = -pipe -O2 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -O2 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W -fPIE $(DEFINES)
-INCPATH       = -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I../../ADEPO/adepo -I../../ADEPO/eigen-eigen-ffa86ffb5570 -I../../ADEPO/common -I../../ADEPO/server -I../../ADEPO/client -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtTest.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib
+INCPATH       = -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I../../ADEPO/adepo -I../../ADEPO/eigen-eigen-ffa86ffb5570 -I../../ADEPO/common -I../../ADEPO/bridge -I../../ADEPO/client -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtTest.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib
 QMAKE         = /Users/duns/Qt5.4.0/5.4/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = adepo1.0.0
 DISTDIR = /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/.tmp/adepo1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -headerpad_max_install_names -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wl,-rpath,/Users/duns/Qt5.4.0/5.4/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/duns/Qt5.4.0/5.4/clang_64/lib -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../common/ -lcommon -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../server/ -lserver -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../client/ -lclient -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtTest -framework Security -framework ApplicationServices -framework QtNetwork -framework OpenGL -framework AGL 
+LIBS          = $(SUBLIBS) -F/Users/duns/Qt5.4.0/5.4/clang_64/lib -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../common/ -lcommon -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../bridge/ -lbridge -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../client/ -lclient -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtTest -framework Security -framework ApplicationServices -framework QtNetwork -framework OpenGL -framework AGL 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -217,7 +217,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../common/libcommon.a /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../server/libserver.a /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../client/libclient.a $(OBJECTS)  
+$(TARGET): /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../common/libcommon.a /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../bridge/libbridge.a /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../client/libclient.a $(OBJECTS)  
 	@test -d adepo.app/Contents/MacOS/ || mkdir -p adepo.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
