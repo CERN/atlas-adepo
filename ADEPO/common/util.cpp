@@ -1,5 +1,8 @@
 #include "util.h"
 
+#include <QCoreApplication>
+#include <QDir>
+
 std::string Util::getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first) {
     if (flashSeparate) {
         if (isPrism) {
@@ -15,5 +18,15 @@ std::string Util::getSourceDeviceElement(bool isPrism, bool flashSeparate, int d
         }
     }
 }
+
+QString Util::appDirPath() {
+    QString appPath = QCoreApplication::instance()->applicationDirPath();
+    if (appPath.endsWith("/Contents/MacOS")) {
+        QDir dir(appPath + "/../../..");
+        appPath = dir.absolutePath();
+    }
+    return appPath;
+}
+
 
 

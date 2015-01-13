@@ -33,15 +33,6 @@ public:
     //fonction qui remplie le tableau de detecteurs affiche dans l'interface
     void fillDetectorTable();
 
-    //fonction qui permet de calculer les coordonnees de chaque prisme
-    void calculateCoordinates();
-
-    //fonction qui ecrit un fichier tcl avec les parametres par defaut pour l'onglet acquisifier de LWDAQ et lance automatiquement l'auto-run
-    int writeSettingsFile(QString settings_file);
-
-    //fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ
-    int writeParamsFile(QString params_file);
-
 public slots:
 
 signals:
@@ -91,8 +82,6 @@ private:
     QTimer *waitingTimer;
     QTimer *updateTimer;
 
-    QString getDateTime();
-    QString appDirPath();
     void openInputDir();
     void setResult(int row, result& result);
     void setResult(int row, Point3f point, int columnSet, int precision);

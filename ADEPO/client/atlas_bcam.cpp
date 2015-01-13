@@ -192,14 +192,6 @@ void ATLAS_BCAM::setMode(std::string mode) {
     ui->modeBox->setReadOnly(true);
 }
 
-QString ATLAS_BCAM::appDirPath() {
-    QString appPath = qApp->applicationDirPath();
-    if (appPath.endsWith("/Contents/MacOS")) {
-        QDir dir(appPath + "/../../..");
-        appPath = dir.absolutePath();
-    }
-    return appPath;
-}
 
 void ATLAS_BCAM::showBCAM(int row, int /* column */) {
 //    std::cout << "Selected " << row << std::endl;
@@ -749,77 +741,6 @@ void ATLAS_BCAM::changedFormat(int state) {
     updateResults(results);
 }
 
-//fonction qui calcule les coordonnees de chaque prisme dans le repere BCAM + suavegarde            [----> ok
-void ATLAS_BCAM::calculateCoordinates()
-{
-   //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
-   int lecture_output_result = readLWDAQOutput(resultFile, m_bdd, setup);
-
-   if(lecture_output_result == 0 )
-   {
-       QMessageBox::critical(this,"Attention","le fichier de resultats est inexistant ou illisible. Verifiez la connexion avec le driver. ");
-       std::cout << lecture_output_result << std::endl;
-   }
-   /*else if(lecture_output_result == 2)
-   {
-       std::string str = m_bdd.Get_driver_ip_adress();
-       QString message = QString::fromStdString("ERROR: Failed to connect to : %1").arg(str);
-       QMessageBox::critical(this,"Attention", message);
-   }*/
-   else
-   {
-   //je fais la transformation du capteur CCD au systeme MOUNT. Attention, la lecture du fichier de calibration est deja faite !
-   img_coord_to_bcam_coord(m_bdd, calibration, setup);
-
-   //je calcule les coordonnees du prisme en 3D dans le repere MOUNT
-   calcul_coord_bcam_system(m_bdd, config, calibration, setup);
-
-   //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
-   mount_prism_to_global_prism(m_bdd, config, ui->airpadBox->currentText() == "ON");
-
-   calculateResults(m_bdd, results);
-
-   std::cout << "Updating Results..." << std::endl;
-   updateResults(results);
-
-   //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
-   QDir(".").mkpath(appDirPath().append("/Archive"));
-
-   QString fileName = appDirPath();
-   fileName.append("/Archive/Observations_MOUNT_System_");
-
-   // current date/time based on current system
-   QString now = getDateTime();
-
-   fileName = fileName.append(now).append(".txt");
-
-   write_file_obs_mount_system(fileName, now, m_bdd, config);
-
-   display(ui->resultFileLabel, ui->resultFile, fileName);
-
-   settings.setValue(RESULT_FILE, fileName);
-
-   //vidage des acquisitions
-   m_bdd.clear();
-   }
-}
-
-QString ATLAS_BCAM::getDateTime() {
-    time_t now = time(0);
-    tm* ltm = localtime(&now);
-
-    // print various components of tm structure.
-    int year = 1900 + ltm->tm_year;
-    int month = 1 + ltm->tm_mon;
-    int day = ltm->tm_mday;
-    int hour = ltm->tm_hour;
-    int min = ltm->tm_min;
-    int sec = ltm->tm_sec;
-
-    QString dateTime = QString("%1.%2.%3.%4.%5.%6").arg(year, 4).arg(month, 2, 10, QChar('0')).arg(day, 2, 10, QChar('0')).
-            arg(hour, 2, 10, QChar('0')).arg(min, 2, 10, QChar('0')).arg(sec, 2, 10, QChar('0'));
-    return dateTime;
-}
 
 void ATLAS_BCAM::calculateResults(BDD &base_donnees, std::map<std::string, result> &results) {
 
@@ -916,104 +837,6 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
 }
 
 
-//fonction qui ecrit un fichier tcl avec les parametres par defaut pour la fenetre Acquisifier      [---> ok
-int ATLAS_BCAM::writeSettingsFile(QString settings_file)
-{
-    //écriture dans un fichier
-    std::ofstream fichier(settings_file.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
-
-    if(!fichier) return 0;
-
-    //écriture la partie du script qui lance l'acquisition automatique
-    fichier<<"set Acquisifier_config(auto_load) \"0\" \n"
-           <<"set Acquisifier_config(title_color) \"purple\" \n"
-           <<"set Acquisifier_config(extended_acquisition) \"0\" \n"
-           <<"set Acquisifier_config(auto_repeat) \"0\" \n"
-           <<"set Acquisifier_config(analyze) \"0\" \n"
-           <<"set Acquisifier_config(auto_run) \"0\" \n"
-           <<"set Acquisifier_config(cycle_period_seconds) \"0\" \n"
-           <<"set Acquisifier_config(daq_script) \""<<appDirPath().append("/").append(fichier_script).toStdString()<<"\" \n"
-           <<"set Acquisifier_config(run_results) \""<<resultFile.fileName().toStdString()<<"\" \n"
-           <<"set Acquisifier_config(analysis_color) \"green\" \n"
-           <<"set Acquisifier_config(auto_quit) \"0\" \n"
-           <<"set Acquisifier_config(result_color) \"green\" \n"
-           <<"set Acquisifier_config(num_steps_show) \"20\" \n"
-           <<"set Acquisifier_config(num_lines_keep) \"1000\" \n"
-           <<"set Acquisifier_config(restore_instruments) \"0\" \n";
-
-      fichier.close();
-      return 1;
-}
-
-//fonction qui genere un fichier tcl avec les parametres par defaut pour la fenetre BCAM de LWDAQ   [----> ok
-int ATLAS_BCAM::writeParamsFile(QString params_file)
-{
-    //écriture dans un fichier
-    std::ofstream fichier(params_file.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
-
-    if(!fichier) return 0;
-
-    fichier<<"#~ Settings pour les BCAMs"
-           <<"set LWDAQ_info_BCAM(daq_password) \"no_password\" \n"
-           <<"set LWDAQ_info_BCAM(ambient_exposure_seconds) \"0\" \n"
-           <<"set LWDAQ_info_BCAM(counter) \"0\" \n"
-           <<"set LWDAQ_info_BCAM(verbose_description) \"  {Spot Position X (um)}  {Spot Position Y (um) or Line Rotation Anticlockwise (mrad)}  {Number of Pixels Above Threshold in Spot}  {Peak Intensity in Spot}  {Accuracy (um)}  {Threshold (counts)}\" \n"
-           <<"set LWDAQ_info_BCAM(flash_max_tries) \"30\" \n"
-           <<"set LWDAQ_info_BCAM(flash_seconds_max) \"0.1\" \n"
-           <<"set LWDAQ_info_BCAM(control) \"Idle\" \n"
-           <<"set LWDAQ_info_BCAM(analysis_return_intensity) \"0\" \n"
-           <<"set LWDAQ_info_BCAM(daq_image_left) \"20\" \n"
-           <<"set LWDAQ_info_BCAM(analysis_show_timing) \"0\" \n"
-           <<"set LWDAQ_info_BCAM(daq_image_bottom) \"243\" \n"
-           <<"set LWDAQ_info_BCAM(extended_parameters) \"0.6 0.9 0 1\" \n"
-           <<"set LWDAQ_info_BCAM(daq_image_right) \"343\" \n"
-           <<"set LWDAQ_info_BCAM(text) \".bcam.text\" \n"
-           <<"set LWDAQ_info_BCAM(daq_source_device_type) \"2\" \n"
-           <<"set LWDAQ_info_BCAM(flash_seconds_step) \"0.000002\" \n"
-           <<"set LWDAQ_info_BCAM(daq_image_width) \"344\" \n"
-           <<"set LWDAQ_info_BCAM(state_label) \".bcam.buttons.state\" \n"
-           <<"set LWDAQ_info_BCAM(daq_source_ip_addr) \"*\" \n"
-           <<"set LWDAQ_info_BCAM(analysis_pixel_size_um) \"10\" \n"
-           <<"set LWDAQ_info_BCAM(daq_image_height) \"244\" \n"
-           <<"set LWDAQ_info_BCAM(window) \".bcam\" \n"
-           <<"set LWDAQ_info_BCAM(analysis_show_pixels) \"0\" \n"
-           <<"set LWDAQ_info_BCAM(name) \"BCAM\" \n"
-           <<"set LWDAQ_info_BCAM(daq_image_top) \"1\" \n"
-           <<"set LWDAQ_info_BCAM(photo) \"bcam_photo\" \n"
-           <<"set LWDAQ_info_BCAM(flash_num_tries) \"0\" \n"
-           <<"set LWDAQ_info_BCAM(flash_seconds_reduce) \"0.1\" \n"
-           <<"set LWDAQ_info_BCAM(file_use_daq_bounds) \"0\" \n"
-           <<"set LWDAQ_info_BCAM(peak_min) \"100\" \n"
-           <<"set LWDAQ_info_BCAM(zoom) \"1\" \n"
-           <<"set LWDAQ_info_BCAM(analysis_return_bounds) \"0\" \n"
-           <<"set LWDAQ_info_BCAM(delete_old_images) \"1\" \n"
-           <<"set LWDAQ_info_BCAM(daq_device_type) \"2\" \n"
-           <<"set LWDAQ_info_BCAM(file_try_header) \"1\" \n"
-           <<"set LWDAQ_info_BCAM(peak_max) \"180\" \n"
-           <<"set LWDAQ_info_BCAM(flash_seconds_transition) \"0.000030\" \n"
-           <<"set LWDAQ_info_BCAM(daq_extended) \"0\" \n"
-           <<"set LWDAQ_config_BCAM(analysis_threshold) \"10 #\" \n"
-           <<"set LWDAQ_config_BCAM(daq_ip_addr) \""<<config.getDriverIpAddress()<<"\" \n"
-           <<"set LWDAQ_config_BCAM(daq_flash_seconds) \"0.000010\" \n"
-           <<"set LWDAQ_config_BCAM(daq_driver_socket) \"5\" \n"
-           <<"set LWDAQ_config_BCAM(analysis_num_spots) \"2\" \n"
-           <<"set LWDAQ_config_BCAM(image_source) \"daq\" \n"
-           <<"set LWDAQ_config_BCAM(daq_subtract_background) \"0\" \n"
-           <<"set LWDAQ_config_BCAM(daq_adjust_flash) \"0\" \n"
-           <<"set LWDAQ_config_BCAM(daq_source_device_element) \"3 4\" \n"
-           <<"set LWDAQ_config_BCAM(daq_source_mux_socket) \"1\" \n"
-           <<"set LWDAQ_config_BCAM(file_name) \"./images/BCAM*\" \n"
-           <<"set LWDAQ_config_BCAM(intensify) \"exact\" \n"
-           <<"set LWDAQ_config_BCAM(memory_name) \"BCAM_0\" \n"
-           <<"set LWDAQ_config_BCAM(daq_source_driver_socket) \"8\" \n"
-           <<"set LWDAQ_config_BCAM(analysis_enable) \"1\" \n"
-           <<"set LWDAQ_config_BCAM(verbose_result) \"0\" \n"
-           <<"set LWDAQ_config_BCAM(daq_device_element) \"2\" \n"
-           <<"set LWDAQ_config_BCAM(daq_mux_socket) \"1\" \n";
-
-    fichier.close();
-    return 1;
-}
 
 
 void ATLAS_BCAM::startClosure()

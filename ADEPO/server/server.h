@@ -4,10 +4,14 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include <QString>
 
-#include "configuration.h"
+#include <QString>
+#include <QFile>
+
 #include "bcam.h"
+#include "bdd.h"
+#include "configuration.h"
+#include "setup.h"
 
 class Server
 {
@@ -15,10 +19,20 @@ public:
     Server() {};
     virtual ~Server() {};
 
+    std::string calculateCoordinates();
+
     int write_script_file(Configuration& config, QString fileName, std::vector<BCAM> &bcams);
 
+    int readLWDAQOutput(QFile& file, BDD & base_donnees, Setup &setup);
+
 private:
-    int write_bcam_script(Configuration &configuration, std::ofstream &file, BCAM bcam, int spots, std::string sourceDeviceElement);
+    int writeSettingsFile(QString settings_file);
+    int writeParamsFile(QString params_file);
+
+    QString getDateTime();
+    int write_bcam_script(std::ofstream &file, BCAM bcam, int spots, std::string sourceDeviceElement);
+
+    Configuration config;
 };
 
 #endif // SERVER_H

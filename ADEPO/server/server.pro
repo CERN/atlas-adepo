@@ -18,7 +18,6 @@ SOURCES += \
     img_coord_to_bcam_coord.cpp \
     lwdaq_client.cpp \
     mount_prism_to_global_prism.cpp \
-    read_lwdaq_output.cpp \
     write_file_obs_mount_system.cpp \
     server.cpp
 
@@ -36,7 +35,6 @@ HEADERS += \
     mount_coord_prism.h \
     mount_coord_spots.h \
     mount_prism_to_global_prism.h \
-    read_lwdaq_output.h \
     spot.h \
     write_file_obs_mount_system.h \
     server.h
