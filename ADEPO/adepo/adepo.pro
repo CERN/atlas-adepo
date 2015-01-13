@@ -1,27 +1,19 @@
 QT       += core gui widgets testlib network
 
-TARGET = client
-CONFIG   -= app_bundle
+TARGET = adepo
 
-TEMPLATE = lib
-CONFIG += staticlib
+TEMPLATE = app
 
 INCLUDEPATH += $$PWD/../eigen-eigen-ffa86ffb5570
 
-SOURCES += \
-    atlas_bcam.cpp \
-    main.cpp \
-    read_write_ref.cpp
+SOURCES +=
 
-HEADERS += \
-    atlas_bcam.h \
-    float_table_widget_item.h \
-    read_write_ref.h \
-    result.h
+HEADERS +=
 
-FORMS += \
-    ATLAS_BCAM.ui
-
+unix:!mac{
+  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.0/lib
+  QMAKE_RPATH=
+}
 
 unix: LIBS += -L$$OUT_PWD/../common/ -lcommon
 
@@ -37,3 +29,11 @@ INCLUDEPATH += $$PWD/../server
 DEPENDPATH += $$PWD/../server
 
 unix: PRE_TARGETDEPS += $$OUT_PWD/../server/libserver.a
+
+
+unix: LIBS += -L$$OUT_PWD/../client/ -lclient
+
+INCLUDEPATH += $$PWD/../client
+DEPENDPATH += $$PWD/../client
+
+unix: PRE_TARGETDEPS += $$OUT_PWD/../client/libclient.a

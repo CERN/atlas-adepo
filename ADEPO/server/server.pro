@@ -1,7 +1,7 @@
-QT       += core websockets
+QT       += core network
 QT       -= gui
 
-TARGET = adepo-server
+TARGET = server
 CONFIG   += console
 CONFIG   -= app_bundle
 
@@ -47,9 +47,9 @@ unix:!mac{
 }
 
 
-unix: LIBS += -L$$OUT_PWD/../server/ -ladepo-common
+unix: LIBS += -L$$OUT_PWD/../server/ -lcommon
 
 INCLUDEPATH += $$PWD/../common
 DEPENDPATH += $$PWD/../common
 
-unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libadepo-common.a
+unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a

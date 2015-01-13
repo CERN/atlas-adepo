@@ -1,7 +1,7 @@
 QT       += core
 QT       -= gui
 
-TARGET = adepo-common
+TARGET = common
 CONFIG   -= app_bundle
 
 TEMPLATE = lib

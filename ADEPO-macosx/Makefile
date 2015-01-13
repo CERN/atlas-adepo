@@ -30,7 +30,9 @@ DISTDIR = /Users/duns/cern/git/atlas-adepo/ADEPO/.tmp/ADEPO1.0.0
 SUBTARGETS    =  \
 		sub-common-common-pro \
 		sub-server-server-pro \
-		sub-client-client-pro
+		sub-client-client-pro \
+		sub-bridge-bridge-pro \
+		sub-adepo-adepo-pro
 
 
 sub-common-common-pro-qmake_all:  FORCE
@@ -108,6 +110,56 @@ sub-client-client-pro-install_subtargets: FORCE
 sub-client-client-pro-uninstall_subtargets: FORCE
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/client/client.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile uninstall
+sub-bridge-bridge-pro-qmake_all:  FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/bridge/bridge.pro -spec macx-clang CONFIG+=x86_64 -o Makefile
+	cd bridge/ && $(MAKE) -f Makefile qmake_all
+sub-bridge-bridge-pro: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/bridge/bridge.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile
+sub-bridge-bridge-pro-make_first: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/bridge/bridge.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile 
+sub-bridge-bridge-pro-all: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/bridge/bridge.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile all
+sub-bridge-bridge-pro-clean: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/bridge/bridge.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile clean
+sub-bridge-bridge-pro-distclean: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/bridge/bridge.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile distclean
+sub-bridge-bridge-pro-install_subtargets: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/bridge/bridge.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile install
+sub-bridge-bridge-pro-uninstall_subtargets: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/bridge/bridge.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile uninstall
+sub-adepo-adepo-pro-qmake_all:  FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/adepo.pro -spec macx-clang CONFIG+=x86_64 -o Makefile
+	cd adepo/ && $(MAKE) -f Makefile qmake_all
+sub-adepo-adepo-pro: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/adepo.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile
+sub-adepo-adepo-pro-make_first: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/adepo.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile 
+sub-adepo-adepo-pro-all: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/adepo.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile all
+sub-adepo-adepo-pro-clean: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/adepo.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile clean
+sub-adepo-adepo-pro-distclean: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/adepo.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile distclean
+sub-adepo-adepo-pro-install_subtargets: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/adepo.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile install
+sub-adepo-adepo-pro-uninstall_subtargets: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/adepo.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile uninstall
 
 Makefile: ../ADEPO/ADEPO.pro ../../../../Qt5.4.0/5.4/clang_64/mkspecs/macx-clang/qmake.conf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.4.0/5.4/clang_64/mkspecs/qdevice.pri \
@@ -359,15 +411,15 @@ Makefile: ../ADEPO/ADEPO.pro ../../../../Qt5.4.0/5.4/clang_64/mkspecs/macx-clang
 qmake: FORCE
 	@$(QMAKE) -spec macx-clang CONFIG+=x86_64 -o Makefile ../ADEPO/ADEPO.pro
 
-qmake_all: sub-common-common-pro-qmake_all sub-server-server-pro-qmake_all sub-client-client-pro-qmake_all FORCE
+qmake_all: sub-common-common-pro-qmake_all sub-server-server-pro-qmake_all sub-client-client-pro-qmake_all sub-bridge-bridge-pro-qmake_all sub-adepo-adepo-pro-qmake_all FORCE
 
-make_first: sub-common-common-pro-make_first sub-server-server-pro-make_first sub-client-client-pro-make_first FORCE
-all: sub-common-common-pro-all sub-server-server-pro-all sub-client-client-pro-all FORCE
-clean: sub-common-common-pro-clean sub-server-server-pro-clean sub-client-client-pro-clean FORCE
-distclean: sub-common-common-pro-distclean sub-server-server-pro-distclean sub-client-client-pro-distclean FORCE
+make_first: sub-common-common-pro-make_first sub-server-server-pro-make_first sub-client-client-pro-make_first sub-bridge-bridge-pro-make_first sub-adepo-adepo-pro-make_first FORCE
+all: sub-common-common-pro-all sub-server-server-pro-all sub-client-client-pro-all sub-bridge-bridge-pro-all sub-adepo-adepo-pro-all FORCE
+clean: sub-common-common-pro-clean sub-server-server-pro-clean sub-client-client-pro-clean sub-bridge-bridge-pro-clean sub-adepo-adepo-pro-clean FORCE
+distclean: sub-common-common-pro-distclean sub-server-server-pro-distclean sub-client-client-pro-distclean sub-bridge-bridge-pro-distclean sub-adepo-adepo-pro-distclean FORCE
 	-$(DEL_FILE) Makefile
-install_subtargets: sub-common-common-pro-install_subtargets sub-server-server-pro-install_subtargets sub-client-client-pro-install_subtargets FORCE
-uninstall_subtargets: sub-common-common-pro-uninstall_subtargets sub-server-server-pro-uninstall_subtargets sub-client-client-pro-uninstall_subtargets FORCE
+install_subtargets: sub-common-common-pro-install_subtargets sub-server-server-pro-install_subtargets sub-client-client-pro-install_subtargets sub-bridge-bridge-pro-install_subtargets sub-adepo-adepo-pro-install_subtargets FORCE
+uninstall_subtargets: sub-common-common-pro-uninstall_subtargets sub-server-server-pro-uninstall_subtargets sub-client-client-pro-uninstall_subtargets sub-bridge-bridge-pro-uninstall_subtargets sub-adepo-adepo-pro-uninstall_subtargets FORCE
 
 sub-common-common-pro-check:
 	@test -d common/ || mkdir -p common/
@@ -378,7 +430,13 @@ sub-server-server-pro-check:
 sub-client-client-pro-check:
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/client/client.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile check
-check: sub-common-common-pro-check sub-server-server-pro-check sub-client-client-pro-check
+sub-bridge-bridge-pro-check:
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/bridge/bridge.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile check
+sub-adepo-adepo-pro-check:
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/adepo.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -f Makefile check
+check: sub-common-common-pro-check sub-server-server-pro-check sub-client-client-pro-check sub-bridge-bridge-pro-check sub-adepo-adepo-pro-check
 install: install_subtargets  FORCE
 
 uninstall:  uninstall_subtargets FORCE
@@ -388,7 +446,7 @@ FORCE:
 dist: distdir FORCE
 	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
 
-distdir: sub-common-common-pro-distdir sub-server-server-pro-distdir sub-client-client-pro-distdir FORCE
+distdir: sub-common-common-pro-distdir sub-server-server-pro-distdir sub-client-client-pro-distdir sub-bridge-bridge-pro-distdir sub-adepo-adepo-pro-distdir FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/qdevice.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/device_config.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/common/shell-unix.conf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/common/unix.conf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/common/mac.conf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/common/macx.conf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/common/gcc-base.conf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/common/gcc-base-mac.conf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/common/clang.conf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/common/clang-mac.conf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/qconfig.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_bluetooth.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_bluetooth_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_bootstrap_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_clucene_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_concurrent.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_concurrent_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_core.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_core_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_dbus.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_dbus_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_declarative.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_declarative_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_designer.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_designer_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_designercomponents_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_enginio.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_enginio_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_gui.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_gui_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_help.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_help_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_location.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_location_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_macextras.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_macextras_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_multimedia.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_multimedia_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_multimediawidgets.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_multimediawidgets_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_network.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_network_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_nfc.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_nfc_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_opengl.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_opengl_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_openglextensions.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_openglextensions_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_platformsupport_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_positioning.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_positioning_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_printsupport.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_printsupport_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_qml.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_qml_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_qmldevtools_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_qmltest.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_qmltest_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_quick.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_quick_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_quickparticles_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_quickwidgets.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_quickwidgets_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_script.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_script_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_scripttools.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_scripttools_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_sensors.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_sensors_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_serialport.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_serialport_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_sql.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_sql_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_svg.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_svg_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_testlib.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_testlib_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_uitools.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_uitools_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webchannel.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webchannel_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webengine.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webengine_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webenginecore.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webenginecore_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webenginewidgets.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webenginewidgets_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webkit.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webkit_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webkitwidgets.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webkitwidgets_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_websockets.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_websockets_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webview.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_webview_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_widgets.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_widgets_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_xml.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_xml_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_xmlpatterns.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/modules/qt_lib_xmlpatterns_private.pri ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/qt_functions.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/qt_config.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/macx-clang/qmake.conf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/spec_post.prf .qmake.stash ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/exclusive_builds.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/default_pre.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/mac/default_pre.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/resolve_config.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/default_post.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/mac/sdk.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/mac/default_post.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/mac/objective_c.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/warn_on.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/mac/rez.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/testcase_targets.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/exceptions.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/yacc.prf ../../../../Qt5.4.0/5.4/clang_64/mkspecs/features/lex.prf ../ADEPO/ADEPO.pro $(DISTDIR)/
 
@@ -403,4 +461,12 @@ sub-server-server-pro-distdir: FORCE
 sub-client-client-pro-distdir: FORCE
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/client/client.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/client
+
+sub-bridge-bridge-pro-distdir: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/bridge/bridge.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/bridge
+
+sub-adepo-adepo-pro-distdir: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/adepo.pro -spec macx-clang CONFIG+=x86_64 -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/adepo
 
