@@ -5,7 +5,7 @@
 #include "util.h"
 
 //fonction qui calcule les coordonnees de chaque prisme dans le repere BCAM + suavegarde            [----> ok
-std::string Server::calculateCoordinates()
+std::string Server::calculateCoordinates(QString resultFile)
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
    int lecture_output_result = readLWDAQOutput(resultFile, m_bdd, setup);
@@ -400,7 +400,7 @@ QString Server::getDateTime() {
 }
 
 //fonction qui ecrit un fichier tcl avec les parametres par defaut pour la fenetre Acquisifier      [---> ok
-int Server::writeSettingsFile(QString settings_file)
+int Server::writeSettingsFile(QString settings_file, QString script_file, QString result_file)
 {
     //écriture dans un fichier
     std::ofstream fichier(settings_file.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
@@ -415,8 +415,8 @@ int Server::writeSettingsFile(QString settings_file)
            <<"set Acquisifier_config(analyze) \"0\" \n"
            <<"set Acquisifier_config(auto_run) \"0\" \n"
            <<"set Acquisifier_config(cycle_period_seconds) \"0\" \n"
-           <<"set Acquisifier_config(daq_script) \""<<Util::appDirPath().append("/").append(fichier_script).toStdString()<<"\" \n"
-           <<"set Acquisifier_config(run_results) \""<<resultFile.fileName().toStdString()<<"\" \n"
+           <<"set Acquisifier_config(daq_script) \""<<Util::appDirPath().append("/").append(script_file).toStdString()<<"\" \n"
+           <<"set Acquisifier_config(run_results) \""<<result_file.toStdString()<<"\" \n"
            <<"set Acquisifier_config(analysis_color) \"green\" \n"
            <<"set Acquisifier_config(auto_quit) \"0\" \n"
            <<"set Acquisifier_config(result_color) \"green\" \n"

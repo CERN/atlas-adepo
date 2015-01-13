@@ -19,14 +19,14 @@ public:
     Server() {};
     virtual ~Server() {};
 
-    std::string calculateCoordinates();
+    std::string calculateCoordinates(QString resultFile);
 
     int write_script_file(Configuration& config, QString fileName, std::vector<BCAM> &bcams);
 
     int readLWDAQOutput(QFile& file, BDD & base_donnees, Setup &setup);
 
 private:
-    int writeSettingsFile(QString settings_file);
+    int writeSettingsFile(QString settings_file, QString script_file, QString result_file);
     int writeParamsFile(QString params_file);
 
     QString getDateTime();
