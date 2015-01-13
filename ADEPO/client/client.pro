@@ -1,12 +1,8 @@
 QT       += core gui widgets testlib network
 
-TARGET = client
-CONFIG   -= app_bundle
+TARGET = adepo-client
 
-TEMPLATE = lib
-CONFIG += staticlib
-
-INCLUDEPATH += $$PWD/../eigen-eigen-ffa86ffb5570
+TEMPLATE = app
 
 SOURCES += \
     atlas_bcam.cpp \
@@ -31,9 +27,9 @@ DEPENDPATH += $$PWD/../common
 unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a
 
 
-unix: LIBS += -L$$OUT_PWD/../server/ -lserver
+unix: LIBS += -L$$OUT_PWD/../bridge/ -lbridge
 
-INCLUDEPATH += $$PWD/../server
-DEPENDPATH += $$PWD/../server
+INCLUDEPATH += $$PWD/../bridge
+DEPENDPATH += $$PWD/../bridge
 
-unix: PRE_TARGETDEPS += $$OUT_PWD/../server/libserver.a
+unix: PRE_TARGETDEPS += $$OUT_PWD/../bridge/libbridge.a

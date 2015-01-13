@@ -9,7 +9,7 @@
 #define RECONNECT_TIME 15
 #define DEFAULT_UPDATE_TIME 1
 
-#define DEFAULT_RUN_TIME 30
+#define DEFAULT_RUN_TIME 45
 #define DEFAULT_PARAM_FILE "Acquisifier_Params.tcl"
 #define DEFAULT_SETTINGS_FILE "Acquisifier_Settings.tcl"
 #define DEFAULT_RESULTS_FILE "Acquisifier_Results.txt"

@@ -1,12 +1,11 @@
 #ifndef BRIDGE_H
 #define BRIDGE_H
 
-
-class bridge
+class Bridge
 {
 public:
-    bridge();
-    ~bridge();
+    Bridge() {};
+    ~Bridge() {};
 };
 
 #endif // BRIDGE_H

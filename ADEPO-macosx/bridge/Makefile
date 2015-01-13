@@ -15,7 +15,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -fPIC -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W $(DEFINES)
 CXXFLAGS      = -pipe -O2 -fPIC -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W $(DEFINES)
-INCPATH       = -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I../../ADEPO/bridge -I../../ADEPO/common -I../../ADEPO/server -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib
+INCPATH       = -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I../../ADEPO/bridge -I../../ADEPO/common -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib
 QMAKE         = /Users/duns/Qt5.4.0/5.4/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -45,8 +45,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../../ADEPO/bridge/bridge.cpp 
-OBJECTS       = bridge.o
+SOURCES       = ../../ADEPO/bridge/bridge.cpp \
+		../../ADEPO/bridge/call.cpp \
+		../../ADEPO/bridge/callback.cpp 
+OBJECTS       = bridge.o \
+		call.o \
+		callback.o
 DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/qdevice.pri \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/device_config.prf \
@@ -174,7 +178,11 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/exceptions.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/yacc.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/lex.prf \
-		../../ADEPO/bridge/bridge.pro ../../ADEPO/bridge/bridge.h ../../ADEPO/bridge/bridge.cpp
+		../../ADEPO/bridge/bridge.pro ../../ADEPO/bridge/bridge.h \
+		../../ADEPO/bridge/call.h \
+		../../ADEPO/bridge/callback.h ../../ADEPO/bridge/bridge.cpp \
+		../../ADEPO/bridge/call.cpp \
+		../../ADEPO/bridge/callback.cpp
 QMAKE_TARGET  = bridge
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = libbridge.a
@@ -214,7 +222,7 @@ first: all
 
 staticlib: $(TARGET)
 
-$(TARGET): /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/bridge/../common/libcommon.a /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/bridge/../server/libserver.a $(OBJECTS) $(OBJCOMP) 
+$(TARGET): /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/bridge/../common/libcommon.a $(OBJECTS) $(OBJCOMP) 
 	-$(DEL_FILE) $(TARGET)
 	$(AR) $(TARGET) $(OBJECTS)
 	$(RANLIB) $(TARGET)
@@ -497,8 +505,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/bridge/bridge.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/bridge/bridge.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/bridge/bridge.h ../../ADEPO/bridge/call.h ../../ADEPO/bridge/callback.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/bridge/bridge.cpp ../../ADEPO/bridge/call.cpp ../../ADEPO/bridge/callback.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -541,6 +549,12 @@ compiler_clean:
 
 bridge.o: ../../ADEPO/bridge/bridge.cpp ../../ADEPO/bridge/bridge.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bridge.o ../../ADEPO/bridge/bridge.cpp
+
+call.o: ../../ADEPO/bridge/call.cpp ../../ADEPO/bridge/call.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o call.o ../../ADEPO/bridge/call.cpp
+
+callback.o: ../../ADEPO/bridge/callback.cpp ../../ADEPO/bridge/callback.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o callback.o ../../ADEPO/bridge/callback.cpp
 
 ####### Install
 

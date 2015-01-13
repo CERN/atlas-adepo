@@ -1,5 +1,7 @@
 TEMPLATE = subdirs
-SUBDIRS = common server client bridge adepo
+SUBDIRS = common bridge server client
+
+XXX = client adepo
 
 common.file = common/common.pro
 server.file = server/server.pro

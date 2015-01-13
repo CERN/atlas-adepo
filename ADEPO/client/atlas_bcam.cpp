@@ -6,16 +6,8 @@
 #include "atlas_bcam.h"
 #include "ui_ATLAS_BCAM.h"
 #include "float_table_widget_item.h"
-
-#include "helmert.h"
-#include "read_calibration_database.h"
 #include "read_write_ref.h"
-#include "read_lwdaq_output.h"
-#include "img_coord_to_bcam_coord.h"
-#include "mount_prism_to_global_prism.h"
-#include "calcul_coord_bcam_system.h"
-#include "Eigen/Eigen"
-#include "write_file_obs_mount_system.h"
+#include "util.h"
 
 #define INPUT_FOLDER "input_folder"
 #define AIRPAD_INDEX "airpad_index"
@@ -25,9 +17,6 @@
 #define FULL_PRESICION_FORMAT "full_precision_format"
 #define SELECTED_DETECTORS "selected_detectors"
 #define RESULT_FILE "result_file"
-
-#define CLOSURE "Closure"
-#define MONITORING "Monitoring"
 
 /********************************************************************************************/
 #define NAME_CONFIGURATION_FILE "configuration_file.txt"
@@ -43,22 +32,14 @@ QSettings settings("atlas.cern.ch", "ADEPO");
 QString path_input_folder;
 bool input_folder_read = false;
 
-//nom du fichier script qui va lancer l'acquisition que sur les detecteurs selectionnes
-QString fichier_script = DEFAULT_SCRIPT_FILE;
-
 //compteur pour savoir combien de fois l'utilisateur a charge un fichier d'input
 
 ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ATLAS_BCAM)                                                                        //[---> ok
 {
-        QString appPath = appDirPath();
+        QString appPath = Util::appDirPath();
         std::cout << appPath.toStdString() << std::endl;
-
-        // connect to LWDAQ server
-        lwdaq_client = new LWDAQ_Client("localhost", 1090, this);
-        connect(lwdaq_client, SIGNAL(stateChanged()), this, SLOT(lwdaqStateChanged()));
-        connect(lwdaq_client, SIGNAL(remainingTimeChanged()), this, SLOT(timeChanged()));
 
         ui->setupUi(this);
         ui->statusBar->addPermanentWidget(&lwdaqStatus);
@@ -79,9 +60,6 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         QObject::connect(ui->actionAbout_Qt,SIGNAL(triggered()),qApp,SLOT(aboutQt()));
         ui->actionAbout_Qt->setShortcut(QKeySequence("Ctrl+I"));
-
-        QObject::connect(ui->action_Aide,SIGNAL(triggered()),this,SLOT(aide_atlas_bcam()));
-        ui->action_Aide->setShortcut(QKeySequence("Ctrl+A"));
 
         //clic detecteur-affichage bcam
         QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAMTable()));
@@ -105,13 +83,9 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         QObject::connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
         QObject::connect(ui->airpadBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
 
-        previousState = LWDAQ_Client::UNSET;
-        needToCalculateResults = false;
-
-        setMode(CLOSURE);
+//        setMode(bridge.getMode());
         askQuestion = true;
 
-        adepoState = IDLE;
         waitingTimer = new QTimer();
         waitingTimer->setSingleShot(true);
         connect(waitingTimer, SIGNAL(timeout()), this, SLOT(startMonitoring()));
@@ -122,19 +96,6 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         connect(updateTimer, SIGNAL(timeout()), this, SLOT(timeChanged()));
 
         setEnabled(true);
-
-        lwdaqDir = lwdaq_client->find(QDir(appPath));
-        if (!lwdaqDir.exists()) {
-            std::cerr << "FATAL: could not find LWDAQ directory up from " << appPath.toStdString() << std::endl;
-            exit(1);
-        } else {
-            std::cout << "Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
-        }
-
-        QString dir = appDirPath();
-        resultFile.setFileName(dir.append("/").append(DEFAULT_RESULTS_FILE));
-
-        lwdaq_client->init();
 
         ui->tabWidget->setCurrentIndex(0);
 
@@ -203,7 +164,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
     int deviceElement = ui->tableWidget_liste_bcams->item(row, 4)->text().toStdString() == "2" ? 2 : 1;
     ui->bcamLabel->setText(name);
     QPixmapCache::clear();
-    QString imageName1 = appDirPath();
+    QString imageName1 = Util::appDirPath();
     QString suffix1 = QString::fromStdString(Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, true)).replace(" ", "-");
     imageName1.append("/").append(name).append("-").append(suffix1).append(".gif");
 //    QList<QByteArray> list = QImageReader::supportedImageFormats();
@@ -219,7 +180,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
         ui->bcamImage2->setVisible(flashSeparate);
         if (flashSeparate) {
             QString suffix2 = QString::fromStdString(Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false));
-            QString imageName2 = appDirPath();
+            QString imageName2 = Util::appDirPath();
             imageName2.append("/").append(name).append("-").append(suffix2).append(".gif");
             QPixmap pix2(imageName2);
             ui->bcamImage2->setPixmap(pix2);
@@ -231,84 +192,6 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
     }
 }
 
-void ATLAS_BCAM::lwdaqStateChanged() {
-    std::cout << "state changed to " << lwdaq_client->getStateAsString().toStdString() << std::endl;
-    updateStatusBar();
-
-    switch (lwdaq_client->getState()) {
-        case LWDAQ_Client::IDLE:
-            if (needToCalculateResults) {
-                // rename startup script file
-                // TODO
-
-                // calculate
-                adepoState = CALCULATING;
-                updateStatusBar();
-                calculateCoordinates();
-                needToCalculateResults = false;
-            }
-
-            if (mode == MONITORING) {
-                adepoState = WAITING;
-                setEnabled(false);
-
-                waitingTimer->start(ui->waitingTime->value()*1000);
-                updateTimer->start();
-            } else {
-                adepoState = IDLE;
-                askQuestion = true;
-                setEnabled(true);
-                waitingTimer->stop();
-                updateTimer->stop();
-            }
-            updateStatusBar();
-            break;
-        case LWDAQ_Client::RUN:
-            adepoState = RUN;
-            updateStatusBar();
-            setEnabled(false);
-            break;
-        case LWDAQ_Client::STOP:
-            adepoState = mode == MONITORING ? WAITING : IDLE;
-            updateStatusBar();
-            ui->repeatButton->setEnabled(false);
-            ui->Boutton_lancer->setEnabled(false);
-            ui->nextMeasurement->setEnabled(false);
-            ui->boutton_arreter->setEnabled(false);
-            ui->stop->setEnabled(false);
-            ui->stopButton->setEnabled(false);
-            break;
-        case LWDAQ_Client::INIT:
-            adepoState = IDLE;
-            updateStatusBar();
-            ui->repeatButton->setEnabled(false);
-            ui->Boutton_lancer->setEnabled(false);
-            ui->boutton_arreter->setEnabled(false);
-            ui->boutton_arreter->setEnabled(false);
-            ui->stop->setEnabled(false);
-            ui->stopButton->setEnabled(false);
-            needToCalculateResults = false;
-            break;
-
-        default:
-//            ui->Boutton_lancer->setEnabled(false);
-//            ui->boutton_arreter->setEnabled(false);
-            break;
-    }
-
-    previousState = lwdaq_client->getState();
-}
-
-QString ATLAS_BCAM::getStateAsString() {
-    switch(adepoState) {
-    case IDLE: return "IDLE";
-    case RUN: return "RUN";
-    case STOP: return "STOP";
-    case WAITING: return "WAITING";
-    case CALCULATING: return "CALCULATING";
-    default: return "Unknown State";
-    }
-}
 
 void ATLAS_BCAM::changedAirpad(int index) {
     settings.setValue(AIRPAD_INDEX, index);
@@ -344,11 +227,6 @@ void ATLAS_BCAM::updateStatusBar() {
 
     lwdaqStatus.setText("LWDAQ: "+lwdaq);
     QMainWindow::statusBar()->showMessage("ADEPO: "+adepo);
-}
-
-void ATLAS_BCAM::timeChanged() {
-    updateStatusBar();
-    showBCAM(selectedBCAM, 0);
 }
 
 void ATLAS_BCAM::setEnabled(bool enabled) {
@@ -462,27 +340,6 @@ void ATLAS_BCAM::changedWaitingTimeValue(int value)
     settings.setValue(WAITING_TIME_VALUE, value);
 }
 
-//fonction d'ouverture de la fenêtre d'aide de l'outil ARCAPA                                       [----> not yet]
-void ATLAS_BCAM::helpAtlasBCAM()
-{
-    QDialog *aideatlasbcam = new QDialog(this);
-
-    aideatlasbcam->setWindowTitle("Aide à l'utilisation d\'ATLAS_BCAM");
-    aideatlasbcam->setGeometry(50,50,800,500);
-    aideatlasbcam->setWindowFlags(Qt::Window);
-    aideatlasbcam->setWindowIcon(QIcon(QPixmap("help_icon.png")));
-
-    QVBoxLayout *layout = new QVBoxLayout(aideatlasbcam);
-
-    QTextEdit *texte = new QTextEdit("");
-    texte->setReadOnly(true);
-
-    layout->addWidget(texte);
-    aideatlasbcam->setLayout(layout);
-    aideatlasbcam->show();
-
-}
-
 //fonction permettant de charger la liste des detectors après ouverture d'un projet                 [---> ok
 void ATLAS_BCAM::fillDetectorTable()
 {
@@ -546,7 +403,7 @@ void ATLAS_BCAM::showBCAMTable()
         }
 
         //ecriture du script d'acquisition des detecteurs selectionnees
-        server.write_script_file(config, appDirPath()+"/"+fichier_script, setup.getBCAMs());
+        server.write_script_file(config, appDirPath()+"/"+DEFAULT_SCRIPT_FILE, setup.getBCAMs());
     }
 
     settings.setValue(SELECTED_DETECTORS, selectedDetectors);
@@ -669,60 +526,6 @@ void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision)
     }
 }
 
-//fonction qui lance les acquisitions LWDAQ                                                         ----> ok mais qu'est ce qui se passe apres les acquisitions ?
-void ATLAS_BCAM::startAcquisition()
-{
-    QString dir = appDirPath();
-
-    writeParamsFile(dir + "/" + DEFAULT_PARAM_FILE);
-
-    writeSettingsFile(dir + "/" + DEFAULT_SETTINGS_FILE);
-
-    //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
-    std::cout << "*** Removing " << resultFile.fileName().toStdString() << std::endl;
-    if (resultFile.exists() && !resultFile.remove()) {
-        std::cout << "WARNING Cannot remove result file " << resultFile.fileName().toStdString() << std::endl;
-        std::cout << "WARNING Start aborted." << std::endl;
-        return;
-    }
-
-    setEnabled(false);
-
-    //lancement du programme LWDAQ + arret apres nombre de secondes specifiees par le user
-    std::cout << "Starting LWDAQ on " << config.getDriverIpAddress() << std::endl;
-
-    lwdaq_client->startRun(dir, ui->timeBox->value());
-}
-
-//fonction qui permet d'arreter l'acquisition LWDAQ (seuleuement en mode monitoring)                [----> ok
-void ATLAS_BCAM::stopAcquisition()
-{
-    needToCalculateResults = false;
-
-    lwdaq_client->stopRun();
-
-    setEnabled(true);
-}
-
-void ATLAS_BCAM::stopRepeatAcquisition()
-{
-    needToCalculateResults = false;
-    setMode(CLOSURE);
-    waitingTimer->stop();
-    updateTimer->stop();
-
-    switch (lwdaq_client->getState()) {
-    case LWDAQ_Client::IDLE:
-        adepoState = IDLE;
-        updateStatusBar();
-        break;
-    default:
-        lwdaq_client->stopRun();
-        break;
-    }
-
-    setEnabled(true);
-}
 
 
 void ATLAS_BCAM::resetDelta() {
@@ -842,9 +645,6 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
 void ATLAS_BCAM::startClosure()
 {
     setMode(CLOSURE);
-
-//     ui->boutton_arreter->setEnabled(true);
-//     ui->stop->setEnabled(true);
 
     needToCalculateResults = true;
 

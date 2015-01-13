@@ -7,22 +7,20 @@
 
 #include "atlas_bcam.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
 
-QApplication app(argc, argv);
+    QCoreApplication::setOrganizationName("ATLAS CERN");
+    QCoreApplication::setOrganizationDomain("atlas.cern.ch");
+    QCoreApplication::setApplicationName("ADEPO");
+    QCoreApplication::setApplicationVersion("1.4");
 
-QCoreApplication::setOrganizationName("ATLAS CERN");
-QCoreApplication::setOrganizationDomain("atlas.cern.ch");
-QCoreApplication::setApplicationName("ADEPO");
-QCoreApplication::setApplicationVersion("1.4");
-
-QString locale = QLocale::system().name().section('_', 0, 0);
-QTranslator translator;
-translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-app.installTranslator(&translator);
-ATLAS_BCAM fenetre;
-//system("mkdir Archive");
-fenetre.show();
-return app.exec();
- }
+    QString locale = QLocale::system().name().section('_', 0, 0);
+    QTranslator translator;
+    translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    app.installTranslator(&translator);
+    ATLAS_BCAM window;
+    //system("mkdir Archive");
+    window.show();
+    return app.exec();
+}

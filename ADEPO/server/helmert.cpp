@@ -11,8 +11,8 @@
 #include "helmert.h"
 #include "configuration.h"
 
-void helmert(BDD & base_donnees, Configuration& config)
-{
+void helmert(Configuration& config, Data &data) {
+
     for(unsigned int i=0; i<config.getBCAMConfigs().size(); i++) //je parcours la liste des BCAMs dont je dispose
     {
         //definition de 2 sous-vecteurs d'observations
@@ -302,14 +302,14 @@ void helmert(BDD & base_donnees, Configuration& config)
             Point3f translation(Tx0,Ty0,Tz0);
             Point3f rotation(phi0,teta0,psi0);
             BCAMParams parametres_bcam(id_bcam, translation, rotation);
-            base_donnees.add(parametres_bcam);
+            data.add(parametres_bcam);
      }
 
     //affichage des paramteres pour toutes les bcams
 #ifdef ADEPO_DEBUG
-    for(unsigned int i=0; i<base_donnees.getBCAMParams().size(); i++)
+    for(unsigned int i=0; i<data.getBCAMParams().size(); i++)
     {
-        base_donnees.getBCAMParams().at(i).print();
+        data.getBCAMParams().at(i).print();
     }
 #endif
 }

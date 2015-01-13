@@ -1,5 +1,5 @@
-#ifndef BDD_H
-#define BDD_H
+#ifndef DATA_H
+#define DATA_H
 
 #include <vector>
 #include <map>
@@ -27,13 +27,13 @@
 
 
 
-class BDD
+class Data
 {
 public:
     //constructeurs et destructeur
-    BDD() {};
-    BDD(const BDD& /* copie */) {};
-    virtual ~BDD() {};
+    Data() {};
+    Data(const Data& /* copie */) {};
+    virtual ~Data() {};
 
     //getter
     std::vector<DualSpot> getDualSpots() const {return mDualSpots;}
@@ -69,4 +69,4 @@ private:
 
 };
 
-#endif // BDD_H
+#endif // DATA_H

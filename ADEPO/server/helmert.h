@@ -1,8 +1,8 @@
 #ifndef HELMERT_H
 #define HELMERT_H
 
-#include "bdd.h"
+#include "data.h"
 
-void helmert(BDD& base_donnees, Configuration &config);
+void helmert(Configuration &config, Data& data);
 
 #endif // HELMERT_H
