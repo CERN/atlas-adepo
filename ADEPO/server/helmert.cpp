@@ -19,7 +19,7 @@ void helmert(Configuration& config, Data &data) {
         Eigen::VectorXd l_terrain(12); l_terrain.setZero();
         Eigen::VectorXd l_modele(12);  l_modele.setZero();
 
-        if(config.getBCAMConfigs().at(i).getName().substr(7,1) == "A" || config.getBCAMConfigs().at(i).getName().substr(7,1) == "L") //si la bcam est noire
+        if(config.getBCAMConfigs().at(i).getName().mid(7,1) == "A" || config.getBCAMConfigs().at(i).getName().mid(7,1) == "L") //si la bcam est noire
         {
             int cmpt=0;
             for(unsigned int j=0; j<config.getBCAMAdapters().size(); j++) //je parcours la liste des coordonnees modele
@@ -34,7 +34,7 @@ void helmert(Configuration& config, Data &data) {
             }
 
         }
-        if(config.getBCAMConfigs().at(i).getName().substr(7,1) == "B" || config.getBCAMConfigs().at(i).getName().substr(7,1) == "M")
+        if(config.getBCAMConfigs().at(i).getName().mid(7,1) == "B" || config.getBCAMConfigs().at(i).getName().mid(7,1) == "M")
         {
             int cmpt=0;
             for(unsigned int j=0; j<config.getBCAMAdapters().size(); j++) //je parcours la liste des coordonnees modele
@@ -298,7 +298,7 @@ void helmert(Configuration& config, Data &data) {
 
           }
             //enregistrement dans la base de donnees des parametres de chaque BCAM
-            std::string id_bcam = config.getBCAMConfigs().at(i).getName();
+            QString id_bcam = config.getBCAMConfigs().at(i).getName();
             Point3f translation(Tx0,Ty0,Tz0);
             Point3f rotation(phi0,teta0,psi0);
             BCAMParams parametres_bcam(id_bcam, translation, rotation);

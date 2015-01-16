@@ -5,16 +5,18 @@
 
 #include "prism.h"
 
+#include <QString>
+
 class BCAMConfig
 {
 public:
     //constructeurs et destructeurs
-    BCAMConfig(std::string name, int detectorId, int driverSocket, int muxSocket, std::vector<Prism> prisms) :
+    BCAMConfig(QString name, int detectorId, int driverSocket, int muxSocket, std::vector<Prism> prisms) :
            mName(name), mDetectorId(detectorId), mDriverSocket(driverSocket), mMuxSocket(muxSocket), mPrisms(prisms) {};
     virtual ~BCAMConfig() {};
 
     //setter et getter
-    std::string getName() const { return mName; }
+    QString getName() const { return mName; }
 
     int getDetectorId() const { return mDetectorId; }
 
@@ -24,8 +26,8 @@ public:
 
     std::vector<Prism> getPrisms() const { return mPrisms; }
 
-    std::string getPrismsAsString() {
-        std::string s;
+    QString getPrismsAsString() {
+        QString s;
         for (unsigned int i = 0; i < mPrisms.size(); i++) {
             if (i > 0) {
                 s.append("_");
@@ -38,7 +40,7 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************Infos BCAM*******************************************"<<std::endl;
-        std::cout<<"Nom de la BCAM : "<<getName()<<std::endl;
+        std::cout<<"Nom de la BCAM : "<<getName().toStdString()<<std::endl;
         std::cout<<"Identifiant du detecteur auquel la BCAM appartient : "<<getDetectorId()<<std::endl;
         std::cout<<"Numéro du port Driver : "<<getDriverSocket()<<std::endl;
         std::cout<<"Numéro du port Multiplexer : "<<getMuxSocket()<<std::endl;
@@ -48,7 +50,7 @@ public:
 
 protected:
 private:
-    std::string mName;
+    QString mName;
     int mDetectorId;
     int mDriverSocket;
     int mMuxSocket;

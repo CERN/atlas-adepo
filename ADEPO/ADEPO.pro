@@ -9,3 +9,6 @@ client.file = client/client.pro
 bridge.file = bridge/bridge.pro
 adepo.file = adepo/adepo.pro
 
+OTHER_FILES = \
+    ../TODO
+

@@ -18,13 +18,13 @@ public:
     Spot getSpot1() const { return mSpot1; }
     Spot getSpot2() const { return mSpot2; }
 
-    std::string getName() const { return getBCAM().getName()+"_"+getPrism().getName(); }
+    QString getName() const { return getBCAM().getName()+"_"+getPrism().getName(); }
 
     //methodes
     void print() {
         std::cout<<"*******************************************Coord Spots*******************************************"<<std::endl;
-        std::cout<<"Nom de la BCAM : "<<getBCAM().getName()<<std::endl;
-        std::cout<<"Nom de la Prism : "<<getPrism().getName()<<std::endl;
+        std::cout<<"Nom de la BCAM : "<<getBCAM().getName().toStdString()<<std::endl;
+        std::cout<<"Nom de la Prism : "<<getPrism().getName().toStdString()<<std::endl;
         std::cout<<"Coord spot 1 : "<<getSpot1().toString()<<std::endl;
         std::cout<<"Coord spot 2 : "<<getSpot2().toString()<<std::endl;
     }

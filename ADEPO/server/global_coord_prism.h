@@ -13,7 +13,7 @@ public:
     //getter setter
     BCAM getBCAM() const {return mBCAM; }
     Prism getPrism() const {return mBCAM.getPrism(); }
-    std::string getName() const { return getBCAM().getName()+"_"+getPrism().getName(); }
+    QString getName() const { return getBCAM().getName()+"_"+getPrism().getName(); }
     Point3f getCoordPrismMountSys() const {return mCoordPrismMountSys; }
 
     float getAirpad() { return mAirpad; }
@@ -21,8 +21,8 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************global coordinates of prism*******************************************"<<std::endl;
-        std::cout<<"Objet BCAM : "<<getBCAM().getName()<<std::endl;
-        std::cout<<"Objet Prism : "<<getPrism().getName()<<std::endl;
+        std::cout<<"Objet BCAM : "<<getBCAM().getName().toStdString()<<std::endl;
+        std::cout<<"Objet Prism : "<<getPrism().getName().toStdString()<<std::endl;
         std::cout<<"Coordonnées du prisme dans le systeme global : "<<std::endl;
         getCoordPrismMountSys().print();
     }

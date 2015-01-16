@@ -14,7 +14,7 @@ public:
 
     BCAM getBCAM() const { return mBCAM; }
     Prism getPrism() const { return mBCAM.getPrism(); }
-    std::string getName() const { return getBCAM().getName()+"_"+getPrism().getName(); }
+    QString getName() const { return getBCAM().getName()+"_"+getPrism().getName(); }
 
     Point3f getCoord1() const {return mCoord1; }
     Point3f getCoord2() const {return mCoord2; }
@@ -22,8 +22,8 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************Mount coordinates*******************************************"<<std::endl;
-        std::cout<<"BCAM : "<<getBCAM().getName()<<std::endl;
-        std::cout<<"Prism : "<<getPrism().getName()<<std::endl;
+        std::cout<<"BCAM : "<<getBCAM().getName().toStdString()<<std::endl;
+        std::cout<<"Prism : "<<getPrism().getName().toStdString()<<std::endl;
         std::cout<<"Coordonnées dans le systeme MOUNT (spot 1) : "<<std::endl;
         this->getCoord1().print();
         std::cout<<"Coordonnées dans le systeme MOUNT (spot 2) : "<<std::endl;

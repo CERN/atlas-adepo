@@ -7,18 +7,22 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <QTextEdit>
+#include <QString>
 
-#include "bridge.h"
-#include "calibration.h"
-#include "result.h"
+#include "callback.h"
+#include "configuration.h"
 #include "setup.h"
+
+#include "server.h"
+
+#include "result.h"
 #include "util.h"
 
 namespace Ui {
 class ATLAS_BCAM;
 }
 
-class ATLAS_BCAM : public QMainWindow
+class ATLAS_BCAM : public QMainWindow, Callback
 {
         Q_OBJECT
 
@@ -45,29 +49,37 @@ private slots:
     void openDialog();
 
 private:
+    // tbr
+    Server server;
+
+    Configuration config;
+    Setup setup;
+
     Ui::ATLAS_BCAM *ui;
-    QString path_fich;
-    std::map<std::string, result> results;
+//    QString path_fich;
+    std::map<QString, result> results;
     int selectedBCAM;
-    std::string mode;
+    QString mode;
 
     QString refFile;
     QLabel lwdaqStatus;
 
     bool askQuestion;
-    QTimer *waitingTimer;
-    QTimer *updateTimer;
+
+    QString lwdaqState;
+    int lwdaqRemainingSeconds;
+    QString adepoState;
+    int adepoRemainingSeconds;
 
     //fonction qui remplie le tableau de detecteurs affiche dans l'interface
     void fillDetectorTable();
     void openInputDir();
     void setResult(int row, result& result);
     void setResult(int row, Point3f point, int columnSet, int precision);
-    void calculateResults(Data& data, std::map<std::string, result> &results);
-    void updateResults(std::map<std::string, result> &results);
+    void updateResults(std::map<QString, result> &results);
     void setEnabled(bool enabled);
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);
-    void setMode(std::string mode);
+    void setModeLabel(QString mode);
 
     void updateStatusBar();
 };

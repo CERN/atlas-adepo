@@ -1,7 +1,9 @@
 #ifndef CALL_H
 #define CALL_H
 
-class Call
+#include "bridge.h"
+
+class Call: public Bridge
 {
 public:
     Call() {};

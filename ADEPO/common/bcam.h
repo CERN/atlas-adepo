@@ -9,12 +9,12 @@ class BCAM
 {
 public:
     //constructeurs et destructeurs
-    BCAM(std::string name, int detectorId, int driverSocket, int muxSocket, Prism prism) :
+    BCAM(QString name, int detectorId, int driverSocket, int muxSocket, Prism prism) :
            mName(name), mDetectorId(detectorId), mDriverSocket(driverSocket), mMuxSocket(muxSocket), mPrism(prism) {};
     virtual ~BCAM() {};
 
     //setter et getter
-    std::string getName() const { return mName; }
+    QString getName() const { return mName; }
 
     int getDetectorId() const { return mDetectorId; }
 
@@ -27,17 +27,17 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************BCAM*******************************************"<<std::endl;
-        std::cout<<"Nom de la BCAM : "<<getName()<<std::endl;
+        std::cout<<"Nom de la BCAM : "<<getName().toStdString()<<std::endl;
         std::cout<<"Identifiant du detecteur auquel la BCAM appartient : "<<getDetectorId()<<std::endl;
         std::cout<<"Numéro du port Driver : "<<getDriverSocket()<<std::endl;
         std::cout<<"Numéro du port Multiplexer : "<<getMuxSocket()<<std::endl;
-        std::cout<<"Objet visee : "<<getPrism().getName()<<std::endl;
+        std::cout<<"Objet visee : "<<getPrism().getName().toStdString()<<std::endl;
         std::cout<<"************************************************************************************************"<<std::endl;
     }
 
 protected:
 private:
-    std::string mName;
+    QString mName;
     int mDetectorId;
     int mDriverSocket;
     int mMuxSocket;

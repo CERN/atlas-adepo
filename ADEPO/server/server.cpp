@@ -1,5 +1,6 @@
 #include <QDir>
 
+#include "bridge.h"
 #include "server.h"
 #include "bcam_config.h"
 #include "util.h"
@@ -34,15 +35,23 @@ Server::Server() {
 
     lwdaq_client->init();
 
-    previousState = LWDAQ_Client::UNSET;
+    previousState = LWDAQ_UNSET;
     needToCalculateResults = false;
 
-    runMode = CLOSURE;
-    adepoState = IDLE;
+    runMode = MODE_CLOSURE;
+    adepoState = ADEPO_IDLE;
 
+    waitingTimer = new QTimer(qApp);
+    waitingTimer->setSingleShot(true);
+    QObject::connect(waitingTimer, SIGNAL(timeout()), qApp, SLOT(startMonitoring()));
+
+    updateTimer = new QTimer(qApp);
+    updateTimer->setInterval(FAST_UPDATE_TIME*1000);
+    updateTimer->setSingleShot(false);
+    QObject::connect(updateTimer, SIGNAL(timeout()), qApp, SLOT(timeChanged()));
 }
 
-void Server::startDAQ(mode runMode, int runTime, bool useAirpads)
+void Server::startDAQ(QString runMode, int runTime, bool useAirpads)
 {
     //ui->timeBox->value()
     //ui->airpadBox->currentText() == "ON"
@@ -67,7 +76,7 @@ void Server::startDAQ(mode runMode, int runTime, bool useAirpads)
 
 //    setEnabled(false);
 
-    std::cout << "Starting LWDAQ on " << config.getDriverIpAddress() << std::endl;
+    std::cout << "Starting LWDAQ on " << config.getDriverIpAddress().toStdString() << std::endl;
 
     lwdaq_client->startRun(dir, runTime);
 }
@@ -76,74 +85,57 @@ void Server::stopDAQ()
 {
     needToCalculateResults = false;
 
-    if (runMode == CLOSURE) {
+    if (runMode == MODE_CLOSURE) {
 //        waitingTimer->stop();
 //        updateTimer->stop();
     }
 
-    switch (lwdaq_client->getState()) {
-    case LWDAQ_Client::IDLE:
-        adepoState = IDLE;
+    if (lwdaq_client->getState() == LWDAQ_IDLE) {
+        adepoState = ADEPO_IDLE;
 //        updateStatusBar();
-        break;
-    default:
+    } else {
         lwdaq_client->stopRun();
-        break;
     }
 
 //    setEnabled(true);
 }
 
-QString Server::getStateAsString() {
-    switch(adepoState) {
-    case IDLE: return "IDLE";
-    case RUN: return "RUN";
-    case STOP: return "STOP";
-    case WAITING: return "WAITING";
-    case CALCULATING: return "CALCULATING";
-    default: return "Unknown State";
-    }
-}
-
 void Server::lwdaqStateChanged() {
-    std::cout << "state changed to " << lwdaq_client->getStateAsString().toStdString() << std::endl;
+    std::cout << "state changed to " << lwdaq_client->getState().toStdString() << std::endl;
 //    updateStatusBar();
 
-    switch (lwdaq_client->getState()) {
-        case LWDAQ_Client::IDLE:
-            if (needToCalculateResults) {
-                // rename startup script file
-                // TODO
+    if (lwdaq_client->getState() == LWDAQ_IDLE) {
+        if (needToCalculateResults) {
+            // rename startup script file
+            // TODO
 
-                // calculate
-                adepoState = CALCULATING;
+            // calculate
+            adepoState = ADEPO_CALCULATING;
 //                updateStatusBar();
-                calculateCoordinates();
-                needToCalculateResults = false;
-            }
+            calculateCoordinates();
+            needToCalculateResults = false;
+        }
 
-            if (runMode == MONITORING) {
-                adepoState = WAITING;
+        if (runMode == MODE_MONITORING) {
+            adepoState = ADEPO_WAITING;
 //                setEnabled(false);
 
 //                waitingTimer->start(ui->waitingTime->value()*1000);
 //                updateTimer->start();
-            } else {
-                adepoState = IDLE;
+        } else {
+            adepoState = ADEPO_IDLE;
 //                askQuestion = true;
 //                setEnabled(true);
 //                waitingTimer->stop();
 //                updateTimer->stop();
-            }
+        }
 //            updateStatusBar();
-            break;
-        case LWDAQ_Client::RUN:
-            adepoState = RUN;
+    } else if (lwdaq_client->getState() == LWDAQ_RUN) {
+        adepoState = ADEPO_RUN;
 //            updateStatusBar();
 //            setEnabled(false);
-            break;
-        case LWDAQ_Client::STOP:
-            adepoState = runMode == MONITORING ? WAITING : IDLE;
+    } else if (lwdaq_client->getState() == LWDAQ_STOP) {
+        adepoState = runMode == MODE_MONITORING ? ADEPO_WAITING : ADEPO_IDLE;
 //            updateStatusBar();
 //            ui->repeatButton->setEnabled(false);
 //            ui->Boutton_lancer->setEnabled(false);
@@ -151,9 +143,8 @@ void Server::lwdaqStateChanged() {
 //            ui->boutton_arreter->setEnabled(false);
 //            ui->stop->setEnabled(false);
 //            ui->stopButton->setEnabled(false);
-            break;
-        case LWDAQ_Client::INIT:
-            adepoState = IDLE;
+    } else if (lwdaq_client->getState() == LWDAQ_INIT) {
+        adepoState = ADEPO_IDLE;
 //            updateStatusBar();
 //            ui->repeatButton->setEnabled(false);
 //            ui->Boutton_lancer->setEnabled(false);
@@ -161,11 +152,7 @@ void Server::lwdaqStateChanged() {
 //            ui->boutton_arreter->setEnabled(false);
 //            ui->stop->setEnabled(false);
 //            ui->stopButton->setEnabled(false);
-            needToCalculateResults = false;
-            break;
-
-        default:
-            break;
+        needToCalculateResults = false;
     }
 
     previousState = lwdaq_client->getState();
@@ -178,7 +165,7 @@ void Server::timeChanged() {
 
 
 //fonction qui calcule les coordonnees de chaque prisme dans le repere BCAM + suavegarde            [----> ok
-std::string Server::calculateCoordinates()
+QString Server::calculateCoordinates()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
    int lecture_output_result = readLWDAQOutput();
@@ -197,9 +184,11 @@ std::string Server::calculateCoordinates()
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mountPrismToGlobalPrism();
 
+// TODO
 //   calculateResults(data, results);
 
    std::cout << "Updating Results..." << std::endl;
+// TODO
 //   updateResults(results);
 
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
@@ -229,7 +218,7 @@ std::string Server::calculateCoordinates()
 //fonction qui permet de generer un script d'acquisition                                            [---> ok
 int Server::writeScriptFile(QString fileName, std::vector<BCAM> &bcams)
 {
-    std::string ipAddress = config.getDriverIpAddress();
+    QString ipAddress = config.getDriverIpAddress();
 
     //écriture dans un fichier
     std::ofstream file(fileName.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
@@ -268,7 +257,7 @@ int Server::writeScriptFile(QString fileName, std::vector<BCAM> &bcams)
            <<"\t image_source daq \n"
            <<"\t analysis_enable 1 \n"
            <<"\t daq_flash_seconds 0.0000033 \n"
-           <<"\t daq_ip_addr "<< ipAddress <<"\n"
+           <<"\t daq_ip_addr "<< ipAddress.toStdString() <<"\n"
            <<"\t daq_source_ip_addr * \n"
            <<"\t ambient_exposure_seconds 0 \n"
            <<"\t intensify exact \n"
@@ -299,10 +288,10 @@ int Server::writeScriptFile(QString fileName, std::vector<BCAM> &bcams)
 }
 
 
-int Server::writeBCAMScript(Configuration& config, std::ofstream &file, BCAM bcam, int spots, std::string sourceDeviceElement) {
+int Server::writeBCAMScript(Configuration& config, std::ofstream &file, BCAM bcam, int spots, QString sourceDeviceElement) {
 
     Prism prism = bcam.getPrism();
-    std::string name = bcam.getName().append("_").append(prism.getName());
+    QString name = bcam.getName().append("_").append(prism.getName());
     int driverSocket = bcam.getDriverSocket();
     int muxSocket = bcam.getMuxSocket();
     int sourceDriverSocket = driverSocket;
@@ -313,7 +302,7 @@ int Server::writeBCAMScript(Configuration& config, std::ofstream &file, BCAM bca
     int right = prism.getRight();
     int top = prism.getTop();
     int bottom = prism.getBottom();
-    std::string adjustFlash = prism.flashAdjust() ? "1" : "0";
+    QString adjustFlash = prism.flashAdjust() ? "1" : "0";
 
     if (!prism.isPrism()) {
         BCAMConfig bcamConfig = config.getBCAMConfig(prism.getName());
@@ -322,20 +311,20 @@ int Server::writeBCAMScript(Configuration& config, std::ofstream &file, BCAM bca
     }
 
     file<<"acquire: \n"
-        <<"name: "<< name <<"\n"
+        <<"name: "<< name.toStdString() <<"\n"
         <<"instrument: BCAM \n"
         <<"result: None \n"
         <<"time: 0 \n"
         <<"config: \n"
         <<"\n"
-        <<"\t daq_adjust_flash " << adjustFlash << " \n"
+        <<"\t daq_adjust_flash " << adjustFlash.toStdString() << " \n"
         <<"\t analysis_num_spots " << spots << " \n"
         <<"\t daq_driver_socket "<< driverSocket <<"\n"
         <<"\t daq_mux_socket "<< muxSocket <<"\n"
         <<"\t daq_source_mux_socket "<< sourceMuxSocket <<"\n"
         <<"\t daq_source_driver_socket "<< sourceDriverSocket <<"\n"
         <<"\t daq_device_element " << deviceElement << " \n"
-        <<"\t daq_source_device_element \"" << sourceDeviceElement << "\" \n"
+        <<"\t daq_source_device_element \"" << sourceDeviceElement.toStdString() << "\" \n"
         <<"\t daq_image_left " << left << " \n"
         <<"\t daq_image_top " << top << " \n"
         <<"\t daq_image_right " << right << " \n"
@@ -372,7 +361,7 @@ int Server::readLWDAQOutput()
                 {
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet + coordonnées images du spot
-                    std::string name = strtok(buffer," ");
+                    QString name = QString::fromStdString(strtok(buffer," "));
                     BCAM bcam = setup.getBCAM(name);
                     char *coord_i_ccd = strtok( NULL, " " );
                     char *coord_j_ccd = strtok( NULL, " " );
@@ -398,7 +387,7 @@ int Server::readLWDAQOutput()
                 {
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet + coordonnées images du premier spot
-                    std::string name = strtok(buffer," ");
+                    QString name = QString::fromStdString(strtok(buffer," "));
                     BCAM bcam = setup.getBCAM(name);
                     char *coord1_i_ccd = strtok( NULL, " " );
                     char *coord1_j_ccd = strtok( NULL, " " );
@@ -422,7 +411,7 @@ int Server::readLWDAQOutput()
                 {
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet(S) + coordonnées images du premier spot
-                    std::string name = strtok(buffer," ");
+                    QString name = QString::fromStdString(strtok(buffer," "));
                     BCAM bcam = setup.getBCAM(name);
                     char *coord1_i_ccd = strtok( NULL, " " );
                     char *coord1_j_ccd = strtok( NULL, " " );
@@ -467,7 +456,7 @@ int Server::readLWDAQOutput()
                 {
                     char *buffer = strdup((char*)ligne.c_str());
                     //recuperation du nom de la BCAM_Objet(S) + coordonnées images du premier spot
-                    std::string name = strtok(buffer," ");
+                    QString name = QString::fromStdString(strtok(buffer," "));
                     BCAM bcam = setup.getBCAM(name);
                     char *coord1_i_ccd = strtok( NULL, " " );
                     char *coord1_j_ccd = strtok( NULL, " " );
@@ -643,7 +632,7 @@ int Server::writeParamsFile(QString params_file)
            <<"set LWDAQ_info_BCAM(flash_seconds_transition) \"0.000030\" \n"
            <<"set LWDAQ_info_BCAM(daq_extended) \"0\" \n"
            <<"set LWDAQ_config_BCAM(analysis_threshold) \"10 #\" \n"
-           <<"set LWDAQ_config_BCAM(daq_ip_addr) \""<<config.getDriverIpAddress()<<"\" \n"
+           <<"set LWDAQ_config_BCAM(daq_ip_addr) \""<<config.getDriverIpAddress().toStdString()<<"\" \n"
            <<"set LWDAQ_config_BCAM(daq_flash_seconds) \"0.000010\" \n"
            <<"set LWDAQ_config_BCAM(daq_driver_socket) \"5\" \n"
            <<"set LWDAQ_config_BCAM(analysis_num_spots) \"2\" \n"
@@ -958,7 +947,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
            <<"\n";
 
         //premiere visee BCAM-Prisme de la liste des observations
-        std::string premier_objet_img= data.getDualSpots().at(0).getName();
+        QString premier_objet_img= data.getDualSpots().at(0).getName();
 
         //sauvegarde des coordonnees images
         fichier<<"*******************************************************************coordonnees images dans le repere CCD *********************************************************************************** \n";
@@ -968,7 +957,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
             if(i>0 && spot1.getName() == premier_objet_img) //si on a tout parcourut et on revient au premier objet ==> fin
                 break;
 
-            fichier<<spot1.getName()<<"\n";
+            fichier<<spot1.getName().toStdString()<<"\n";
             for(unsigned int j=0; j<data.getDualSpots().size(); j++)
             {
                 DualSpot spot2 = data.getDualSpots().at(j);
@@ -984,7 +973,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
         fichier<<"\n"
                <<"\n"
                <<"****************************************************************coordonnees images transformees dans le repere MOUNT************************************************************************* \n";
-        std::string premier_objet_mount = data.getMountCoordSpots().at(0).getName();
+        QString premier_objet_mount = data.getMountCoordSpots().at(0).getName();
 
         //sauvegarde des coordonnees images transformees dans le repere MOUNT
         for(unsigned int i=0; i<data.getMountCoordSpots().size(); i++)
@@ -994,7 +983,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
             if(i>0 && spots1.getName() == premier_objet_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                 break;
 
-            fichier<<spots1.getName()<<"\n";
+            fichier<<spots1.getName().toStdString()<<"\n";
             for(unsigned int j=0; j<data.getMountCoordSpots().size(); j++)
             {
                 MountCoordSpots spots2 = data.getMountCoordSpots().at(j);
@@ -1010,7 +999,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
                <<"\n"
                <<"*****************************************************************coordonnees du prisme dans le repere MOUNT********************************************************************************** \n";
         //sauvegarde des coordonnees du prisme dans le repere MOUNT pour chaque paire de spots
-        std::string premier_prisme_mount = data.getMountCoordPrisms().at(0).getName();
+        QString premier_prisme_mount = data.getMountCoordPrisms().at(0).getName();
 
         for(unsigned int i=0; i<data.getMountCoordPrisms().size(); i++)
         {
@@ -1018,7 +1007,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
             if(i>0 && prism1.getName() == premier_prisme_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                 break;
 
-            fichier<<prism1.getName()<<"\n";
+            fichier<<prism1.getName().toStdString()<<"\n";
             for(unsigned int j=0; j<data.getMountCoordPrisms().size(); j++)
             {
                 MountCoordPrism prism2 = data.getMountCoordPrisms().at(j);
@@ -1033,7 +1022,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
                <<"\n"
                <<"*****************************************************************coordonnees du prisme dans le repere ATLAS********************************************************************************** \n";
         //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
-        std::string premier_prisme_atlas = data.getGlobalCoordPrisms().at(0).getName();
+        QString premier_prisme_atlas = data.getGlobalCoordPrisms().at(0).getName();
 
         for(unsigned int i=0; i<data.getGlobalCoordPrisms().size(); i++)
         {
@@ -1041,7 +1030,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
             if(i>0 && prism1.getName() == premier_prisme_atlas)
                 break;
 
-            fichier<<prism1.getName()<<" "<<prism1.getAirpad()<<"\n";
+            fichier<<prism1.getName().toStdString()<<" "<<prism1.getAirpad()<<"\n";
             for(unsigned int j=0; j<data.getGlobalCoordPrisms().size(); j++)
             {
                 GlobalCoordPrism prism2 = data.getGlobalCoordPrisms().at(j);
@@ -1098,8 +1087,8 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
 
             //nomenclature dans le repere ATLAS
             GlobalCoordPrism prism = prism1;
-            std::string name_bcam_atlas = config.getName(prism.getBCAM().getName());
-            std::string name_prism_atlas = config.getName(prism.getPrism().getName());
+            QString name_bcam_atlas = config.getName(prism.getBCAM().getName());
+            QString name_prism_atlas = config.getName(prism.getPrism().getName());
             float airpad = prism1.getAirpad();
 
             //delta selon composantes axiales
@@ -1118,8 +1107,8 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
                 }
             }
             //enregistrement dans le fichier de resultats
-            std::string name = name_bcam_atlas.append("_").append(name_prism_atlas);
-            fichier<<std::left<<std::setw(30)<<name<<" "<<datetime.toStdString()<<" "
+            QString name = name_bcam_atlas.append("_").append(name_prism_atlas);
+            fichier<<std::left<<std::setw(30)<<name.toStdString()<<" "<<datetime.toStdString()<<" "
                  <<std::right<<std::setw(14)<<result_mean(0,0)+delta_x<<" "<<std::setw(14)<<result_mean(0,1)+delta_y<<" "<<std::setw(14)<<result_mean(0,2)+delta_z<<" "
                  <<std::setw(14)<<result_std(0,0)<<" "<<std::setw(14)<<result_std(0,1)<<" "<<std::setw(14)<<result_std(0,2)
                  <<" "<<airpad<<" VRAI \n";

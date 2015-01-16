@@ -3,6 +3,9 @@
 
 #include <QObject>
 #include <QtNetwork>
+#include <QString>
+
+#include "bridge.h"
 
 #define SLOW_UPDATE_TIME 10
 #define FAST_UPDATE_TIME 2
@@ -20,22 +23,11 @@ class LWDAQ_Client : public QObject {
     Q_OBJECT
 
 public:
-    enum state { UNSET, INIT, IDLE, RUN, STOP };    // last three states are set by LWDAQ Acquisifier
 
     LWDAQ_Client(QString hostName, quint16 port, QObject *parent = 0);
-    bool isConnected() { return currentState > INIT; }
-    bool isIdle() { return currentState == IDLE; }
-    state getState() { return currentState; }
-    QString getStateAsString() {
-        switch(getState()) {
-        case UNSET: return "UNSET";
-        case INIT: return "INIT";
-        case IDLE: return "IDLE";
-        case RUN: return "RUN";
-        case STOP: return "STOP";
-        default: return "Unknown State";
-        }
-    }
+    bool isConnected() { return (currentState != LWDAQ_IDLE) && (currentState != LWDAQ_INIT); }
+    bool isIdle() { return currentState == LWDAQ_IDLE; }
+    QString getState() { return currentState; }
     int getRemainingTime() {
         return runTimer->remainingTime();
     }
@@ -60,7 +52,7 @@ private slots:
     void updateRemainingTime();
 
 private:
-    void stateChange(state newState);
+    void stateChange(QString newState);
     void command(int no);
     void write(QString s);
 
@@ -73,7 +65,7 @@ private:
     QTimer *runTimer;
     QTimer *updateTimer;
 
-    state currentState;
+    QString currentState;
 
     QStringList cmd;
     QStringList ret;

@@ -2,17 +2,18 @@
 #define CALIB2_H
 
 #include "point3f.h"
-
 #include "iostream"
+
+#include <QString>
 
 class Calib2
 {
 public:
-    Calib2(std::string bcam, Point3f coordFlash1, Point3f coordFlash2) : mBCAM(bcam), mCoordFlash1(coordFlash1), mCoordFlash2(coordFlash2) {};
+    Calib2(QString bcam, Point3f coordFlash1, Point3f coordFlash2) : mBCAM(bcam), mCoordFlash1(coordFlash1), mCoordFlash2(coordFlash2) {};
     virtual ~Calib2() {};
 
     //setter et getter
-    std::string getBCAM() const { return mBCAM; }
+    QString getBCAM() const { return mBCAM; }
 
     Point3f getCoordFlash1() const {return mCoordFlash1; }
 
@@ -23,7 +24,7 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************Infos Calib*******************************************"<<std::endl;
-        std::cout<<"Id de la BCAM : "<<getBCAM()<<std::endl;
+        std::cout<<"Id de la BCAM : "<<getBCAM().toStdString()<<std::endl;
         std::cout<<"Affichage des cordonnées du premier flash : "<<std::endl;
         this->getCoordFlash1().print();
         std::cout<<"Affichage des cordonnées du second flash : "<<std::endl;
@@ -33,7 +34,7 @@ public:
 
 protected:
 private:
-    std::string mBCAM;
+    QString mBCAM;
     Point3f mCoordFlash1;
     Point3f mCoordFlash2;
 };

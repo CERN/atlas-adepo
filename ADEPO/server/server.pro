@@ -1,11 +1,11 @@
 QT       += core network
 QT       -= gui
 
-TARGET = adepo-server
-CONFIG   += console
+TARGET = server
 CONFIG   -= app_bundle
 
-TEMPLATE = app
+TEMPLATE = lib
+CONFIG += staticlib
 
 INCLUDEPATH += ../eigen-eigen-ffa86ffb5570
 
@@ -15,7 +15,7 @@ SOURCES += \
     lwdaq_client.cpp \
     server.cpp \
     main.cpp \
-    call.cpp
+    server_call.cpp
 
 HEADERS += \
     adepo.h \

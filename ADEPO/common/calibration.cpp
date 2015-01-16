@@ -4,11 +4,11 @@
 #include "calibration.h"
 #include "point3f.h"
 
-int Calibration::read(std::string filename)
+int Calibration::read(QString filename)
 {
-       std::ifstream fichier((char*)filename.c_str(), std::ios::in);
+       std::ifstream fichier((char*)filename.toStdString().c_str(), std::ios::in);
        if (!fichier) {
-           std::cout << "WARNING Cannot read calibration file " << filename << std::endl;
+           std::cout << "WARNING Cannot read calibration file " << filename.toStdString() << std::endl;
             return 0;
        }
 
@@ -41,8 +41,8 @@ int Calibration::read(std::string filename)
                     case 1:
                     {
                         char *buffer1 = strdup((char*)ligne.c_str());
-                        std::string id_BCAM = strtok(buffer1," ");
-                        std::string tps_calib = strtok( NULL, " " );
+                        QString id_BCAM = QString::fromStdString(strtok(buffer1," "));
+                        QString tps_calib = QString::fromStdString(strtok( NULL, " " ));
                         char *x_pivot = strtok( NULL, " " );
                         char *y_pivot = strtok( NULL, " " );
                         char *z_pivot = strtok( NULL, " " );
@@ -64,8 +64,8 @@ int Calibration::read(std::string filename)
                     case 2:
                     {
                         char *buffer2 = strdup((char*)ligne.c_str());
-                        std::string id_BCAM_2 = strtok(buffer2," ");
-                        std::string tps_calib_2 = strtok( NULL, " " );
+                        QString id_BCAM_2 = QString::fromStdString(strtok(buffer2," "));
+                        QString tps_calib_2 = QString::fromStdString(strtok( NULL, " " ));
                         char *x1_flash = strtok( NULL, " " );
                         char *y1_flash = strtok( NULL, " " );
                         char *x2_flash = strtok( NULL, " " );

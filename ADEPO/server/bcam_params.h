@@ -4,15 +4,17 @@
 #include "iostream"
 #include "point3f.h"
 
+#include <QString>
+
 class BCAMParams
 {
 public:
-    BCAMParams(std::string bcam, Point3f translation, Point3f rotation) : mBCAM(bcam), mTranslation(translation), mRotation(rotation) {};
+    BCAMParams(QString bcam, Point3f translation, Point3f rotation) : mBCAM(bcam), mTranslation(translation), mRotation(rotation) {};
 
     virtual ~BCAMParams() {};
 
     //setter et getter
-    std::string getBCAM() const {return mBCAM;}
+    QString getBCAM() const {return mBCAM;}
 
     Point3f getTranslation() const {return mTranslation;}
 
@@ -21,7 +23,7 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************//BCAM_parametres*******************************************"<<std::endl;
-        std::cout<<"Identifiant de la BCAM : "<<getBCAM()<<std::endl;
+        std::cout<<"Identifiant de la BCAM : "<<getBCAM().toStdString()<<std::endl;
         std::cout<<"Translation : "<<std::endl;
         getTranslation().print();
         std::cout<<"Angles de rotation : "<<std::endl;
@@ -30,7 +32,7 @@ public:
 
 protected:
 private:
-    std::string mBCAM;
+    QString mBCAM;
     Point3f mTranslation;
     Point3f mRotation;
 };

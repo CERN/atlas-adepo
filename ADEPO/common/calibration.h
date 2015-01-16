@@ -1,8 +1,9 @@
 #ifndef CALIBRATION_H
 #define CALIBRATION_H
 
-#include <string>
 #include <vector>
+
+#include <QString>
 
 #include "calib1.h"
 #include "calib2.h"
@@ -13,7 +14,7 @@ public:
     Calibration() {};
     ~Calibration() {};
 
-    int read(std::string filename);
+    int read(QString filename);
     std::string check();
 
     std::vector<Calib1> getCalibs1() const {return mCalibs1;}

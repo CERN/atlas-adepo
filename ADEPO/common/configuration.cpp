@@ -9,12 +9,12 @@
 #define NBR_DETECTORS 8
 #define ID_LENGTH_BCAM 14
 
-int Configuration::read(std::string fichier_configuration)
+int Configuration::read(QString fichier_configuration)
 {
 
-    std::ifstream fichier((char*)fichier_configuration.c_str(), std::ios::in);
+    std::ifstream fichier((char*)fichier_configuration.toStdString().c_str(), std::ios::in);
     if(!fichier) {
-        std::cout << "WARNING Cannot read input file " << fichier_configuration << std::endl;
+        std::cout << "WARNING Cannot read input file " << fichier_configuration.toStdString() << std::endl;
         return 0;
     }
 
@@ -105,7 +105,7 @@ int Configuration::read(std::string fichier_configuration)
                         char *buffer = strdup((char*)ligne.c_str());
                         //recuperation du nom du detecteur
                         char *num_id_detector = strtok(buffer, " " );
-                        std::string nom_detector = strtok( NULL, " " );
+                        QString nom_detector = QString::fromStdString(strtok( NULL, " " ));
                         char *airpad = strtok( NULL, " " );
                         //ajout dans la base de donnees
                         Detector det(atoi(num_id_detector), nom_detector, atof(airpad));
@@ -117,12 +117,12 @@ int Configuration::read(std::string fichier_configuration)
                     case 4:
                     {
                         char *buffer = strdup((char*)ligne.c_str());
-                        std::string id_cible = strtok(buffer, " " );
+                        QString id_cible = QString::fromStdString(strtok(buffer, " " ));
                         char *X1 = strtok( NULL, " " );
                         char *Y1 = strtok( NULL, " " );
                         char *Z1 = strtok( NULL, " " );
                         Point3f pt_cible(atof(X1),atof(Y1),atof(Z1));
-                        std::string type_bcam = "Blue";
+                        QString type_bcam = "Blue";
                         BCAMAdapter blue_model(type_bcam, id_cible, pt_cible);
                         //blue_model.Affiche();
                         add(blue_model);
@@ -133,12 +133,12 @@ int Configuration::read(std::string fichier_configuration)
                     case 5:
                     {
                         char *buffer = strdup((char*)ligne.c_str());
-                        std::string id_cible = strtok(buffer, " " );
+                        QString id_cible = QString::fromStdString(strtok(buffer, " " ));
                         char *X1 = strtok( NULL, " " );
                         char *Y1 = strtok( NULL, " " );
                         char *Z1 = strtok( NULL, " " );
                         Point3f pt_cible(atof(X1),atof(Y1),atof(Z1));
-                        std::string type_bcam = "Black";
+                        QString type_bcam = "Black";
                         BCAMAdapter black_model(type_bcam, id_cible, pt_cible);
                         //black_model.Affiche();
                         add(black_model);
@@ -150,7 +150,7 @@ int Configuration::read(std::string fichier_configuration)
                     {
                         char *buffer = strdup((char*)ligne.c_str());
                         //recuperation de l'adresse ip du driver
-                        std::string driver_ip_adress = strtok(buffer," ");
+                        QString driver_ip_adress = QString::fromStdString(strtok(buffer," "));
                         setDriverIpAddress(driver_ip_adress);
                     }
                     break;
@@ -165,12 +165,12 @@ int Configuration::read(std::string fichier_configuration)
                             std::cout << "Error in config: " << nb_string << ":" << ligne << ":" << std::endl;
                        } else {
                            // 20MABNDA000318 3 2 1 PR004 ...
-                           std::string nom_BCAM = strtok(buffer," ");
+                           QString nom_BCAM = QString::fromStdString(strtok(buffer," "));
                            char *id_detector = strtok( NULL, " " );
                            char *num_Port_Driver = strtok( NULL, " " );
                            char *num_Port_Multiplexer = strtok( NULL, " " );
                            std::vector<Prism> prisms;
-                           std::string prism1 = strtok( NULL, " " );
+                           QString prism1 = QString::fromStdString(strtok( NULL, " " ));
 
                            switch(nb_string)
                            {
@@ -190,7 +190,7 @@ int Configuration::read(std::string fichier_configuration)
 
                                case 7: //cas ou une BCAM double vise deux prisme d'un cote et une autre BCAM de l'autre cote
                                {    // 20MABNDL000077 1 2 7 PR002 PR003 1 20MABNDM000168
-                                   std::string prism2 = strtok( NULL, " " );
+                                   QString prism2 = QString::fromStdString(strtok( NULL, " " ));
                                    char *num_chip = strtok( NULL, " " );
                                    prisms.push_back(Prism(prism1, atoi(num_chip)));
                                    prisms.push_back(Prism(prism2, atoi(num_chip)));
@@ -203,7 +203,7 @@ int Configuration::read(std::string fichier_configuration)
 
                                case 8: //cas ou une BCAM double vise 2 prismes d'un cote et une bcam de l'autre cote avec prisme
                                {    // 20MABNDL000077 1 2 7 PR002 PR003 1 20MABNDM000168 PR024
-                                   std::string prism2 = strtok( NULL, " " );
+                                   QString prism2 = QString::fromStdString(strtok( NULL, " " ));
                                    char *num_chip = strtok( NULL, " " );
                                    prisms.push_back(Prism(prism1, atoi(num_chip)));
                                    prisms.push_back(Prism(prism2, atoi(num_chip)));
@@ -218,7 +218,7 @@ int Configuration::read(std::string fichier_configuration)
 
                                case 6: //cas ou une bcam simple vise deux prismes
                                {    // 20MABNDA000035 8 3 6 PR044 PR047 2
-                                   std::string prism2 = strtok( NULL, " " );
+                                   QString prism2 = QString::fromStdString(strtok( NULL, " " ));
                                    char *num_chip = strtok( NULL, " " );
                                    prisms.push_back(Prism(prism1, atoi(num_chip)));
                                    prisms.push_back(Prism(prism2, atoi(num_chip)));
@@ -235,8 +235,8 @@ int Configuration::read(std::string fichier_configuration)
                     case 6:
                     {
                         char *buffer = strdup((char*)ligne.c_str());
-                        std::string id_bcam = strtok(buffer, " " );
-                        std::string id_prisme = strtok( NULL, " " );
+                        QString id_bcam = QString::fromStdString(strtok(buffer, " " ));
+                        QString id_prisme = QString::fromStdString(strtok( NULL, " " ));
                         char *dist_pivot_prisme = strtok( NULL, " " );
                         char *dist_source1_prisme = strtok( NULL, " " );
                         char *dist_source2_prisme = strtok( NULL, " " );
@@ -250,7 +250,7 @@ int Configuration::read(std::string fichier_configuration)
                     case 7:
                     {
                         char *buffer = strdup((char*)ligne.c_str());
-                        std::string id_bcam = strtok(buffer, " " );
+                        QString id_bcam = QString::fromStdString(strtok(buffer, " " ));
                         char *B1_x =  strtok( NULL, " " );
                         char *B1_y =  strtok( NULL, " " );
                         char *B1_z =  strtok( NULL, " " );
@@ -285,8 +285,8 @@ int Configuration::read(std::string fichier_configuration)
                     case 8:
                     {
                         char *buffer = strdup((char*)ligne.c_str());
-                        std::string name = strtok(buffer, " " );
-                        std::string id = strtok( NULL, " " );
+                        QString name = QString::fromStdString(strtok(buffer, " " ));
+                        QString id = QString::fromStdString(strtok( NULL, " " ));
                         addName(id, name);
                     }
                     break;
@@ -294,7 +294,7 @@ int Configuration::read(std::string fichier_configuration)
                     case 9:
                     {
                         char *buffer = strdup((char*)ligne.c_str());
-                        std::string id_prisme = strtok(buffer, " " );
+                        QString id_prisme = QString::fromStdString(strtok(buffer, " " ));
                         char *delta_x = strtok( NULL, " " );
                         char *delta_y = strtok( NULL, " " );
                         char *delta_z = strtok( NULL, " " );
@@ -317,7 +317,7 @@ int Configuration::read(std::string fichier_configuration)
 }
 
 
-std::string Configuration::check()
+QString Configuration::check()
 {
     //test des numéros des ports driver : sur les driver les numéros de ports possibles sont compris entre 1 et 8
     for (unsigned int i=0; i<getBCAMConfigs().size(); i++)

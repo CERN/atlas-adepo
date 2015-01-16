@@ -4,6 +4,8 @@
 #include "ctime"
 #include "point3f.h"
 
+#include <QString>
+
 class result
 {
 public:
@@ -16,19 +18,19 @@ public:
     }
     ~result() {};
 
-    void setName(std::string _name) {
+    void setName(QString _name) {
         name = _name;
     }
 
-    std::string getName() {
+    QString getName() {
         return name;
     }
 
-    void setTime(std::string _dateTime) {
+    void setTime(QString _dateTime) {
         dateTime = _dateTime;
     }
 
-    std::string getTime() {
+    QString getTime() {
         return dateTime;
     }
 
@@ -68,7 +70,7 @@ public:
     }
 
     void toString() {
-        std::cout << name << "  " << dateTime << " " << n << " "
+        std::cout << name.toStdString() << "  " << dateTime.toStdString() << " " << n << " "
                   << value.isValid() << " value(" << value.x() << " " << value.y() << " " << value.z() << ") "
                   << std.isValid() << " std(" << std.x() << " " << std.y() << " " << std.z() << ") "
                   << offset.isValid() << " offset(" << offset.x() << " " << offset.y() << " " << offset.z() << ")"
@@ -76,8 +78,8 @@ public:
     }
 
 private:
-    std::string name;
-    std::string dateTime;
+    QString name;
+    QString dateTime;
     Point3f value;
     Point3f std;
     int n;

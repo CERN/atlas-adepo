@@ -2,12 +2,12 @@
 #define SERVER_H
 
 #include <vector>
-#include <string>
 #include <fstream>
 #include <iomanip>
 
 #include <QString>
 #include <QFile>
+#include <QTimer>
 
 #include "bcam.h"
 #include "calibration.h"
@@ -21,16 +21,12 @@
 class Server : public Call
 {
 public:
-    enum state { IDLE, RUN, STOP, WAITING, CALCULATING };
-    enum mode { MONITORING, CLOSURE };
-
     Server();
     virtual ~Server() {};
 
-    void startDAQ(mode runMode, int runTime, bool airpad);
+    void startDAQ(QString runMode, int runTime, bool airpad);
     void stopDAQ();
-    QString getStateAsString();
-    std::string calculateCoordinates();
+    QString calculateCoordinates();
     int writeScriptFile(QString fileName, std::vector<BCAM> &bcams);
     int readLWDAQOutput();
 
@@ -47,7 +43,7 @@ private:
     int writeParamsFile(QString params_file);
 
     QString getDateTime();
-    int writeBCAMScript(Configuration &config, std::ofstream &file, BCAM bcam, int spots, std::string sourceDeviceElement);
+    int writeBCAMScript(Configuration &config, std::ofstream &file, BCAM bcam, int spots, QString sourceDeviceElement);
 
     void imgCoordToBcamCoord(Calibration &calibration, Setup &setup, Data &data);
     void calculCoordBcamSystem(Configuration &config, Calibration &calibration, Setup &setup, Data& data);
@@ -55,15 +51,18 @@ private:
     int writeFileObsMountSystem(QString fileName, QString datetime);
     Point3f changeReference(Point3f coord_sys1, Point3f translation, Point3f rotation);
 
-    state adepoState;
-    mode runMode;
+    QTimer *waitingTimer;
+    QTimer *updateTimer;
+
+    QString adepoState;
+    QString runMode;
     bool useAirpads;
 
     QString resultFile;
     QString scriptFile;
 
     LWDAQ_Client *lwdaq_client;
-    LWDAQ_Client::state previousState;
+    QString previousState;
     bool needToCalculateResults;
 
     Configuration config;

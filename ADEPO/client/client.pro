@@ -7,7 +7,8 @@ TEMPLATE = app
 SOURCES += \
     atlas_bcam.cpp \
     main.cpp \
-    read_write_ref.cpp
+    read_write_ref.cpp \
+    client_callback.cpp
 
 HEADERS += \
     atlas_bcam.h \
@@ -32,4 +33,11 @@ unix: LIBS += -L$$OUT_PWD/../bridge/ -lbridge
 INCLUDEPATH += $$PWD/../bridge
 DEPENDPATH += $$PWD/../bridge
 
-unix: PRE_TARGETDEPS += $$OUT_PWD/../bridge/libbridge.a
+unix: PRE_TARGETDEPS += $$OUT_PWD/../server/libserver.a
+
+unix: LIBS += -L$$OUT_PWD/../server/ -lserver
+
+INCLUDEPATH += $$PWD/../server
+DEPENDPATH += $$PWD/../server
+
+unix: PRE_TARGETDEPS += $$OUT_PWD/../server/libserver.a

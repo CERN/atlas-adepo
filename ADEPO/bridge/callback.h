@@ -1,17 +1,19 @@
 #ifndef CALLBACK_H
 #define CALLBACK_H
 
-#include <string>
+#include <QString>
 
-class CallBack
+#include "bridge.h"
+
+class Callback: public Bridge
 {
 public:
-    CallBack() {};
-    ~CallBack() {};
+    Callback() {};
+    ~Callback() {};
 
-    virtual void setMode(std::string mode) = 0;
-    virtual void updateAdepoStatus(std::string status) = 0;
-    virtual void updateLwdaqStatus(std::string status) = 0;
+    virtual void setMode(QString mode) = 0;
+    virtual void updateAdepoStatus(QString status, int seconds) = 0;
+    virtual void updateLwdaqStatus(QString status, int seconds) = 0;
 };
 
 #endif // CALLBACK_H

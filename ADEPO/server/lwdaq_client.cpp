@@ -6,7 +6,7 @@
 LWDAQ_Client::LWDAQ_Client(QString host, quint16 port, QObject *parent) : QObject(parent),
                                   hostName(host),
                                   portNo(port),
-                                  currentState(UNSET),
+                                  currentState(LWDAQ_UNSET),
                                   cmdNo(0),
                                   redirect(true),
                                   error(false),
@@ -54,7 +54,7 @@ QDir LWDAQ_Client::find(QDir dir) {
 }
 
 void LWDAQ_Client::init() {
-    stateChange(INIT);
+    stateChange(LWDAQ_INIT);
 
     std::cout << "Connecting to " << hostName.toStdString() << ":" << portNo << std::endl;
 
@@ -124,7 +124,7 @@ bool LWDAQ_Client::startRun(QString dir, int seconds) {
 }
 
 void LWDAQ_Client::stopRun() {
-    if (currentState == RUN) {
+    if (currentState == LWDAQ_RUN) {
         std::cout << "Stopping run..." << std::endl;
 
         runTimer->stop();
@@ -171,7 +171,7 @@ void LWDAQ_Client::gotDisconnected() {
     updateTimer->stop();
     statusTimer->stop();
     statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
-    stateChange(INIT);
+    stateChange(LWDAQ_INIT);
 
     connectTimer->start();
 }
@@ -234,19 +234,19 @@ void LWDAQ_Client::readStatus() {
 
     // check status updates
     if (line.startsWith("Idle")) {
-        stateChange(IDLE);
+        stateChange(LWDAQ_IDLE);
         statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
         statusTimer->stop();
     } else if (line.startsWith("Run")) {
-        stateChange(RUN);
+        stateChange(LWDAQ_RUN);
         statusTimer->setInterval(FAST_UPDATE_TIME*1000);
         statusTimer->stop();
     } else if (line.startsWith("Repeat_Run")) {
-        stateChange(RUN);
+        stateChange(LWDAQ_RUN);
         statusTimer->setInterval(FAST_UPDATE_TIME*1000);
         statusTimer->stop();
     } else if (line.startsWith("Stop")) {
-        stateChange(STOP);
+        stateChange(LWDAQ_STOP);
         statusTimer->setInterval(FAST_UPDATE_TIME*1000);
         statusTimer->start();
     }
@@ -284,11 +284,11 @@ void LWDAQ_Client::displayError(QAbstractSocket::SocketError socketError) {
     }
 }
 
-void LWDAQ_Client::stateChange(state newState) {
+void LWDAQ_Client::stateChange(QString newState) {
     if (currentState == newState) {
         return;
     }
-    if (currentState == INIT && newState > INIT) {
+    if (currentState == LWDAQ_INIT && (newState != LWDAQ_UNSET || newState != LWDAQ_INIT)) {
         std::cout << "Starting update timer " << statusTimer->interval() << std::endl;
     //    statusTimer->start();
     }

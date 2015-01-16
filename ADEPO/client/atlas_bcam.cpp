@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include <QSettings>
 #include <QPixmapCache>
 #include <QFileDialog>
@@ -69,7 +71,6 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         QObject::connect(ui->Boutton_lancer,SIGNAL(clicked()), this,SLOT(startClosure()));
         QObject::connect(ui->nextMeasurement,SIGNAL(clicked()), this,SLOT(startClosure()));
         QObject::connect(ui->repeatButton,SIGNAL(clicked()), this,SLOT(startMonitoring()));
-        //QObject::connect(timer,SIGNAL(timeout()),this,SLOT(lancer_acquisition()));
 
         //stopper l'acquisition
         QObject::connect(ui->boutton_arreter,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
@@ -83,17 +84,7 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         QObject::connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
         QObject::connect(ui->airpadBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
 
-//        setMode(bridge.getMode());
         askQuestion = true;
-
-        waitingTimer = new QTimer();
-        waitingTimer->setSingleShot(true);
-        connect(waitingTimer, SIGNAL(timeout()), this, SLOT(startMonitoring()));
-
-        updateTimer = new QTimer(this);
-        updateTimer->setInterval(FAST_UPDATE_TIME*1000);
-        updateTimer->setSingleShot(false);
-        connect(updateTimer, SIGNAL(timeout()), this, SLOT(timeChanged()));
 
         setEnabled(true);
 
@@ -147,9 +138,9 @@ ATLAS_BCAM::~ATLAS_BCAM()
     delete ui;
 }
 
-void ATLAS_BCAM::setMode(std::string mode) {
+void ATLAS_BCAM::setModeLabel(QString mode) {
     this->mode = mode;
-    ui->modeBox->setText(QString::fromStdString(mode));
+    ui->modeBox->setText(mode);
     ui->modeBox->setReadOnly(true);
 }
 
@@ -165,7 +156,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
     ui->bcamLabel->setText(name);
     QPixmapCache::clear();
     QString imageName1 = Util::appDirPath();
-    QString suffix1 = QString::fromStdString(Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, true)).replace(" ", "-");
+    QString suffix1 = Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, true).replace(" ", "-");
     imageName1.append("/").append(name).append("-").append(suffix1).append(".gif");
 //    QList<QByteArray> list = QImageReader::supportedImageFormats();
 //    for (int i=0; i<list.size(); i++) {
@@ -179,7 +170,7 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
         ui->bcamDateTime->setText(dateTime.toString());
         ui->bcamImage2->setVisible(flashSeparate);
         if (flashSeparate) {
-            QString suffix2 = QString::fromStdString(Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false));
+            QString suffix2 = Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false);
             QString imageName2 = Util::appDirPath();
             imageName2.append("/").append(name).append("-").append(suffix2).append(".gif");
             QPixmap pix2(imageName2);
@@ -198,34 +189,22 @@ void ATLAS_BCAM::changedAirpad(int index) {
 }
 
 void ATLAS_BCAM::updateStatusBar() {
-    QString lwdaq;
     QString adepo;
-    switch (lwdaq_client->getState()) {
-        case LWDAQ_Client::RUN:
-            lwdaq = lwdaq_client->getStateAsString();
-            adepo = getStateAsString().append(" ").append(QString::number(lwdaq_client->getRemainingTime()/1000)).
-                    append(" seconds remaining...");
-            break;
-        default:
-            lwdaq = lwdaq_client->getStateAsString();
-
-            break;
+    if (lwdaqState == LWDAQ_RUN) {
+        adepo = adepoState.append(" ").append(QString::number(lwdaqRemainingSeconds)).
+                append(" seconds remaining...");
     }
 
-    switch (adepoState) {
-        case RUN:
+    if (adepoState == ADEPO_RUN) {
             // filled already
-            break;
-        case WAITING:
-            adepo = getStateAsString().append(" ").append(QString::number(waitingTimer->remainingTime()/1000)).
-                    append(" seconds remaining...");
-            break;
-        default:
-            adepo = getStateAsString();
-            break;
+    } else if (adepoState == ADEPO_WAITING) {
+        adepo = adepoState.append(" ").append(QString::number(adepoRemainingSeconds)).
+                append(" seconds remaining...");
+    } else {
+        adepo = adepoState;
     }
 
-    lwdaqStatus.setText("LWDAQ: "+lwdaq);
+    lwdaqStatus.setText("LWDAQ: "+lwdaqState);
     QMainWindow::statusBar()->showMessage("ADEPO: "+adepo);
 }
 
@@ -233,14 +212,14 @@ void ATLAS_BCAM::setEnabled(bool enabled) {
     bool canStart = enabled &&
             !path_input_folder.isEmpty() &&
             ui->tableWidget_liste_bcams->rowCount() > 0 &&
-            lwdaq_client->getState() > LWDAQ_Client::INIT;
+            (lwdaqState != LWDAQ_UNSET && lwdaqState != LWDAQ_IDLE);
     ui->Boutton_lancer->setEnabled(canStart);
     ui->nextMeasurement->setEnabled(canStart);
     ui->repeatButton->setEnabled(canStart);
 
-    ui->boutton_arreter->setEnabled(!enabled && mode == CLOSURE);
-    ui->stop->setEnabled(!enabled && mode == CLOSURE);
-    ui->stopButton->setEnabled(!enabled && mode == MONITORING);
+    ui->boutton_arreter->setEnabled(!enabled && mode == MODE_CLOSURE);
+    ui->stop->setEnabled(!enabled && mode == MODE_CLOSURE);
+    ui->stopButton->setEnabled(!enabled && mode == MODE_MONITORING);
 
     ui->tableWidget_liste_detectors->setEnabled(enabled);
     ui->modeBox->setEnabled(enabled);
@@ -271,7 +250,7 @@ void ATLAS_BCAM::openInputDir() {
     //appel pour la lecture de fichier
     QString inputFile = path_input_folder;
     inputFile.append("/").append(NAME_CONFIGURATION_FILE);
-    config.read(inputFile.toStdString());
+    config.read(inputFile);
 
     display(ui->configurationFileLabel, ui->configurationFile, inputFile);
 
@@ -279,9 +258,9 @@ void ATLAS_BCAM::openInputDir() {
     helmert(m_bdd, config);
 
     //verification des infos du fichier d'entree
-    std::string result = config.check();
+    QString result = config.check();
     if (result != "") {
-        std::cerr << result << std::endl;
+        std::cerr << result.toStdString() << std::endl;
         std::exit(1);
     }
 
@@ -290,7 +269,7 @@ void ATLAS_BCAM::openInputDir() {
     //lecture du fichier de calibration
     QString calibrationFile = path_input_folder;
     calibrationFile.append("/").append(NAME_CALIBRATION_FILE);
-    calibration.read(calibrationFile.toStdString());
+    calibration.read(calibrationFile);
 
     display(ui->calibrationFileLabel, ui->calibrationFile, calibrationFile);
 
@@ -360,7 +339,7 @@ void ATLAS_BCAM::fillDetectorTable()
 
         //ajout du nom du detecteur
         QTableWidgetItem *item_nom = new QTableWidgetItem();
-        item_nom->setText(QString::fromStdString(detectors_data.at(i).getName()));
+        item_nom->setText(detectors_data.at(i).getName());
         ui->tableWidget_liste_detectors->setItem(i,1,item_nom);
 
         //ajout de la constante de airpad
@@ -403,7 +382,8 @@ void ATLAS_BCAM::showBCAMTable()
         }
 
         //ecriture du script d'acquisition des detecteurs selectionnees
-        server.write_script_file(config, appDirPath()+"/"+DEFAULT_SCRIPT_FILE, setup.getBCAMs());
+// TODO
+//        server.write_script_file(config, appDirPath()+"/"+DEFAULT_SCRIPT_FILE, setup.getBCAMs());
     }
 
     settings.setValue(SELECTED_DETECTORS, selectedDetectors);
@@ -419,7 +399,7 @@ void ATLAS_BCAM::showBCAMTable()
 
       //ajout dans la tableWidget qui affiche les BCAMs
       QTableWidgetItem *nom_bcam = new QTableWidgetItem();
-      nom_bcam->setText(QString::fromStdString(bcam.getName()));
+      nom_bcam->setText(bcam.getName());
       ui->tableWidget_liste_bcams->setItem(i,0,nom_bcam);
 
       QTableWidgetItem *num_detector = new QTableWidgetItem();
@@ -441,7 +421,7 @@ void ATLAS_BCAM::showBCAMTable()
       ui->tableWidget_liste_bcams->setItem(i,4,num_chip);
 
       QTableWidgetItem *objet_vise = new QTableWidgetItem();
-      objet_vise->setText(QString::fromStdString(prism.getName()));
+      objet_vise->setText(prism.getName());
       ui->tableWidget_liste_bcams->setItem(i,5,objet_vise);
 
       QTableWidgetItem *left = new QTableWidgetItem();
@@ -461,19 +441,19 @@ void ATLAS_BCAM::showBCAMTable()
       ui->tableWidget_liste_bcams->setItem(i,9,adjust);
 
       // Result Table
-      std::string prismName = config.getName(prism.getName());
+      QString prismName = config.getName(prism.getName());
       result& result = results[prismName];
 
       QTableWidgetItem *name = new QTableWidgetItem();
-      name->setText(QString::fromStdString(prismName));
+      name->setText(prismName);
       ui->tableWidget_results->setItem(row, 0, name);
 
       QTableWidgetItem *bcamName = new QTableWidgetItem();
-      bcamName->setText(QString::fromStdString(bcam.getName()));
+      bcamName->setText(bcam.getName());
       ui->tableWidget_results->setItem(row, 1, bcamName);
 
       QTableWidgetItem *prismCell = new QTableWidgetItem();
-      prismCell->setText(QString::fromStdString(prism.getName()));
+      prismCell->setText(prism.getName());
       ui->tableWidget_results->setItem(row, 2, prismCell);
 
       setResult(row, result);
@@ -530,7 +510,7 @@ void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision)
 
 void ATLAS_BCAM::resetDelta() {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
-        std::string name = ui->tableWidget_results->item(row, 0)->text().toStdString();
+        QString name = ui->tableWidget_results->item(row, 0)->text();
         result& r = results[name];
         r.setOffset(r.getValue());
         results[name] = r;
@@ -545,87 +525,10 @@ void ATLAS_BCAM::changedFormat(int state) {
 }
 
 
-void ATLAS_BCAM::calculateResults(BDD &base_donnees, std::map<std::string, result> &results) {
 
-    //on parcourt tous les points transformes dans le repere global : moyenne + dispersion
-    // current date/time based on current system
-    QString now = getDateTime();
-
-    //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
-    std::string premier_prisme_atlas = base_donnees.getGlobalCoordPrisms().at(0).getName();
-
-    for(unsigned int i=0; i<base_donnees.getGlobalCoordPrisms().size(); i++)
-    {
-        if(i>0 && base_donnees.getGlobalCoordPrisms().at(i).getName() == premier_prisme_atlas)
-            break;
-
-        GlobalCoordPrism prism = base_donnees.getGlobalCoordPrisms().at(i);
-
-        //nomenclature dans le repere ATLAS
-        std::string name_prism_atlas = config.getName(prism.getPrism().getName());
-
-        result& result = results[name_prism_atlas];
-        result.setName(name_prism_atlas);
-        result.setTime(now.toStdString());
-
-        Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
-        int ligne=0;
-
-        for(unsigned int j=0; j<base_donnees.getGlobalCoordPrisms().size(); j++)
-        {
-            GlobalCoordPrism checkedPrism = base_donnees.getGlobalCoordPrisms().at(j);
-            if(prism.getName() == checkedPrism.getName())
-            {
-                coord(ligne,0)=checkedPrism.getCoordPrismMountSys().x();
-                coord(ligne,1)=checkedPrism.getCoordPrismMountSys().y();
-                coord(ligne,2)=checkedPrism.getCoordPrismMountSys().z();
-                ligne=ligne+1;
-            }
-        }
-
-        result.setN(ligne);
-
-        Eigen::MatrixXd mean(1,3);
-        mean = coord.colwise().sum()/ligne; //somme de chaque colonne / par le nombre de lignes
-
-        Eigen::MatrixXd result_var(ligne,3); //calcul de la variance
-        for(int k=0; k<ligne; k++)
-        {
-            result_var(k,0)=(coord(k,0)-mean(0,0))*(coord(k,0)-mean(0,0));
-            result_var(k,1)=(coord(k,1)-mean(0,1))*(coord(k,1)-mean(0,1));
-            result_var(k,2)=(coord(k,2)-mean(0,2))*(coord(k,2)-mean(0,2));
-        }
-
-        Eigen::MatrixXd result_std_square(1,3); //calcul de l'ecart-type au carre
-        result_std_square=result_var.colwise().sum()/ligne;
-
-        result.setStd(Point3f(sqrt(result_std_square(0,0)),sqrt(result_std_square(0,1)),sqrt(result_std_square(0,2))));
-
-        //delta selon composantes axiales
-        float dx=0;
-        float dy=0;
-        float dz=0;
-        //ajout de la constante de prisme
-        for(unsigned int n=0; n<config.getPrismCorrections().size(); n++)
-        {
-            PrismCorrection correction = config.getPrismCorrections().at(n);
-            if(base_donnees.getGlobalCoordPrisms().at(i).getPrism().getName() == correction.getPrism())
-            {
-                dx = correction.getDelta().x();
-                dy = correction.getDelta().y();
-                dz = correction.getDelta().z();
-            }
-        }
-
-        result.setValue(Point3f(mean(0,0) + dx, mean(0,1) + dy, mean(0,2) + dz));
-
-        results[name_prism_atlas] = result;
-    }
-}
-
-void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
+void ATLAS_BCAM::updateResults(std::map<QString, result> &results) {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
-        std::string prism = ui->tableWidget_results->item(row, 0)->text().toStdString();
+        QString prism = ui->tableWidget_results->item(row, 0)->text();
 
         result& r = results[prism];
         r.setName(prism);
@@ -644,32 +547,23 @@ void ATLAS_BCAM::updateResults(std::map<std::string, result> &results) {
 
 void ATLAS_BCAM::startClosure()
 {
-    setMode(CLOSURE);
-
-    needToCalculateResults = true;
-
     //lancement des acquisitions + calcul
-    startAcquisition();
+    server.start();
 }
 
 void ATLAS_BCAM::startMonitoring()
 {
-    setMode(MONITORING);
-
     if (askQuestion) {
+        // TODO to be removed, alwasy all on
         //boite de dialogue avant de debuter le mode monitoring
         int reponse = QMessageBox::question(this, "Monitoring Mode",
                                             "Attention, you are in monitoring mode. Make sure you have selected the correct set of detectors.",
                                             QMessageBox::Yes | QMessageBox::No);
-        //si la reponse est positive
         if (reponse == QMessageBox::No) {
-            setMode(CLOSURE);
             return;
         }
     }
 
     askQuestion = false;
-    needToCalculateResults = true;
-    startAcquisition();
-
+    server.start();
 }

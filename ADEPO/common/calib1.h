@@ -2,19 +2,20 @@
 #define CALIB1_H
 
 #include "point3f.h"
-
 #include "iostream"
+
+#include <QString>
 
 class Calib1
 {
 public:
-    Calib1(std::string bcam, std::string tpsCalib, Point3f coordPivot, Point3f coordAxis, float ccdToPivot, float ccdRotation) :
+    Calib1(QString bcam, QString tpsCalib, Point3f coordPivot, Point3f coordAxis, float ccdToPivot, float ccdRotation) :
         mBCAM(bcam), mTpsCalib(tpsCalib), mCoordPivot(coordPivot), mCoordAxis(coordAxis), mCcdToPivot(ccdToPivot), mCcdRotation(ccdRotation) {};
     virtual ~Calib1() {};
 
     //setter et getter
-    std::string getBCAM() const { return mBCAM; }
-    std::string getTpsCalib() const { return mTpsCalib; }
+    QString getBCAM() const { return mBCAM; }
+    QString getTpsCalib() const { return mTpsCalib; }
     Point3f getCoordPivot() const { return mCoordPivot; }
     Point3f getCoordAxis() const { return mCoordAxis; }
     int getDirection() const { return mCoordAxis.z() > 0 ? 1 : -1; }
@@ -24,8 +25,8 @@ public:
     //methodes
     void print() {
         std::cout<<"*******************************************Infos Calib*******************************************"<<std::endl;
-        std::cout<<"Id de la BCAM : "<<getBCAM()<<std::endl;
-        std::cout<<"Date calibration : "<<getTpsCalib()<<std::endl;
+        std::cout<<"Id de la BCAM : "<<getBCAM().toStdString()<<std::endl;
+        std::cout<<"Date calibration : "<<getTpsCalib().toStdString()<<std::endl;
         std::cout<<"Coordonnées du pivot : "<<std::endl;
         this->getCoordPivot().print();
         std::cout<<"Coordonnées de l'axe : "<<std::endl;
@@ -37,8 +38,8 @@ public:
 
 protected:
 private:
-    std::string mBCAM;
-    std::string mTpsCalib;
+    QString mBCAM;
+    QString mTpsCalib;
     Point3f mCoordPivot;
     Point3f mCoordAxis;
     float mCcdToPivot;

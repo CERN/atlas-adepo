@@ -12,7 +12,7 @@
 
 using namespace std;
 
-int writeRef(QString fileName, map<string, result> &results) {
+int writeRef(QString fileName, map<QString, result> &results) {
     ofstream file(fileName.toStdString().c_str(), ios::out | ios::trunc);
     if(!file) {
         cout << "WARNING Cannot write reference file " << fileName.toStdString() << endl;
@@ -53,7 +53,7 @@ int writeRef(QString fileName, map<string, result> &results) {
     return 1;
 }
 
-int readRef(QString fileName, map<string, result> &results) {
+int readRef(QString fileName, std::map<QString, result> &results) {
     ifstream file(fileName.toStdString().c_str(), ios::in);
     if(!file) {
         cout << "WARNING Cannot read reference file " << fileName.toStdString() << endl;

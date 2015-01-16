@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include <QString>
+
 #include "configuration.h"
 #include "bcam.h"
 
@@ -18,7 +20,7 @@ public:
 
     std::vector<BCAM> getBCAMs(int id_detector, Configuration& config);
     std::vector<BCAM>& getBCAMs() { return mBCAMs; }
-    BCAM getBCAM(std::string bcam_prism);
+    BCAM getBCAM(QString bcam_prism);
 
 private:
     std::vector<BCAM> mBCAMs;

@@ -9,10 +9,10 @@ class Prism
 {
 public:
     // possible names: PR005 PR005* PR005+ PR005*+ PR005+* PR005(20,180), 20MABNDM000020, 20MABNDM000020+, etc and combinations...
-    Prism(std::string name, int numChip) : mNumChip(numChip), left(20), right(343), top(1), bottom(243),
+    Prism(QString name, int numChip) : mNumChip(numChip), left(20), right(343), top(1), bottom(243),
             separate(false), adjust(false) {
 
-        QString s = QString::fromStdString(name);
+        QString s = name;
         QStringList list = s.split("(");
         s = list.size() == 1 ? s : list.at(0);
         if (list.size() > 1) {
@@ -23,7 +23,7 @@ public:
 
         prism = s.startsWith("PR");
 
-        mName = s.left(prism ? 5 : 14).toStdString();
+        mName = s.left(prism ? 5 : 14);
         s = s.mid(prism ? 5 : 14);
 
         // * (flash separate), + (search), *+ and +* are also allowed
@@ -34,7 +34,7 @@ public:
     };
     virtual ~Prism() {};
 
-    std::string getName() const { return mName; }
+    QString getName() const { return mName; }
     bool isPrism() const { return prism; }
 
     int getNumChip() const { return mNumChip; }
@@ -47,7 +47,7 @@ public:
     bool flashAdjust() const { return adjust; }
 
 private:
-    std::string mName;
+    QString mName;
     bool prism;
     int mNumChip;
     int left;
