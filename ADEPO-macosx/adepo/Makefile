@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_TESTLIB_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo\"
+DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -O2 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W -fPIE $(DEFINES)
-INCPATH       = -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I../../ADEPO/adepo -I../../ADEPO/eigen-eigen-ffa86ffb5570 -I../../ADEPO/common -I../../ADEPO/bridge -I../../ADEPO/client -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtTest.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib
+INCPATH       = -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I../../ADEPO/adepo -I../../ADEPO/client -I../../ADEPO/bridge -I../../ADEPO/common -I../../ADEPO/server -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib
 QMAKE         = /Users/duns/Qt5.4.0/5.4/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = adepo1.0.0
 DISTDIR = /Users/duns/cern/git/atlas-adepo/ADEPO/adepo/.tmp/adepo1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -headerpad_max_install_names -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wl,-rpath,/Users/duns/Qt5.4.0/5.4/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/duns/Qt5.4.0/5.4/clang_64/lib -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../common/ -lcommon -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../bridge/ -lbridge -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../client/ -lclient -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtTest -framework Security -framework ApplicationServices -framework QtNetwork -framework OpenGL -framework AGL 
+LIBS          = $(SUBLIBS) -F/Users/duns/Qt5.4.0/5.4/clang_64/lib -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../client/ -lclient -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../common/ -lcommon -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../server/ -lserver -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtNetwork -framework OpenGL -framework AGL 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -48,8 +48,8 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       =  
-OBJECTS       = 
+SOURCES       = ../../ADEPO/adepo/main.cpp 
+OBJECTS       = main.o
 DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/qdevice.pri \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/device_config.prf \
@@ -170,7 +170,6 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/qt.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/resources.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/moc.prf \
-		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/testlib_defines.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/unix/opengl.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/uic.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/unix/thread.prf \
@@ -179,7 +178,7 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/exceptions.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/yacc.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/lex.prf \
-		../../ADEPO/adepo/adepo.pro  
+		../../ADEPO/adepo/adepo.pro  ../../ADEPO/adepo/main.cpp
 QMAKE_TARGET  = adepo
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = adepo.app/Contents/MacOS/adepo
@@ -217,7 +216,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../common/libcommon.a /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../bridge/libbridge.a /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../client/libclient.a $(OBJECTS)  
+$(TARGET): /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../client/libclient.a /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../common/libcommon.a /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo/../server/libserver.a $(OBJECTS)  
 	@test -d adepo.app/Contents/MacOS/ || mkdir -p adepo.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -341,7 +340,6 @@ Makefile: ../../ADEPO/adepo/adepo.pro /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/m
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/qt.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/resources.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/moc.prf \
-		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/testlib_defines.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/unix/opengl.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/uic.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/unix/thread.prf \
@@ -354,7 +352,6 @@ Makefile: ../../ADEPO/adepo/adepo.pro /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/m
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/QtGui.prl \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/QtCore.prl \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtTest.framework/QtTest.prl \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/QtNetwork.prl
 	$(QMAKE) -spec macx-clang CONFIG+=x86_64 -o Makefile ../../ADEPO/adepo/adepo.pro
 /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf:
@@ -477,7 +474,6 @@ Makefile: ../../ADEPO/adepo/adepo.pro /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/m
 /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/qt.prf:
 /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/resources.prf:
 /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/moc.prf:
-/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/testlib_defines.prf:
 /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/unix/opengl.prf:
 /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/uic.prf:
 /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/unix/thread.prf:
@@ -490,7 +486,6 @@ Makefile: ../../ADEPO/adepo/adepo.pro /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/m
 /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
 /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/QtGui.prl:
 /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/QtCore.prl:
-/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtTest.framework/QtTest.prl:
 /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/QtNetwork.prl:
 qmake: FORCE
 	@$(QMAKE) -spec macx-clang CONFIG+=x86_64 -o Makefile ../../ADEPO/adepo/adepo.pro
@@ -521,9 +516,11 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/adepo/main.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
+	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
 
@@ -561,6 +558,201 @@ compiler_lex_clean:
 compiler_clean: 
 
 ####### Compile
+
+main.o: ../../ADEPO/adepo/main.cpp /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QApplication \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qapplication.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QtGui \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessible.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessiblebridge.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessibleobject.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessibleplugin.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qbitmap.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qicon.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qiconengine.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qiconengineplugin.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qimage.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qimageiohandler.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qimagereader.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qimagewriter.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qmovie.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpicture.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpictureformatplugin.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmap.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmapcache.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qstandarditemmodel.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qclipboard.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qcursor.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qdrag.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qevent.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericplugin.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericpluginfactory.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qguiapplication.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qinputmethod.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qkeysequence.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qoffscreensurface.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglcontext.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglwindow.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpaintdevicewindow.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpalette.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixelformat.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qrasterwindow.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qscreen.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qsessionmanager.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qstylehints.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qsurface.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qsurfaceformat.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtouchdevice.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindow.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindowdefs.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericmatrix.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qmatrix4x4.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qquaternion.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector2d.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector3d.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector4d.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengl.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglbuffer.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengldebug.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglframebufferobject.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglfunctions.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglpaintdevice.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglpixeltransferoptions.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglshaderprogram.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengltexture.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengltimerquery.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglversionfunctions.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglvertexarrayobject.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qbackingstore.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qbrush.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qcolor.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qmatrix.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpagedpaintdevice.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpagelayout.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpagesize.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpaintdevice.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpaintengine.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpainter.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpainterpath.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpdfwriter.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpen.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qpolygon.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qregion.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qrgb.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtransform.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qabstracttextdocumentlayout.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qfont.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontdatabase.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontinfo.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontmetrics.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qglyphrun.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qrawfont.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qstatictext.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qsyntaxhighlighter.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextcursor.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocument.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocumentfragment.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocumentwriter.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextformat.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextlayout.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextlist.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextobject.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextoption.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtexttable.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qdesktopservices.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qvalidator.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qtguiversion.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTranslator \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtranslator.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QLocale \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qlocale.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QLibraryInfo \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qlibraryinfo.h \
+		../../ADEPO/client/client.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextBrowser \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextbrowser.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		../../ADEPO/bridge/call.h \
+		../../ADEPO/bridge/bridge.h \
+		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/configuration.h \
+		../../ADEPO/common/detector.h \
+		../../ADEPO/common/bcam_adapter.h \
+		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/bcam_config.h \
+		../../ADEPO/common/prism.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
+		../../ADEPO/common/absolute_distances.h \
+		../../ADEPO/common/atlas_coordinates.h \
+		../../ADEPO/common/prism_correction.h \
+		../../ADEPO/common/setup.h \
+		../../ADEPO/common/bcam.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/util.h \
+		../../ADEPO/server/server.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		../../ADEPO/common/calibration.h \
+		../../ADEPO/common/calib1.h \
+		../../ADEPO/common/calib2.h \
+		../../ADEPO/server/data.h \
+		../../ADEPO/server/dual_spot.h \
+		../../ADEPO/server/spot.h \
+		../../ADEPO/server/mount_coord_spots.h \
+		../../ADEPO/server/mount_coord_prism.h \
+		../../ADEPO/server/global_coord_prism.h \
+		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/common/reference.h \
+		../../ADEPO/server/lwdaq_client.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QtNetwork \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractnetworkcache.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhttpmultipart.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkaccessmanager.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkcookie.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkcookiejar.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkdiskcache.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkreply.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkrequest.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkconfigmanager.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkconfiguration.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworksession.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qauthenticator.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qdnslookup.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhostaddress.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhostinfo.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkinterface.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkproxy.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractsocket.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qlocalserver.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qlocalsocket.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpserver.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpsocket.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qudpsocket.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qssl.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcertificate.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcertificateextension.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcipher.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslconfiguration.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslerror.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslkey.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../ADEPO/adepo/main.cpp
 
 ####### Install
 

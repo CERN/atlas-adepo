@@ -29,104 +29,110 @@ Client::Client(Call& callImpl, QWidget *parent) :
     call(callImpl),
     ui(new Ui::Client)                                                                        //[---> ok
 {
-        QString appPath = Util::appDirPath();
-        std::cout << appPath.toStdString() << std::endl;
+    QCoreApplication::setOrganizationName("ATLAS CERN");
+    QCoreApplication::setOrganizationDomain("atlas.cern.ch");
+    QCoreApplication::setApplicationName("ADEPO");
+    QCoreApplication::setApplicationVersion("1.4");
 
-        ui->setupUi(this);
-        ui->statusBar->addPermanentWidget(&lwdaqStatus);
+
+    QString appPath = Util::appDirPath();
+    std::cout << appPath.toStdString() << std::endl;
+
+    ui->setupUi(this);
+    ui->statusBar->addPermanentWidget(&lwdaqStatus);
 //        QFont font = QFont();
 //        font.setPointSize(10);
 //        ui->tableWidget_results->setFont(font);
 
-        // headers seem to become invisible after editing UI
-        ui->tableWidget_liste_detectors->horizontalHeader()->setVisible(true);
-        ui->tableWidget_liste_bcams->horizontalHeader()->setVisible(true);
+    // headers seem to become invisible after editing UI
+    ui->tableWidget_liste_detectors->horizontalHeader()->setVisible(true);
+    ui->tableWidget_liste_bcams->horizontalHeader()->setVisible(true);
 
-        //ouverture de l'input file
-        QObject::connect(ui->actionCharger,SIGNAL(triggered()),this,SLOT(ouvrirDialogue()));
-        ui->actionCharger->setShortcut(QKeySequence("Ctrl+O"));
+    //ouverture de l'input file
+    QObject::connect(ui->actionCharger,SIGNAL(triggered()),this,SLOT(ouvrirDialogue()));
+    ui->actionCharger->setShortcut(QKeySequence("Ctrl+O"));
 
-        QObject::connect(ui->action_Quitter,SIGNAL(triggered()),qApp,SLOT(quit()));
-        ui->action_Quitter->setShortcut(QKeySequence("Ctrl+Q"));
+    QObject::connect(ui->action_Quitter,SIGNAL(triggered()),qApp,SLOT(quit()));
+    ui->action_Quitter->setShortcut(QKeySequence("Ctrl+Q"));
 
-        QObject::connect(ui->actionAbout_Qt,SIGNAL(triggered()),qApp,SLOT(aboutQt()));
-        ui->actionAbout_Qt->setShortcut(QKeySequence("Ctrl+I"));
+    QObject::connect(ui->actionAbout_Qt,SIGNAL(triggered()),qApp,SLOT(aboutQt()));
+    ui->actionAbout_Qt->setShortcut(QKeySequence("Ctrl+I"));
 
-        //clic detecteur-affichage bcam
-        QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAMTable()));
-        QObject::connect(ui->tableWidget_liste_bcams, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAM(int,int)));
+    //clic detecteur-affichage bcam
+    QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAMTable()));
+    QObject::connect(ui->tableWidget_liste_bcams, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAM(int,int)));
 
-        //lancer les acquisitions
-        QObject::connect(ui->Boutton_lancer,SIGNAL(clicked()), this,SLOT(startClosure()));
-        QObject::connect(ui->nextMeasurement,SIGNAL(clicked()), this,SLOT(startClosure()));
-        QObject::connect(ui->repeatButton,SIGNAL(clicked()), this,SLOT(startMonitoring()));
+    //lancer les acquisitions
+    QObject::connect(ui->Boutton_lancer,SIGNAL(clicked()), this,SLOT(startClosure()));
+    QObject::connect(ui->nextMeasurement,SIGNAL(clicked()), this,SLOT(startClosure()));
+    QObject::connect(ui->repeatButton,SIGNAL(clicked()), this,SLOT(startMonitoring()));
 
-        //stopper l'acquisition
-        QObject::connect(ui->boutton_arreter,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
-        QObject::connect(ui->stop,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
-        QObject::connect(ui->stopButton,SIGNAL(clicked()),this,SLOT(stop_repeat_acquisition()));
+    //stopper l'acquisition
+    QObject::connect(ui->boutton_arreter,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
+    QObject::connect(ui->stop,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
+    QObject::connect(ui->stopButton,SIGNAL(clicked()),this,SLOT(stop_repeat_acquisition()));
 
-        QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
+    QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
 
-        QObject::connect(ui->fullPrecision,SIGNAL(stateChanged(int)),this,SLOT(changedFormat(int)));
-        QObject::connect(ui->timeBox, SIGNAL(valueChanged(int)), this, SLOT(changedTimeValue(int)));
-        QObject::connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
-        QObject::connect(ui->airpadBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
+    QObject::connect(ui->fullPrecision,SIGNAL(stateChanged(int)),this,SLOT(changedFormat(int)));
+    QObject::connect(ui->timeBox, SIGNAL(valueChanged(int)), this, SLOT(changedTimeValue(int)));
+    QObject::connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
+    QObject::connect(ui->airpadBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
 
-        askQuestion = true;
+    askQuestion = true;
 
-        setEnabled(true);
+    setEnabled(true);
 
-        ui->tabWidget->setCurrentIndex(0);
+    ui->tabWidget->setCurrentIndex(0);
 
-        std::cout << "Using " << settings.fileName().toStdString() << std::endl;
+    std::cout << "Using " << settings.fileName().toStdString() << std::endl;
 
-        // TODO below
-    //    display(ui->configurationFileLabel, ui->configurationFile, inputFile);
+    // TODO below
+//    display(ui->configurationFileLabel, ui->configurationFile, inputFile);
 
-        fillDetectorTable();
+    fillDetectorTable();
 
-    //    display(ui->calibrationFileLabel, ui->calibrationFile, calibrationFile);
+//    display(ui->calibrationFileLabel, ui->calibrationFile, calibrationFile);
 
 //        display(ui->refFileLabel, ui->refFile, refFile);
 
-        //activation du boutton pour lancer les acquisitions
-        setEnabled(true);
+    //activation du boutton pour lancer les acquisitions
+    setEnabled(true);
 
-        int timeValue = settings.value(TIME_VALUE).value<int>();
-        if (timeValue < 30) {
-            timeValue = 30;
-        }
-        ui->timeBox->setValue(timeValue);
+    int timeValue = settings.value(TIME_VALUE).value<int>();
+    if (timeValue < 30) {
+        timeValue = 30;
+    }
+    ui->timeBox->setValue(timeValue);
 
-        int waitingTimeValue = settings.value(WAITING_TIME_VALUE).value<int>();
-        if (waitingTimeValue < 60) {
-            waitingTimeValue = 60;
-        }
-        ui->waitingTime->setValue(waitingTimeValue);
+    int waitingTimeValue = settings.value(WAITING_TIME_VALUE).value<int>();
+    if (waitingTimeValue < 60) {
+        waitingTimeValue = 60;
+    }
+    ui->waitingTime->setValue(waitingTimeValue);
 
-        int airpadIndex = settings.value(AIRPAD_INDEX).value<int>();
-        ui->airpadBox->setCurrentIndex(airpadIndex);
+    int airpadIndex = settings.value(AIRPAD_INDEX).value<int>();
+    ui->airpadBox->setCurrentIndex(airpadIndex);
 
-        int fullPrecisionFormat = settings.value(FULL_PRESICION_FORMAT).value<int>();
-        ui->fullPrecision->setChecked(fullPrecisionFormat);
+    int fullPrecisionFormat = settings.value(FULL_PRESICION_FORMAT).value<int>();
+    ui->fullPrecision->setChecked(fullPrecisionFormat);
 
-        QString selectedDetectors = settings.value(SELECTED_DETECTORS).value<QString>();
-        QStringList selectedDetectorList = selectedDetectors.split(" ");
-        for (int i=0; i<selectedDetectorList.size(); i++) {
-            for (int r=0; r<ui->tableWidget_liste_detectors->rowCount(); r++) {
-                if (selectedDetectorList[i] == ui->tableWidget_liste_detectors->item(r, 0)->text()) {
-                    ui->tableWidget_liste_detectors->selectRow(r);
-                }
+    QString selectedDetectors = settings.value(SELECTED_DETECTORS).value<QString>();
+    QStringList selectedDetectorList = selectedDetectors.split(" ");
+    for (int i=0; i<selectedDetectorList.size(); i++) {
+        for (int r=0; r<ui->tableWidget_liste_detectors->rowCount(); r++) {
+            if (selectedDetectorList[i] == ui->tableWidget_liste_detectors->item(r, 0)->text()) {
+                ui->tableWidget_liste_detectors->selectRow(r);
             }
         }
+    }
 
-        showBCAMTable();
+    showBCAMTable();
 
-        updateStatusBar();
+    updateStatusBar();
 
-        QString resultFile = settings.value(RESULT_FILE).value<QString>();
-        display(ui->resultFileLabel, ui->resultFile, resultFile);
+    QString resultFile = settings.value(RESULT_FILE).value<QString>();
+    display(ui->resultFileLabel, ui->resultFile, resultFile);
 }
 
 Client::~Client()

@@ -15,7 +15,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -fPIC -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W $(DEFINES)
 CXXFLAGS      = -pipe -O2 -fPIC -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W $(DEFINES)
-INCPATH       = -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I../../ADEPO/server -I../../ADEPO/eigen-eigen-ffa86ffb5570 -I../../ADEPO/common -I../../ADEPO/bridge -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib
+INCPATH       = -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I../../ADEPO/server -I../../ADEPO/eigen-eigen-ffa86ffb5570 -I../../ADEPO/bridge -I../../ADEPO/common -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib
 QMAKE         = /Users/duns/Qt5.4.0/5.4/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -48,12 +48,10 @@ OBJECTS_DIR   = ./
 SOURCES       = ../../ADEPO/server/helmert.cpp \
 		../../ADEPO/server/lwdaq_client.cpp \
 		../../ADEPO/server/server.cpp \
-		../../ADEPO/server/main.cpp \
 		../../ADEPO/server/server_call.cpp moc_lwdaq_client.cpp
 OBJECTS       = helmert.o \
 		lwdaq_client.o \
 		server.o \
-		main.o \
 		server_call.o \
 		moc_lwdaq_client.o
 DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
@@ -194,7 +192,6 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../ADEPO/server/server.h ../../ADEPO/server/helmert.cpp \
 		../../ADEPO/server/lwdaq_client.cpp \
 		../../ADEPO/server/server.cpp \
-		../../ADEPO/server/main.cpp \
 		../../ADEPO/server/server_call.cpp
 QMAKE_TARGET  = server
 DESTDIR       = #avoid trailing-slash linebreak
@@ -235,7 +232,7 @@ first: all
 
 staticlib: $(TARGET)
 
-$(TARGET): /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/server/../common/libcommon.a /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/server/../bridge/libbridge.a $(OBJECTS) $(OBJCOMP) 
+$(TARGET): /Users/duns/cern/git/atlas-adepo/ADEPO-macosx/server/../common/libcommon.a $(OBJECTS) $(OBJCOMP) 
 	-$(DEL_FILE) $(TARGET)
 	$(AR) $(TARGET) $(OBJECTS)
 	$(RANLIB) $(TARGET)
@@ -515,7 +512,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/data.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/spot.h ../../ADEPO/server/server.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/server/helmert.cpp ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/server.cpp ../../ADEPO/server/main.cpp ../../ADEPO/server/server_call.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/server/helmert.cpp ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/server.cpp ../../ADEPO/server/server_call.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -582,7 +579,7 @@ moc_lwdaq_client.cpp: /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Vers
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/lwdaq_client.h
-	/Users/duns/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/cern/git/atlas-adepo/ADEPO/eigen-eigen-ffa86ffb5570 -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
+	/Users/duns/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/cern/git/atlas-adepo/ADEPO/eigen-eigen-ffa86ffb5570 -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1114,78 +1111,6 @@ server.o: ../../ADEPO/server/server.cpp /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtC
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/arch/Inverse_SSE.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/LU.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o ../../ADEPO/server/server.cpp
-
-main.o: ../../ADEPO/server/main.cpp ../../ADEPO/server/server.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
-		../../ADEPO/common/bcam.h \
-		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
-		../../ADEPO/common/calibration.h \
-		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
-		../../ADEPO/common/calib2.h \
-		../../ADEPO/common/configuration.h \
-		../../ADEPO/common/detector.h \
-		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/bcam_config.h \
-		../../ADEPO/common/absolute_distances.h \
-		../../ADEPO/common/atlas_coordinates.h \
-		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/data.h \
-		../../ADEPO/server/dual_spot.h \
-		../../ADEPO/server/spot.h \
-		../../ADEPO/server/mount_coord_spots.h \
-		../../ADEPO/server/mount_coord_prism.h \
-		../../ADEPO/server/global_coord_prism.h \
-		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
-		../../ADEPO/common/result.h \
-		../../ADEPO/server/lwdaq_client.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QtNetwork \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractnetworkcache.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhttpmultipart.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkaccessmanager.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkcookie.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkcookiejar.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkdiskcache.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkreply.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkrequest.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkconfigmanager.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkconfiguration.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworksession.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qauthenticator.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qdnslookup.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhostaddress.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhostinfo.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkinterface.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkproxy.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractsocket.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qlocalserver.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qlocalsocket.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpserver.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpsocket.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qudpsocket.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qssl.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcertificate.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcertificateextension.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcipher.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslconfiguration.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslerror.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslkey.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
-		../../ADEPO/bridge/bridge.h \
-		../../ADEPO/common/setup.h \
-		../../ADEPO/bridge/call.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../ADEPO/server/main.cpp
 
 server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \

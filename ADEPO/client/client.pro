@@ -1,11 +1,12 @@
 QT       += core gui widgets testlib network
 
-TARGET = adepo-client
+TARGET = client
+CONFIG   -= app_bundle
 
-TEMPLATE = app
+TEMPLATE = lib
+CONFIG += staticlib
 
 SOURCES += \
-    main.cpp \
     client_callback.cpp \
     client.cpp
 
@@ -17,6 +18,10 @@ FORMS += \
     client.ui
 
 
+INCLUDEPATH += $$PWD/../bridge
+DEPENDPATH += $$PWD/../bridge
+
+
 unix: LIBS += -L$$OUT_PWD/../common/ -lcommon
 
 INCLUDEPATH += $$PWD/../common
@@ -25,16 +30,4 @@ DEPENDPATH += $$PWD/../common
 unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a
 
 
-unix: LIBS += -L$$OUT_PWD/../bridge/ -lbridge
 
-INCLUDEPATH += $$PWD/../bridge
-DEPENDPATH += $$PWD/../bridge
-
-unix: PRE_TARGETDEPS += $$OUT_PWD/../server/libserver.a
-
-unix: LIBS += -L$$OUT_PWD/../server/ -lserver
-
-INCLUDEPATH += $$PWD/../server
-DEPENDPATH += $$PWD/../server
-
-unix: PRE_TARGETDEPS += $$OUT_PWD/../server/libserver.a

@@ -13,7 +13,6 @@ SOURCES += \
     helmert.cpp \
     lwdaq_client.cpp \
     server.cpp \
-    main.cpp \
     server_call.cpp
 
 HEADERS += \
@@ -28,10 +27,9 @@ HEADERS += \
     spot.h \
     server.h
 
-unix:!mac{
-  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.0/lib
-  QMAKE_RPATH=
-}
+
+INCLUDEPATH += $$PWD/../bridge
+DEPENDPATH += $$PWD/../bridge
 
 
 unix: LIBS += -L$$OUT_PWD/../common/ -lcommon
@@ -42,9 +40,3 @@ DEPENDPATH += $$PWD/../common
 unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a
 
 
-unix: LIBS += -L$$OUT_PWD/../bridge/ -lbridge
-
-INCLUDEPATH += $$PWD/../bridge
-DEPENDPATH += $$PWD/../bridge
-
-unix: PRE_TARGETDEPS += $$OUT_PWD/../bridge/libbridge.a

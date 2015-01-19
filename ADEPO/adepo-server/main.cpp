@@ -5,11 +5,9 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
-    Server *server = new Server();
+    Server server;
 
 //    QObject::connect(server, &Server::closed, &a, &QCoreApplication::quit);
 
     return app.exec();
 }
-
-
