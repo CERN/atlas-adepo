@@ -14,7 +14,8 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    socket_client.cpp
 
 
 unix:!mac{
@@ -42,4 +43,7 @@ INCLUDEPATH += $$PWD/../common
 DEPENDPATH += $$PWD/../common
 
 unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a
+
+HEADERS += \
+    socket_client.h
 

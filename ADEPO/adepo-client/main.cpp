@@ -6,13 +6,13 @@
 #include <QLibraryInfo>
 
 #include "client.h"
-#include "server.h"
+#include "socket_server.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     Client client;
-    Server server(client);
+    SocketServer server(client);
     client.setServer(server);
     //system("mkdir Archive");
     client.show();

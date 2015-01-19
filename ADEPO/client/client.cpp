@@ -24,10 +24,9 @@ QSettings settings("atlas.cern.ch", "ADEPO");
 
 //compteur pour savoir combien de fois l'utilisateur a charge un fichier d'input
 
-Client::Client(Call& callImpl, QWidget *parent) :
+Client::Client(QWidget *parent) :
     QMainWindow(parent),
-    call(callImpl),
-    ui(new Ui::Client)                                                                        //[---> ok
+    ui(new Ui::Client)
 {
     QCoreApplication::setOrganizationName("ATLAS CERN");
     QCoreApplication::setOrganizationDomain("atlas.cern.ch");
@@ -492,7 +491,7 @@ void Client::updateResults(std::map<QString, Result> &results) {
 void Client::startClosure()
 {
     //lancement des acquisitions + calcul
-    call.start();
+    call->start();
 }
 
 void Client::startMonitoring()
@@ -509,15 +508,15 @@ void Client::startMonitoring()
     }
 
     askQuestion = false;
-    call.start();
+    call->start();
 }
 
 void Client::stopAcquisition()
 {
-    call.stop();
+    call->stop();
 }
 
 void Client::stopRepeatAcquisition()
 {
-    call.stop();
+    call->stop();
 }

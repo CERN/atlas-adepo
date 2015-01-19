@@ -21,13 +21,15 @@ namespace Ui {
 class Client;
 }
 
-class Client: public QMainWindow, Callback
+class Client: public QMainWindow, public Callback
 {
         Q_OBJECT
 
 public:
-    explicit Client(Call& callImpl, QWidget *parent = 0);
+    explicit Client(QWidget *parent = 0);
     ~Client();
+
+    void setServer(Call& callImpl) { call = &callImpl; }
 
     void setMode(QString mode);
     void updateAdepoStatus(QString status, int seconds);
@@ -51,7 +53,7 @@ private slots:
     void stopRepeatAcquisition();
 
 private:
-    Call& call;
+    Call* call;
 
     Configuration config;
     Setup setup;

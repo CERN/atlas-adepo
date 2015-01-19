@@ -1,3 +1,4 @@
+/Makefile.client
 /adepo-client.app
 /moc_client.cpp
 /ui_client.h

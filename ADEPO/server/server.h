@@ -19,11 +19,12 @@
 #include "point3f.h"
 #include "setup.h"
 #include "call.h"
+#include "callback.h"
 
 class Server : public Call
 {
 public:
-    Server();
+    Server(Callback& callbackImpl);
     virtual ~Server() {};
 
     void startDAQ(QString runMode, int runTime, bool airpad);
