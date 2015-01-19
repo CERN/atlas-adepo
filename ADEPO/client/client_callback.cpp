@@ -1,15 +1,15 @@
 #include "callback.h"
 
-#include "atlas_bcam.h"
+#include "client.h"
 
-void ATLAS_BCAM::setMode(QString mode) {
-
-}
-
-void ATLAS_BCAM::updateAdepoStatus(QString status, int seconds) {
+void Client::setMode(QString mode) {
 
 }
 
-void ATLAS_BCAM::updateLwdaqStatus(QString status, int seconds) {
+void Client::updateAdepoStatus(QString status, int seconds) {
+
+}
+
+void Client::updateLwdaqStatus(QString status, int seconds) {
 
 }

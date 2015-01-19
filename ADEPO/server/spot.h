@@ -13,7 +13,7 @@ public:
     BCAM getBCAM() const { return mBCAM; }
     double i() const { return mI; }
     double j() const { return mJ; }
-    std::string toString() const { return "tbd"; }
+    QString toString() const { return "tbd"; }
 
 private:
     BCAM mBCAM;

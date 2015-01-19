@@ -10,7 +10,6 @@ CONFIG += staticlib
 INCLUDEPATH += ../eigen-eigen-ffa86ffb5570
 
 SOURCES += \
-    data.cpp \
     helmert.cpp \
     lwdaq_client.cpp \
     server.cpp \

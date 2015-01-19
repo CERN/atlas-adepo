@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ATLAS_BCAM</class>
- <widget class="QMainWindow" name="ATLAS_BCAM">
+ <class>Client</class>
+ <widget class="QMainWindow" name="Client">
   <property name="geometry">
    <rect>
     <x>0</x>

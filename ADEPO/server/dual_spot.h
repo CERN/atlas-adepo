@@ -25,8 +25,8 @@ public:
         std::cout<<"*******************************************Coord Spots*******************************************"<<std::endl;
         std::cout<<"Nom de la BCAM : "<<getBCAM().getName().toStdString()<<std::endl;
         std::cout<<"Nom de la Prism : "<<getPrism().getName().toStdString()<<std::endl;
-        std::cout<<"Coord spot 1 : "<<getSpot1().toString()<<std::endl;
-        std::cout<<"Coord spot 2 : "<<getSpot2().toString()<<std::endl;
+        std::cout<<"Coord spot 1 : "<<getSpot1().toString().toStdString()<<std::endl;
+        std::cout<<"Coord spot 2 : "<<getSpot2().toString().toStdString()<<std::endl;
     }
 
 protected:

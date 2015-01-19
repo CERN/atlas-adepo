@@ -1,5 +1,5 @@
-#ifndef ATLAS_BCAM_H
-#define ATLAS_BCAM_H
+#ifndef CLIENT_H
+#define CLIENT_H
 
 #include <QMainWindow>
 #include <QWidget>
@@ -19,16 +19,16 @@
 #include "util.h"
 
 namespace Ui {
-class ATLAS_BCAM;
+class Client;
 }
 
-class ATLAS_BCAM : public QMainWindow, Callback
+class Client: public QMainWindow, Callback
 {
         Q_OBJECT
 
 public:
-    explicit ATLAS_BCAM(QWidget *parent = 0);
-    ~ATLAS_BCAM();
+    explicit Client(QWidget *parent = 0);
+    ~Client();
 
     void setMode(QString mode);
     void updateAdepoStatus(QString status, int seconds);
@@ -58,7 +58,7 @@ private:
     Configuration config;
     Setup setup;
 
-    Ui::ATLAS_BCAM *ui;
+    Ui::Client *ui;
 //    QString path_fich;
     std::map<QString, Result> results;
     int selectedBCAM;
@@ -86,4 +86,4 @@ private:
     void updateStatusBar();
 };
 
-#endif // ATLAS_BCAM_H
+#endif // CLIENT_H

@@ -5,7 +5,7 @@
 #include <QLocale>
 #include <QLibraryInfo>
 
-#include "atlas_bcam.h"
+#include "client.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     QTranslator translator;
     translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     app.installTranslator(&translator);
-    ATLAS_BCAM window;
+    Client window;
     //system("mkdir Archive");
     window.show();
     return app.exec();

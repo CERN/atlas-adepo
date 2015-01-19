@@ -3,6 +3,4 @@
 - split atlas_bcam.h and cpp into server specific part
 - make server into app w/o
 - make client dep on common only
-- rename atlas_bcam into client
-- get rid of std::string
 

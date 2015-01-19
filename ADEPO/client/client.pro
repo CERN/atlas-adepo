@@ -5,17 +5,16 @@ TARGET = adepo-client
 TEMPLATE = app
 
 SOURCES += \
-    atlas_bcam.cpp \
     main.cpp \
-    read_write_ref.cpp \
-    client_callback.cpp
+    client_callback.cpp \
+    client.cpp
 
 HEADERS += \
-    atlas_bcam.h \
-    float_table_widget_item.h
+    float_table_widget_item.h \
+    client.h
 
 FORMS += \
-    ATLAS_BCAM.ui
+    client.ui
 
 
 unix: LIBS += -L$$OUT_PWD/../common/ -lcommon

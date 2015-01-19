@@ -5,8 +5,8 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-#include "atlas_bcam.h"
-#include "ui_ATLAS_BCAM.h"
+#include "client.h"
+#include "ui_client.h"
 #include "float_table_widget_item.h"
 #include "util.h"
 
@@ -23,9 +23,9 @@ QSettings settings("atlas.cern.ch", "ADEPO");
 
 //compteur pour savoir combien de fois l'utilisateur a charge un fichier d'input
 
-ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
+Client::Client(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::ATLAS_BCAM)                                                                        //[---> ok
+    ui(new Ui::Client)                                                                        //[---> ok
 {
         QString appPath = Util::appDirPath();
         std::cout << appPath.toStdString() << std::endl;
@@ -127,19 +127,19 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
         display(ui->resultFileLabel, ui->resultFile, resultFile);
 }
 
-ATLAS_BCAM::~ATLAS_BCAM()
+Client::~Client()
 {
     delete ui;
 }
 
-void ATLAS_BCAM::setModeLabel(QString mode) {
+void Client::setModeLabel(QString mode) {
     this->mode = mode;
     ui->modeBox->setText(mode);
     ui->modeBox->setReadOnly(true);
 }
 
 
-void ATLAS_BCAM::showBCAM(int row, int /* column */) {
+void Client::showBCAM(int row, int /* column */) {
 //    std::cout << "Selected " << row << std::endl;
     selectedBCAM = row;
     QString prism = ui->tableWidget_liste_bcams->item(row,5)->text();
@@ -178,11 +178,11 @@ void ATLAS_BCAM::showBCAM(int row, int /* column */) {
 }
 
 
-void ATLAS_BCAM::changedAirpad(int index) {
+void Client::changedAirpad(int index) {
     settings.setValue(AIRPAD_INDEX, index);
 }
 
-void ATLAS_BCAM::updateStatusBar() {
+void Client::updateStatusBar() {
     QString adepo;
     if (lwdaqState == LWDAQ_RUN) {
         adepo = adepoState.append(" ").append(QString::number(lwdaqRemainingSeconds)).
@@ -202,7 +202,7 @@ void ATLAS_BCAM::updateStatusBar() {
     QMainWindow::statusBar()->showMessage("ADEPO: "+adepo);
 }
 
-void ATLAS_BCAM::setEnabled(bool enabled) {
+void Client::setEnabled(bool enabled) {
     bool canStart = enabled &&
             ui->tableWidget_liste_bcams->rowCount() > 0 &&
             (lwdaqState != LWDAQ_UNSET && lwdaqState != LWDAQ_IDLE);
@@ -221,7 +221,7 @@ void ATLAS_BCAM::setEnabled(bool enabled) {
     ui->waitingTime->setEnabled(enabled);
 }
 
-void ATLAS_BCAM::display(QLabel *label, QTextBrowser *browser, QString filename) {
+void Client::display(QLabel *label, QTextBrowser *browser, QString filename) {
     label->setText(filename);
     browser->setReadOnly(true);
 
@@ -244,18 +244,18 @@ void ATLAS_BCAM::display(QLabel *label, QTextBrowser *browser, QString filename)
 }
 
 //fonction qui enregistre la valeur du temps d'acquisition entree par l'utilisateur                 [----> ok
-void ATLAS_BCAM::changedTimeValue(int value)
+void Client::changedTimeValue(int value)
 {
     settings.setValue(TIME_VALUE, value);
 }
 
-void ATLAS_BCAM::changedWaitingTimeValue(int value)
+void Client::changedWaitingTimeValue(int value)
 {
     settings.setValue(WAITING_TIME_VALUE, value);
 }
 
 //fonction permettant de charger la liste des detectors après ouverture d'un projet                 [---> ok
-void ATLAS_BCAM::fillDetectorTable()
+void Client::fillDetectorTable()
 {
     //recuperation de la liste des nom des detecteurs
     std::vector<Detector> detectors_data = config.getDetectors();
@@ -287,7 +287,7 @@ void ATLAS_BCAM::fillDetectorTable()
 }
 
 //fonction permettant de charger la liste des BCAMs qui appartiennent a un detector                 [---> ok
-void ATLAS_BCAM::showBCAMTable()
+void Client::showBCAMTable()
 {
     std::cout << "Show BCAM Table" << std::endl;
     int noColumn = ui->tableWidget_liste_detectors->columnCount();
@@ -406,7 +406,7 @@ void ATLAS_BCAM::showBCAMTable()
     }
 }
 
-void ATLAS_BCAM::setResult(int row, Result &result) {
+void Client::setResult(int row, Result &result) {
     QTableWidgetItem *n = new QTableWidgetItem(QString::number(result.getN()));
     ui->tableWidget_results->setItem(row, 3, n);
 
@@ -421,7 +421,7 @@ void ATLAS_BCAM::setResult(int row, Result &result) {
     }
 }
 
-void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision) {
+void Client::setResult(int row, Point3f point, int columnSet, int precision) {
     int firstColumn = 4;
 
     if (point.isValid()) {
@@ -443,7 +443,7 @@ void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision)
 
 
 
-void ATLAS_BCAM::resetDelta() {
+void Client::resetDelta() {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
         QString name = ui->tableWidget_results->item(row, 0)->text();
         Result& r = results[name];
@@ -454,14 +454,14 @@ void ATLAS_BCAM::resetDelta() {
     updateResults(results);
 }
 
-void ATLAS_BCAM::changedFormat(int state) {
+void Client::changedFormat(int state) {
     settings.setValue(FULL_PRESICION_FORMAT, state);
     updateResults(results);
 }
 
 
 
-void ATLAS_BCAM::updateResults(std::map<QString, Result> &results) {
+void Client::updateResults(std::map<QString, Result> &results) {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
         QString prism = ui->tableWidget_results->item(row, 0)->text();
 
@@ -481,13 +481,13 @@ void ATLAS_BCAM::updateResults(std::map<QString, Result> &results) {
 
 
 
-void ATLAS_BCAM::startClosure()
+void Client::startClosure()
 {
     //lancement des acquisitions + calcul
     server.start();
 }
 
-void ATLAS_BCAM::startMonitoring()
+void Client::startMonitoring()
 {
     if (askQuestion) {
         // TODO to be removed, alwasy all on
@@ -504,12 +504,12 @@ void ATLAS_BCAM::startMonitoring()
     server.start();
 }
 
-void ATLAS_BCAM::stopAcquisition()
+void Client::stopAcquisition()
 {
     server.stop();
 }
 
-void ATLAS_BCAM::stopRepeatAcquisition()
+void Client::stopRepeatAcquisition()
 {
     server.stop();
 }
