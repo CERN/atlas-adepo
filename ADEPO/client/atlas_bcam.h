@@ -30,6 +30,10 @@ public:
     explicit ATLAS_BCAM(QWidget *parent = 0);
     ~ATLAS_BCAM();
 
+    void setMode(QString mode);
+    void updateAdepoStatus(QString status, int seconds);
+    void updateLwdaqStatus(QString status, int seconds);
+
 public slots:
 
 signals:
@@ -46,7 +50,6 @@ private slots:
     void startMonitoring();
     void stopAcquisition();
     void stopRepeatAcquisition();
-    void openDialog();
 
 private:
     // tbr
@@ -57,7 +60,7 @@ private:
 
     Ui::ATLAS_BCAM *ui;
 //    QString path_fich;
-    std::map<QString, result> results;
+    std::map<QString, Result> results;
     int selectedBCAM;
     QString mode;
 
@@ -73,10 +76,9 @@ private:
 
     //fonction qui remplie le tableau de detecteurs affiche dans l'interface
     void fillDetectorTable();
-    void openInputDir();
-    void setResult(int row, result& result);
+    void setResult(int row, Result& result);
     void setResult(int row, Point3f point, int columnSet, int precision);
-    void updateResults(std::map<QString, result> &results);
+    void updateResults(std::map<QString, Result> &results);
     void setEnabled(bool enabled);
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);
     void setModeLabel(QString mode);

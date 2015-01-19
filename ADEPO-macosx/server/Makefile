@@ -189,7 +189,6 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../ADEPO/server/data.h \
 		../../ADEPO/server/dual_spot.h \
 		../../ADEPO/server/global_coord_prism.h \
-		../../ADEPO/server/helmert.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/mount_coord_spots.h \
@@ -518,7 +517,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/data.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/helmert.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/spot.h ../../ADEPO/server/server.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/data.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/spot.h ../../ADEPO/server/server.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/server/data.cpp ../../ADEPO/server/helmert.cpp ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/server.cpp ../../ADEPO/server/main.cpp ../../ADEPO/server/server_call.cpp $(DISTDIR)/
 
 
@@ -582,6 +581,9 @@ moc_lwdaq_client.cpp: /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Vers
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslkey.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/lwdaq_client.h
 	/Users/duns/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/cern/git/atlas-adepo/ADEPO/eigen-eigen-ffa86ffb5570 -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
 
@@ -820,28 +822,19 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/ComplexSchur_MKL.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h \
 		../../ADEPO/server/adepo.h \
-		../../ADEPO/server/helmert.h \
-		../../ADEPO/server/data.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
-		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/common/bcam.h \
-		../../ADEPO/server/dual_spot.h \
-		../../ADEPO/server/spot.h \
-		../../ADEPO/server/mount_coord_spots.h \
-		../../ADEPO/server/mount_coord_prism.h \
-		../../ADEPO/server/global_coord_prism.h \
-		../../ADEPO/server/bcam_params.h
+		../../ADEPO/common/prism_correction.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o helmert.o ../../ADEPO/server/helmert.cpp
 
 lwdaq_client.o: ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/lwdaq_client.h \
@@ -879,11 +872,15 @@ lwdaq_client.o: ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/lwdaq_cli
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslerror.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslkey.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		../../ADEPO/bridge/bridge.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o lwdaq_client.o ../../ADEPO/server/lwdaq_client.cpp
 
 server.o: ../../ADEPO/server/server.cpp /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDir \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdir.h \
+		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
@@ -1151,6 +1148,7 @@ main.o: ../../ADEPO/server/main.cpp ../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslkey.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
+		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/common/setup.h \
 		../../ADEPO/bridge/call.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../ADEPO/server/main.cpp
@@ -1220,6 +1218,7 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslkey.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
+		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/common/setup.h \
 		../../ADEPO/bridge/call.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server_call.o ../../ADEPO/server/server_call.cpp

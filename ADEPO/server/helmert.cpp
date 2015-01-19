@@ -8,10 +8,10 @@
 #include "Eigen/QR"
 
 #include "adepo.h"
-#include "helmert.h"
 #include "configuration.h"
+#include "server.h"
 
-void helmert(Configuration& config, Data &data) {
+void Server::helmert(Configuration& config, Data &data) {
 
     for(unsigned int i=0; i<config.getBCAMConfigs().size(); i++) //je parcours la liste des BCAMs dont je dispose
     {

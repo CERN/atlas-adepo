@@ -6,17 +6,17 @@
 
 #include <QString>
 
-class result
+class Result
 {
 public:
-    result() {
+    Result() {
         dateTime = "1970.01.01.00.00.00";
         value = Point3f(false);
         std = Point3f(false);
         n = 0;
         setOffset(value);
     }
-    ~result() {};
+    ~Result() {};
 
     void setName(QString _name) {
         name = _name;

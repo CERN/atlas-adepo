@@ -49,6 +49,25 @@ Server::Server() {
     updateTimer->setInterval(FAST_UPDATE_TIME*1000);
     updateTimer->setSingleShot(false);
     QObject::connect(updateTimer, SIGNAL(timeout()), qApp, SLOT(timeChanged()));
+
+    QString configurationFile = appPath.append(CONFIGURATION_INPUT_FOLDER).append(CONFIGURATION_FILE);
+    config.read(configurationFile);
+
+    helmert(config, data);
+
+    QString result = config.check();
+    if (result != "") {
+        std::cerr << result.toStdString() << std::endl;
+        std::exit(1);
+    }
+
+    //lecture du fichier de calibration
+    QString calibrationFile = appPath.append(CALIBRATION_INPUT_FOLDER).append(CALIBRATION_FILE);
+    calibration.read(calibrationFile);
+
+    // read reference file
+    QString refFile = appPath.append(REFERENCE_INPUT_FOLDER).append(REFERENCE_FILE);
+    reference.read(refFile);
 }
 
 void Server::startDAQ(QString runMode, int runTime, bool useAirpads)

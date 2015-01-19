@@ -187,9 +187,7 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/yacc.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/lex.prf \
 		../../ADEPO/client/client.pro ../../ADEPO/client/atlas_bcam.h \
-		../../ADEPO/client/float_table_widget_item.h \
-		../../ADEPO/client/read_write_ref.h \
-		../../ADEPO/client/result.h ../../ADEPO/client/atlas_bcam.cpp \
+		../../ADEPO/client/float_table_widget_item.h ../../ADEPO/client/atlas_bcam.cpp \
 		../../ADEPO/client/main.cpp \
 		../../ADEPO/client/read_write_ref.cpp \
 		../../ADEPO/client/client_callback.cpp
@@ -534,7 +532,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/client/atlas_bcam.h ../../ADEPO/client/float_table_widget_item.h ../../ADEPO/client/read_write_ref.h ../../ADEPO/client/result.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/client/atlas_bcam.h ../../ADEPO/client/float_table_widget_item.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/client/atlas_bcam.cpp ../../ADEPO/client/main.cpp ../../ADEPO/client/read_write_ref.cpp ../../ADEPO/client/client_callback.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/client/ATLAS_BCAM.ui $(DISTDIR)/
 
@@ -576,15 +574,16 @@ moc_atlas_bcam.cpp: /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Ver
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/absolute_distances.h \
@@ -607,6 +606,8 @@ moc_atlas_bcam.cpp: /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Ver
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/common/reference.h \
+		../../ADEPO/common/result.h \
 		../../ADEPO/server/lwdaq_client.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
@@ -644,7 +645,6 @@ moc_atlas_bcam.cpp: /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Ver
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
 		../../ADEPO/bridge/call.h \
-		../../ADEPO/client/result.h \
 		../../ADEPO/common/util.h \
 		../../ADEPO/client/atlas_bcam.h
 	/Users/duns/Qt5.4.0/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/client -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtTest.framework/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.0/5.4/clang_64/lib ../../ADEPO/client/atlas_bcam.h -o moc_atlas_bcam.cpp
@@ -690,15 +690,16 @@ atlas_bcam.o: ../../ADEPO/client/atlas_bcam.cpp /Users/duns/Qt5.4.0/5.4/clang_64
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/absolute_distances.h \
@@ -721,6 +722,8 @@ atlas_bcam.o: ../../ADEPO/client/atlas_bcam.cpp /Users/duns/Qt5.4.0/5.4/clang_64
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/common/reference.h \
+		../../ADEPO/common/result.h \
 		../../ADEPO/server/lwdaq_client.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
@@ -758,11 +761,9 @@ atlas_bcam.o: ../../ADEPO/client/atlas_bcam.cpp /Users/duns/Qt5.4.0/5.4/clang_64
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
 		../../ADEPO/bridge/call.h \
-		../../ADEPO/client/result.h \
 		../../ADEPO/common/util.h \
 		ui_ATLAS_BCAM.h \
-		../../ADEPO/client/float_table_widget_item.h \
-		../../ADEPO/client/read_write_ref.h
+		../../ADEPO/client/float_table_widget_item.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o atlas_bcam.o ../../ADEPO/client/atlas_bcam.cpp
 
 main.o: ../../ADEPO/client/main.cpp /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QApplication \
@@ -886,15 +887,16 @@ main.o: ../../ADEPO/client/main.cpp /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidge
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/absolute_distances.h \
@@ -917,6 +919,8 @@ main.o: ../../ADEPO/client/main.cpp /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidge
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/common/reference.h \
+		../../ADEPO/common/result.h \
 		../../ADEPO/server/lwdaq_client.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
@@ -954,18 +958,20 @@ main.o: ../../ADEPO/client/main.cpp /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWidge
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
 		../../ADEPO/bridge/call.h \
-		../../ADEPO/client/result.h \
 		../../ADEPO/common/util.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../ADEPO/client/main.cpp
 
 read_write_ref.o: ../../ADEPO/client/read_write_ref.cpp /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		../../ADEPO/client/result.h \
+		../../ADEPO/common/result.h \
 		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/Point3f.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o read_write_ref.o ../../ADEPO/client/read_write_ref.cpp
 
-client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/callback.h
+client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/callback.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		../../ADEPO/bridge/bridge.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client_callback.o ../../ADEPO/client/client_callback.cpp
 
 moc_atlas_bcam.o: moc_atlas_bcam.cpp 

@@ -13,6 +13,8 @@
 #include "calibration.h"
 #include "configuration.h"
 #include "data.h"
+#include "reference.h"
+
 #include "lwdaq_client.h"
 #include "point3f.h"
 #include "setup.h"
@@ -51,6 +53,8 @@ private:
     int writeFileObsMountSystem(QString fileName, QString datetime);
     Point3f changeReference(Point3f coord_sys1, Point3f translation, Point3f rotation);
 
+    void helmert(Configuration &config, Data& data);
+
     QTimer *waitingTimer;
     QTimer *updateTimer;
 
@@ -69,6 +73,7 @@ private:
     Calibration calibration;
     Setup setup;
     Data data;
+    Reference reference;
 };
 
 #endif // SERVER_H

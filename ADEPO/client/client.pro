@@ -12,9 +12,7 @@ SOURCES += \
 
 HEADERS += \
     atlas_bcam.h \
-    float_table_widget_item.h \
-    read_write_ref.h \
-    result.h
+    float_table_widget_item.h
 
 FORMS += \
     ATLAS_BCAM.ui

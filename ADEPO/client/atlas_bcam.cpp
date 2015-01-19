@@ -8,10 +8,8 @@
 #include "atlas_bcam.h"
 #include "ui_ATLAS_BCAM.h"
 #include "float_table_widget_item.h"
-#include "read_write_ref.h"
 #include "util.h"
 
-#define INPUT_FOLDER "input_folder"
 #define AIRPAD_INDEX "airpad_index"
 #define MODE_INDEX "mode_index"
 #define TIME_VALUE "time_value"
@@ -20,19 +18,8 @@
 #define SELECTED_DETECTORS "selected_detectors"
 #define RESULT_FILE "result_file"
 
-/********************************************************************************************/
-#define NAME_CONFIGURATION_FILE "configuration_file.txt"
-#define NAME_CALIBRATION_FILE "BCAM_Parameters.txt"
-#define NAME_REF_FILE "reference_file.txt"
-#define NAME_LWDAQ_FOLDER "LWDAQ"
-/********************************************************************************************/
-
-
 //declaration des variables globales
 QSettings settings("atlas.cern.ch", "ADEPO");
-
-QString path_input_folder;
-bool input_folder_read = false;
 
 //compteur pour savoir combien de fois l'utilisateur a charge un fichier d'input
 
@@ -92,10 +79,17 @@ ATLAS_BCAM::ATLAS_BCAM(QWidget *parent) :
 
         std::cout << "Using " << settings.fileName().toStdString() << std::endl;
 
-        path_input_folder = settings.value(INPUT_FOLDER).value<QString>();
-        if (path_input_folder != NULL) {
-            openInputDir();
-        }
+        // TODO below
+    //    display(ui->configurationFileLabel, ui->configurationFile, inputFile);
+
+        fillDetectorTable();
+
+    //    display(ui->calibrationFileLabel, ui->calibrationFile, calibrationFile);
+
+//        display(ui->refFileLabel, ui->refFile, refFile);
+
+        //activation du boutton pour lancer les acquisitions
+        setEnabled(true);
 
         int timeValue = settings.value(TIME_VALUE).value<int>();
         if (timeValue < 30) {
@@ -210,7 +204,6 @@ void ATLAS_BCAM::updateStatusBar() {
 
 void ATLAS_BCAM::setEnabled(bool enabled) {
     bool canStart = enabled &&
-            !path_input_folder.isEmpty() &&
             ui->tableWidget_liste_bcams->rowCount() > 0 &&
             (lwdaqState != LWDAQ_UNSET && lwdaqState != LWDAQ_IDLE);
     ui->Boutton_lancer->setEnabled(canStart);
@@ -226,64 +219,6 @@ void ATLAS_BCAM::setEnabled(bool enabled) {
     ui->airpadBox->setEnabled(enabled);
     ui->timeBox->setEnabled(enabled);
     ui->waitingTime->setEnabled(enabled);
-}
-
-//ouverture d'une boite de dialogue                                                                 [----> ok
-void ATLAS_BCAM::openDialog()
-{
-    path_input_folder = QFileDialog::getExistingDirectory(this, "Chemin du dossier", QString());
-    openInputDir();
-}
-
-void ATLAS_BCAM::openInputDir() {
-    settings.setValue(INPUT_FOLDER, path_input_folder);
-
-    if(input_folder_read) //gestion du probleme lorsqu'on charge un fichier par dessus l'autre
-    {
-        m_bdd.clear(); //on vide tout car nouveau fichier
-    }
-    input_folder_read = true;
-
-    //chemin du fichier d'entree
-    //path_input_folder = fenetre_ouverture->Get_path_fich();
-
-    //appel pour la lecture de fichier
-    QString inputFile = path_input_folder;
-    inputFile.append("/").append(NAME_CONFIGURATION_FILE);
-    config.read(inputFile);
-
-    display(ui->configurationFileLabel, ui->configurationFile, inputFile);
-
-    //estimation des 6 parametres pour chaque BCAM
-    helmert(m_bdd, config);
-
-    //verification des infos du fichier d'entree
-    QString result = config.check();
-    if (result != "") {
-        std::cerr << result.toStdString() << std::endl;
-        std::exit(1);
-    }
-
-    fillDetectorTable();
-
-    //lecture du fichier de calibration
-    QString calibrationFile = path_input_folder;
-    calibrationFile.append("/").append(NAME_CALIBRATION_FILE);
-    calibration.read(calibrationFile);
-
-    display(ui->calibrationFileLabel, ui->calibrationFile, calibrationFile);
-
-    //recuperation de la partie qui nous interesse du fichier de calibration
-    //clean_calib(m_bdd);
-
-    // read reference file
-    refFile = path_input_folder;
-    refFile.append("/").append(NAME_REF_FILE);
-    readRef(refFile, results);
-    display(ui->refFileLabel, ui->refFile, refFile);
-
-    //activation du boutton pour lancer les acquisitions
-    setEnabled(true);
 }
 
 void ATLAS_BCAM::display(QLabel *label, QTextBrowser *browser, QString filename) {
@@ -442,7 +377,7 @@ void ATLAS_BCAM::showBCAMTable()
 
       // Result Table
       QString prismName = config.getName(prism.getName());
-      result& result = results[prismName];
+      Result& result = results[prismName];
 
       QTableWidgetItem *name = new QTableWidgetItem();
       name->setText(prismName);
@@ -471,7 +406,7 @@ void ATLAS_BCAM::showBCAMTable()
     }
 }
 
-void ATLAS_BCAM::setResult(int row, result& result) {
+void ATLAS_BCAM::setResult(int row, Result &result) {
     QTableWidgetItem *n = new QTableWidgetItem(QString::number(result.getN()));
     ui->tableWidget_results->setItem(row, 3, n);
 
@@ -511,7 +446,7 @@ void ATLAS_BCAM::setResult(int row, Point3f point, int columnSet, int precision)
 void ATLAS_BCAM::resetDelta() {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
         QString name = ui->tableWidget_results->item(row, 0)->text();
-        result& r = results[name];
+        Result& r = results[name];
         r.setOffset(r.getValue());
         results[name] = r;
     }
@@ -526,11 +461,11 @@ void ATLAS_BCAM::changedFormat(int state) {
 
 
 
-void ATLAS_BCAM::updateResults(std::map<QString, result> &results) {
+void ATLAS_BCAM::updateResults(std::map<QString, Result> &results) {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
         QString prism = ui->tableWidget_results->item(row, 0)->text();
 
-        result& r = results[prism];
+        Result& r = results[prism];
         r.setName(prism);
         results[prism] = r;
 
@@ -538,7 +473,8 @@ void ATLAS_BCAM::updateResults(std::map<QString, result> &results) {
     }
     ui->tableWidget_results->resizeColumnsToContents();
 
-    writeRef(refFile, results);
+    // TODO
+//    writeRef(refFile, results);
     display(ui->refFileLabel, ui->refFile, refFile);
 }
 
@@ -566,4 +502,14 @@ void ATLAS_BCAM::startMonitoring()
 
     askQuestion = false;
     server.start();
+}
+
+void ATLAS_BCAM::stopAcquisition()
+{
+    server.stop();
+}
+
+void ATLAS_BCAM::stopRepeatAcquisition()
+{
+    server.stop();
 }

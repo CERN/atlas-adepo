@@ -1,5 +1,7 @@
 #include "callback.h"
 
+#include "atlas_bcam.h"
+
 void ATLAS_BCAM::setMode(QString mode) {
 
 }

@@ -23,7 +23,6 @@ HEADERS += \
     data.h \
     dual_spot.h \
     global_coord_prism.h \
-    helmert.h \
     lwdaq_client.h \
     mount_coord_prism.h \
     mount_coord_spots.h \

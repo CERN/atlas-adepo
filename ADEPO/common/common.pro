@@ -11,7 +11,8 @@ SOURCES += \
     configuration.cpp \
     util.cpp \
     calibration.cpp \
-    setup.cpp
+    setup.cpp \
+    reference.cpp
 
 HEADERS += \
     absolute_distances.h \
@@ -28,4 +29,6 @@ HEADERS += \
     prism_correction.h \
     util.h \
     calibration.h \
-    setup.h
+    setup.h \
+    reference.h \
+    result.h
