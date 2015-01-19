@@ -3,13 +3,7 @@ QT       += core network
 TARGET = bridge
 CONFIG   -= app_bundle
 
-TEMPLATE = lib
-CONFIG += staticlib
-
-SOURCES += \
-    bridge.cpp \
-    call.cpp \
-    callback.cpp
+TEMPLATE = aux
 
 HEADERS += \
     bridge.h \
