@@ -4,6 +4,7 @@
 #include <QPixmapCache>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDateTime>
 
 #include "client.h"
 #include "ui_client.h"
@@ -23,8 +24,9 @@ QSettings settings("atlas.cern.ch", "ADEPO");
 
 //compteur pour savoir combien de fois l'utilisateur a charge un fichier d'input
 
-Client::Client(QWidget *parent) :
+Client::Client(Call& callImpl, QWidget *parent) :
     QMainWindow(parent),
+    call(callImpl),
     ui(new Ui::Client)                                                                        //[---> ok
 {
         QString appPath = Util::appDirPath();
@@ -484,7 +486,7 @@ void Client::updateResults(std::map<QString, Result> &results) {
 void Client::startClosure()
 {
     //lancement des acquisitions + calcul
-    server.start();
+    call.start();
 }
 
 void Client::startMonitoring()
@@ -501,15 +503,15 @@ void Client::startMonitoring()
     }
 
     askQuestion = false;
-    server.start();
+    call.start();
 }
 
 void Client::stopAcquisition()
 {
-    server.stop();
+    call.stop();
 }
 
 void Client::stopRepeatAcquisition()
 {
-    server.stop();
+    call.stop();
 }

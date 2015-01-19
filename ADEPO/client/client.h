@@ -9,11 +9,10 @@
 #include <QTextEdit>
 #include <QString>
 
+#include "call.h"
 #include "callback.h"
 #include "configuration.h"
 #include "setup.h"
-
-#include "server.h"
 
 #include "result.h"
 #include "util.h"
@@ -27,7 +26,7 @@ class Client: public QMainWindow, Callback
         Q_OBJECT
 
 public:
-    explicit Client(QWidget *parent = 0);
+    explicit Client(Call& callImpl, QWidget *parent = 0);
     ~Client();
 
     void setMode(QString mode);
@@ -52,8 +51,7 @@ private slots:
     void stopRepeatAcquisition();
 
 private:
-    // tbr
-    Server server;
+    Call& call;
 
     Configuration config;
     Setup setup;
