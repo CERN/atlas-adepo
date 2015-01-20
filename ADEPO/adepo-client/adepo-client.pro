@@ -4,13 +4,13 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets network
+QT       += core gui widgets network websockets
 
 TARGET = adepo-client
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    socket_server.cpp
+    socket_client.cpp
 
 
 unix: LIBS += -L$$OUT_PWD/../client/ -lclient
@@ -33,5 +33,5 @@ DEPENDPATH += $$PWD/../common
 unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a
 
 HEADERS += \
-    socket_server.h
+    socket_client.h
 

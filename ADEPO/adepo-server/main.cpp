@@ -1,16 +1,16 @@
 #include <QtCore/QCoreApplication>
 
 #include "server.h"
-#include "socket_client.h"
+#include "socket_server.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
-    SocketClient client;
-    Server server(client);
-    client.setServer(server);
+    SocketServer webSocketServer(5687);
+    Server server(webSocketServer);
+    webSocketServer.setServer(server);
 
-//    QObject::connect(server, &Server::closed, &a, &QCoreApplication::quit);
+//    QObject::connect(&webSocketServer, &SocketServer::closed, &app, &QCoreApplication::quit);
 
     return app.exec();
 }

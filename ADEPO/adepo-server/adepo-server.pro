@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core network
+QT       += core network websockets
 
 QT       -= gui
 
@@ -15,7 +15,7 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    socket_client.cpp
+    socket_server.cpp
 
 
 unix:!mac{
@@ -45,5 +45,5 @@ DEPENDPATH += $$PWD/../common
 unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a
 
 HEADERS += \
-    socket_client.h
+    socket_server.h
 
