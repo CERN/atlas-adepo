@@ -1,3 +1,6 @@
+#include <QJsonDocument>
+#include <QJsonObject>
+
 #include "socket_server.h"
 
 SocketServer::SocketServer(quint16 port, QObject *parent) :
@@ -40,9 +43,16 @@ void SocketServer::processTextMessage(QString message)
 
 void SocketServer::processBinaryMessage(QByteArray message)
 {
-    QWebSocket *client = qobject_cast<QWebSocket *>(sender());
-    if (client) {
-//        client->sendBinaryMessage(message);
+    QJsonDocument doc(QJsonDocument::fromJson(message));
+    QJsonObject json = doc.object();
+    QString version = json["jsonrpc"].toString();
+    QString method = json["method"].toString();
+    if (method == "start") {
+        call->start();
+    } else if (method == "stop") {
+        call->stop();
+    } else {
+        std::cerr << "Unimplemented rpc method: " << method.toStdString() << std::endl;
     }
 }
 

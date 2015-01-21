@@ -5,6 +5,8 @@
 #include <QObject>
 #include <QList>
 #include <QWebSocket>
+#include <iostream>
+
 #include <QWebSocketServer>
 
 #include "call.h"
@@ -16,7 +18,7 @@ public:
     SocketServer(quint16 port, QObject *parent = Q_NULLPTR);
     ~SocketServer();
 
-    void setServer(Call& callImpl) {};
+    void setServer(Call& call) { this->call = &call; }
 
     void setMode(QString mode) {};
     void updateAdepoStatus(QString status, int seconds) {};
@@ -34,6 +36,7 @@ private Q_SLOTS:
 private:
     QWebSocketServer *webSocketServer;
     QList<QWebSocket *> clients;
+    Call* call;
 };
 
 #endif // SOCKET_SERVER_H

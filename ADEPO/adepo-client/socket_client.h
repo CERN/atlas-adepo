@@ -15,8 +15,8 @@ public:
     SocketClient(Callback& callback, const QUrl &url, QObject *parent = Q_NULLPTR);
     ~SocketClient() {};
 
-    void start() {};
-    void stop() {};
+    void start();
+    void stop();
 
 Q_SIGNALS:
     void closed();
@@ -26,8 +26,9 @@ private Q_SLOTS:
     void onTextMessageReceived(QString message);
 
 private:
-    QWebSocket webSocket;
+    Callback& callback;
     QUrl url;
+    QWebSocket webSocket;
 };
 
 #endif // SOCKET_CLIENT_H
