@@ -3,6 +3,7 @@
 #include <QJsonArray>
 
 #include "socket_server.h"
+#include "json_rpc.h"
 
 SocketServer::SocketServer(quint16 port, QObject *parent) :
     QObject(parent),
@@ -66,26 +67,42 @@ void SocketServer::socketDisconnected()
 
 
 void SocketServer::setMode(QString mode) {
-    QJsonObject o;
-    o["jsonrpc"] = "2.0";
-    o["method"] = "setMode";
-    QJsonArray p;
-    p.append(mode);
-    o["params"] = p;
-    sendJson(o);
+    JsonRpc rpc("setMode");
+    rpc.append(mode);
+    sendJson(rpc);
 }
 
 void SocketServer::updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) {
-    QJsonObject o;
-    o["jsonrpc"] = "2.0";
-    o["method"] = "updateStatus";
-    QJsonArray p;
-    p.append(adepoStatus);
-    p.append(adepoSeconds);
-    p.append(lwdaqStatus);
-    p.append(lwdaqSeconds);
-    o["params"] = p;
-    sendJson(o);
+    JsonRpc rpc("updateStatus");
+    rpc.append(adepoStatus);
+    rpc.append(adepoSeconds);
+    rpc.append(lwdaqStatus);
+    rpc.append(lwdaqSeconds);
+    sendJson(rpc);
+}
+
+void SocketServer::updateConfigurationFile(QString filename) {
+    JsonRpc rpc("updateConfigurationFile");
+    rpc.append(filename);
+    sendJson(rpc);
+}
+
+void SocketServer::updateCalibrationFile(QString filename) {
+    JsonRpc rpc("updateCalibrationFile");
+    rpc.append(filename);
+    sendJson(rpc);
+}
+
+void SocketServer::updateReferenceFile(QString filename) {
+    JsonRpc rpc("updateReferenceFile");
+    rpc.append(filename);
+    sendJson(rpc);
+}
+
+void SocketServer::updateResultFile(QString filename) {
+    JsonRpc rpc("updateResultFile");
+    rpc.append(filename);
+    sendJson(rpc);
 }
 
 void SocketServer::sendJson(QJsonObject o) {

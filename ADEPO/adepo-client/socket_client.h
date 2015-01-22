@@ -5,6 +5,7 @@
 #include <QWebSocket>
 #include <QUrl>
 #include <QObject>
+#include <QJsonObject>
 
 #include "call.h"
 #include "callback.h"
@@ -26,6 +27,8 @@ private Q_SLOTS:
     void onTextMessageReceived(QString message);
 
 private:
+    void sendJson(QJsonObject o);
+
     Callback& callback;
     QUrl url;
     QWebSocket webSocket;

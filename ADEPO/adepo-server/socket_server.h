@@ -24,6 +24,10 @@ public:
 
     void setMode(QString mode);
     void updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
+    void updateConfigurationFile(QString filename);
+    void updateCalibrationFile(QString filename);
+    void updateReferenceFile(QString filename);
+    void updateResultFile(QString filename);
 
 Q_SIGNALS:
     void closed();

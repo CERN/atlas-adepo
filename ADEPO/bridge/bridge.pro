@@ -8,7 +8,8 @@ TEMPLATE = aux
 HEADERS += \
     bridge.h \
     call.h \
-    callback.h
+    callback.h \
+    json_rpc.h
 
 unix: LIBS += -L$$OUT_PWD/../common/ -lcommon
 
@@ -16,3 +17,5 @@ INCLUDEPATH += $$PWD/../common
 DEPENDPATH += $$PWD/../common
 
 unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a
+
+SOURCES +=

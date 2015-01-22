@@ -122,9 +122,6 @@ void Server::lwdaqStateChanged() {
 
     if (lwdaq_client->getState() == LWDAQ_IDLE) {
         if (needToCalculateResults) {
-            // rename startup script file
-            // TODO
-
             // calculate
             adepoState = ADEPO_CALCULATING;
 //                updateStatusBar();
@@ -219,8 +216,6 @@ QString Server::calculateCoordinates()
    fileName = fileName.append(now).append(".txt");
 
    writeFileObsMountSystem(fileName, now);
-
-//   display(ui->resultFileLabel, ui->resultFile, fileName);
 
 //   settings.setValue(RESULT_FILE, fileName);
 

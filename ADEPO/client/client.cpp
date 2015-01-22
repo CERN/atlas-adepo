@@ -80,20 +80,15 @@ Client::Client(QWidget *parent) :
 
     askQuestion = true;
 
+    lwdaqCanStart = false;
+
     setEnabled(true);
 
     ui->tabWidget->setCurrentIndex(0);
 
     std::cout << "Using " << settings.fileName().toStdString() << std::endl;
 
-    // TODO below
-//    display(ui->configurationFileLabel, ui->configurationFile, inputFile);
-
     fillDetectorTable();
-
-//    display(ui->calibrationFileLabel, ui->calibrationFile, calibrationFile);
-
-//        display(ui->refFileLabel, ui->refFile, refFile);
 
     //activation du boutton pour lancer les acquisitions
     setEnabled(true);

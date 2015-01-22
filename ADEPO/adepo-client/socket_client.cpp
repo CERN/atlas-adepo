@@ -6,6 +6,7 @@
 #include <QJsonArray>
 
 #include "socket_client.h"
+#include "json_rpc.h"
 
 SocketClient::SocketClient(Callback& callback, const QUrl &url, QObject *parent) :
     QObject(parent),
@@ -37,29 +38,39 @@ void SocketClient::onTextMessageReceived(QString message)
     } else if (method == "updateStatus") {
         QJsonArray params = json["params"].toArray();
         callback.updateStatus(params[0].toString(), params[1].toInt(), params[2].toString(), params[3].toInt());
+    } else if (method == "updateConfigurationFile") {
+        QJsonArray params = json["params"].toArray();
+        callback.updateConfigurationFile(params[0].toString());
+    } else if (method == "updateCalibrationFile") {
+        QJsonArray params = json["params"].toArray();
+        callback.updateCalibrationFile(params[0].toString());
+    } else if (method == "updateReferenceFile") {
+        QJsonArray params = json["params"].toArray();
+        callback.updateReferenceFile(params[0].toString());
+    } else if (method == "UpdateResultFile") {
+        QJsonArray params = json["params"].toArray();
+        callback.updateResultFile(params[0].toString());
     } else {
         std::cerr << "Unimplemented rpc method: " << method.toStdString() << std::endl;
     }
 }
 
 void SocketClient::start(QString mode, int runTime, bool airpad) {
-    QJsonObject o;
-    o["jsonrpc"] = "2.0";
-    o["method"] = "start";
-    QJsonArray p;
-    p.append(mode);
-    p.append(runTime);
-    p.append(airpad);
-    o["params"] = p;
-    QJsonDocument doc(o);
-    webSocket.sendTextMessage(doc.toJson());
+    JsonRpc rpc("start");
+    rpc.append(mode);
+    rpc.append(runTime);
+    rpc.append(airpad);
+    sendJson(rpc);
 }
 
 void SocketClient::stop() {
-    QJsonObject o;
-    o["jsonrpc"] = "2.0";
-    o["method"] = "stop";
+    JsonRpc rpc("stop");
+    sendJson(rpc);
+}
+
+void SocketClient::sendJson(QJsonObject o) {
     QJsonDocument doc(o);
-    webSocket.sendTextMessage(doc.toJson());
+    QByteArray json = doc.toJson();
+    webSocket.sendTextMessage(json);
 }
 
