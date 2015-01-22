@@ -34,7 +34,7 @@ public:
     int readLWDAQOutput();
 
     // implementation of Call
-    void start(QString mode);
+    void start(QString mode, int runTime, bool airpad);
     void stop();
 
 private slots:
@@ -42,6 +42,8 @@ private slots:
     void timeChanged();
 
 private:
+    Callback& callback;
+
     int writeSettingsFile(QString settings_file);
     int writeParamsFile(QString params_file);
 

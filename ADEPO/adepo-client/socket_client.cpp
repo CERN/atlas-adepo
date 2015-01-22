@@ -33,21 +33,23 @@ void SocketClient::onTextMessageReceived(QString message)
     QString method = json["method"].toString();
     if (method == "setMode") {
         QJsonArray params = json["params"].toArray();
-        callback.setMode(params.at(0).toString());
+        callback.setMode(params[0].toString());
     } else if (method == "updateStatus") {
         QJsonArray params = json["params"].toArray();
-        callback.updateStatus(params.at(0).toString(), params.at(1).toInt(), params.at(2).toString(), params.at(3).toInt());
+        callback.updateStatus(params[0].toString(), params[1].toInt(), params[2].toString(), params[3].toInt());
     } else {
         std::cerr << "Unimplemented rpc method: " << method.toStdString() << std::endl;
     }
 }
 
-void SocketClient::start(QString mode) {
+void SocketClient::start(QString mode, int runTime, bool airpad) {
     QJsonObject o;
     o["jsonrpc"] = "2.0";
     o["method"] = "start";
     QJsonArray p;
     p.append(mode);
+    p.append(runTime);
+    p.append(airpad);
     o["params"] = p;
     QJsonDocument doc(o);
     webSocket.sendTextMessage(doc.toJson());

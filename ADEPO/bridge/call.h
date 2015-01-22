@@ -11,7 +11,7 @@ public:
     Call() {};
     ~Call() {};
 
-    virtual void start(QString mode) = 0;
+    virtual void start(QString mode, int runTime, bool airpad) = 0;
     virtual void stop() = 0;
 };
 

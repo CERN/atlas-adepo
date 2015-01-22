@@ -140,11 +140,13 @@ Client::~Client()
 }
 
 void Client::setModeLabel(QString mode) {
-    this->mode = mode;
     ui->modeBox->setText(mode);
     ui->modeBox->setReadOnly(true);
 }
 
+QString Client::getMode() {
+    return ui->modeBox->text();
+}
 
 void Client::showBCAM(int row, int /* column */) {
 //    std::cout << "Selected " << row << std::endl;
@@ -217,9 +219,9 @@ void Client::setEnabled(bool enabled) {
     ui->nextMeasurement->setEnabled(canStart);
     ui->repeatButton->setEnabled(canStart);
 
-    ui->boutton_arreter->setEnabled(!enabled && mode == MODE_CLOSURE);
-    ui->stop->setEnabled(!enabled && mode == MODE_CLOSURE);
-    ui->stopButton->setEnabled(!enabled && mode == MODE_MONITORING);
+    ui->boutton_arreter->setEnabled(!enabled && getMode() == MODE_CLOSURE);
+    ui->stop->setEnabled(!enabled && getMode() == MODE_CLOSURE);
+    ui->stopButton->setEnabled(!enabled && getMode() == MODE_MONITORING);
 
     ui->tableWidget_liste_detectors->setEnabled(enabled);
     ui->modeBox->setEnabled(enabled);
@@ -490,14 +492,13 @@ void Client::updateResults(std::map<QString, Result> &results) {
 
 void Client::startClosure()
 {
-    //lancement des acquisitions + calcul
-    call->start(MODE_CLOSURE);
+    call->start(MODE_CLOSURE, ui->timeBox->value(), ui->airpadBox->currentText() == "ON");
 }
 
 void Client::startMonitoring()
 {
     if (askQuestion) {
-        // TODO to be removed, alwasy all on
+        // TODO to be removed, always all on
         //boite de dialogue avant de debuter le mode monitoring
         int reponse = QMessageBox::question(this, "Monitoring Mode",
                                             "Attention, you are in monitoring mode. Make sure you have selected the correct set of detectors.",
@@ -508,7 +509,7 @@ void Client::startMonitoring()
     }
 
     askQuestion = false;
-    call->start(MODE_MONITORING);
+    call->start(MODE_MONITORING, ui->timeBox->value(), ui->airpadBox->currentText() == "ON");
 }
 
 void Client::stopAcquisition()

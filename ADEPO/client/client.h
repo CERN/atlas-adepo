@@ -58,10 +58,8 @@ private:
     Setup setup;
 
     Ui::Client *ui;
-//    QString path_fich;
     std::map<QString, Result> results;
     int selectedBCAM;
-    QString mode;
 
     QString refFile;
     QLabel lwdaqStatus;
@@ -81,6 +79,7 @@ private:
     void setEnabled(bool enabled);
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);
     void setModeLabel(QString mode);
+    QString getMode();
 
     void updateStatusBar();
 };

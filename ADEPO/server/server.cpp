@@ -14,7 +14,7 @@
 #define mm2m 0.001
 #define um2m 0.000001
 
-Server::Server(Callback &callback) {
+Server::Server(Callback &callback) : callback(callback) {
     QString appPath = Util::appDirPath();
 
     // connect to LWDAQ server
@@ -72,9 +72,6 @@ Server::Server(Callback &callback) {
 
 void Server::startDAQ(QString runMode, int runTime, bool useAirpads)
 {
-    //ui->timeBox->value()
-    //ui->airpadBox->currentText() == "ON"
-
     this->runMode = runMode;
     this->useAirpads = useAirpads;
 
