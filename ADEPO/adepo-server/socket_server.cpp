@@ -36,10 +36,7 @@ void SocketServer::onNewConnection()
 
 void SocketServer::processTextMessage(QString message)
 {
-    QWebSocket *client = qobject_cast<QWebSocket *>(sender());
-    if (client) {
-//        client->sendTextMessage(message);
-    }
+    processBinaryMessage(message.toUtf8());
 }
 
 void SocketServer::processBinaryMessage(QByteArray message)
