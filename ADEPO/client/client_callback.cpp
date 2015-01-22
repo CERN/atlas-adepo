@@ -8,5 +8,5 @@ void Client::setMode(QString mode) {
 }
 
 void Client::updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) {
-    updateStatusBar();
+    updateStatusBar(adepoStatus, adepoSeconds, lwdaqStatus, lwdaqSeconds);
 }

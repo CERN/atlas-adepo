@@ -12,7 +12,7 @@ public:
     ~Callback() {};
 
     virtual void setMode(QString mode) = 0;
-    virtual void updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) = 0;
+    virtual void updateStatus(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds) = 0;
 };
 
 #endif // CALLBACK_H

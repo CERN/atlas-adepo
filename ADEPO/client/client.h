@@ -64,12 +64,9 @@ private:
     QString refFile;
     QLabel lwdaqStatus;
 
-    bool askQuestion;
+    bool lwdaqCanStart = false;
 
-    QString lwdaqState;
-    int lwdaqRemainingSeconds;
-    QString adepoState;
-    int adepoRemainingSeconds;
+    bool askQuestion;
 
     //fonction qui remplie le tableau de detecteurs affiche dans l'interface
     void fillDetectorTable();
@@ -81,7 +78,7 @@ private:
     void setModeLabel(QString mode);
     QString getMode();
 
-    void updateStatusBar();
+    void updateStatusBar(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds);
 };
 
 #endif // CLIENT_H

@@ -128,8 +128,6 @@ Client::Client(QWidget *parent) :
 
     showBCAMTable();
 
-    updateStatusBar();
-
     QString resultFile = settings.value(RESULT_FILE).value<QString>();
     display(ui->resultFileLabel, ui->resultFile, resultFile);
 }
@@ -191,21 +189,23 @@ void Client::changedAirpad(int index) {
     settings.setValue(AIRPAD_INDEX, index);
 }
 
-void Client::updateStatusBar() {
+void Client::updateStatusBar(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds) {
     QString adepo;
     if (lwdaqState == LWDAQ_RUN) {
-        adepo = adepoState.append(" ").append(QString::number(lwdaqRemainingSeconds)).
+        adepo = adepoState.append(" ").append(QString::number(lwdaqSeconds)).
                 append(" seconds remaining...");
     }
 
     if (adepoState == ADEPO_RUN) {
             // filled already
     } else if (adepoState == ADEPO_WAITING) {
-        adepo = adepoState.append(" ").append(QString::number(adepoRemainingSeconds)).
+        adepo = adepoState.append(" ").append(QString::number(adepoSeconds)).
                 append(" seconds remaining...");
     } else {
         adepo = adepoState;
     }
+
+    lwdaqCanStart = (lwdaqState != LWDAQ_UNSET && lwdaqState != LWDAQ_IDLE);
 
     lwdaqStatus.setText("LWDAQ: "+lwdaqState);
     QMainWindow::statusBar()->showMessage("ADEPO: "+adepo);
@@ -213,8 +213,7 @@ void Client::updateStatusBar() {
 
 void Client::setEnabled(bool enabled) {
     bool canStart = enabled &&
-            ui->tableWidget_liste_bcams->rowCount() > 0 &&
-            (lwdaqState != LWDAQ_UNSET && lwdaqState != LWDAQ_IDLE);
+            ui->tableWidget_liste_bcams->rowCount() > 0 && lwdaqCanStart;
     ui->Boutton_lancer->setEnabled(canStart);
     ui->nextMeasurement->setEnabled(canStart);
     ui->repeatButton->setEnabled(canStart);
