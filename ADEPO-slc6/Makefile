@@ -28,86 +28,190 @@ COMPRESS      = gzip -9f
 DISTNAME      = ADEPO1.0.0
 DISTDIR = /det/ti/PosMov/git/adepo-test/ADEPO/.tmp/ADEPO1.0.0
 SUBTARGETS    =  \
-		sub-common-common-pro \
-		sub-server-server-pro \
-		sub-client-client-pro
+		sub-common \
+		sub-bridge \
+		sub-server \
+		sub-client \
+		sub-adepo-server \
+		sub-adepo-client \
+		sub-adepo
 
 
-sub-common-common-pro-qmake_all:  FORCE
+sub-common-qmake_all:  FORCE
 	@test -d common/ || mkdir -p common/
 	cd common/ && $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/common/common.pro -d -spec linux-g++ -o Makefile
 	cd common/ && $(MAKE) -f Makefile qmake_all
-sub-common-common-pro: FORCE
+sub-common: FORCE
 	@test -d common/ || mkdir -p common/
 	cd common/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/common/common.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile
-sub-common-common-pro-make_first: FORCE
+sub-common-make_first: FORCE
 	@test -d common/ || mkdir -p common/
 	cd common/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/common/common.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile 
-sub-common-common-pro-all: FORCE
+sub-common-all: FORCE
 	@test -d common/ || mkdir -p common/
 	cd common/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/common/common.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile all
-sub-common-common-pro-clean: FORCE
+sub-common-clean: FORCE
 	@test -d common/ || mkdir -p common/
 	cd common/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/common/common.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile clean
-sub-common-common-pro-distclean: FORCE
+sub-common-distclean: FORCE
 	@test -d common/ || mkdir -p common/
 	cd common/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/common/common.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile distclean
-sub-common-common-pro-install_subtargets: FORCE
+sub-common-install_subtargets: FORCE
 	@test -d common/ || mkdir -p common/
 	cd common/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/common/common.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile install
-sub-common-common-pro-uninstall_subtargets: FORCE
+sub-common-uninstall_subtargets: FORCE
 	@test -d common/ || mkdir -p common/
 	cd common/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/common/common.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile uninstall
-sub-server-server-pro-qmake_all:  FORCE
+sub-bridge-qmake_all:  FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/bridge/bridge.pro -d -spec linux-g++ -o Makefile
+	cd bridge/ && $(MAKE) -f Makefile qmake_all
+sub-bridge: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/bridge/bridge.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile
+sub-bridge-make_first: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/bridge/bridge.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile 
+sub-bridge-all: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/bridge/bridge.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile all
+sub-bridge-clean: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/bridge/bridge.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile clean
+sub-bridge-distclean: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/bridge/bridge.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile distclean
+sub-bridge-install_subtargets: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/bridge/bridge.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile install
+sub-bridge-uninstall_subtargets: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/bridge/bridge.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile uninstall
+sub-server-qmake_all:  FORCE
 	@test -d server/ || mkdir -p server/
 	cd server/ && $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/server/server.pro -d -spec linux-g++ -o Makefile
 	cd server/ && $(MAKE) -f Makefile qmake_all
-sub-server-server-pro: FORCE
+sub-server: FORCE
 	@test -d server/ || mkdir -p server/
 	cd server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/server/server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile
-sub-server-server-pro-make_first: FORCE
+sub-server-make_first: FORCE
 	@test -d server/ || mkdir -p server/
 	cd server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/server/server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile 
-sub-server-server-pro-all: FORCE
+sub-server-all: FORCE
 	@test -d server/ || mkdir -p server/
 	cd server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/server/server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile all
-sub-server-server-pro-clean: FORCE
+sub-server-clean: FORCE
 	@test -d server/ || mkdir -p server/
 	cd server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/server/server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile clean
-sub-server-server-pro-distclean: FORCE
+sub-server-distclean: FORCE
 	@test -d server/ || mkdir -p server/
 	cd server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/server/server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile distclean
-sub-server-server-pro-install_subtargets: FORCE
+sub-server-install_subtargets: FORCE
 	@test -d server/ || mkdir -p server/
 	cd server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/server/server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile install
-sub-server-server-pro-uninstall_subtargets: FORCE
+sub-server-uninstall_subtargets: FORCE
 	@test -d server/ || mkdir -p server/
 	cd server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/server/server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile uninstall
-sub-client-client-pro-qmake_all:  FORCE
+sub-client-qmake_all:  FORCE
 	@test -d client/ || mkdir -p client/
 	cd client/ && $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/client/client.pro -d -spec linux-g++ -o Makefile
 	cd client/ && $(MAKE) -f Makefile qmake_all
-sub-client-client-pro: FORCE
+sub-client: FORCE
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/client/client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile
-sub-client-client-pro-make_first: FORCE
+sub-client-make_first: FORCE
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/client/client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile 
-sub-client-client-pro-all: FORCE
+sub-client-all: FORCE
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/client/client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile all
-sub-client-client-pro-clean: FORCE
+sub-client-clean: FORCE
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/client/client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile clean
-sub-client-client-pro-distclean: FORCE
+sub-client-distclean: FORCE
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/client/client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile distclean
-sub-client-client-pro-install_subtargets: FORCE
+sub-client-install_subtargets: FORCE
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/client/client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile install
-sub-client-client-pro-uninstall_subtargets: FORCE
+sub-client-uninstall_subtargets: FORCE
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/client/client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile uninstall
+sub-adepo-server-qmake_all:  FORCE
+	@test -d adepo-server/ || mkdir -p adepo-server/
+	cd adepo-server/ && $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-server/adepo-server.pro -d -spec linux-g++ -o Makefile
+	cd adepo-server/ && $(MAKE) -f Makefile qmake_all
+sub-adepo-server: FORCE
+	@test -d adepo-server/ || mkdir -p adepo-server/
+	cd adepo-server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-server/adepo-server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile
+sub-adepo-server-make_first: FORCE
+	@test -d adepo-server/ || mkdir -p adepo-server/
+	cd adepo-server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-server/adepo-server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile 
+sub-adepo-server-all: FORCE
+	@test -d adepo-server/ || mkdir -p adepo-server/
+	cd adepo-server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-server/adepo-server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile all
+sub-adepo-server-clean: FORCE
+	@test -d adepo-server/ || mkdir -p adepo-server/
+	cd adepo-server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-server/adepo-server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile clean
+sub-adepo-server-distclean: FORCE
+	@test -d adepo-server/ || mkdir -p adepo-server/
+	cd adepo-server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-server/adepo-server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile distclean
+sub-adepo-server-install_subtargets: FORCE
+	@test -d adepo-server/ || mkdir -p adepo-server/
+	cd adepo-server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-server/adepo-server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile install
+sub-adepo-server-uninstall_subtargets: FORCE
+	@test -d adepo-server/ || mkdir -p adepo-server/
+	cd adepo-server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-server/adepo-server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile uninstall
+sub-adepo-client-qmake_all:  FORCE
+	@test -d adepo-client/ || mkdir -p adepo-client/
+	cd adepo-client/ && $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-client/adepo-client.pro -d -spec linux-g++ -o Makefile
+	cd adepo-client/ && $(MAKE) -f Makefile qmake_all
+sub-adepo-client: FORCE
+	@test -d adepo-client/ || mkdir -p adepo-client/
+	cd adepo-client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-client/adepo-client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile
+sub-adepo-client-make_first: FORCE
+	@test -d adepo-client/ || mkdir -p adepo-client/
+	cd adepo-client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-client/adepo-client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile 
+sub-adepo-client-all: FORCE
+	@test -d adepo-client/ || mkdir -p adepo-client/
+	cd adepo-client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-client/adepo-client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile all
+sub-adepo-client-clean: FORCE
+	@test -d adepo-client/ || mkdir -p adepo-client/
+	cd adepo-client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-client/adepo-client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile clean
+sub-adepo-client-distclean: FORCE
+	@test -d adepo-client/ || mkdir -p adepo-client/
+	cd adepo-client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-client/adepo-client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile distclean
+sub-adepo-client-install_subtargets: FORCE
+	@test -d adepo-client/ || mkdir -p adepo-client/
+	cd adepo-client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-client/adepo-client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile install
+sub-adepo-client-uninstall_subtargets: FORCE
+	@test -d adepo-client/ || mkdir -p adepo-client/
+	cd adepo-client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-client/adepo-client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile uninstall
+sub-adepo-qmake_all:  FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo/adepo.pro -d -spec linux-g++ -o Makefile
+	cd adepo/ && $(MAKE) -f Makefile qmake_all
+sub-adepo: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo/adepo.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile
+sub-adepo-make_first: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo/adepo.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile 
+sub-adepo-all: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo/adepo.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile all
+sub-adepo-clean: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo/adepo.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile clean
+sub-adepo-distclean: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo/adepo.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile distclean
+sub-adepo-install_subtargets: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo/adepo.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile install
+sub-adepo-uninstall_subtargets: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo/adepo.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile uninstall
 
 Makefile: ../ADEPO/ADEPO.pro ../../../Qt5.4.0/mkspecs/linux-g++/qmake.conf ../../../Qt5.4.0/mkspecs/features/spec_pre.prf \
 		../../../Qt5.4.0/mkspecs/common/shell-unix.conf \
@@ -309,26 +413,38 @@ Makefile: ../ADEPO/ADEPO.pro ../../../Qt5.4.0/mkspecs/linux-g++/qmake.conf ../..
 qmake: FORCE
 	@$(QMAKE) -d -spec linux-g++ -o Makefile ../ADEPO/ADEPO.pro
 
-qmake_all: sub-common-common-pro-qmake_all sub-server-server-pro-qmake_all sub-client-client-pro-qmake_all FORCE
+qmake_all: sub-common-qmake_all sub-bridge-qmake_all sub-server-qmake_all sub-client-qmake_all sub-adepo-server-qmake_all sub-adepo-client-qmake_all sub-adepo-qmake_all FORCE
 
-make_first: sub-common-common-pro-make_first sub-server-server-pro-make_first sub-client-client-pro-make_first FORCE
-all: sub-common-common-pro-all sub-server-server-pro-all sub-client-client-pro-all FORCE
-clean: sub-common-common-pro-clean sub-server-server-pro-clean sub-client-client-pro-clean FORCE
-distclean: sub-common-common-pro-distclean sub-server-server-pro-distclean sub-client-client-pro-distclean FORCE
+make_first: sub-common-make_first sub-bridge-make_first sub-server-make_first sub-client-make_first sub-adepo-server-make_first sub-adepo-client-make_first sub-adepo-make_first FORCE
+all: sub-common-all sub-bridge-all sub-server-all sub-client-all sub-adepo-server-all sub-adepo-client-all sub-adepo-all FORCE
+clean: sub-common-clean sub-bridge-clean sub-server-clean sub-client-clean sub-adepo-server-clean sub-adepo-client-clean sub-adepo-clean FORCE
+distclean: sub-common-distclean sub-bridge-distclean sub-server-distclean sub-client-distclean sub-adepo-server-distclean sub-adepo-client-distclean sub-adepo-distclean FORCE
 	-$(DEL_FILE) Makefile
-install_subtargets: sub-common-common-pro-install_subtargets sub-server-server-pro-install_subtargets sub-client-client-pro-install_subtargets FORCE
-uninstall_subtargets: sub-common-common-pro-uninstall_subtargets sub-server-server-pro-uninstall_subtargets sub-client-client-pro-uninstall_subtargets FORCE
+install_subtargets: sub-common-install_subtargets sub-bridge-install_subtargets sub-server-install_subtargets sub-client-install_subtargets sub-adepo-server-install_subtargets sub-adepo-client-install_subtargets sub-adepo-install_subtargets FORCE
+uninstall_subtargets: sub-common-uninstall_subtargets sub-bridge-uninstall_subtargets sub-server-uninstall_subtargets sub-client-uninstall_subtargets sub-adepo-server-uninstall_subtargets sub-adepo-client-uninstall_subtargets sub-adepo-uninstall_subtargets FORCE
 
-sub-common-common-pro-check:
+sub-common-check:
 	@test -d common/ || mkdir -p common/
 	cd common/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/common/common.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile check
-sub-server-server-pro-check:
+sub-bridge-check:
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/bridge/bridge.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile check
+sub-server-check:
 	@test -d server/ || mkdir -p server/
 	cd server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/server/server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile check
-sub-client-client-pro-check:
+sub-client-check:
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/client/client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile check
-check: sub-common-common-pro-check sub-server-server-pro-check sub-client-client-pro-check
+sub-adepo-server-check:
+	@test -d adepo-server/ || mkdir -p adepo-server/
+	cd adepo-server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-server/adepo-server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile check
+sub-adepo-client-check:
+	@test -d adepo-client/ || mkdir -p adepo-client/
+	cd adepo-client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-client/adepo-client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile check
+sub-adepo-check:
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo/adepo.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -f Makefile check
+check: sub-common-check sub-bridge-check sub-server-check sub-client-check sub-adepo-server-check sub-adepo-client-check sub-adepo-check
 install: install_subtargets  FORCE
 
 uninstall:  uninstall_subtargets FORCE
@@ -338,19 +454,35 @@ FORCE:
 dist: distdir FORCE
 	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
 
-distdir: sub-common-common-pro-distdir sub-server-server-pro-distdir sub-client-client-pro-distdir FORCE
+distdir: sub-common-distdir sub-bridge-distdir sub-server-distdir sub-client-distdir sub-adepo-server-distdir sub-adepo-client-distdir sub-adepo-distdir FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents ../../../Qt5.4.0/mkspecs/features/spec_pre.prf ../../../Qt5.4.0/mkspecs/common/shell-unix.conf ../../../Qt5.4.0/mkspecs/common/unix.conf ../../../Qt5.4.0/mkspecs/common/linux.conf ../../../Qt5.4.0/mkspecs/common/gcc-base.conf ../../../Qt5.4.0/mkspecs/common/gcc-base-unix.conf ../../../Qt5.4.0/mkspecs/common/g++-base.conf ../../../Qt5.4.0/mkspecs/common/g++-unix.conf ../../../Qt5.4.0/mkspecs/qconfig.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_bluetooth.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_bluetooth_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_bootstrap_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_clucene_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_concurrent.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_concurrent_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_core.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_core_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_declarative.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_declarative_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_designer.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_designer_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_designercomponents_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_gui.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_gui_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_help.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_help_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_location.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_location_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_multimedia.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_multimedia_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_multimediawidgets.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_multimediawidgets_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_network.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_network_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_nfc.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_nfc_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_opengl.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_opengl_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_openglextensions.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_openglextensions_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_platformsupport_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_positioning.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_positioning_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_printsupport.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_printsupport_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_qml.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_qml_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_qmldevtools_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_qmltest.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_qmltest_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_quick.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_quick_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_quickparticles_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_quickwidgets.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_quickwidgets_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_script.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_script_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_scripttools.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_scripttools_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_sensors.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_sensors_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_serialport.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_serialport_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_sql.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_sql_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_svg.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_svg_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_testlib.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_testlib_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_uitools.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_uitools_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_webchannel.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_webchannel_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_websockets.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_websockets_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_widgets.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_widgets_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_x11extras.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_x11extras_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_xml.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_xml_private.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_xmlpatterns.pri ../../../Qt5.4.0/mkspecs/modules/qt_lib_xmlpatterns_private.pri ../../../Qt5.4.0/mkspecs/features/qt_functions.prf ../../../Qt5.4.0/mkspecs/features/qt_config.prf ../../../Qt5.4.0/mkspecs/linux-g++/qmake.conf ../../../Qt5.4.0/mkspecs/features/spec_post.prf ../../../Qt5.4.0/mkspecs/features/exclusive_builds.prf ../../../Qt5.4.0/mkspecs/features/default_pre.prf ../../../Qt5.4.0/mkspecs/features/resolve_config.prf ../../../Qt5.4.0/mkspecs/features/default_post.prf ../../../Qt5.4.0/mkspecs/features/warn_on.prf ../../../Qt5.4.0/mkspecs/features/testcase_targets.prf ../../../Qt5.4.0/mkspecs/features/exceptions.prf ../../../Qt5.4.0/mkspecs/features/yacc.prf ../../../Qt5.4.0/mkspecs/features/lex.prf ../ADEPO/ADEPO.pro $(DISTDIR)/
 
-sub-common-common-pro-distdir: FORCE
+sub-common-distdir: FORCE
 	@test -d common/ || mkdir -p common/
 	cd common/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/common/common.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/common
 
-sub-server-server-pro-distdir: FORCE
+sub-bridge-distdir: FORCE
+	@test -d bridge/ || mkdir -p bridge/
+	cd bridge/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/bridge/bridge.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/bridge
+
+sub-server-distdir: FORCE
 	@test -d server/ || mkdir -p server/
 	cd server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/server/server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/server
 
-sub-client-client-pro-distdir: FORCE
+sub-client-distdir: FORCE
 	@test -d client/ || mkdir -p client/
 	cd client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/client/client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/client
+
+sub-adepo-server-distdir: FORCE
+	@test -d adepo-server/ || mkdir -p adepo-server/
+	cd adepo-server/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-server/adepo-server.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/adepo-server
+
+sub-adepo-client-distdir: FORCE
+	@test -d adepo-client/ || mkdir -p adepo-client/
+	cd adepo-client/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo-client/adepo-client.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/adepo-client
+
+sub-adepo-distdir: FORCE
+	@test -d adepo/ || mkdir -p adepo/
+	cd adepo/ && ( test -e Makefile || $(QMAKE) /det/ti/PosMov/git/adepo-test/ADEPO/adepo/adepo.pro -d -spec linux-g++ -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/adepo
 

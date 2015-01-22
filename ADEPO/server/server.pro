@@ -39,4 +39,3 @@ DEPENDPATH += $$PWD/../common
 
 unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a
 
-
