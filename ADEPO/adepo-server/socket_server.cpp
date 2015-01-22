@@ -1,5 +1,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 
 #include "socket_server.h"
 
@@ -48,7 +49,8 @@ void SocketServer::processBinaryMessage(QByteArray message)
     QString version = json["jsonrpc"].toString();
     QString method = json["method"].toString();
     if (method == "start") {
-        call->start();
+        QJsonArray params = json["params"].toArray();
+        call->start(params.at(0).toString());
     } else if (method == "stop") {
         call->stop();
     } else {
@@ -64,3 +66,38 @@ void SocketServer::socketDisconnected()
         client->deleteLater();
     }
 }
+
+
+void SocketServer::setMode(QString mode) {
+    QJsonObject o;
+    o["jsonrpc"] = "2.0";
+    o["method"] = "setMode";
+    QJsonArray p;
+    p.append(mode);
+    o["params"] = p;
+    sendJson(o);
+}
+
+void SocketServer::updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) {
+    QJsonObject o;
+    o["jsonrpc"] = "2.0";
+    o["method"] = "updateStatus";
+    QJsonArray p;
+    p.append(adepoStatus);
+    p.append(adepoSeconds);
+    p.append(lwdaqStatus);
+    p.append(lwdaqSeconds);
+    o["params"] = p;
+    sendJson(o);
+}
+
+void SocketServer::sendJson(QJsonObject o) {
+    QJsonDocument doc(o);
+    QByteArray json = doc.toJson();
+    QList<QWebSocket*>::iterator client = clients.begin();
+    while (client != clients.end()) {
+        (*client)->sendTextMessage(json);
+        ++client;
+    }
+}
+

@@ -491,7 +491,7 @@ void Client::updateResults(std::map<QString, Result> &results) {
 void Client::startClosure()
 {
     //lancement des acquisitions + calcul
-    call->start();
+    call->start(MODE_CLOSURE);
 }
 
 void Client::startMonitoring()
@@ -508,7 +508,7 @@ void Client::startMonitoring()
     }
 
     askQuestion = false;
-    call->start();
+    call->start(MODE_MONITORING);
 }
 
 void Client::stopAcquisition()

@@ -1,5 +1,9 @@
+#include <iostream>
+
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
 
 #include "socket_client.h"
 
@@ -23,13 +27,28 @@ void SocketClient::onConnected()
 void SocketClient::onTextMessageReceived(QString message)
 {
     qDebug() << "Message received:" << message;
-//    webSocket.close();
+    QJsonDocument doc(QJsonDocument::fromJson(message.toUtf8()));
+    QJsonObject json = doc.object();
+    QString version = json["jsonrpc"].toString();
+    QString method = json["method"].toString();
+    if (method == "setMode") {
+        QJsonArray params = json["params"].toArray();
+        callback.setMode(params.at(0).toString());
+    } else if (method == "updateStatus") {
+        QJsonArray params = json["params"].toArray();
+        callback.updateStatus(params.at(0).toString(), params.at(1).toInt(), params.at(2).toString(), params.at(3).toInt());
+    } else {
+        std::cerr << "Unimplemented rpc method: " << method.toStdString() << std::endl;
+    }
 }
 
-void SocketClient::start() {
+void SocketClient::start(QString mode) {
     QJsonObject o;
     o["jsonrpc"] = "2.0";
     o["method"] = "start";
+    QJsonArray p;
+    p.append(mode);
+    o["params"] = p;
     QJsonDocument doc(o);
     webSocket.sendTextMessage(doc.toJson());
 }

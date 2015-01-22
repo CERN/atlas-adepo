@@ -6,10 +6,6 @@ void Client::setMode(QString mode) {
 
 }
 
-void Client::updateAdepoStatus(QString status, int seconds) {
-
-}
-
-void Client::updateLwdaqStatus(QString status, int seconds) {
+void Client::updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) {
 
 }

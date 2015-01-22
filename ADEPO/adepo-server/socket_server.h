@@ -5,6 +5,8 @@
 #include <QObject>
 #include <QList>
 #include <QWebSocket>
+#include <QJsonObject>
+
 #include <iostream>
 
 #include <QWebSocketServer>
@@ -20,9 +22,8 @@ public:
 
     void setServer(Call& call) { this->call = &call; }
 
-    void setMode(QString mode) {};
-    void updateAdepoStatus(QString status, int seconds) {};
-    void updateLwdaqStatus(QString status, int seconds) {};
+    void setMode(QString mode);
+    void updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
 
 Q_SIGNALS:
     void closed();
@@ -34,6 +35,8 @@ private Q_SLOTS:
     void socketDisconnected();
 
 private:
+    void sendJson(QJsonObject o);
+
     QWebSocketServer *webSocketServer;
     QList<QWebSocket *> clients;
     Call* call;

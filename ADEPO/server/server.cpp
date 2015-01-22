@@ -14,7 +14,7 @@
 #define mm2m 0.001
 #define um2m 0.000001
 
-Server::Server(Callback &callbackImpl) {
+Server::Server(Callback &callback) {
     QString appPath = Util::appDirPath();
 
     // connect to LWDAQ server

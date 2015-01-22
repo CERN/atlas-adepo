@@ -32,8 +32,7 @@ public:
     void setServer(Call& callImpl) { call = &callImpl; }
 
     void setMode(QString mode);
-    void updateAdepoStatus(QString status, int seconds);
-    void updateLwdaqStatus(QString status, int seconds);
+    void updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
 
 public slots:
 

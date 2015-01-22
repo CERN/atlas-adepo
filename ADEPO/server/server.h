@@ -24,7 +24,7 @@
 class Server : public Call
 {
 public:
-    Server(Callback& callbackImpl);
+    Server(Callback& callback);
     virtual ~Server() {};
 
     void startDAQ(QString runMode, int runTime, bool airpad);
@@ -34,7 +34,7 @@ public:
     int readLWDAQOutput();
 
     // implementation of Call
-    void start();
+    void start(QString mode);
     void stop();
 
 private slots:
