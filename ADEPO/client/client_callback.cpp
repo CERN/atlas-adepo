@@ -4,10 +4,17 @@
 #include "ui_client.h"
 
 void Client::setMode(QString mode) {
-    setModeLabel(mode);
+    ui->modeBox->setText(mode);
+    ui->modeBox->setReadOnly(true);
 }
 
-void Client::updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) {
+void Client::setSelectedDetectors(std::vector<int> detectors) {
+   for (unsigned int i=0; i<detectors.size(); i++) {
+       ui->tableWidget_liste_detectors->selectRow(detectors[i]);
+   }
+}
+
+void Client::updateState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) {
     updateStatusBar(adepoStatus, adepoSeconds, lwdaqStatus, lwdaqSeconds);
 }
 

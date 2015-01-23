@@ -48,12 +48,7 @@ void SocketServer::processBinaryMessage(QByteArray message)
     QString method = json["method"].toString();
     if (method == "start") {
         QJsonArray params = json["params"].toArray();
-        std::vector<int> p3;
-        QJsonArray a3 = params[3].toArray();
-        for (int i=0; i< a3.size(); i++) {
-            p3.push_back(a3[i].toInt());
-        }
-        call->start(params[0].toString(), params[1].toInt(), params[2].toBool(), p3);
+        call->start(params[0].toString(), params[1].toInt(), params[2].toBool(), JsonRpc::fromIntArray(params[3].toArray()));
     } else if (method == "stop") {
         call->stop();
     } else {
@@ -77,8 +72,14 @@ void SocketServer::setMode(QString mode) {
     sendJson(rpc);
 }
 
-void SocketServer::updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) {
-    JsonRpc rpc("updateStatus");
+void SocketServer::setSelectedDetectors(std::vector<int> detectors) {
+    JsonRpc rpc("setSelectedDetectors");
+    rpc.append(rpc.toIntArray(detectors));
+    sendJson(rpc);
+}
+
+void SocketServer::updateState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) {
+    JsonRpc rpc("updateState");
     rpc.append(adepoStatus);
     rpc.append(adepoSeconds);
     rpc.append(lwdaqStatus);

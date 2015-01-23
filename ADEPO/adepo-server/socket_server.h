@@ -8,6 +8,7 @@
 #include <QJsonObject>
 
 #include <iostream>
+#include <vector>
 
 #include <QWebSocketServer>
 
@@ -23,7 +24,8 @@ public:
     void setServer(Call& call) { this->call = &call; }
 
     void setMode(QString mode);
-    void updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
+    void setSelectedDetectors(std::vector<int> detectors);
+    void updateState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
     void updateConfigurationFile(QString filename);
     void updateCalibrationFile(QString filename);
     void updateReferenceFile(QString filename);

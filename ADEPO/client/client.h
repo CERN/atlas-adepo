@@ -1,6 +1,8 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
+#include <vector>
+
 #include <QMainWindow>
 #include <QWidget>
 #include <QTextBrowser>
@@ -32,7 +34,8 @@ public:
     void setServer(Call& callImpl) { call = &callImpl; }
 
     void setMode(QString mode);
-    void updateStatus(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
+    void setSelectedDetectors(std::vector<int> detectors);
+    void updateState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
     void updateConfigurationFile(QString filename);
     void updateCalibrationFile(QString filename);
     void updateReferenceFile(QString filename);
@@ -81,7 +84,6 @@ private:
     void updateResults(std::map<QString, Result> &results);
     void setEnabled(bool enabled);
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);
-    void setModeLabel(QString mode);
     QString getMode();
 
     void updateStatusBar(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds);

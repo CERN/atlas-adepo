@@ -110,17 +110,6 @@ Client::Client(QWidget *parent) :
     int fullPrecisionFormat = settings.value(FULL_PRESICION_FORMAT).value<int>();
     ui->fullPrecision->setChecked(fullPrecisionFormat);
 
-    // TODO update selected detectors
-//    QString selectedDetectors = settings.value(SELECTED_DETECTORS).value<QString>();
-//    QStringList selectedDetectorList = selectedDetectors.split(" ");
-//    for (int i=0; i<selectedDetectorList.size(); i++) {
-//        for (int r=0; r<ui->tableWidget_liste_detectors->rowCount(); r++) {
-//            if (selectedDetectorList[i] == ui->tableWidget_liste_detectors->item(r, 0)->text()) {
-//                ui->tableWidget_liste_detectors->selectRow(r);
-//            }
-//        }
-//    }
-
     showBCAMTable();
 
     QString resultFile = settings.value(RESULT_FILE).value<QString>();
@@ -130,11 +119,6 @@ Client::Client(QWidget *parent) :
 Client::~Client()
 {
     delete ui;
-}
-
-void Client::setModeLabel(QString mode) {
-    ui->modeBox->setText(mode);
-    ui->modeBox->setReadOnly(true);
 }
 
 QString Client::getMode() {

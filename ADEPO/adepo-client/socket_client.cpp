@@ -35,9 +35,12 @@ void SocketClient::onTextMessageReceived(QString message)
     if (method == "setMode") {
         QJsonArray params = json["params"].toArray();
         callback.setMode(params[0].toString());
-    } else if (method == "updateStatus") {
+    } else if (method == "setSelectedDetectors") {
         QJsonArray params = json["params"].toArray();
-        callback.updateStatus(params[0].toString(), params[1].toInt(), params[2].toString(), params[3].toInt());
+        callback.setSelectedDetectors(JsonRpc::fromIntArray(params[0].toArray()));
+    } else if (method == "updateState") {
+        QJsonArray params = json["params"].toArray();
+        callback.updateState(params[0].toString(), params[1].toInt(), params[2].toString(), params[3].toInt());
     } else if (method == "updateConfigurationFile") {
         QJsonArray params = json["params"].toArray();
         callback.updateConfigurationFile(params[0].toString());
@@ -60,11 +63,7 @@ void SocketClient::start(QString mode, int runTime, bool airpad, std::vector<int
     rpc.append(mode);
     rpc.append(runTime);
     rpc.append(airpad);
-    QJsonArray a3;
-    for (unsigned int i=0; i<detectors.size(); i++) {
-        a3.push_back(detectors[i]);
-    }
-    rpc.append(a3);
+    rpc.append(JsonRpc::toIntArray(detectors));
     sendJson(rpc);
 }
 
