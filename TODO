@@ -1,6 +1,3 @@
-- remove bridge from client
 - make LWDAQ_Client into default constructor
-- split atlas_bcam.h and cpp into server specific part
-- make server into app w/o
-- make client dep on common only
+- on connection, send all initial values
 

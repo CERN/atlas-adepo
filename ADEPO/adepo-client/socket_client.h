@@ -16,7 +16,7 @@ public:
     SocketClient(Callback& callback, const QUrl &url, QObject *parent = Q_NULLPTR);
     ~SocketClient() {};
 
-    void start(QString mode, int runTime, bool airpad);
+    void start(QString mode, int runTime, bool airpad, std::vector<int> detectors);
     void stop();
 
 Q_SIGNALS:

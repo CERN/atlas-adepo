@@ -65,6 +65,8 @@ private:
     std::map<QString, Result> results;
     int selectedBCAM;
 
+    std::vector<int> selectedDetectors;
+
     QString refFile;
     QLabel lwdaqStatus;
 

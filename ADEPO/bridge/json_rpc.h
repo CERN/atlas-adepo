@@ -2,6 +2,7 @@
 #define JSONRPC_H
 
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QString>
 
 class JsonRpc : public QJsonObject
@@ -24,6 +25,10 @@ public:
 
     void append(bool b) {
         params.append(b);
+    }
+
+    void append(QJsonArray a) {
+        params.append(a);
     }
 
 private:

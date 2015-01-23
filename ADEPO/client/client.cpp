@@ -16,7 +16,6 @@
 #define TIME_VALUE "time_value"
 #define WAITING_TIME_VALUE "waiting_time_value"
 #define FULL_PRESICION_FORMAT "full_precision_format"
-#define SELECTED_DETECTORS "selected_detectors"
 #define RESULT_FILE "result_file"
 
 //declaration des variables globales
@@ -111,15 +110,16 @@ Client::Client(QWidget *parent) :
     int fullPrecisionFormat = settings.value(FULL_PRESICION_FORMAT).value<int>();
     ui->fullPrecision->setChecked(fullPrecisionFormat);
 
-    QString selectedDetectors = settings.value(SELECTED_DETECTORS).value<QString>();
-    QStringList selectedDetectorList = selectedDetectors.split(" ");
-    for (int i=0; i<selectedDetectorList.size(); i++) {
-        for (int r=0; r<ui->tableWidget_liste_detectors->rowCount(); r++) {
-            if (selectedDetectorList[i] == ui->tableWidget_liste_detectors->item(r, 0)->text()) {
-                ui->tableWidget_liste_detectors->selectRow(r);
-            }
-        }
-    }
+    // TODO update selected detectors
+//    QString selectedDetectors = settings.value(SELECTED_DETECTORS).value<QString>();
+//    QStringList selectedDetectorList = selectedDetectors.split(" ");
+//    for (int i=0; i<selectedDetectorList.size(); i++) {
+//        for (int r=0; r<ui->tableWidget_liste_detectors->rowCount(); r++) {
+//            if (selectedDetectorList[i] == ui->tableWidget_liste_detectors->item(r, 0)->text()) {
+//                ui->tableWidget_liste_detectors->selectRow(r);
+//            }
+//        }
+//    }
 
     showBCAMTable();
 
@@ -296,35 +296,28 @@ void Client::showBCAMTable()
     int noColumn = ui->tableWidget_liste_detectors->columnCount();
 
     //recuperation du nombre de detecteurs
-    int nb_detectors = ui->tableWidget_liste_detectors->selectedItems().size()/noColumn;
+    int noOfdetectors = ui->tableWidget_liste_detectors->selectedItems().size()/noColumn;
 
     setup.getBCAMs().clear();
 
-    QString selectedDetectors("");
+    selectedDetectors.clear();
 
     //recuperation des donnees a afficher
-    for(int i=0; i<nb_detectors; i++)
+    for(int i=0; i<noOfdetectors; i++)
     {
         //recuperation de l'identifiant du detecteur
-        QString id_detector = ui->tableWidget_liste_detectors->selectedItems().at(i*noColumn)->text();
+        int detectorId = ui->tableWidget_liste_detectors->selectedItems().at(i*noColumn)->text().toInt();
 
-        if (i > 0) selectedDetectors = selectedDetectors.append(" ");
-        selectedDetectors = selectedDetectors.append(id_detector);
+        selectedDetectors.push_back(detectorId);
 
         //recuperation des donnes a afficher
-        std::vector<BCAM> bcams = setup.getBCAMs(id_detector.toInt(), config);
+        std::vector<BCAM> bcams = setup.getBCAMs(detectorId, config);
 
         //insertion dans la tableWidget qui affiche les bcams
         for (unsigned int j=0; j<bcams.size(); j++) {
             setup.getBCAMs().push_back(bcams.at(j));
         }
-
-        //ecriture du script d'acquisition des detecteurs selectionnees
-// TODO
-//        server.write_script_file(config, appDirPath()+"/"+DEFAULT_SCRIPT_FILE, setup.getBCAMs());
     }
-
-    settings.setValue(SELECTED_DETECTORS, selectedDetectors);
 
     // nombre de lignes dans la table
     ui->tableWidget_liste_bcams->setRowCount(setup.getBCAMs().size());
@@ -476,7 +469,7 @@ void Client::updateResults(std::map<QString, Result> &results) {
     }
     ui->tableWidget_results->resizeColumnsToContents();
 
-    // TODO
+    // TODO write ref file
 //    writeRef(refFile, results);
     display(ui->refFileLabel, ui->refFile, refFile);
 }
@@ -486,7 +479,7 @@ void Client::updateResults(std::map<QString, Result> &results) {
 
 void Client::startClosure()
 {
-    call->start(MODE_CLOSURE, ui->timeBox->value(), ui->airpadBox->currentText() == "ON");
+    call->start(MODE_CLOSURE, ui->timeBox->value(), ui->airpadBox->currentText() == "ON", selectedDetectors);
 }
 
 void Client::startMonitoring()
@@ -503,7 +496,7 @@ void Client::startMonitoring()
     }
 
     askQuestion = false;
-    call->start(MODE_MONITORING, ui->timeBox->value(), ui->airpadBox->currentText() == "ON");
+    call->start(MODE_MONITORING, ui->timeBox->value(), ui->airpadBox->currentText() == "ON", selectedDetectors);
 }
 
 void Client::stopAcquisition()

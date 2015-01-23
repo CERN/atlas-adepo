@@ -48,7 +48,12 @@ void SocketServer::processBinaryMessage(QByteArray message)
     QString method = json["method"].toString();
     if (method == "start") {
         QJsonArray params = json["params"].toArray();
-        call->start(params[0].toString(), params[1].toInt(), params[2].toBool());
+        std::vector<int> p3;
+        QJsonArray a3 = params[3].toArray();
+        for (int i=0; i< a3.size(); i++) {
+            p3.push_back(a3[i].toInt());
+        }
+        call->start(params[0].toString(), params[1].toInt(), params[2].toBool(), p3);
     } else if (method == "stop") {
         call->stop();
     } else {

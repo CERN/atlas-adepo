@@ -70,16 +70,30 @@ Server::Server(Callback &callback) : callback(callback) {
     reference.read(refFile);
 }
 
-void Server::startDAQ(QString runMode, int runTime, bool useAirpads)
+void Server::startDAQ(QString runMode, int runTime, bool useAirpads, std::vector<int> detectors)
 {
     this->runMode = runMode;
     this->useAirpads = useAirpads;
+
+    setup.getBCAMs().clear();
+    for(unsigned int i=0; i<detectors.size(); i++)
+    {
+        //recuperation des donnes a afficher
+        std::vector<BCAM> bcams = setup.getBCAMs(detectors[i], config);
+
+        //insertion dans la tableWidget qui affiche les bcams
+        for (unsigned int j=0; j<bcams.size(); j++) {
+            setup.getBCAMs().push_back(bcams.at(j));
+        }
+    }
 
     QString dir = Util::appDirPath();
 
     writeParamsFile(dir + "/" + DEFAULT_PARAM_FILE);
 
     writeSettingsFile(dir + "/" + DEFAULT_SETTINGS_FILE);
+
+    writeScriptFile(dir+"/"+DEFAULT_SCRIPT_FILE);
 
     //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
     std::cout << "*** Removing " << resultFile.toStdString() << std::endl;
@@ -197,11 +211,11 @@ QString Server::calculateCoordinates()
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mountPrismToGlobalPrism();
 
-// TODO
+// TODO or not, as the results can be calculated when read in the client
 //   calculateResults(data, results);
 
    std::cout << "Updating Results..." << std::endl;
-// TODO
+// TODO same as above
 //   updateResults(results);
 
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
@@ -227,7 +241,7 @@ QString Server::calculateCoordinates()
 
 
 //fonction qui permet de generer un script d'acquisition                                            [---> ok
-int Server::writeScriptFile(QString fileName, std::vector<BCAM> &bcams)
+int Server::writeScriptFile(QString fileName)
 {
     QString ipAddress = config.getDriverIpAddress();
 
@@ -274,6 +288,8 @@ int Server::writeScriptFile(QString fileName, std::vector<BCAM> &bcams)
            <<"\t intensify exact \n"
            <<"end. \n"
            <<"\n";
+
+        std::vector<BCAM> bcams = setup.getBCAMs();
 
         //écriture dans le fichier de la partie acquisition du script : un paragraphe par BCAM
         for(unsigned int i=0; i<bcams.size(); i++)

@@ -27,14 +27,13 @@ public:
     Server(Callback& callback);
     virtual ~Server() {};
 
-    void startDAQ(QString runMode, int runTime, bool airpad);
+    void startDAQ(QString runMode, int runTime, bool airpad, std::vector<int> detectors);
     void stopDAQ();
     QString calculateCoordinates();
-    int writeScriptFile(QString fileName, std::vector<BCAM> &bcams);
     int readLWDAQOutput();
 
     // implementation of Call
-    void start(QString mode, int runTime, bool airpad);
+    void start(QString mode, int runTime, bool airpad, std::vector<int> detectors);
     void stop();
 
 private slots:
@@ -46,6 +45,7 @@ private:
 
     int writeSettingsFile(QString settings_file);
     int writeParamsFile(QString params_file);
+    int writeScriptFile(QString fileName);
 
     QString getDateTime();
     int writeBCAMScript(Configuration &config, std::ofstream &file, BCAM bcam, int spots, QString sourceDeviceElement);
