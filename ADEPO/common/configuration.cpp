@@ -9,100 +9,100 @@
 #define NBR_DETECTORS 8
 #define ID_LENGTH_BCAM 14
 
-int Configuration::read(QString fichier_configuration)
+int Configuration::read(QString fileName)
 {
 
-    std::ifstream fichier((char*)fichier_configuration.toStdString().c_str(), std::ios::in);
-    if(!fichier) {
-        std::cout << "WARNING Cannot read input file " << fichier_configuration.toStdString() << std::endl;
+    std::ifstream file((char*)fileName.toStdString().c_str(), std::ios::in);
+    if(!file) {
+        std::cout << "WARNING Cannot read configuration file " << fileName.toStdString() << std::endl;
         return 0;
     }
 
-    std::string ligne;  // déclaration d'une chaîne qui contiendra la ligne lue
+    std::string line;
 
     unsigned int etape_calcul = 0;
 
-    while(std::getline(fichier,ligne)) // tant que l'on arrive pas a la fin du fichier
+    while(std::getline(file,line)) // tant que l'on arrive pas a la fin du file
     {
         // take ending off the line
-        ligne.erase(ligne.find_last_not_of(" \n\r\t")+1);
+        line.erase(line.find_last_not_of(" \n\r\t")+1);
 
-        // si on a une ligne vide on saute une ligne
-        if(!ligne.empty())
+        // si on a une line vide on saute une line
+        if(!line.empty())
         {
             //detector
-            if(ligne.substr(0,16).compare("//DETECTORS_DATA")==0)
+            if(line.substr(0,16).compare("//DETECTORS_DATA")==0)
             {
-                getline(fichier, ligne);
+                getline(file, line);
                 etape_calcul = 1;
             }
 
             //BCAM
-            if(ligne.substr(0,12).compare("//BCAMS_DATA")==0)
+            if(line.substr(0,12).compare("//BCAMS_DATA")==0)
             {
-                getline(fichier, ligne);
+                getline(file, line);
                 etape_calcul = 2;
             }
 
             //driver_ip_adress
-            if(ligne.substr(0,18).compare("//DRIVER_IP_ADRESS")==0)
+            if(line.substr(0,18).compare("//DRIVER_IP_ADRESS")==0)
             {
-                    getline(fichier, ligne);
+                    getline(file, line);
                     etape_calcul = 3;
             }
 
             //adaptateur_bcam_bleu
-            if(ligne.substr(0,30).compare("//MODELE_COORDINATES_BLUE_BCAM")==0)
+            if(line.substr(0,30).compare("//MODELE_COORDINATES_BLUE_BCAM")==0)
             {
-                getline(fichier, ligne);
+                getline(file, line);
                 etape_calcul = 4;
             }
 
             //adaptateur_bcam_bleu
-            if(ligne.substr(0,31).compare("//MODELE_COORDINATES_BLACK_BCAM")==0)
+            if(line.substr(0,31).compare("//MODELE_COORDINATES_BLACK_BCAM")==0)
             {
-                getline(fichier, ligne);
+                getline(file, line);
                 etape_calcul = 5;
             }
 
             //distances absolues
-            if(ligne.substr(0,21).compare("//ABSOLUTE_DISTANCES")==0)
+            if(line.substr(0,21).compare("//ABSOLUTE_DISTANCES")==0)
             {
-                getline(fichier, ligne);
+                getline(file, line);
                 etape_calcul = 6;
             }
 
             //positions des bcams dans ATLAS avec l'adaptateur
-            if(ligne.substr(0,19).compare("//ATLAS_COORDINATES")==0)
+            if(line.substr(0,19).compare("//ATLAS_COORDINATES")==0)
             {
-                getline(fichier, ligne);
+                getline(file, line);
                 etape_calcul = 7;
             }
 
             //nomenclature des prismes et des bcams dans atlas
-            if(ligne.substr(0,41).compare("//PRISMS_&_BCAM_NAMES_FOR_THE_RESULT_FILE")==0)
+            if(line.substr(0,41).compare("//PRISMS_&_BCAM_NAMES_FOR_THE_RESULT_FILE")==0)
             {
-                getline(fichier, ligne);
+                getline(file, line);
                 etape_calcul = 8;
             }
 
             //corrections d'excentrement par prisme
-            if(ligne.substr(0,33).compare("//PRISMS_CORRECTIONS_ATLAS_SYSTEM")==0)
+            if(line.substr(0,33).compare("//PRISMS_CORRECTIONS_ATLAS_SYSTEM")==0)
             {
-                getline(fichier, ligne);
+                getline(file, line);
                 etape_calcul = 9;
             }
 
             // take ending off the line
-            ligne.erase(ligne.find_last_not_of(" \n\r\t")+1);
+            line.erase(line.find_last_not_of(" \n\r\t")+1);
 
-            if(!ligne.empty())
+            if(!line.empty())
             {
                 switch(etape_calcul)
                 {
                     case 1:
                     {
-                        char *buffer = strdup((char*)ligne.c_str());
+                        char *buffer = strdup((char*)line.c_str());
                         //recuperation du nom du detecteur
                         char *num_id_detector = strtok(buffer, " " );
                         QString nom_detector = QString::fromStdString(strtok( NULL, " " ));
@@ -116,7 +116,7 @@ int Configuration::read(QString fichier_configuration)
 
                     case 4:
                     {
-                        char *buffer = strdup((char*)ligne.c_str());
+                        char *buffer = strdup((char*)line.c_str());
                         QString id_cible = QString::fromStdString(strtok(buffer, " " ));
                         char *X1 = strtok( NULL, " " );
                         char *Y1 = strtok( NULL, " " );
@@ -132,7 +132,7 @@ int Configuration::read(QString fichier_configuration)
 
                     case 5:
                     {
-                        char *buffer = strdup((char*)ligne.c_str());
+                        char *buffer = strdup((char*)line.c_str());
                         QString id_cible = QString::fromStdString(strtok(buffer, " " ));
                         char *X1 = strtok( NULL, " " );
                         char *Y1 = strtok( NULL, " " );
@@ -148,7 +148,7 @@ int Configuration::read(QString fichier_configuration)
 
                     case 3:
                     {
-                        char *buffer = strdup((char*)ligne.c_str());
+                        char *buffer = strdup((char*)line.c_str());
                         //recuperation de l'adresse ip du driver
                         QString driver_ip_adress = QString::fromStdString(strtok(buffer," "));
                         setDriverIpAddress(driver_ip_adress);
@@ -157,12 +157,12 @@ int Configuration::read(QString fichier_configuration)
 
                     case 2:
                     {
-                       char *buffer = strdup((char*)ligne.c_str());
+                       char *buffer = strdup((char*)line.c_str());
                        //recuperation des donnees de la BCAM
-                       int nb_string = std::count(ligne.begin(), ligne.end(), ' '); //nombre de colonne dans la ligne
+                       int nb_string = std::count(line.begin(), line.end(), ' '); //nombre de colonne dans la line
 
                        if (nb_string < 5) {
-                            std::cout << "Error in config: " << nb_string << ":" << ligne << ":" << std::endl;
+                            std::cout << "Error in config: " << nb_string << ":" << line << ":" << std::endl;
                        } else {
                            // 20MABNDA000318 3 2 1 PR004 ...
                            QString nom_BCAM = QString::fromStdString(strtok(buffer," "));
@@ -175,7 +175,7 @@ int Configuration::read(QString fichier_configuration)
                            switch(nb_string)
                            {
                                default:
-                                   std::cout << "Error in config: " << nb_string << ":" << ligne << ":" << std::endl;
+                                   std::cout << "Error in config: " << nb_string << ":" << line << ":" << std::endl;
                                    break;
                                case 5: //cas ou une BCAM simple ou double vise un prisme
                                {    // 20MABNDA000318 3 2 1 PR004 2
@@ -234,7 +234,7 @@ int Configuration::read(QString fichier_configuration)
 
                     case 6:
                     {
-                        char *buffer = strdup((char*)ligne.c_str());
+                        char *buffer = strdup((char*)line.c_str());
                         QString id_bcam = QString::fromStdString(strtok(buffer, " " ));
                         QString id_prisme = QString::fromStdString(strtok( NULL, " " ));
                         char *dist_pivot_prisme = strtok( NULL, " " );
@@ -249,7 +249,7 @@ int Configuration::read(QString fichier_configuration)
 
                     case 7:
                     {
-                        char *buffer = strdup((char*)ligne.c_str());
+                        char *buffer = strdup((char*)line.c_str());
                         QString id_bcam = QString::fromStdString(strtok(buffer, " " ));
                         char *B1_x =  strtok( NULL, " " );
                         char *B1_y =  strtok( NULL, " " );
@@ -284,7 +284,7 @@ int Configuration::read(QString fichier_configuration)
 
                     case 8:
                     {
-                        char *buffer = strdup((char*)ligne.c_str());
+                        char *buffer = strdup((char*)line.c_str());
                         QString name = QString::fromStdString(strtok(buffer, " " ));
                         QString id = QString::fromStdString(strtok( NULL, " " ));
                         addName(id, name);
@@ -293,7 +293,7 @@ int Configuration::read(QString fichier_configuration)
 
                     case 9:
                     {
-                        char *buffer = strdup((char*)ligne.c_str());
+                        char *buffer = strdup((char*)line.c_str());
                         QString id_prisme = QString::fromStdString(strtok(buffer, " " ));
                         char *delta_x = strtok( NULL, " " );
                         char *delta_y = strtok( NULL, " " );
@@ -312,7 +312,7 @@ int Configuration::read(QString fichier_configuration)
 
     }
 
-    fichier.close();
+    file.close();
     return 1;
 }
 
@@ -343,7 +343,7 @@ QString Configuration::check()
 //        return "Information Le nombre de detecteurs est different de 8";
 //    }
 
-    //test pour vérifier si dans le fichier d'entrée, il y a un seul et unique détecteur avec un seul et unique identifiant
+    //test pour vérifier si dans le file d'entrée, il y a un seul et unique détecteur avec un seul et unique identifiant
     for (unsigned int i=0; i<getDetectors().size(); i++)
     {
 
@@ -370,7 +370,7 @@ QString Configuration::check()
     }
 
 
-    //test pour vérifier si dans le fichier d'entrée, il y a une seule et unique BCAM (vu la structure du fichier elle appartient à un unique detecteur)
+    //test pour vérifier si dans le file d'entrée, il y a une seule et unique BCAM (vu la structure du file elle appartient à un unique detecteur)
     for (unsigned int i=0; i<getBCAMConfigs().size(); i++)
     {
         for (unsigned int j=0; j<getBCAMConfigs().size(); j++)

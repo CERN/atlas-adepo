@@ -8,7 +8,7 @@
 #include "calib1.h"
 #include "calib2.h"
 
-#define CALIBRATION_INPUT_FOLDER "../ADEPO/input_folder/"
+#define CALIBRATION_INPUT_FOLDER "/../../ADEPO/input_folder/"
 #define CALIBRATION_FILE "BCAM_Parameters.txt"
 
 class Calibration

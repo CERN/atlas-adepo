@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iomanip>
 
+#include <QObject>
 #include <QString>
 #include <QFile>
 #include <QTimer>
@@ -21,11 +22,13 @@
 #include "call.h"
 #include "callback.h"
 
-class Server : public Call
+class Server : public QObject, public Call
 {
+    Q_OBJECT
+
 public:
-    Server(Callback& callback);
-    virtual ~Server() {};
+    Server(Callback& callback, QObject *parent = 0);
+    ~Server() {};
 
     void startDAQ(QString runMode, int runTime, bool airpad, std::vector<int> detectors);
     void stopDAQ();
@@ -39,6 +42,7 @@ public:
 private slots:
     void lwdaqStateChanged();
     void timeChanged();
+    void startDAQ();
 
 private:
     Callback& callback;
@@ -63,6 +67,7 @@ private:
 
     QString adepoState;
     QString runMode;
+    int runTime;
     bool useAirpads;
 
     QString resultFile;

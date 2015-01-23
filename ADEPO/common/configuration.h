@@ -12,7 +12,7 @@
 #include <map>
 #include <stdexcept>
 
-#define CONFIGURATION_INPUT_FOLDER "../ADEPO/input_folder/"
+#define CONFIGURATION_INPUT_FOLDER "/../../ADEPO/input_folder/"
 #define CONFIGURATION_FILE "configuration_file.txt"
 
 class Configuration
@@ -21,7 +21,7 @@ public:
     Configuration() {};
     virtual ~Configuration() {};
 
-    int read(QString filename);
+    int read(QString fileName);
     QString check();
 
     std::vector<Detector> getDetectors() const {return mDetectors;}

@@ -38,17 +38,10 @@ Client::Client(QWidget *parent) :
 
     ui->setupUi(this);
     ui->statusBar->addPermanentWidget(&lwdaqStatus);
-//        QFont font = QFont();
-//        font.setPointSize(10);
-//        ui->tableWidget_results->setFont(font);
 
     // headers seem to become invisible after editing UI
     ui->tableWidget_liste_detectors->horizontalHeader()->setVisible(true);
     ui->tableWidget_liste_bcams->horizontalHeader()->setVisible(true);
-
-    //ouverture de l'input file
-    QObject::connect(ui->actionCharger,SIGNAL(triggered()),this,SLOT(ouvrirDialogue()));
-    ui->actionCharger->setShortcut(QKeySequence("Ctrl+O"));
 
     QObject::connect(ui->action_Quitter,SIGNAL(triggered()),qApp,SLOT(quit()));
     ui->action_Quitter->setShortcut(QKeySequence("Ctrl+Q"));
@@ -66,9 +59,9 @@ Client::Client(QWidget *parent) :
     QObject::connect(ui->repeatButton,SIGNAL(clicked()), this,SLOT(startMonitoring()));
 
     //stopper l'acquisition
-    QObject::connect(ui->boutton_arreter,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
-    QObject::connect(ui->stop,SIGNAL(clicked()),this,SLOT(stop_acquisition()));
-    QObject::connect(ui->stopButton,SIGNAL(clicked()),this,SLOT(stop_repeat_acquisition()));
+    QObject::connect(ui->boutton_arreter,SIGNAL(clicked()),this,SLOT(stop()));
+    QObject::connect(ui->stop,SIGNAL(clicked()),this,SLOT(stop()));
+    QObject::connect(ui->stopButton,SIGNAL(clicked()),this,SLOT(stop()));
 
     QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
 
@@ -483,12 +476,7 @@ void Client::startMonitoring()
     call->start(MODE_MONITORING, ui->timeBox->value(), ui->airpadBox->currentText() == "ON", selectedDetectors);
 }
 
-void Client::stopAcquisition()
-{
-    call->stop();
-}
-
-void Client::stopRepeatAcquisition()
+void Client::stop()
 {
     call->stop();
 }

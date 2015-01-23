@@ -55,8 +55,7 @@ private slots:
     void resetDelta();
     void startClosure();
     void startMonitoring();
-    void stopAcquisition();
-    void stopRepeatAcquisition();
+    void stop();
 
 private:
     Call* call;

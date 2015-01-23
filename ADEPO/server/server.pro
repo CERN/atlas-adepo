@@ -1,5 +1,6 @@
 QT       += core network
-QT       -= gui
+# needs gui for slots ?
+#QT       -= gui
 
 TARGET = server
 CONFIG   -= app_bundle

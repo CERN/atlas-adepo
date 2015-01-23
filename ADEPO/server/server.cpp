@@ -14,13 +14,14 @@
 #define mm2m 0.001
 #define um2m 0.000001
 
-Server::Server(Callback &callback) : callback(callback) {
+Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(callback) {
     QString appPath = Util::appDirPath();
+    std::cout << appPath.toStdString() << std::endl;
 
     // connect to LWDAQ server
-    lwdaq_client = new LWDAQ_Client("localhost", 1090, qApp);
-    QObject::connect(lwdaq_client, SIGNAL(stateChanged()), qApp, SLOT(lwdaqStateChanged()));
-    QObject::connect(lwdaq_client, SIGNAL(remainingTimeChanged()), qApp, SLOT(timeChanged()));
+    lwdaq_client = new LWDAQ_Client("localhost", 1090, this);
+    QObject::connect(lwdaq_client, SIGNAL(stateChanged()), this, SLOT(lwdaqStateChanged()));
+    QObject::connect(lwdaq_client, SIGNAL(remainingTimeChanged()), this, SLOT(timeChanged()));
 
     QDir lwdaqDir = lwdaq_client->find(QDir(appPath));
     if (!lwdaqDir.exists()) {
@@ -30,8 +31,10 @@ Server::Server(Callback &callback) : callback(callback) {
         std::cout << "Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
     }
 
-    resultFile = appPath.append("/").append(DEFAULT_RESULTS_FILE);
-    scriptFile = appPath.append("/").append(DEFAULT_SCRIPT_FILE);
+    resultFile = appPath;
+    resultFile.append("/").append(DEFAULT_RESULTS_FILE);
+    scriptFile = appPath;
+    scriptFile.append("/").append(DEFAULT_SCRIPT_FILE);
 
     lwdaq_client->init();
 
@@ -43,14 +46,15 @@ Server::Server(Callback &callback) : callback(callback) {
 
     waitingTimer = new QTimer(qApp);
     waitingTimer->setSingleShot(true);
-    QObject::connect(waitingTimer, SIGNAL(timeout()), qApp, SLOT(startMonitoring()));
+    QObject::connect(waitingTimer, SIGNAL(timeout()), this, SLOT(startDAQ()));
 
     updateTimer = new QTimer(qApp);
     updateTimer->setInterval(FAST_UPDATE_TIME*1000);
     updateTimer->setSingleShot(false);
-    QObject::connect(updateTimer, SIGNAL(timeout()), qApp, SLOT(timeChanged()));
+    QObject::connect(updateTimer, SIGNAL(timeout()), this, SLOT(timeChanged()));
 
-    QString configurationFile = appPath.append(CONFIGURATION_INPUT_FOLDER).append(CONFIGURATION_FILE);
+    QString configurationFile = appPath;
+    configurationFile.append(CONFIGURATION_INPUT_FOLDER).append(CONFIGURATION_FILE);
     config.read(configurationFile);
 
     helmert(config, data);
@@ -62,17 +66,20 @@ Server::Server(Callback &callback) : callback(callback) {
     }
 
     //lecture du fichier de calibration
-    QString calibrationFile = appPath.append(CALIBRATION_INPUT_FOLDER).append(CALIBRATION_FILE);
+    QString calibrationFile = appPath;
+    calibrationFile.append(CALIBRATION_INPUT_FOLDER).append(CALIBRATION_FILE);
     calibration.read(calibrationFile);
 
     // read reference file
-    QString refFile = appPath.append(REFERENCE_INPUT_FOLDER).append(REFERENCE_FILE);
+    QString refFile = appPath;
+    refFile.append(REFERENCE_INPUT_FOLDER).append(REFERENCE_FILE);
     reference.read(refFile);
 }
 
 void Server::startDAQ(QString runMode, int runTime, bool useAirpads, std::vector<int> detectors)
 {
     this->runMode = runMode;
+    this->runTime = runTime;
     this->useAirpads = useAirpads;
 
     setup.getBCAMs().clear();
@@ -108,6 +115,11 @@ void Server::startDAQ(QString runMode, int runTime, bool useAirpads, std::vector
 
     std::cout << "Starting LWDAQ on " << config.getDriverIpAddress().toStdString() << std::endl;
 
+    startDAQ();
+}
+
+void Server::startDAQ() {
+    QString dir = Util::appDirPath();
     lwdaq_client->startRun(dir, runTime);
 }
 
@@ -132,7 +144,7 @@ void Server::stopDAQ()
 
 void Server::lwdaqStateChanged() {
     std::cout << "state changed to " << lwdaq_client->getState().toStdString() << std::endl;
-//    updateStatusBar();
+
 
     if (lwdaq_client->getState() == LWDAQ_IDLE) {
         if (needToCalculateResults) {
@@ -148,13 +160,13 @@ void Server::lwdaqStateChanged() {
 //                setEnabled(false);
 
 //                waitingTimer->start(ui->waitingTime->value()*1000);
-//                updateTimer->start();
+                updateTimer->start();
         } else {
             adepoState = ADEPO_IDLE;
 //                askQuestion = true;
 //                setEnabled(true);
-//                waitingTimer->stop();
-//                updateTimer->stop();
+                waitingTimer->stop();
+                updateTimer->stop();
         }
 //            updateStatusBar();
     } else if (lwdaq_client->getState() == LWDAQ_RUN) {
@@ -183,9 +195,12 @@ void Server::lwdaqStateChanged() {
     }
 
     previousState = lwdaq_client->getState();
+
+    callback.updateState(adepoState, 0, previousState, 0);
 }
 
 void Server::timeChanged() {
+//    callback.updateState();
 //    updateStatusBar();
 //    showBCAM(selectedBCAM, 0);
 }
