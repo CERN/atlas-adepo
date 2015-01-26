@@ -19,7 +19,10 @@ public:
     int write(QString fileName);
     int read(QString fileName);
 
+    QString getFilename() const { return filename; }
+
 private:
+    QString filename;
     std::map<QString, Result> results;
 };
 

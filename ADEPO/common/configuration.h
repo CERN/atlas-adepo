@@ -21,8 +21,9 @@ public:
     Configuration() {};
     virtual ~Configuration() {};
 
-    int read(QString fileName);
-    QString check();
+    int read(QString filename);
+    QString getFilename() const { return filename; }
+    QString check() const;
 
     std::vector<Detector> getDetectors() const {return mDetectors;}
     Detector getDetector(QString bcamName) {
@@ -77,6 +78,7 @@ private:
     void addName(QString id, QString name) { names[id] = name; }
     void setDriverIpAddress(QString val) {mDriverIpAddress = val;}
 
+    QString filename;
     std::vector<Detector> mDetectors;
     std::vector<BCAMAdapter> mBCAMAdapters;
     QString mDriverIpAddress;

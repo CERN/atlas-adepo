@@ -36,19 +36,17 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     scriptFile = appPath;
     scriptFile.append("/").append(DEFAULT_SCRIPT_FILE);
 
-    lwdaq_client->init();
-
     previousState = LWDAQ_UNSET;
     needToCalculateResults = false;
 
     runMode = MODE_CLOSURE;
     adepoState = ADEPO_IDLE;
 
-    waitingTimer = new QTimer(qApp);
+    waitingTimer = new QTimer(this);
     waitingTimer->setSingleShot(true);
     QObject::connect(waitingTimer, SIGNAL(timeout()), this, SLOT(startDAQ()));
 
-    updateTimer = new QTimer(qApp);
+    updateTimer = new QTimer(this);
     updateTimer->setInterval(FAST_UPDATE_TIME*1000);
     updateTimer->setSingleShot(false);
     QObject::connect(updateTimer, SIGNAL(timeout()), this, SLOT(timeChanged()));
@@ -74,6 +72,8 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     QString refFile = appPath;
     refFile.append(REFERENCE_INPUT_FOLDER).append(REFERENCE_FILE);
     reference.read(refFile);
+
+    lwdaq_client->init();
 }
 
 void Server::startDAQ(QString runMode, int runTime, bool useAirpads, std::vector<int> detectors)
@@ -81,6 +81,7 @@ void Server::startDAQ(QString runMode, int runTime, bool useAirpads, std::vector
     this->runMode = runMode;
     this->runTime = runTime;
     this->useAirpads = useAirpads;
+    this->detectors = detectors;
 
     setup.getBCAMs().clear();
     for(unsigned int i=0; i<detectors.size(); i++)
@@ -196,7 +197,8 @@ void Server::lwdaqStateChanged() {
 
     previousState = lwdaq_client->getState();
 
-    callback.updateState(adepoState, 0, previousState, 0);
+    // TODO
+    callback.updateState(adepoState, waitingTimer->remainingTime(), lwdaq_client->getState(), lwdaq_client->getRemainingTime());
 }
 
 void Server::timeChanged() {

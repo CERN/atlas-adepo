@@ -95,11 +95,13 @@ int Calibration::read(QString filename)
        }*/
 
        fichier.close();
+
+       this->filename = filename;
        return 1;
 }
 
 //fonction qui verifie si toutes les BCAMS sont contenues dans le fichier de calibration            [----> not yet, on suppose que le fichier de calibration est correct
-std::string Calibration::check()
+std::string Calibration::check() const
 {
 /*
     int exist_l1 = 0;

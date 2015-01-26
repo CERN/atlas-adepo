@@ -70,6 +70,7 @@ private:
     QString runMode;
     int runTime;
     bool useAirpads;
+    std::vector<int> detectors;
 
     QString resultFile;
     QString scriptFile;

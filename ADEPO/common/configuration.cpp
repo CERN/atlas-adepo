@@ -9,12 +9,12 @@
 #define NBR_DETECTORS 8
 #define ID_LENGTH_BCAM 14
 
-int Configuration::read(QString fileName)
+int Configuration::read(QString filename)
 {
 
-    std::ifstream file((char*)fileName.toStdString().c_str(), std::ios::in);
+    std::ifstream file((char*)filename.toStdString().c_str(), std::ios::in);
     if(!file) {
-        std::cout << "WARNING Cannot read configuration file " << fileName.toStdString() << std::endl;
+        std::cout << "WARNING Cannot read configuration file " << filename.toStdString() << std::endl;
         return 0;
     }
 
@@ -313,11 +313,14 @@ int Configuration::read(QString fileName)
     }
 
     file.close();
+
+    this->filename = filename;
+
     return 1;
 }
 
 
-QString Configuration::check()
+QString Configuration::check() const
 {
     //test des numéros des ports driver : sur les driver les numéros de ports possibles sont compris entre 1 et 8
     for (unsigned int i=0; i<getBCAMConfigs().size(); i++)

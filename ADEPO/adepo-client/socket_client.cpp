@@ -29,7 +29,7 @@ void SocketClient::onConnected()
 
 void SocketClient::onTextMessageReceived(QString message)
 {
-    qDebug() << "Message received:" << message;
+//    qDebug() << "Message received:" << message;
     QJsonDocument doc(QJsonDocument::fromJson(message.toUtf8()));
     QJsonObject json = doc.object();
     QString version = json["jsonrpc"].toString();
@@ -52,11 +52,11 @@ void SocketClient::onTextMessageReceived(QString message)
     } else if (method == "updateReferenceFile") {
         QJsonArray params = json["params"].toArray();
         callback.updateReferenceFile(params[0].toString());
-    } else if (method == "UpdateResultFile") {
+    } else if (method == "updateResultFile") {
         QJsonArray params = json["params"].toArray();
         callback.updateResultFile(params[0].toString());
     } else {
-        std::cerr << "Unimplemented rpc method: " << method.toStdString() << std::endl;
+        std::cerr << "Unimplemented client rpc method: " << method.toStdString() << std::endl;
     }
 }
 

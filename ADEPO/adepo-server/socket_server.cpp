@@ -42,6 +42,7 @@ void SocketServer::processTextMessage(QString message)
 
 void SocketServer::processBinaryMessage(QByteArray message)
 {
+//    qDebug() << message;
     QJsonDocument doc(QJsonDocument::fromJson(message));
     QJsonObject json = doc.object();
     QString version = json["jsonrpc"].toString();
@@ -54,7 +55,7 @@ void SocketServer::processBinaryMessage(QByteArray message)
     } else if (method == "update") {
         call->update();
     } else {
-        std::cerr << "Unimplemented rpc method: " << method.toStdString() << std::endl;
+        std::cerr << "Unimplemented server rpc method: " << method.toStdString() << std::endl;
     }
 }
 

@@ -18,7 +18,8 @@ public:
     ~Calibration() {};
 
     int read(QString filename);
-    std::string check();
+    QString getFilename() const { return filename; }
+    std::string check() const;
 
     std::vector<Calib1> getCalibs1() const {return mCalibs1;}
     std::vector<Calib2> getCalibs2() const {return mCalibs2;}
@@ -29,6 +30,8 @@ public:
     }
 
 private:
+    QString filename;
+
     void add(Calib1 val) { mCalibs1.push_back(val); }
     void add(Calib2 val) { mCalibs2.push_back(val);}
 

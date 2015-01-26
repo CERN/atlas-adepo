@@ -9,26 +9,29 @@ class JsonRpc : public QJsonObject
 {
 public:
     JsonRpc(QString method) {
-        value("jsonrpc") = "2.0";
-        value("method") = method;
-        value("params") = params;
+        insert("jsonrpc", "2.0");
+        insert("method", method);
     }
     ~JsonRpc() {}
 
     void append(QString s) {
         params.append(s);
+        insert("params", params);
     }
 
     void append(int i) {
         params.append(i);
+        insert("params", params);
     }
 
     void append(bool b) {
         params.append(b);
+        insert("params", params);
     }
 
     void append(QJsonArray a) {
         params.append(a);
+        insert("params", params);
     }
 
     static QJsonArray toIntArray(std::vector<int> v) {

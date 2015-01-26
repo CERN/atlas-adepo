@@ -4,10 +4,10 @@
 
 #include "reference.h"
 
-int Reference::write(QString fileName) {
-    std::ofstream file(fileName.toStdString().c_str(), std::ios::out | std::ios::trunc);
+int Reference::write(QString filename) {
+    std::ofstream file(filename.toStdString().c_str(), std::ios::out | std::ios::trunc);
     if(!file) {
-        std::cout << "WARNING Cannot write reference file " << fileName.toStdString() << std::endl;
+        std::cout << "WARNING Cannot write reference file " << filename.toStdString() << std::endl;
         return 0;
     }
 
@@ -42,13 +42,15 @@ int Reference::write(QString fileName) {
     }
 
     file.close();
+
+    this->filename = filename;
     return 1;
 }
 
-int Reference::read(QString fileName) {
-    std::ifstream file(fileName.toStdString().c_str(), std::ios::in);
+int Reference::read(QString filename) {
+    std::ifstream file(filename.toStdString().c_str(), std::ios::in);
     if(!file) {
-        std::cout << "WARNING Cannot read reference file " << fileName.toStdString() << std::endl;
+        std::cout << "WARNING Cannot read reference file " << filename.toStdString() << std::endl;
         return 0;
     }
 
@@ -95,6 +97,8 @@ int Reference::read(QString fileName) {
             results[name] = r;
         }
     }
+
+    this->filename = filename;
 
     return 1;
 }
