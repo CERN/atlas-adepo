@@ -20,6 +20,9 @@ void Client::updateState(QString adepoStatus, int adepoSeconds, QString lwdaqSta
 
 void Client::updateConfigurationFile(QString filename) {
     display(ui->configurationFileLabel, ui->configurationFile, filename);
+
+    config.read(filename);
+    fillDetectorTable();
 }
 
 void Client::updateCalibrationFile(QString filename) {

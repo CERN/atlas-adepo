@@ -80,6 +80,7 @@ Client::Client(QWidget *parent) :
 
     std::cout << "Using " << settings.fileName().toStdString() << std::endl;
 
+// TODO
     fillDetectorTable();
 
     //activation du boutton pour lancer les acquisitions
@@ -97,12 +98,14 @@ Client::Client(QWidget *parent) :
     }
     ui->waitingTime->setValue(waitingTimeValue);
 
+// TODO
     int airpadIndex = settings.value(AIRPAD_INDEX).value<int>();
     ui->airpadBox->setCurrentIndex(airpadIndex);
 
     int fullPrecisionFormat = settings.value(FULL_PRESICION_FORMAT).value<int>();
     ui->fullPrecision->setChecked(fullPrecisionFormat);
 
+// TODO
     showBCAMTable();
 
     QString resultFile = settings.value(RESULT_FILE).value<QString>();
