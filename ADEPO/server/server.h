@@ -38,6 +38,7 @@ public:
     // implementation of Call
     void start(QString mode, int runTime, bool airpad, std::vector<int> detectors);
     void stop();
+    void update();
 
 private slots:
     void lwdaqStateChanged();

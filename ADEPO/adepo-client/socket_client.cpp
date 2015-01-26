@@ -22,7 +22,9 @@ void SocketClient::onConnected()
 {
     qDebug() << "WebSocket connected";
     connect(&webSocket, &QWebSocket::textMessageReceived, this, &SocketClient::onTextMessageReceived);
-//    webSocket.sendTextMessage(QStringLiteral("Hello, world!"));
+//    webSocket.sendTextMessage(QStringLiteral("Hello, world!"))
+
+    update();
 }
 
 void SocketClient::onTextMessageReceived(QString message)
@@ -69,6 +71,12 @@ void SocketClient::start(QString mode, int runTime, bool airpad, std::vector<int
 
 void SocketClient::stop() {
     JsonRpc rpc("stop");
+    sendJson(rpc);
+}
+
+
+void SocketClient::update() {
+    JsonRpc rpc("update");
     sendJson(rpc);
 }
 

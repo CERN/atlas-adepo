@@ -18,6 +18,7 @@ public:
 
     void start(QString mode, int runTime, bool airpad, std::vector<int> detectors);
     void stop();
+    void update();
 
 Q_SIGNALS:
     void closed();

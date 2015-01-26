@@ -51,6 +51,8 @@ void SocketServer::processBinaryMessage(QByteArray message)
         call->start(params[0].toString(), params[1].toInt(), params[2].toBool(), JsonRpc::fromIntArray(params[3].toArray()));
     } else if (method == "stop") {
         call->stop();
+    } else if (method == "update") {
+        call->update();
     } else {
         std::cerr << "Unimplemented rpc method: " << method.toStdString() << std::endl;
     }

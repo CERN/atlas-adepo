@@ -7,3 +7,7 @@ void Server::start(QString mode, int runTime, bool airpad, std::vector<int> dete
 void Server::stop() {
     stopDAQ();
 }
+
+void Server::update() {
+    qDebug() << "Update called...";
+}

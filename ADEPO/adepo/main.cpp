@@ -16,5 +16,8 @@ int main(int argc, char *argv[]) {
     client.setServer(server);
     //system("mkdir Archive");
     client.show();
+
+    server.update();
+
     return app.exec();
 }

@@ -13,6 +13,8 @@ public:
 
     virtual void start(QString mode, int runTime, bool airpad, std::vector<int> detectors) = 0;
     virtual void stop() = 0;
+
+    virtual void update() = 0;
 };
 
 #endif // CALL_H
