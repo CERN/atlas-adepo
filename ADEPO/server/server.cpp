@@ -150,7 +150,7 @@ void Server::lwdaqStateChanged() {
         if (needToCalculateResults) {
             // calculate
             adepoState = ADEPO_CALCULATING;
-//                updateStatusBar();
+            updateState();
             calculateCoordinates();
             needToCalculateResults = false;
         }
@@ -168,14 +168,14 @@ void Server::lwdaqStateChanged() {
                 waitingTimer->stop();
                 updateTimer->stop();
         }
-//            updateStatusBar();
+        updateState();
     } else if (lwdaq_client->getState() == LWDAQ_RUN) {
         adepoState = ADEPO_RUN;
-//            updateStatusBar();
+        updateState();
 //            setEnabled(false);
     } else if (lwdaq_client->getState() == LWDAQ_STOP) {
         adepoState = runMode == MODE_MONITORING ? ADEPO_WAITING : ADEPO_IDLE;
-//            updateStatusBar();
+        updateState();
 //            ui->repeatButton->setEnabled(false);
 //            ui->Boutton_lancer->setEnabled(false);
 //            ui->nextMeasurement->setEnabled(false);
@@ -184,7 +184,7 @@ void Server::lwdaqStateChanged() {
 //            ui->stopButton->setEnabled(false);
     } else if (lwdaq_client->getState() == LWDAQ_INIT) {
         adepoState = ADEPO_IDLE;
-//            updateStatusBar();
+        updateState();
 //            ui->repeatButton->setEnabled(false);
 //            ui->Boutton_lancer->setEnabled(false);
 //            ui->nextMeasurement->setEnabled(false);
@@ -196,7 +196,7 @@ void Server::lwdaqStateChanged() {
 
     previousState = lwdaq_client->getState();
 
-    updateState();
+//    updateState();
 }
 
 void Server::timeChanged() {
