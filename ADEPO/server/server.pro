@@ -16,7 +16,9 @@ SOURCES += \
     server.cpp \
     server_call.cpp \
     write_params_file.cpp \
-    write_setttings_file.cpp
+    write_setttings_file.cpp \
+    write_script_file.cpp \
+    read_lwdaq_output.cpp
 
 HEADERS += \
     adepo.h \

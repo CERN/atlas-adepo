@@ -1,8 +1,0 @@
-#ifndef READ_CALIBRATION_DATABASE_H
-#define READ_CALIBRATION_DATABASE_H
-
-#include "data.h"
-
-
-
-#endif // READ_CALIBRATION_DATABASE_H
