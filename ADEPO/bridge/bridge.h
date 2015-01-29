@@ -4,6 +4,7 @@
 #define MODE_CLOSURE "Closure"
 #define MODE_MONITORING "Monitoring"
 
+#define ADEPO_UNSET "Unset"
 #define ADEPO_IDLE "Idle"
 #define ADEPO_RUN "Run"
 #define ADEPO_STOP "Stop"

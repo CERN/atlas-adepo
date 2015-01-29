@@ -745,7 +745,6 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionCharger"/>
     <addaction name="action_Quitter"/>
    </widget>
    <widget class="QMenu" name="menuAide">
@@ -753,7 +752,6 @@
      <string>Help</string>
     </property>
     <addaction name="actionAbout_Qt"/>
-    <addaction name="action_Aide"/>
    </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuAide"/>

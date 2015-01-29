@@ -14,7 +14,9 @@ SOURCES += \
     helmert.cpp \
     lwdaq_client.cpp \
     server.cpp \
-    server_call.cpp
+    server_call.cpp \
+    write_params_file.cpp \
+    write_setttings_file.cpp
 
 HEADERS += \
     adepo.h \

@@ -11,6 +11,8 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
+    QCoreApplication::setApplicationName("ADEPO direct");
+
     Client client;
     Server server(client);
     client.setServer(server);

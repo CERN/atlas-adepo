@@ -29,15 +29,14 @@ Client::Client(QWidget *parent) :
 {
     QCoreApplication::setOrganizationName("ATLAS CERN");
     QCoreApplication::setOrganizationDomain("atlas.cern.ch");
-    QCoreApplication::setApplicationName("ADEPO");
     QCoreApplication::setApplicationVersion("1.4");
-
 
     QString appPath = Util::appDirPath();
     std::cout << appPath.toStdString() << std::endl;
 
     ui->setupUi(this);
     ui->statusBar->addPermanentWidget(&lwdaqStatus);
+    setWindowTitle(QCoreApplication::applicationName()+" "+QCoreApplication::applicationVersion());
 
     // headers seem to become invisible after editing UI
     ui->tableWidget_liste_detectors->horizontalHeader()->setVisible(true);
@@ -72,10 +71,6 @@ Client::Client(QWidget *parent) :
 
     askQuestion = true;
 
-    lwdaqCanStart = false;
-
-    setEnabled(true);
-
     ui->tabWidget->setCurrentIndex(0);
 
     std::cout << "Using " << settings.fileName().toStdString() << std::endl;
@@ -83,8 +78,7 @@ Client::Client(QWidget *parent) :
 // TODO
     fillDetectorTable();
 
-    //activation du boutton pour lancer les acquisitions
-    setEnabled(true);
+    setEnabled();
 
     int timeValue = settings.value(TIME_VALUE).value<int>();
     if (timeValue < 30) {
@@ -164,31 +158,10 @@ void Client::changedAirpad(int index) {
     settings.setValue(AIRPAD_INDEX, index);
 }
 
-void Client::updateStatusBar(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds) {
-    QString adepo;
-    if (lwdaqState == LWDAQ_RUN) {
-        adepo = adepoState.append(" ").append(QString::number(lwdaqSeconds)).
-                append(" seconds remaining...");
-    }
-
-    if (adepoState == ADEPO_RUN) {
-            // filled already
-    } else if (adepoState == ADEPO_WAITING) {
-        adepo = adepoState.append(" ").append(QString::number(adepoSeconds)).
-                append(" seconds remaining...");
-    } else {
-        adepo = adepoState;
-    }
-
-    lwdaqCanStart = (lwdaqState != LWDAQ_UNSET && lwdaqState != LWDAQ_IDLE);
-
-    lwdaqStatus.setText("LWDAQ: "+lwdaqState);
-    QMainWindow::statusBar()->showMessage("ADEPO: "+adepo);
-}
-
-void Client::setEnabled(bool enabled) {
+void Client::setEnabled() {
+    bool enabled = lwdaqState == LWDAQ_IDLE;
     bool canStart = enabled &&
-            ui->tableWidget_liste_bcams->rowCount() > 0 && lwdaqCanStart;
+            ui->tableWidget_liste_bcams->rowCount() > 0;
     ui->Boutton_lancer->setEnabled(canStart);
     ui->nextMeasurement->setEnabled(canStart);
     ui->repeatButton->setEnabled(canStart);
@@ -375,7 +348,7 @@ void Client::showBCAMTable()
     ui->tableWidget_liste_bcams->resizeColumnsToContents();
     ui->tableWidget_results->resizeColumnsToContents();
 
-    setEnabled(true);
+    setEnabled();
     if (ui->tableWidget_liste_bcams->rowCount() > 0) {
         ui->tableWidget_liste_bcams->selectRow(0);
         showBCAM(0, 0);

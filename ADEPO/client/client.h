@@ -35,7 +35,7 @@ public:
 
     void setMode(QString mode);
     void setSelectedDetectors(std::vector<int> detectors);
-    void updateState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
+    void updateState(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds);
     void updateConfigurationFile(QString filename);
     void updateCalibrationFile(QString filename);
     void updateReferenceFile(QString filename);
@@ -72,7 +72,7 @@ private:
     QString refFile;
     QLabel lwdaqStatus;
 
-    bool lwdaqCanStart;
+    QString lwdaqState;
 
     bool askQuestion;
 
@@ -81,11 +81,9 @@ private:
     void setResult(int row, Result& result);
     void setResult(int row, Point3f point, int columnSet, int precision);
     void updateResults(std::map<QString, Result> &results);
-    void setEnabled(bool enabled);
+    void setEnabled();
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);
     QString getMode();
-
-    void updateStatusBar(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds);
 };
 
 #endif // CLIENT_H

@@ -6,7 +6,7 @@
 
 QT       += core gui widgets network
 
-TARGET = adepo
+TARGET = adepo-direct
 TEMPLATE = app
 
 SOURCES += main.cpp

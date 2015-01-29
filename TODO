@@ -1,3 +1,2 @@
 - make LWDAQ_Client into default constructor
-- on connection, send all initial values
 

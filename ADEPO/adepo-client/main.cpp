@@ -13,10 +13,14 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
+    QCoreApplication::setApplicationName("ADEPO client");
+
     Client client;
     SocketClient webSocketClient(client, QStringLiteral("ws://localhost:5687"));
     client.setServer(webSocketClient);
-    //system("mkdir Archive");
     client.show();
+
+    client.updateState(ADEPO_UNSET, 0, LWDAQ_UNSET, 0);
+
     return app.exec();
 }

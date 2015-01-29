@@ -6,7 +6,7 @@ SUBDIRS = \
     client \
     adepo-server \
     adepo-client \
-    adepo
+    adepo-direct
 
 OTHER_FILES = \
     ../TODO
