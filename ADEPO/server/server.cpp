@@ -119,6 +119,8 @@ void Server::startDAQ(QString runMode, int runTime, bool useAirpads, std::vector
 
 void Server::startDAQ() {
     QString dir = Util::appDirPath();
+
+    needToCalculateResults = true;
     lwdaq_client->startRun(dir, runTime);
 }
 
