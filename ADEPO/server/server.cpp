@@ -112,8 +112,6 @@ void Server::startDAQ(QString runMode, int runTime, bool useAirpads, std::vector
         return;
     }
 
-//    setEnabled(false);
-
     std::cout << "Starting LWDAQ on " << config.getDriverIpAddress().toStdString() << std::endl;
 
     startDAQ();
@@ -129,18 +127,17 @@ void Server::stopDAQ()
     needToCalculateResults = false;
 
     if (runMode == MODE_CLOSURE) {
-//        waitingTimer->stop();
-//        updateTimer->stop();
+        waitingTimer->stop();
+        updateTimer->stop();
     }
 
     if (lwdaq_client->getState() == LWDAQ_IDLE) {
         adepoState = ADEPO_IDLE;
-//        updateStatusBar();
     } else {
         lwdaq_client->stopRun();
     }
 
-//    setEnabled(true);
+    updateState();
 }
 
 void Server::lwdaqStateChanged() {
@@ -197,16 +194,16 @@ void Server::lwdaqStateChanged() {
 
     previousState = lwdaq_client->getState();
 
-    // TODO
-    callback.updateState(adepoState, waitingTimer->remainingTime(), lwdaq_client->getState(), lwdaq_client->getRemainingTime());
+    updateState();
 }
 
 void Server::timeChanged() {
-//    callback.updateState();
-//    updateStatusBar();
-//    showBCAM(selectedBCAM, 0);
+    updateState();
 }
 
+void Server::updateState() {
+    callback.updateState(adepoState, waitingTimer->remainingTime()/1000, lwdaq_client->getState(), lwdaq_client->getRemainingTime()/1000);
+}
 
 //fonction qui calcule les coordonnees de chaque prisme dans le repere BCAM + suavegarde            [----> ok
 QString Server::calculateCoordinates()

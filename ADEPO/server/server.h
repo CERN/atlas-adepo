@@ -63,6 +63,8 @@ private:
 
     void helmert(Configuration &config, Data& data);
 
+    void updateState();
+
     QTimer *waitingTimer;
     QTimer *updateTimer;
 
