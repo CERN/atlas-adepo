@@ -159,7 +159,7 @@ void Client::changedAirpad(int index) {
 }
 
 void Client::setEnabled() {
-    bool enabled = lwdaqState == LWDAQ_IDLE;
+    bool enabled = adepoState == ADEPO_IDLE;
     bool canStart = enabled &&
             ui->tableWidget_liste_bcams->rowCount() > 0;
     ui->Boutton_lancer->setEnabled(canStart);
