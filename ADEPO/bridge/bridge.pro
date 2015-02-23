@@ -8,8 +8,7 @@ TEMPLATE = aux
 HEADERS += \
     bridge.h \
     call.h \
-    callback.h \
-    json_rpc.h
+    callback.h
 
 unix: LIBS += -L$$OUT_PWD/../common/ -lcommon
 

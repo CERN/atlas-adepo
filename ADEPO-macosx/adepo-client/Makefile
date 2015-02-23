@@ -706,15 +706,20 @@ main.o: ../../ADEPO/adepo-client/main.cpp /Users/duns/Qt5.4.0/5.4/clang_64/lib/Q
 		../../ADEPO/common/prism_correction.h \
 		../../ADEPO/common/setup.h \
 		../../ADEPO/common/bcam.h \
+		../../ADEPO/common/run.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
+		../../ADEPO/common/json_rpc.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		../../ADEPO/adepo-client/socket_client.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/QWebSocket \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/qwebsocket.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../ADEPO/adepo-client/main.cpp
 
 socket_client.o: ../../ADEPO/adepo-client/socket_client.cpp /Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
@@ -737,7 +742,7 @@ socket_client.o: ../../ADEPO/adepo-client/socket_client.cpp /Users/duns/Qt5.4.0/
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
-		../../ADEPO/bridge/json_rpc.h
+		../../ADEPO/common/json_rpc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_client.o ../../ADEPO/adepo-client/socket_client.cpp
 
 ####### Install

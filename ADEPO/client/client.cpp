@@ -1,6 +1,5 @@
 #include <fstream>
 
-#include <QSettings>
 #include <QPixmapCache>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -11,28 +10,26 @@
 #include "float_table_widget_item.h"
 #include "util.h"
 
-#define AIRPAD_INDEX "airpad_index"
-#define MODE_INDEX "mode_index"
-#define TIME_VALUE "time_value"
-#define WAITING_TIME_VALUE "waiting_time_value"
-#define FULL_PRESICION_FORMAT "full_precision_format"
-#define RESULT_FILE "result_file"
-
-//declaration des variables globales
-QSettings settings("atlas.cern.ch", "ADEPO");
-
-//compteur pour savoir combien de fois l'utilisateur a charge un fichier d'input
+// QSettings settings("atlas.cern.ch", "ADEPO");
 
 Client::Client(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Client)
 {
+    adepoState = ADEPO_UNSET;
+    lwdaqState = LWDAQ_UNSET;
+
     QCoreApplication::setOrganizationName("ATLAS CERN");
     QCoreApplication::setOrganizationDomain("atlas.cern.ch");
     QCoreApplication::setApplicationVersion("1.4");
 
     QString appPath = Util::appDirPath();
     std::cout << appPath.toStdString() << std::endl;
+
+    // read run file
+    QString runFile = appPath;
+    runFile.append(RUN_INPUT_FOLDER).append(RUN_FILE);
+    run.read(runFile);
 
     ui->setupUi(this);
     ui->statusBar->addPermanentWidget(&lwdaqStatus);
@@ -53,57 +50,45 @@ Client::Client(QWidget *parent) :
     QObject::connect(ui->tableWidget_liste_bcams, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAM(int,int)));
 
     //lancer les acquisitions
-    QObject::connect(ui->Boutton_lancer,SIGNAL(clicked()), this,SLOT(startClosure()));
+    QObject::connect(ui->singleShot,SIGNAL(clicked()), this,SLOT(startClosure()));
     QObject::connect(ui->nextMeasurement,SIGNAL(clicked()), this,SLOT(startClosure()));
-    QObject::connect(ui->repeatButton,SIGNAL(clicked()), this,SLOT(startMonitoring()));
+    QObject::connect(ui->monitoring,SIGNAL(clicked()), this,SLOT(startMonitoring()));
 
     //stopper l'acquisition
-    QObject::connect(ui->boutton_arreter,SIGNAL(clicked()),this,SLOT(stop()));
+    QObject::connect(ui->singleShotStop,SIGNAL(clicked()),this,SLOT(stop()));
     QObject::connect(ui->stop,SIGNAL(clicked()),this,SLOT(stop()));
-    QObject::connect(ui->stopButton,SIGNAL(clicked()),this,SLOT(stop()));
+    QObject::connect(ui->monitoringStop,SIGNAL(clicked()),this,SLOT(stop()));
 
     QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
 
     QObject::connect(ui->fullPrecision,SIGNAL(stateChanged(int)),this,SLOT(changedFormat(int)));
-    QObject::connect(ui->timeBox, SIGNAL(valueChanged(int)), this, SLOT(changedTimeValue(int)));
+    QObject::connect(ui->singleShotTime, SIGNAL(valueChanged(int)), this, SLOT(changedSingleShotTimeValue(int)));
+    QObject::connect(ui->monitoringTime, SIGNAL(valueChanged(int)), this, SLOT(changedMonitoringTimeValue(int)));
     QObject::connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
-    QObject::connect(ui->airpadBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
+    QObject::connect(ui->airpad, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
 
     askQuestion = true;
 
     ui->tabWidget->setCurrentIndex(0);
 
-    std::cout << "Using " << settings.fileName().toStdString() << std::endl;
+    std::cout << "Using " << run.getFileName().toStdString() << std::endl;
 
 // TODO
     fillDetectorTable();
 
     setEnabled();
 
-    int timeValue = settings.value(TIME_VALUE).value<int>();
-    if (timeValue < 30) {
-        timeValue = 30;
-    }
-    ui->timeBox->setValue(timeValue);
+    ui->singleShotTime->setValue(run.getSingleShotTime());
+    ui->monitoringTime->setValue(run.getMonitoringTime());
+    ui->waitingTime->setValue(run.getWaitingTime());
 
-    int waitingTimeValue = settings.value(WAITING_TIME_VALUE).value<int>();
-    if (waitingTimeValue < 60) {
-        waitingTimeValue = 60;
-    }
-    ui->waitingTime->setValue(waitingTimeValue);
-
-// TODO
-    int airpadIndex = settings.value(AIRPAD_INDEX).value<int>();
-    ui->airpadBox->setCurrentIndex(airpadIndex);
-
-    int fullPrecisionFormat = settings.value(FULL_PRESICION_FORMAT).value<int>();
-    ui->fullPrecision->setChecked(fullPrecisionFormat);
+    ui->airpad->setCurrentIndex(run.getAirpad() ? 1 : 0);
+    ui->fullPrecision->setChecked(run.getFullPrecisionFormat());
 
 // TODO
     showBCAMTable();
 
-    QString resultFile = settings.value(RESULT_FILE).value<QString>();
-    display(ui->resultFileLabel, ui->resultFile, resultFile);
+    display(ui->resultFileLabel, ui->resultFile, "result_file");
 }
 
 Client::~Client()
@@ -112,7 +97,7 @@ Client::~Client()
 }
 
 QString Client::getMode() {
-    return ui->modeBox->text();
+    return ui->mode->text();
 }
 
 void Client::showBCAM(int row, int /* column */) {
@@ -155,25 +140,26 @@ void Client::showBCAM(int row, int /* column */) {
 
 
 void Client::changedAirpad(int index) {
-    settings.setValue(AIRPAD_INDEX, index);
+    run.setAirpad(index == 1);
 }
 
 void Client::setEnabled() {
     bool enabled = adepoState == ADEPO_IDLE;
     bool canStart = enabled &&
             ui->tableWidget_liste_bcams->rowCount() > 0;
-    ui->Boutton_lancer->setEnabled(canStart);
+    ui->singleShot->setEnabled(canStart);
     ui->nextMeasurement->setEnabled(canStart);
-    ui->repeatButton->setEnabled(canStart);
+    ui->monitoring->setEnabled(canStart);
 
-    ui->boutton_arreter->setEnabled(!enabled && getMode() == MODE_CLOSURE);
+    ui->singleShotStop->setEnabled(!enabled && getMode() == MODE_CLOSURE);
     ui->stop->setEnabled(!enabled && getMode() == MODE_CLOSURE);
-    ui->stopButton->setEnabled(!enabled && getMode() == MODE_MONITORING);
+    ui->monitoringStop->setEnabled(!enabled && getMode() == MODE_MONITORING);
 
     ui->tableWidget_liste_detectors->setEnabled(enabled);
-    ui->modeBox->setEnabled(enabled);
-    ui->airpadBox->setEnabled(enabled);
-    ui->timeBox->setEnabled(enabled);
+    ui->mode->setEnabled(enabled);
+    ui->airpad->setEnabled(enabled);
+    ui->singleShotTime->setEnabled(enabled);
+    ui->monitoringTime->setEnabled(enabled);
     ui->waitingTime->setEnabled(enabled);
 }
 
@@ -199,15 +185,14 @@ void Client::display(QLabel *label, QTextBrowser *browser, QString filename) {
     browser->setHtml(text);
 }
 
-//fonction qui enregistre la valeur du temps d'acquisition entree par l'utilisateur                 [----> ok
 void Client::changedTimeValue(int value)
 {
-    settings.setValue(TIME_VALUE, value);
+    run.setSingleShotTime(value);
 }
 
 void Client::changedWaitingTimeValue(int value)
 {
-    settings.setValue(WAITING_TIME_VALUE, value);
+    run.setWaitingTime(value);
 }
 
 //fonction permettant de charger la liste des detectors après ouverture d'un projet                 [---> ok
@@ -404,11 +389,9 @@ void Client::resetDelta() {
 }
 
 void Client::changedFormat(int state) {
-    settings.setValue(FULL_PRESICION_FORMAT, state);
+    run.setFullPrecisionFormat(state);
     updateResults(results);
 }
-
-
 
 void Client::updateResults(std::map<QString, Result> &results) {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
@@ -432,7 +415,9 @@ void Client::updateResults(std::map<QString, Result> &results) {
 
 void Client::startClosure()
 {
-    call->start(MODE_CLOSURE, ui->timeBox->value(), ui->airpadBox->currentText() == "ON", selectedDetectors);
+    run.setDetectors(selectedDetectors);
+    run.setMode(MODE_CLOSURE);
+    call->start();
 }
 
 void Client::startMonitoring()
@@ -449,7 +434,9 @@ void Client::startMonitoring()
     }
 
     askQuestion = false;
-    call->start(MODE_MONITORING, ui->timeBox->value(), ui->airpadBox->currentText() == "ON", selectedDetectors);
+    run.setDetectors(selectedDetectors);
+    run.setMode(MODE_MONITORING);
+    call->start();
 }
 
 void Client::stop()

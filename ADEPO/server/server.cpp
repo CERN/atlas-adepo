@@ -73,6 +73,11 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     refFile.append(REFERENCE_INPUT_FOLDER).append(REFERENCE_FILE);
     reference.read(refFile);
 
+    // read run file
+    QString runFile = appPath;
+    runFile.append(RUN_INPUT_FOLDER).append(RUN_FILE);
+    run.read(runFile);
+
     lwdaq_client->init();
 }
 
@@ -159,7 +164,8 @@ void Server::lwdaqStateChanged() {
             adepoState = ADEPO_WAITING;
 //                setEnabled(false);
 
-            waitingTimer->start(ui->waitingTime->value()*1000);
+//            waitingTimer->start(ui->waitingTime->value()*1000);
+            waitingTimer->start(run.getWaitingTime());
                 updateTimer->start();
         } else {
             adepoState = ADEPO_IDLE;

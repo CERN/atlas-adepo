@@ -15,6 +15,7 @@
 #include "callback.h"
 #include "configuration.h"
 #include "setup.h"
+#include "run.h"
 
 #include "result.h"
 #include "util.h"
@@ -62,6 +63,7 @@ private:
 
     Configuration config;
     Setup setup;
+    Run run;
 
     Ui::Client *ui;
     std::map<QString, Result> results;
@@ -72,6 +74,7 @@ private:
     QString refFile;
     QLabel lwdaqStatus;
 
+    QString adepoState;
     QString lwdaqState;
 
     bool askQuestion;

@@ -570,6 +570,13 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/server/bcam_params.h \
 		../../ADEPO/common/reference.h \
 		../../ADEPO/common/result.h \
+		../../ADEPO/common/run.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
+		../../ADEPO/common/json_rpc.h \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
+		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
 		../../ADEPO/server/lwdaq_client.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QtNetwork \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractnetworkcache.h \
@@ -615,8 +622,6 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qlist.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/QWebSocket \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/qwebsocket.h \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/QWebSocketServer \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/qwebsocketserver.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../ADEPO/adepo-server/main.cpp
@@ -643,7 +648,7 @@ socket_server.o: ../../ADEPO/adepo-server/socket_server.cpp /Users/duns/Qt5.4.0/
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/duns/Qt5.4.0/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/bridge/callback.h \
-		../../ADEPO/bridge/json_rpc.h
+		../../ADEPO/common/json_rpc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_server.o ../../ADEPO/adepo-server/socket_server.cpp
 
 ####### Install

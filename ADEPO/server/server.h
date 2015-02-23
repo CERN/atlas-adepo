@@ -15,6 +15,7 @@
 #include "configuration.h"
 #include "data.h"
 #include "reference.h"
+#include "run.h"
 
 #include "lwdaq_client.h"
 #include "point3f.h"
@@ -36,7 +37,7 @@ public:
     int readLWDAQOutput();
 
     // implementation of Call
-    void start(QString mode, int runTime, bool airpad, std::vector<int> detectors);
+    void start();
     void stop();
     void update();
 
@@ -86,6 +87,7 @@ private:
     Setup setup;
     Data data;
     Reference reference;
+    Run run;
 };
 
 #endif // SERVER_H

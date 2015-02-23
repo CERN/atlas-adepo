@@ -60,12 +60,8 @@ void SocketClient::onTextMessageReceived(QString message)
     }
 }
 
-void SocketClient::start(QString mode, int runTime, bool airpad, std::vector<int> detectors) {
+void SocketClient::start() {
     JsonRpc rpc("start");
-    rpc.append(mode);
-    rpc.append(runTime);
-    rpc.append(airpad);
-    rpc.append(JsonRpc::toIntArray(detectors));
     sendJson(rpc);
 }
 

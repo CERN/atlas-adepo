@@ -174,8 +174,7 @@ DIST          = /Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.0/5.4/clang_64/mkspecs/features/lex.prf \
 		../../ADEPO/bridge/bridge.pro bridge.h \
 		call.h \
-		callback.h \
-		json_rpc.h 
+		callback.h 
 QMAKE_TARGET  = bridge
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = bridge

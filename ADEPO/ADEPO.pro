@@ -9,5 +9,8 @@ SUBDIRS = \
     adepo-direct
 
 OTHER_FILES = \
-    ../TODO
-
+    ../TODO \
+    input_folder/configuration_file.txt \
+    input_folder/reference_file.txt \
+    input_folder/BCAM_Parameters.txt \
+    input_folder/run_file.json

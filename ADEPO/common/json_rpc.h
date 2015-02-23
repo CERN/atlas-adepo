@@ -1,6 +1,8 @@
 #ifndef JSONRPC_H
 #define JSONRPC_H
 
+#include <vector>
+
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QString>

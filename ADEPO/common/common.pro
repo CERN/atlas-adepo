@@ -12,7 +12,8 @@ SOURCES += \
     util.cpp \
     calibration.cpp \
     setup.cpp \
-    reference.cpp
+    reference.cpp \
+    run.cpp
 
 HEADERS += \
     absolute_distances.h \
@@ -31,4 +32,6 @@ HEADERS += \
     calibration.h \
     setup.h \
     reference.h \
-    result.h
+    result.h \
+    run.h \
+    json_rpc.h

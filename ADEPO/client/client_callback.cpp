@@ -4,8 +4,8 @@
 #include "ui_client.h"
 
 void Client::setMode(QString mode) {
-    ui->modeBox->setText(mode);
-    ui->modeBox->setReadOnly(true);
+    ui->mode->setText(mode);
+    ui->mode->setReadOnly(true);
 }
 
 void Client::setSelectedDetectors(std::vector<int> detectors) {
@@ -16,6 +16,7 @@ void Client::setSelectedDetectors(std::vector<int> detectors) {
 
 void Client::updateState(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds) {
     QString adepo;
+    this->adepoState = adepoState;
     this->lwdaqState = lwdaqState;
 
     setEnabled();
