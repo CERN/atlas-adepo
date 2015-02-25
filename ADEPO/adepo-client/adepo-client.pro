@@ -12,6 +12,10 @@ TEMPLATE = app
 SOURCES += main.cpp \
     socket_client.cpp
 
+unix:!mac{
+  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib
+  QMAKE_RPATH=
+}
 
 unix: LIBS += -L$$OUT_PWD/../client/ -lclient
 
