@@ -63,8 +63,6 @@ Client::Client(QWidget *parent) :
 
     QObject::connect(ui->fullPrecision,SIGNAL(stateChanged(int)),this,SLOT(changedFormat(int)));
     QObject::connect(ui->singleShotTime, SIGNAL(valueChanged(int)), this, SLOT(changedSingleShotTimeValue(int)));
-    QObject::connect(ui->monitoringTime, SIGNAL(valueChanged(int)), this, SLOT(changedMonitoringTimeValue(int)));
-    QObject::connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
     QObject::connect(ui->airpad, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
 
     askQuestion = true;
@@ -79,8 +77,8 @@ Client::Client(QWidget *parent) :
     setEnabled();
 
     ui->singleShotTime->setValue(run.getSingleShotTime());
-    ui->monitoringTime->setValue(run.getMonitoringTime());
-    ui->waitingTime->setValue(run.getWaitingTime());
+    ui->monitoringTime->setText(QString::number(run.getMonitoringTime()));
+    ui->waitingTime->setText(QString::number(run.getWaitingTime()));
 
     ui->airpad->setCurrentIndex(run.getAirpad() ? 1 : 0);
     ui->fullPrecision->setChecked(run.getFullPrecisionFormat());
@@ -185,14 +183,9 @@ void Client::display(QLabel *label, QTextBrowser *browser, QString filename) {
     browser->setHtml(text);
 }
 
-void Client::changedTimeValue(int value)
+void Client::changedSingleShotTimeValue(int value)
 {
     run.setSingleShotTime(value);
-}
-
-void Client::changedWaitingTimeValue(int value)
-{
-    run.setWaitingTime(value);
 }
 
 //fonction permettant de charger la liste des detectors après ouverture d'un projet                 [---> ok

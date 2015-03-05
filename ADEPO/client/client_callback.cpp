@@ -5,7 +5,6 @@
 
 void Client::setMode(QString mode) {
     ui->mode->setText(mode);
-    ui->mode->setReadOnly(true);
 }
 
 void Client::setSelectedDetectors(std::vector<int> detectors) {

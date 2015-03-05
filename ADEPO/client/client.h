@@ -50,8 +50,7 @@ private slots:
     void showBCAMTable();
     void showBCAM(int row, int);
     void changedAirpad(int index);
-    void changedTimeValue(int value);
-    void changedWaitingTimeValue(int value);
+    void changedSingleShotTimeValue(int value);
     void changedFormat(int state);
     void resetDelta();
     void startClosure();
