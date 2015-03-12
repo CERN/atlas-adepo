@@ -1,5 +1,11 @@
 {
-    "MonitoringTime": null,
-    "SingleShotTime": 45,
-    "WaitingTime": 360
+    "AcquisitionTime": 46,
+    "Airpad": false,
+    "Detectors": [
+        2,
+        4
+    ],
+    "FullPrecisionFormat": false,
+    "Mode": "Monitoring",
+    "WaitingTime": 300
 }

@@ -4,6 +4,7 @@
 
 #include "socket_server.h"
 #include "json_rpc.h"
+#include "json_util.h"
 
 SocketServer::SocketServer(quint16 port, QObject *parent) :
     QObject(parent),
@@ -77,7 +78,7 @@ void SocketServer::setMode(QString mode) {
 
 void SocketServer::setSelectedDetectors(std::vector<int> detectors) {
     JsonRpc rpc("setSelectedDetectors");
-    rpc.append(rpc.toIntArray(detectors));
+    rpc.append(JsonUtil::toIntArray(detectors));
     sendJson(rpc);
 }
 

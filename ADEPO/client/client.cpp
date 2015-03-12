@@ -62,28 +62,29 @@ Client::Client(QWidget *parent) :
     QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
 
     QObject::connect(ui->fullPrecision,SIGNAL(stateChanged(int)),this,SLOT(changedFormat(int)));
-    QObject::connect(ui->singleShotTime, SIGNAL(valueChanged(int)), this, SLOT(changedSingleShotTimeValue(int)));
+    QObject::connect(ui->acquisitionTime, SIGNAL(valueChanged(int)), this, SLOT(changedAcquisitionTimeValue(int)));
+    QObject::connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
     QObject::connect(ui->airpad, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
 
     askQuestion = true;
 
     ui->tabWidget->setCurrentIndex(0);
+    ui->tableWidget_liste_detectors->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     std::cout << "Using " << run.getFileName().toStdString() << std::endl;
 
-// TODO
+    selectedDetectors = run.getDetectors();
+
     fillDetectorTable();
 
     setEnabled();
 
-    ui->singleShotTime->setValue(run.getSingleShotTime());
-    ui->monitoringTime->setText(QString::number(run.getMonitoringTime()));
-    ui->waitingTime->setText(QString::number(run.getWaitingTime()));
+    ui->acquisitionTime->setValue(run.getAcquisitionTime());
+    ui->waitingTime->setValue(run.getWaitingTime());
 
     ui->airpad->setCurrentIndex(run.getAirpad() ? 1 : 0);
     ui->fullPrecision->setChecked(run.getFullPrecisionFormat());
 
-// TODO
     showBCAMTable();
 
     display(ui->resultFileLabel, ui->resultFile, "result_file");
@@ -94,6 +95,7 @@ Client::~Client()
     delete ui;
 }
 
+// NOTE needs to be here, dependent on ui_client.h
 QString Client::getMode() {
     return ui->mode->text();
 }
@@ -137,10 +139,6 @@ void Client::showBCAM(int row, int /* column */) {
 }
 
 
-void Client::changedAirpad(int index) {
-    run.setAirpad(index == 1);
-}
-
 void Client::setEnabled() {
     bool enabled = adepoState == ADEPO_IDLE;
     bool canStart = enabled &&
@@ -156,8 +154,7 @@ void Client::setEnabled() {
     ui->tableWidget_liste_detectors->setEnabled(enabled);
     ui->mode->setEnabled(enabled);
     ui->airpad->setEnabled(enabled);
-    ui->singleShotTime->setEnabled(enabled);
-    ui->monitoringTime->setEnabled(enabled);
+    ui->acquisitionTime->setEnabled(enabled);
     ui->waitingTime->setEnabled(enabled);
 }
 
@@ -183,14 +180,10 @@ void Client::display(QLabel *label, QTextBrowser *browser, QString filename) {
     browser->setHtml(text);
 }
 
-void Client::changedSingleShotTimeValue(int value)
-{
-    run.setSingleShotTime(value);
-}
-
-//fonction permettant de charger la liste des detectors après ouverture d'un projet                 [---> ok
 void Client::fillDetectorTable()
 {
+    std::cout << "FDT" << std::endl;
+
     //recuperation de la liste des nom des detecteurs
     std::vector<Detector> detectors_data = config.getDetectors();
 
@@ -200,10 +193,10 @@ void Client::fillDetectorTable()
 
     for(int i=0; i<nb_lignes; i++)
     {
-
         //ajout du numero id du detetcteur
         QTableWidgetItem *item_num = new QTableWidgetItem();
-        item_num->setData(Qt::DisplayRole,detectors_data.at(i).getId());
+        int id = detectors_data.at(i).getId();
+        item_num->setData(Qt::DisplayRole,id);
         ui->tableWidget_liste_detectors->setItem(i,0,item_num);
 
         //ajout du nom du detecteur
@@ -215,9 +208,17 @@ void Client::fillDetectorTable()
         QTableWidgetItem *item_dist_const = new QTableWidgetItem();
         item_dist_const->setData(Qt::DisplayRole,detectors_data.at(i).getAirpad());
         ui->tableWidget_liste_detectors->setItem(i,2,item_dist_const);
+
+        // select if in list
+        if (std::find(selectedDetectors.begin(), selectedDetectors.end(),id) != selectedDetectors.end()) {
+            ui->tableWidget_liste_detectors->selectRow(i);
+            QModelIndexList selection = ui->tableWidget_liste_detectors->selectionModel()->selectedRows();
+            std::cout << selection.count() << std::endl;
+        }
     }
 
-
+    QModelIndexList selection = ui->tableWidget_liste_detectors->selectionModel()->selectedRows();
+    std::cout << selection.count() << std::endl;
 }
 
 //fonction permettant de charger la liste des BCAMs qui appartiennent a un detector                 [---> ok
@@ -228,6 +229,15 @@ void Client::showBCAMTable()
 
     //recuperation du nombre de detecteurs
     int noOfdetectors = ui->tableWidget_liste_detectors->selectedItems().size()/noColumn;
+
+    QModelIndexList selection = ui->tableWidget_liste_detectors->selectionModel()->selectedRows();
+    std::cout << selection.count() << std::endl;
+    for(int i=0; i< selection.count(); i++)
+    {
+        QModelIndex index = selection.at(i);
+        std::cout << "R" << index.row() << std::endl;
+    }
+    return ;
 
     setup.getBCAMs().clear();
 
@@ -249,6 +259,7 @@ void Client::showBCAMTable()
             setup.getBCAMs().push_back(bcams.at(j));
         }
     }
+//    run.setDetectors(selectedDetectors);
 
     // nombre de lignes dans la table
     ui->tableWidget_liste_bcams->setRowCount(setup.getBCAMs().size());
@@ -381,11 +392,6 @@ void Client::resetDelta() {
     updateResults(results);
 }
 
-void Client::changedFormat(int state) {
-    run.setFullPrecisionFormat(state);
-    updateResults(results);
-}
-
 void Client::updateResults(std::map<QString, Result> &results) {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
         QString prism = ui->tableWidget_results->item(row, 0)->text();
@@ -416,7 +422,6 @@ void Client::startClosure()
 void Client::startMonitoring()
 {
     if (askQuestion) {
-        // TODO to be removed, always all on
         //boite de dialogue avant de debuter le mode monitoring
         int reponse = QMessageBox::question(this, "Monitoring Mode",
                                             "Attention, you are in monitoring mode. Make sure you have selected the correct set of detectors.",

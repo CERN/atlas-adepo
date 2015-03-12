@@ -49,9 +49,10 @@ signals:
 private slots:
     void showBCAMTable();
     void showBCAM(int row, int);
-    void changedAirpad(int index);
-    void changedSingleShotTimeValue(int value);
-    void changedFormat(int state);
+    void changedAirpad(int index) { run.setAirpad(index == 1); }
+    void changedAcquisitionTimeValue(int value) { run.setAcquisitionTime(value); }
+    void changedWaitingTimeValue(int value) { run.setWaitingTime(value);}
+    void changedFormat(int state) { run.setFullPrecisionFormat(state); updateResults(results); }
     void resetDelta();
     void startClosure();
     void startMonitoring();

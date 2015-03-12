@@ -5,6 +5,7 @@
 #include "qjsondocument.h"
 #include "qjsonobject.h"
 
+#include "json_util.h"
 #include "json_rpc.h"
 
 #define RUN_INPUT_FOLDER "/../../ADEPO/input_folder/"
@@ -16,8 +17,8 @@
 #define FULL_PRECISION_FORMAT "FullPrecisionFormat"
 #define FULL_PRECISION_FORMAT_DEFAULT false
 
-#define SINGLE_SHOT_TIME "SingleShotTime"
-#define SINGLE_SHOT_TIME_DEFAULT 45
+#define ACQUISITION_TIME "AcquisitionTime"
+#define ACQUISITION_TIME_DEFAULT 45
 
 #define MONITORING_TIME "MonitoringTime"
 #define MONITORING_TIME_DEFAULT 45
@@ -46,8 +47,12 @@ public:
         write();
     }
 
+    std::vector<int> getDetectors() {
+        return JsonUtil::fromIntArray(json[DETECTORS].toArray());
+    }
+
     void setDetectors(std::vector<int> detectors) {
-        json[DETECTORS] = JsonRpc::toIntArray(detectors);
+        json[DETECTORS] = JsonUtil::toIntArray(detectors);
         write();
     }
 
@@ -69,17 +74,13 @@ public:
         write();
     }
 
-    int getSingleShotTime() {
-        return json[SINGLE_SHOT_TIME].isNull() ? SINGLE_SHOT_TIME_DEFAULT : json[SINGLE_SHOT_TIME].toInt();
+    int getAcquisitionTime() {
+        return json[ACQUISITION_TIME].isNull() ? ACQUISITION_TIME_DEFAULT : json[ACQUISITION_TIME].toInt();
     }
 
-    void setSingleShotTime(int value) {
-        json[SINGLE_SHOT_TIME] = value;
+    void setAcquisitionTime(int value) {
+        json[ACQUISITION_TIME] = value;
         write();
-    }
-
-    int getMonitoringTime() {
-        return json[MONITORING_TIME].isNull() ? MONITORING_TIME_DEFAULT : json[MONITORING_TIME].toInt();
     }
 
     int getWaitingTime() {

@@ -34,4 +34,5 @@ HEADERS += \
     reference.h \
     result.h \
     run.h \
-    json_rpc.h
+    json_rpc.h \
+    json_util.h

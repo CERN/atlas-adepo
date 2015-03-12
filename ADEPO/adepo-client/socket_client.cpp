@@ -7,6 +7,7 @@
 
 #include "socket_client.h"
 #include "json_rpc.h"
+#include "json_util.h"
 
 SocketClient::SocketClient(Callback& callback, const QUrl &url, QObject *parent) :
     QObject(parent),
@@ -39,7 +40,7 @@ void SocketClient::onTextMessageReceived(QString message)
         callback.setMode(params[0].toString());
     } else if (method == "setSelectedDetectors") {
         QJsonArray params = json["params"].toArray();
-        callback.setSelectedDetectors(JsonRpc::fromIntArray(params[0].toArray()));
+        callback.setSelectedDetectors(JsonUtil::fromIntArray(params[0].toArray()));
     } else if (method == "updateState") {
         QJsonArray params = json["params"].toArray();
         callback.updateState(params[0].toString(), params[1].toInt(), params[2].toString(), params[3].toInt());
