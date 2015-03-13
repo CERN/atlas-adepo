@@ -25,7 +25,7 @@ void SocketClient::onConnected()
     connect(&webSocket, &QWebSocket::textMessageReceived, this, &SocketClient::onTextMessageReceived);
 //    webSocket.sendTextMessage(QStringLiteral("Hello, world!"))
 
-    update();
+    updateAll();
 }
 
 void SocketClient::onTextMessageReceived(QString message)
@@ -35,27 +35,24 @@ void SocketClient::onTextMessageReceived(QString message)
     QJsonObject json = doc.object();
     QString version = json["jsonrpc"].toString();
     QString method = json["method"].toString();
-    if (method == "setMode") {
+    if (method == "changedState") {
         QJsonArray params = json["params"].toArray();
-        callback.setMode(params[0].toString());
-    } else if (method == "setSelectedDetectors") {
+        callback.changedState(params[0].toString(), params[1].toInt(), params[2].toString(), params[3].toInt());
+    } else if (method == "changedRunFile") {
         QJsonArray params = json["params"].toArray();
-        callback.setSelectedDetectors(JsonUtil::fromIntArray(params[0].toArray()));
-    } else if (method == "updateState") {
+        callback.changedRunFile(params[0].toString());
+    } else if (method == "changedConfigurationFile") {
         QJsonArray params = json["params"].toArray();
-        callback.updateState(params[0].toString(), params[1].toInt(), params[2].toString(), params[3].toInt());
-    } else if (method == "updateConfigurationFile") {
+        callback.changedConfigurationFile(params[0].toString());
+    } else if (method == "changedCalibrationFile") {
         QJsonArray params = json["params"].toArray();
-        callback.updateConfigurationFile(params[0].toString());
-    } else if (method == "updateCalibrationFile") {
+        callback.changedCalibrationFile(params[0].toString());
+    } else if (method == "changedReferenceFile") {
         QJsonArray params = json["params"].toArray();
-        callback.updateCalibrationFile(params[0].toString());
-    } else if (method == "updateReferenceFile") {
+        callback.changedReferenceFile(params[0].toString());
+    } else if (method == "changedResultFile") {
         QJsonArray params = json["params"].toArray();
-        callback.updateReferenceFile(params[0].toString());
-    } else if (method == "updateResultFile") {
-        QJsonArray params = json["params"].toArray();
-        callback.updateResultFile(params[0].toString());
+        callback.changedResultFile(params[0].toString());
     } else {
         std::cerr << "Unimplemented client rpc method: " << method.toStdString() << std::endl;
     }
@@ -71,9 +68,28 @@ void SocketClient::stop() {
     sendJson(rpc);
 }
 
+void SocketClient::updateCalibrationFile() {
+    JsonRpc rpc("updateCalibrationFile");
+    sendJson(rpc);
+}
 
-void SocketClient::update() {
-    JsonRpc rpc("update");
+void SocketClient::updateConfigurationFile() {
+    JsonRpc rpc("updateConfigurationFile");
+    sendJson(rpc);
+}
+
+void SocketClient::updateReferenceFile() {
+    JsonRpc rpc("updateReferenceFile");
+    sendJson(rpc);
+}
+
+void SocketClient::updateRunFile() {
+    JsonRpc rpc("updateRunFile");
+    sendJson(rpc);
+}
+
+void SocketClient::updateAll() {
+    JsonRpc rpc("updateAll");
     sendJson(rpc);
 }
 

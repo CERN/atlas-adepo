@@ -1,5 +1,5 @@
 {
-    "AcquisitionTime": 46,
+    "AcquisitionTime": 100,
     "Airpad": false,
     "Detectors": [
         2,
@@ -7,5 +7,5 @@
     ],
     "FullPrecisionFormat": false,
     "Mode": "Monitoring",
-    "WaitingTime": 300
+    "WaitingTime": 480
 }

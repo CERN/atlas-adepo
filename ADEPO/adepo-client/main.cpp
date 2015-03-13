@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     client.setServer(webSocketClient);
     client.show();
 
-    client.updateState(ADEPO_UNSET, 0, LWDAQ_UNSET, 0);
+    client.changedState(ADEPO_UNSET, 0, LWDAQ_UNSET, 0);
 
     return app.exec();
 }

@@ -34,25 +34,25 @@ public:
 
     void setServer(Call& callImpl) { call = &callImpl; }
 
-    void setMode(QString mode);
-    void setSelectedDetectors(std::vector<int> detectors);
-    void updateState(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds);
-    void updateConfigurationFile(QString filename);
-    void updateCalibrationFile(QString filename);
-    void updateReferenceFile(QString filename);
-    void updateResultFile(QString filename);
+    void changedState(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds);
+
+    void changedRunFile(QString filename);
+    void changedConfigurationFile(QString filename);
+    void changedCalibrationFile(QString filename);
+    void changedReferenceFile(QString filename);
+    void changedResultFile(QString filename);
 
 public slots:
 
 signals:
 
 private slots:
-    void showBCAMTable();
+    void selectDetectorRow(int row, int /* column */);
     void showBCAM(int row, int);
-    void changedAirpad(int index) { run.setAirpad(index == 1); }
-    void changedAcquisitionTimeValue(int value) { run.setAcquisitionTime(value); }
-    void changedWaitingTimeValue(int value) { run.setWaitingTime(value);}
-    void changedFormat(int state) { run.setFullPrecisionFormat(state); updateResults(results); }
+    void changedAirpad(int index) { run.setAirpad(index == 1); ; call->updateRunFile(); }
+    void changedAcquisitionTimeValue(int value) { run.setAcquisitionTime(value); ; call->updateRunFile(); }
+    void changedWaitingTimeValue(int value) { run.setWaitingTime(value); call->updateRunFile(); }
+    void changedFormat(int state) { run.setFullPrecisionFormat(state); ; call->updateRunFile(); updateResults(results); }
     void resetDelta();
     void startClosure();
     void startMonitoring();
@@ -61,15 +61,13 @@ private slots:
 private:
     Call* call;
 
+    Run run;
     Configuration config;
     Setup setup;
-    Run run;
 
     Ui::Client *ui;
     std::map<QString, Result> results;
     int selectedBCAM;
-
-    std::vector<int> selectedDetectors;
 
     QString refFile;
     QLabel lwdaqStatus;
@@ -79,14 +77,13 @@ private:
 
     bool askQuestion;
 
-    //fonction qui remplie le tableau de detecteurs affiche dans l'interface
     void fillDetectorTable();
+    void showBCAMTable();
     void setResult(int row, Result& result);
     void setResult(int row, Point3f point, int columnSet, int precision);
     void updateResults(std::map<QString, Result> &results);
     void setEnabled();
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);
-    QString getMode();
 };
 
 #endif // CLIENT_H

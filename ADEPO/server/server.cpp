@@ -16,7 +16,7 @@
 
 Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(callback) {
     QString appPath = Util::appDirPath();
-    std::cout << appPath.toStdString() << std::endl;
+    std::cout << "SERVER AppPath: " << appPath.toStdString() << std::endl;
 
     // connect to LWDAQ server
     lwdaq_client = new LWDAQ_Client("localhost", 1090, this);
@@ -28,7 +28,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
         std::cerr << "FATAL: could not find LWDAQ directory up from " << appPath.toStdString() << std::endl;
         exit(1);
     } else {
-        std::cout << "Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
+        std::cout << "SERVER Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
     }
 
     resultFile = appPath;
@@ -39,18 +39,25 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     previousState = LWDAQ_UNSET;
     needToCalculateResults = false;
 
-    runMode = MODE_CLOSURE;
     adepoState = ADEPO_IDLE;
 
     waitingTimer = new QTimer(this);
     waitingTimer->setSingleShot(true);
-    QObject::connect(waitingTimer, SIGNAL(timeout()), this, SLOT(startDAQ()));
+    QObject::connect(waitingTimer, SIGNAL(timeout()), this, SLOT(runDAQ()));
 
     updateTimer = new QTimer(this);
     updateTimer->setInterval(FAST_UPDATE_TIME*1000);
     updateTimer->setSingleShot(false);
     QObject::connect(updateTimer, SIGNAL(timeout()), this, SLOT(timeChanged()));
 
+    // read run file
+    QString runFile = appPath;
+    runFile.append(RUN_INPUT_FOLDER).append(RUN_FILE);
+    run.read(runFile);
+
+    std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
+
+    // read config file
     QString configurationFile = appPath;
     configurationFile.append(CONFIGURATION_INPUT_FOLDER).append(CONFIGURATION_FILE);
     config.read(configurationFile);
@@ -73,20 +80,12 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     refFile.append(REFERENCE_INPUT_FOLDER).append(REFERENCE_FILE);
     reference.read(refFile);
 
-    // read run file
-    QString runFile = appPath;
-    runFile.append(RUN_INPUT_FOLDER).append(RUN_FILE);
-    run.read(runFile);
-
     lwdaq_client->init();
 }
 
-void Server::startDAQ(QString runMode, int runTime, bool useAirpads, std::vector<int> detectors)
+void Server::startDAQ()
 {
-    this->runMode = runMode;
-    this->runTime = runTime;
-    this->useAirpads = useAirpads;
-    this->detectors = detectors;
+    std::vector<int> detectors = run.getDetectors();
 
     setup.getBCAMs().clear();
     for(unsigned int i=0; i<detectors.size(); i++)
@@ -112,28 +111,28 @@ void Server::startDAQ(QString runMode, int runTime, bool useAirpads, std::vector
     std::cout << "*** Removing " << resultFile.toStdString() << std::endl;
     QFile file(resultFile);
     if (file.exists() && !file.remove()) {
-        std::cout << "WARNING Cannot remove result file " << file.fileName().toStdString() << std::endl;
-        std::cout << "WARNING Start aborted." << std::endl;
+        std::cout << "SERVER WARNING Cannot remove result file " << file.fileName().toStdString() << std::endl;
+        std::cout << "SERVER WARNING Start aborted." << std::endl;
         return;
     }
 
-    std::cout << "Starting LWDAQ on " << config.getDriverIpAddress().toStdString() << std::endl;
+    std::cout << "SERVER Starting LWDAQ on " << config.getDriverIpAddress().toStdString() << std::endl;
 
     startDAQ();
 }
 
-void Server::startDAQ() {
+void Server::runDAQ() {
     QString dir = Util::appDirPath();
 
     needToCalculateResults = true;
-    lwdaq_client->startRun(dir, runTime);
+    lwdaq_client->startRun(dir, run.getAcquisitionTime());
 }
 
 void Server::stopDAQ()
 {
     needToCalculateResults = false;
 
-    if (runMode == MODE_CLOSURE) {
+    if (run.getMode() == MODE_CLOSURE) {
         waitingTimer->stop();
         updateTimer->stop();
     }
@@ -148,7 +147,7 @@ void Server::stopDAQ()
 }
 
 void Server::lwdaqStateChanged() {
-    std::cout << "state changed to " << lwdaq_client->getState().toStdString() << std::endl;
+    std::cout << "SERVER state changed to " << lwdaq_client->getState().toStdString() << std::endl;
 
 
     if (lwdaq_client->getState() == LWDAQ_IDLE) {
@@ -160,7 +159,7 @@ void Server::lwdaqStateChanged() {
             needToCalculateResults = false;
         }
 
-        if (runMode == MODE_MONITORING) {
+        if (run.getMode() == MODE_MONITORING) {
             adepoState = ADEPO_WAITING;
 //                setEnabled(false);
 
@@ -180,7 +179,7 @@ void Server::lwdaqStateChanged() {
         updateState();
 //            setEnabled(false);
     } else if (lwdaq_client->getState() == LWDAQ_STOP) {
-        adepoState = runMode == MODE_MONITORING ? ADEPO_WAITING : ADEPO_IDLE;
+        adepoState = run.getMode() == MODE_MONITORING ? ADEPO_WAITING : ADEPO_IDLE;
         updateState();
 //            ui->repeatButton->setEnabled(false);
 //            ui->Boutton_lancer->setEnabled(false);
@@ -210,7 +209,7 @@ void Server::timeChanged() {
 }
 
 void Server::updateState() {
-    callback.updateState(adepoState, waitingTimer->remainingTime()/1000, lwdaq_client->getState(), lwdaq_client->getRemainingTime()/1000);
+    callback.changedState(adepoState, waitingTimer->remainingTime()/1000, lwdaq_client->getState(), lwdaq_client->getRemainingTime()/1000);
 }
 
 //fonction qui calcule les coordonnees de chaque prisme dans le repere BCAM + suavegarde            [----> ok
@@ -522,7 +521,7 @@ void Server::mountPrismToGlobalPrism()
     for(unsigned int i=0; i<data.getMountCoordPrisms().size(); i++)
     {
         MountCoordPrism prism = data.getMountCoordPrisms().at(i);
-        float airpad = useAirpads ? config.getDetector(prism.getBCAM().getName()).getAirpad() : 0.0f;
+        float airpad = run.getAirpad() ? config.getDetector(prism.getBCAM().getName()).getAirpad() : 0.0f;
 
         for(unsigned int j=0; j<data.getBCAMParams().size(); j++)
         {

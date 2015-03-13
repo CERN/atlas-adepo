@@ -23,13 +23,13 @@ public:
 
     void setServer(Call& call) { this->call = &call; }
 
-    void setMode(QString mode);
-    void setSelectedDetectors(std::vector<int> detectors);
-    void updateState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
-    void updateConfigurationFile(QString filename);
-    void updateCalibrationFile(QString filename);
-    void updateReferenceFile(QString filename);
-    void updateResultFile(QString filename);
+    void changedState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
+
+    void changedRunFile(QString filename);
+    void changedConfigurationFile(QString filename);
+    void changedCalibrationFile(QString filename);
+    void changedReferenceFile(QString filename);
+    void changedResultFile(QString filename);
 
 Q_SIGNALS:
     void closed();

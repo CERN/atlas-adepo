@@ -3,17 +3,33 @@
 #include "client.h"
 #include "ui_client.h"
 
-void Client::setMode(QString mode) {
-    ui->mode->setText(mode);
+void Client::changedRunFile(QString filename) {
+    std::cout << "CLIENT Changed Run File " << filename.toStdString() << std::endl;
+
+    run.read(filename);
+
+    // select selected detectors
+    ui->tableWidget_liste_detectors->clearSelection();
+    std::vector<int> selectedDetectors = run.getDetectors();
+    for (int row=0; row < ui->tableWidget_liste_detectors->rowCount(); row++) {
+        int id = ui->tableWidget_liste_detectors->item(row, 0)->data(Qt::DisplayRole).toInt();
+        // select if in list
+        if (std::find(selectedDetectors.begin(), selectedDetectors.end(), id) != selectedDetectors.end()) {
+            ui->tableWidget_liste_detectors->selectRow(row);
+        }
+    }
+
+    showBCAMTable();
+
+    // set the other params
+    ui->mode->setText(run.getMode());
+    ui->airpad->setCurrentIndex(run.getAirpad() ? 1 : 0);
+    ui->acquisitionTime->setValue(run.getAcquisitionTime());
+    ui->waitingTime->setValue(run.getWaitingTime());
+    ui->fullPrecision->setChecked(run.getFullPrecisionFormat());
 }
 
-void Client::setSelectedDetectors(std::vector<int> detectors) {
-   for (unsigned int i=0; i<detectors.size(); i++) {
-       ui->tableWidget_liste_detectors->selectRow(detectors[i]);
-   }
-}
-
-void Client::updateState(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds) {
+void Client::changedState(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds) {
     QString adepo;
     this->adepoState = adepoState;
     this->lwdaqState = lwdaqState;
@@ -38,21 +54,23 @@ void Client::updateState(QString adepoState, int adepoSeconds, QString lwdaqStat
     QMainWindow::statusBar()->showMessage("ADEPO: "+adepo);
 }
 
-void Client::updateConfigurationFile(QString filename) {
+void Client::changedConfigurationFile(QString filename) {
     display(ui->configurationFileLabel, ui->configurationFile, filename);
 
     config.read(filename);
     fillDetectorTable();
+
+    changedRunFile(run.getFileName());
 }
 
-void Client::updateCalibrationFile(QString filename) {
+void Client::changedCalibrationFile(QString filename) {
     display(ui->calibrationFileLabel, ui->calibrationFile, filename);
 }
 
-void Client::updateReferenceFile(QString filename) {
+void Client::changedReferenceFile(QString filename) {
     display(ui->refFileLabel, ui->refFile, filename);
 }
 
-void Client::updateResultFile(QString filename) {
+void Client::changedResultFile(QString filename) {
     display(ui->resultFileLabel, ui->resultFile, filename);
 }

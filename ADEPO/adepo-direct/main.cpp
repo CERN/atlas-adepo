@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     //system("mkdir Archive");
     client.show();
 
-    server.update();
+    server.updateAll();
 
     return app.exec();
 }

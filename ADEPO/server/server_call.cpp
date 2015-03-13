@@ -1,23 +1,57 @@
 #include "server.h"
 
 void Server::start() {
+    qDebug() << "SERVER Start called...";
     startDAQ();
 }
 
 void Server::stop() {
+    qDebug() << "SERVER Stop called...";
     stopDAQ();
 }
 
-void Server::update() {
-    qDebug() << "Update called...";
+void Server::updateRunFile() {
+    qDebug() << "SERVER UpdateRunFile called...";
 
-    callback.setMode(runMode);
-    callback.setSelectedDetectors(detectors);
+    // reread run file
+    run.read(run.getFileName());
 
-    // TODO
-    callback.updateState(adepoState, waitingTimer->remainingTime(), lwdaq_client->getState(), lwdaq_client->getRemainingTime());
-    callback.updateConfigurationFile(config.getFilename());
-    callback.updateCalibrationFile(calibration.getFilename());
-    callback.updateReferenceFile(reference.getFilename());
-    callback.updateResultFile(resultFile);
+    callback.changedRunFile(run.getFileName());
+}
+
+void Server::updateConfigurationFile() {
+    qDebug() << "SERVER UpdateConfigFile called...";
+
+    config.read(config.getFilename());
+
+    callback.changedConfigurationFile(config.getFilename());
+}
+
+void Server::updateCalibrationFile() {
+    qDebug() << "SERVER UpdateCalibFile called...";
+
+    calibration.read(calibration.getFilename());
+
+    callback.changedCalibrationFile(calibration.getFilename());
+}
+
+void Server::updateReferenceFile() {
+    qDebug() << "SERVER UpdateRefFile called...";
+
+    reference.read(reference.getFilename());
+
+    callback.changedReferenceFile(reference.getFilename());
+}
+
+
+void Server::updateAll() {
+    qDebug() << "SERVER UpdateAll called...";
+
+    updateRunFile();
+    updateConfigurationFile();
+    updateCalibrationFile();
+    updateReferenceFile();
+
+    callback.changedState(adepoState, waitingTimer->remainingTime(), lwdaq_client->getState(), lwdaq_client->getRemainingTime());
+    callback.changedResultFile(resultFile);
 }

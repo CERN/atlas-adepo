@@ -709,10 +709,11 @@ main.o: ../../ADEPO/adepo-client/main.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/Q
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
-		../../ADEPO/common/json_rpc.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
+		../../ADEPO/common/json_rpc.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		../../ADEPO/adepo-client/socket_client.h \
@@ -742,7 +743,8 @@ socket_client.o: ../../ADEPO/adepo-client/socket_client.cpp /Users/duns/Qt5.4.1/
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
-		../../ADEPO/common/json_rpc.h
+		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/json_util.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_client.o ../../ADEPO/adepo-client/socket_client.cpp
 
 ####### Install

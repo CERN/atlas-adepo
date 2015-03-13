@@ -27,6 +27,10 @@
 #define WAITING_TIME_DEFAULT 360
 
 #define MODE "Mode"
+#define MODE_CLOSURE "Closure"
+#define MODE_MONITORING "Monitoring"
+#define MODE_DEFAULT MODE_CLOSURE
+
 #define DETECTORS "Detectors"
 
 class Run
@@ -40,6 +44,10 @@ public:
 
     QString getFileName() {
         return fileName;
+    }
+
+    QString getMode() {
+        return json[MODE].isNull() ? MODE_DEFAULT : json[MODE].toString();
     }
 
     void setMode(QString mode) {

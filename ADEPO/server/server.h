@@ -31,7 +31,7 @@ public:
     Server(Callback& callback, QObject *parent = 0);
     ~Server() {};
 
-    void startDAQ(QString runMode, int runTime, bool airpad, std::vector<int> detectors);
+    void startDAQ();
     void stopDAQ();
     QString calculateCoordinates();
     int readLWDAQOutput();
@@ -39,12 +39,18 @@ public:
     // implementation of Call
     void start();
     void stop();
-    void update();
+
+    void updateRunFile();
+    void updateConfigurationFile();
+    void updateCalibrationFile();
+    void updateReferenceFile();
+
+    void updateAll();
 
 private slots:
     void lwdaqStateChanged();
     void timeChanged();
-    void startDAQ();
+    void runDAQ();
 
 private:
     Callback& callback;
@@ -70,10 +76,6 @@ private:
     QTimer *updateTimer;
 
     QString adepoState;
-    QString runMode;
-    int runTime;
-    bool useAirpads;
-    std::vector<int> detectors;
 
     QString resultFile;
     QString scriptFile;
@@ -82,12 +84,12 @@ private:
     QString previousState;
     bool needToCalculateResults;
 
+    Run run;
     Configuration config;
     Calibration calibration;
     Setup setup;
     Data data;
     Reference reference;
-    Run run;
 };
 
 #endif // SERVER_H

@@ -18,7 +18,11 @@ public:
 
     void start();
     void stop();
-    void update();
+    void updateRunFile();
+    void updateConfigurationFile();
+    void updateCalibrationFile();
+    void updateReferenceFile();
+    void updateAll();
 
 Q_SIGNALS:
     void closed();

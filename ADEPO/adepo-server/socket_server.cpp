@@ -4,7 +4,6 @@
 
 #include "socket_server.h"
 #include "json_rpc.h"
-#include "json_util.h"
 
 SocketServer::SocketServer(quint16 port, QObject *parent) :
     QObject(parent),
@@ -53,8 +52,16 @@ void SocketServer::processBinaryMessage(QByteArray message)
         call->start();
     } else if (method == "stop") {
         call->stop();
-    } else if (method == "update") {
-        call->update();
+    } else if (method == "updateRunFile") {
+        call->updateRunFile();
+    } else if (method == "updateCalibrationFile") {
+        call->updateCalibrationFile();
+    } else if (method == "updateConfigurationFile") {
+        call->updateConfigurationFile();
+    } else if (method == "updateReferenceFile") {
+        call->updateReferenceFile();
+    } else if (method == "updateAll") {
+        call->updateAll();
     } else {
         std::cerr << "Unimplemented server rpc method: " << method.toStdString() << std::endl;
     }
@@ -70,20 +77,14 @@ void SocketServer::socketDisconnected()
 }
 
 
-void SocketServer::setMode(QString mode) {
-    JsonRpc rpc("setMode");
-    rpc.append(mode);
+void SocketServer::changedRunFile(QString filename) {
+    JsonRpc rpc("changedRunFile");
+    rpc.append(filename);
     sendJson(rpc);
 }
 
-void SocketServer::setSelectedDetectors(std::vector<int> detectors) {
-    JsonRpc rpc("setSelectedDetectors");
-    rpc.append(JsonUtil::toIntArray(detectors));
-    sendJson(rpc);
-}
-
-void SocketServer::updateState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) {
-    JsonRpc rpc("updateState");
+void SocketServer::changedState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) {
+    JsonRpc rpc("changedState");
     rpc.append(adepoStatus);
     rpc.append(adepoSeconds);
     rpc.append(lwdaqStatus);
@@ -91,26 +92,26 @@ void SocketServer::updateState(QString adepoStatus, int adepoSeconds, QString lw
     sendJson(rpc);
 }
 
-void SocketServer::updateConfigurationFile(QString filename) {
-    JsonRpc rpc("updateConfigurationFile");
+void SocketServer::changedConfigurationFile(QString filename) {
+    JsonRpc rpc("changedConfigurationFile");
     rpc.append(filename);
     sendJson(rpc);
 }
 
-void SocketServer::updateCalibrationFile(QString filename) {
-    JsonRpc rpc("updateCalibrationFile");
+void SocketServer::changedCalibrationFile(QString filename) {
+    JsonRpc rpc("changedCalibrationFile");
     rpc.append(filename);
     sendJson(rpc);
 }
 
-void SocketServer::updateReferenceFile(QString filename) {
-    JsonRpc rpc("updateReferenceFile");
+void SocketServer::changedReferenceFile(QString filename) {
+    JsonRpc rpc("changedReferenceFile");
     rpc.append(filename);
     sendJson(rpc);
 }
 
-void SocketServer::updateResultFile(QString filename) {
-    JsonRpc rpc("updateResultFile");
+void SocketServer::changedResultFile(QString filename) {
+    JsonRpc rpc("changedResultFile");
     rpc.append(filename);
     sendJson(rpc);
 }

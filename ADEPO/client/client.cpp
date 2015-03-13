@@ -23,14 +23,6 @@ Client::Client(QWidget *parent) :
     QCoreApplication::setOrganizationDomain("atlas.cern.ch");
     QCoreApplication::setApplicationVersion("1.4");
 
-    QString appPath = Util::appDirPath();
-    std::cout << appPath.toStdString() << std::endl;
-
-    // read run file
-    QString runFile = appPath;
-    runFile.append(RUN_INPUT_FOLDER).append(RUN_FILE);
-    run.read(runFile);
-
     ui->setupUi(this);
     ui->statusBar->addPermanentWidget(&lwdaqStatus);
     setWindowTitle(QCoreApplication::applicationName()+" "+QCoreApplication::applicationVersion());
@@ -39,29 +31,29 @@ Client::Client(QWidget *parent) :
     ui->tableWidget_liste_detectors->horizontalHeader()->setVisible(true);
     ui->tableWidget_liste_bcams->horizontalHeader()->setVisible(true);
 
-    QObject::connect(ui->action_Quitter,SIGNAL(triggered()),qApp,SLOT(quit()));
+    QObject::connect(ui->action_Quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
     ui->action_Quitter->setShortcut(QKeySequence("Ctrl+Q"));
 
-    QObject::connect(ui->actionAbout_Qt,SIGNAL(triggered()),qApp,SLOT(aboutQt()));
+    QObject::connect(ui->actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     ui->actionAbout_Qt->setShortcut(QKeySequence("Ctrl+I"));
 
     //clic detecteur-affichage bcam
-    QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAMTable()));
-    QObject::connect(ui->tableWidget_liste_bcams, SIGNAL(cellClicked(int,int)),this, SLOT(showBCAM(int,int)));
+    QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)), this, SLOT(selectDetectorRow(int,int)));
+    QObject::connect(ui->tableWidget_liste_bcams, SIGNAL(cellClicked(int,int)), this, SLOT(showBCAM(int,int)));
 
     //lancer les acquisitions
-    QObject::connect(ui->singleShot,SIGNAL(clicked()), this,SLOT(startClosure()));
-    QObject::connect(ui->nextMeasurement,SIGNAL(clicked()), this,SLOT(startClosure()));
-    QObject::connect(ui->monitoring,SIGNAL(clicked()), this,SLOT(startMonitoring()));
+    QObject::connect(ui->singleShot, SIGNAL(clicked()), this, SLOT(startClosure()));
+    QObject::connect(ui->nextMeasurement, SIGNAL(clicked()), this, SLOT(startClosure()));
+    QObject::connect(ui->monitoring, SIGNAL(clicked()), this, SLOT(startMonitoring()));
 
     //stopper l'acquisition
-    QObject::connect(ui->singleShotStop,SIGNAL(clicked()),this,SLOT(stop()));
-    QObject::connect(ui->stop,SIGNAL(clicked()),this,SLOT(stop()));
-    QObject::connect(ui->monitoringStop,SIGNAL(clicked()),this,SLOT(stop()));
+    QObject::connect(ui->singleShotStop, SIGNAL(clicked()), this, SLOT(stop()));
+    QObject::connect(ui->stop, SIGNAL(clicked()), this, SLOT(stop()));
+    QObject::connect(ui->monitoringStop, SIGNAL(clicked()), this, SLOT(stop()));
 
-    QObject::connect(ui->reset,SIGNAL(clicked()),this,SLOT(resetDelta()));
+    QObject::connect(ui->reset, SIGNAL(clicked()),this,SLOT(resetDelta()));
 
-    QObject::connect(ui->fullPrecision,SIGNAL(stateChanged(int)),this,SLOT(changedFormat(int)));
+    QObject::connect(ui->fullPrecision, SIGNAL(stateChanged(int)), this, SLOT(changedFormat(int)));
     QObject::connect(ui->acquisitionTime, SIGNAL(valueChanged(int)), this, SLOT(changedAcquisitionTimeValue(int)));
     QObject::connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
     QObject::connect(ui->airpad, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
@@ -71,23 +63,7 @@ Client::Client(QWidget *parent) :
     ui->tabWidget->setCurrentIndex(0);
     ui->tableWidget_liste_detectors->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-    std::cout << "Using " << run.getFileName().toStdString() << std::endl;
-
-    selectedDetectors = run.getDetectors();
-
-    fillDetectorTable();
-
     setEnabled();
-
-    ui->acquisitionTime->setValue(run.getAcquisitionTime());
-    ui->waitingTime->setValue(run.getWaitingTime());
-
-    ui->airpad->setCurrentIndex(run.getAirpad() ? 1 : 0);
-    ui->fullPrecision->setChecked(run.getFullPrecisionFormat());
-
-    showBCAMTable();
-
-    display(ui->resultFileLabel, ui->resultFile, "result_file");
 }
 
 Client::~Client()
@@ -95,13 +71,8 @@ Client::~Client()
     delete ui;
 }
 
-// NOTE needs to be here, dependent on ui_client.h
-QString Client::getMode() {
-    return ui->mode->text();
-}
-
 void Client::showBCAM(int row, int /* column */) {
-//    std::cout << "Selected " << row << std::endl;
+    std::cout << "CLIENT SB" << std::endl;
     selectedBCAM = row;
     QString prism = ui->tableWidget_liste_bcams->item(row,5)->text();
     QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(prism);
@@ -147,9 +118,9 @@ void Client::setEnabled() {
     ui->nextMeasurement->setEnabled(canStart);
     ui->monitoring->setEnabled(canStart);
 
-    ui->singleShotStop->setEnabled(!enabled && getMode() == MODE_CLOSURE);
-    ui->stop->setEnabled(!enabled && getMode() == MODE_CLOSURE);
-    ui->monitoringStop->setEnabled(!enabled && getMode() == MODE_MONITORING);
+    ui->singleShotStop->setEnabled(!enabled && run.getMode() == MODE_CLOSURE);
+    ui->stop->setEnabled(!enabled && run.getMode() == MODE_CLOSURE);
+    ui->monitoringStop->setEnabled(!enabled && run.getMode() == MODE_MONITORING);
 
     ui->tableWidget_liste_detectors->setEnabled(enabled);
     ui->mode->setEnabled(enabled);
@@ -182,7 +153,7 @@ void Client::display(QLabel *label, QTextBrowser *browser, QString filename) {
 
 void Client::fillDetectorTable()
 {
-    std::cout << "FDT" << std::endl;
+    std::cout << "CLIENT Fill Detector Table" << std::endl;
 
     //recuperation de la liste des nom des detecteurs
     std::vector<Detector> detectors_data = config.getDetectors();
@@ -195,8 +166,7 @@ void Client::fillDetectorTable()
     {
         //ajout du numero id du detetcteur
         QTableWidgetItem *item_num = new QTableWidgetItem();
-        int id = detectors_data.at(i).getId();
-        item_num->setData(Qt::DisplayRole,id);
+        item_num->setData(Qt::DisplayRole,detectors_data.at(i).getId());
         ui->tableWidget_liste_detectors->setItem(i,0,item_num);
 
         //ajout du nom du detecteur
@@ -208,40 +178,27 @@ void Client::fillDetectorTable()
         QTableWidgetItem *item_dist_const = new QTableWidgetItem();
         item_dist_const->setData(Qt::DisplayRole,detectors_data.at(i).getAirpad());
         ui->tableWidget_liste_detectors->setItem(i,2,item_dist_const);
-
-        // select if in list
-        if (std::find(selectedDetectors.begin(), selectedDetectors.end(),id) != selectedDetectors.end()) {
-            ui->tableWidget_liste_detectors->selectRow(i);
-            QModelIndexList selection = ui->tableWidget_liste_detectors->selectionModel()->selectedRows();
-            std::cout << selection.count() << std::endl;
-        }
     }
+}
 
-    QModelIndexList selection = ui->tableWidget_liste_detectors->selectionModel()->selectedRows();
-    std::cout << selection.count() << std::endl;
+void Client::selectDetectorRow(int row, int /* column */) {
+    int id = ui->tableWidget_liste_detectors->item(row, 0)->data(Qt::DisplayRole).toInt();
+    std::cout << row << " " << id << std::endl;
+    showBCAMTable();
 }
 
 //fonction permettant de charger la liste des BCAMs qui appartiennent a un detector                 [---> ok
 void Client::showBCAMTable()
 {
-    std::cout << "Show BCAM Table" << std::endl;
+    std::cout << "CLIENT Show BCAM Table" << std::endl;
     int noColumn = ui->tableWidget_liste_detectors->columnCount();
 
     //recuperation du nombre de detecteurs
     int noOfdetectors = ui->tableWidget_liste_detectors->selectedItems().size()/noColumn;
 
-    QModelIndexList selection = ui->tableWidget_liste_detectors->selectionModel()->selectedRows();
-    std::cout << selection.count() << std::endl;
-    for(int i=0; i< selection.count(); i++)
-    {
-        QModelIndex index = selection.at(i);
-        std::cout << "R" << index.row() << std::endl;
-    }
-    return ;
-
     setup.getBCAMs().clear();
 
-    selectedDetectors.clear();
+//    selectedDetectors.clear();
 
     //recuperation des donnees a afficher
     for(int i=0; i<noOfdetectors; i++)
@@ -249,7 +206,7 @@ void Client::showBCAMTable()
         //recuperation de l'identifiant du detecteur
         int detectorId = ui->tableWidget_liste_detectors->selectedItems().at(i*noColumn)->text().toInt();
 
-        selectedDetectors.push_back(detectorId);
+//        selectedDetectors.push_back(detectorId);
 
         //recuperation des donnes a afficher
         std::vector<BCAM> bcams = setup.getBCAMs(detectorId, config);
@@ -410,12 +367,10 @@ void Client::updateResults(std::map<QString, Result> &results) {
 }
 
 
-
-
 void Client::startClosure()
 {
-    run.setDetectors(selectedDetectors);
     run.setMode(MODE_CLOSURE);
+    call->updateRunFile();
     call->start();
 }
 
@@ -432,12 +387,13 @@ void Client::startMonitoring()
     }
 
     askQuestion = false;
-    run.setDetectors(selectedDetectors);
     run.setMode(MODE_MONITORING);
+    call->updateRunFile();
     call->start();
 }
 
 void Client::stop()
 {
     call->stop();
+    call->updateRunFile();
 }
