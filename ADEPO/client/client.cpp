@@ -160,6 +160,7 @@ void Client::fillDetectorTable()
 
     // nombre de lignes du tableau de detecteurs dans l'interface
     int nb_lignes = detectors_data.size();
+    ui->tableWidget_liste_detectors->clearContents();
     ui->tableWidget_liste_detectors->setRowCount(nb_lignes);
 
     for(int i=0; i<nb_lignes; i++)
@@ -183,7 +184,19 @@ void Client::fillDetectorTable()
 
 void Client::selectDetectorRow(int row, int /* column */) {
     int id = ui->tableWidget_liste_detectors->item(row, 0)->data(Qt::DisplayRole).toInt();
-    std::cout << row << " " << id << std::endl;
+    std::cout << "Select " << id << std::endl;
+    std::vector<int> selectedDetectors = run.getDetectors();
+
+    // find the id
+    std::vector<int>::iterator it = std::find(selectedDetectors.begin(), selectedDetectors.end(), id);
+    if (it == selectedDetectors.end()) {
+        selectedDetectors.push_back(id);
+    } else {
+        selectedDetectors.erase(it);
+    }
+    run.setDetectors(selectedDetectors);
+    call->updateRunFile();
+
     showBCAMTable();
 }
 
@@ -219,6 +232,7 @@ void Client::showBCAMTable()
 //    run.setDetectors(selectedDetectors);
 
     // nombre de lignes dans la table
+    ui->tableWidget_liste_bcams->clearContents();
     ui->tableWidget_liste_bcams->setRowCount(setup.getBCAMs().size());
     ui->tableWidget_results->setRowCount(100);
 

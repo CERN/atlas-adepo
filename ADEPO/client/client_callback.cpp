@@ -13,7 +13,7 @@ void Client::changedRunFile(QString filename) {
     std::vector<int> selectedDetectors = run.getDetectors();
     for (int row=0; row < ui->tableWidget_liste_detectors->rowCount(); row++) {
         int id = ui->tableWidget_liste_detectors->item(row, 0)->data(Qt::DisplayRole).toInt();
-        // select if in list
+        // select id in list
         if (std::find(selectedDetectors.begin(), selectedDetectors.end(), id) != selectedDetectors.end()) {
             ui->tableWidget_liste_detectors->selectRow(row);
         }

@@ -60,12 +60,14 @@ public:
     QString getDriverIpAddress() const {return mDriverIpAddress;}
 
     void clear() {
-        mBCAMConfigs.clear();
         mDetectors.clear();
-        mDriverIpAddress.clear();
+        mBCAMConfigs.clear();
         mBCAMAdapters.clear();
         mAbsoluteDistances.clear();
+        mPrismCorrections.clear();
         mATLASCoordinates.clear();
+        names.clear();
+        mDriverIpAddress.clear();
     }
 
 private:

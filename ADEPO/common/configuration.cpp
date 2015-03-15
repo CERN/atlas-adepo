@@ -18,6 +18,8 @@ int Configuration::read(QString filename)
         return 0;
     }
 
+    clear();
+
     std::string line;
 
     unsigned int etape_calcul = 0;

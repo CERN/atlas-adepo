@@ -12,6 +12,8 @@ int Calibration::read(QString filename)
             return 0;
        }
 
+       clear();
+
        std::string ligne;  // déclaration d'une chaîne qui contiendra la ligne lue
        unsigned int etape_calcul = 0;
 
