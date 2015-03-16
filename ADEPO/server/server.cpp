@@ -17,6 +17,7 @@
 Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(callback) {
     std::cout << "SERVER AppPath: " << Util::appPath().toStdString() << std::endl;
     std::cout << "SERVER InputPath: " << Util::inputPath().toStdString() << std::endl;
+    std::cout << "SERVER OutputPath: " << Util::outputPath().toStdString() << std::endl;
 
     // connect to LWDAQ server
     lwdaq_client = new LWDAQ_Client("localhost", 1090, this);
@@ -94,7 +95,7 @@ void Server::startDAQ()
     writeScriptFile(Util::inputPath().append(DEFAULT_SCRIPT_FILE));
 
     //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
-    QFile file(Util::inputPath().append(DEFAULT_RESULT_FILE));
+    QFile file(Util::outputPath().append(DEFAULT_RESULT_FILE));
     std::cout << "*** Removing " << file.fileName().toStdString() << std::endl;
     if (file.exists() && !file.remove()) {
         std::cout << "SERVER WARNING Cannot remove result file " << file.fileName().toStdString() << std::endl;
@@ -200,7 +201,7 @@ void Server::updateState() {
 QString Server::calculateCoordinates()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
-   int lecture_output_result = readLWDAQOutput(Util::inputPath().append(DEFAULT_RESULT_FILE));
+   int lecture_output_result = readLWDAQOutput(Util::outputPath().append(DEFAULT_RESULT_FILE));
 
    if(lecture_output_result == 0 )
    {
@@ -224,12 +225,12 @@ QString Server::calculateCoordinates()
 //   updateResults(results);
 
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
-   QDir(".").mkpath(Util::appPath().append("/Archive"));
+   QDir(".").mkpath(Util::outputPath().append("/Archive"));
 
    // current date/time based on current system
    QString now = getDateTime();
 
-   writeFileObsMountSystem(Util::appPath().append("/Archive/Observations_MOUNT_System_").append(now).append(".txt"), now);
+   writeFileObsMountSystem(Util::outputPath().append("/Archive/Observations_MOUNT_System_").append(now).append(".txt"), now);
 
 //   settings.setValue(RESULT_FILE, fileName);
 

@@ -2,8 +2,7 @@
     "AcquisitionTime": null,
     "Airpad": null,
     "Detectors": [
-        4,
-        6
+        4
     ],
     "FullPrecisionFormat": null,
     "Mode": "Closure",

@@ -1,6 +1,4 @@
 .qmake.stash
 *.o
-*.gif
 *.a
-/Acquisifier_Results.txt
 

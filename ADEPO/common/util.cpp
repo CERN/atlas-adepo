@@ -41,5 +41,17 @@ QString Util::inputPath() {
     return inputPath;
 }
 
+QString Util::outputPath() {
+    QString outputPath = Util::appPath();
+    QDir dir(outputPath + "../../ADEPO/output_folder");
+    outputPath = dir.absolutePath();
+    if (!outputPath.endsWith("/")) {
+        outputPath += "/";
+    }
+    return outputPath;
+}
+
+
+
 
 

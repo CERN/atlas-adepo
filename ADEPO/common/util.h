@@ -11,6 +11,7 @@ public:
 
     static QString appPath();
     static QString inputPath();
+    static QString outputPath();
     static QString getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first);
 };
 

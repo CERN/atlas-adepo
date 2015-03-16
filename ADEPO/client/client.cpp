@@ -81,25 +81,24 @@ void Client::showBCAM(int row, int /* column */) {
     int deviceElement = ui->tableWidget_liste_bcams->item(row, 4)->text().toStdString() == "2" ? 2 : 1;
     ui->bcamLabel->setText(name);
     QPixmapCache::clear();
-    QString imageName1 = Util::appPath();
+
+    //    QList<QByteArray> list = QImageReader::supportedImageFormats();
+    //    for (int i=0; i<list.size(); i++) {
+    //        std::cout << QString(list[i]).toStdString() << std::endl;
+    //    }
+
     QString suffix1 = Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, true).replace(" ", "-");
-    imageName1.append("/").append(name).append("-").append(suffix1).append(".gif");
-//    QList<QByteArray> list = QImageReader::supportedImageFormats();
-//    for (int i=0; i<list.size(); i++) {
-//        std::cout << QString(list[i]).toStdString() << std::endl;
-//    }
-    QFileInfo file(imageName1);
+    QString imageName = Util::outputPath().append("/").append(name).append("-").append(suffix1).append(".gif");
+    QFileInfo file(imageName);
     if (file.exists()) {
         QDateTime dateTime = file.lastModified();
-        QPixmap pix1(imageName1);
+        QPixmap pix1(imageName);
         ui->bcamImage1->setPixmap(pix1);
         ui->bcamDateTime->setText(dateTime.toString());
         ui->bcamImage2->setVisible(flashSeparate);
         if (flashSeparate) {
             QString suffix2 = Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false);
-            QString imageName2 = Util::appPath();
-            imageName2.append("/").append(name).append("-").append(suffix2).append(".gif");
-            QPixmap pix2(imageName2);
+            QPixmap pix2(Util::outputPath().append("/").append(name).append("-").append(suffix2).append(".gif"));
             ui->bcamImage2->setPixmap(pix2);
         }
     } else {
