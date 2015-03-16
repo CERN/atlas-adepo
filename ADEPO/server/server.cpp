@@ -90,7 +90,7 @@ void Server::startDAQ()
 
     writeSettingsFile(Util::inputPath().append(DEFAULT_SETTINGS_FILE),
                       Util::inputPath().append(DEFAULT_SCRIPT_FILE),
-                      Util::inputPath().append(DEFAULT_RESULT_FILE));
+                      Util::outputPath().append(DEFAULT_RESULT_FILE));
 
     writeScriptFile(Util::inputPath().append(DEFAULT_SCRIPT_FILE));
 
