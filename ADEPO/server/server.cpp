@@ -197,14 +197,15 @@ void Server::updateState() {
 }
 
 //fonction qui calcule les coordonnees de chaque prisme dans le repere BCAM + suavegarde            [----> ok
-QString Server::calculateCoordinates()
+void Server::calculateCoordinates()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
    int lecture_output_result = readLWDAQOutput(Util::outputPath().append(DEFAULT_RESULT_FILE));
 
    if(lecture_output_result == 0 )
    {
-       return "Attention le fichier de resultats est inexistant ou illisible. Verifiez la connexion avec le driver. ";
+       std::cout << "ERROR: output file cannot be found at " << Util::outputPath().append(DEFAULT_RESULT_FILE).toStdString() << std::endl;
+       return;
    }
 
    //je fais la transformation du capteur CCD au systeme MOUNT. Attention, la lecture du fichier de calibration est deja faite !
@@ -235,8 +236,6 @@ QString Server::calculateCoordinates()
 
    //vidage des acquisitions
    data.clear();
-
-   return "";
 }
 
 

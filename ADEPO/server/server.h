@@ -33,7 +33,7 @@ public:
 
     void startDAQ();
     void stopDAQ();
-    QString calculateCoordinates();
+    void calculateCoordinates();
     int readLWDAQOutput(QString resultFile);
 
     // implementation of Call
