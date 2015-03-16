@@ -110,7 +110,7 @@ void Server::startDAQ()
 
 void Server::runDAQ() {
     needToCalculateResults = true;
-    lwdaq_client->startRun(Util::appPath(), run.getAcquisitionTime());
+    lwdaq_client->startRun(Util::inputPath(), run.getAcquisitionTime());
 }
 
 void Server::stopDAQ()
