@@ -132,8 +132,7 @@ void Server::stopDAQ()
 }
 
 void Server::lwdaqStateChanged() {
-    std::cout << "SERVER state changed to " << lwdaq_client->getState().toStdString() << std::endl;
-
+    std::cout << "SERVER state changed to " << lwdaq_client->getState().toStdString() << " Calculate: " << needToCalculateResults << std::endl;
 
     if (lwdaq_client->getState() == LWDAQ_IDLE) {
         if (needToCalculateResults) {
