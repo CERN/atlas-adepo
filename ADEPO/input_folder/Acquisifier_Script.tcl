@@ -117,3 +117,87 @@ config:
 	 daq_image_bottom 243 
 end. 
 
+acquire: 
+name: 20MABNDB000212_PR029
+instrument: BCAM 
+result: None 
+time: 0 
+config: 
+
+	 daq_adjust_flash 1 
+	 analysis_num_spots 2 
+	 daq_driver_socket 4
+	 daq_mux_socket 3
+	 daq_source_mux_socket 3
+	 daq_source_driver_socket 4
+	 daq_device_element 2 
+	 daq_source_device_element "3 4" 
+	 daq_image_left 20 
+	 daq_image_top 1 
+	 daq_image_right 343 
+	 daq_image_bottom 243 
+end. 
+
+acquire: 
+name: 20MABNDB000128_PR030
+instrument: BCAM 
+result: None 
+time: 0 
+config: 
+
+	 daq_adjust_flash 1 
+	 analysis_num_spots 2 
+	 daq_driver_socket 4
+	 daq_mux_socket 4
+	 daq_source_mux_socket 4
+	 daq_source_driver_socket 4
+	 daq_device_element 2 
+	 daq_source_device_element "3 4" 
+	 daq_image_left 20 
+	 daq_image_top 1 
+	 daq_image_right 343 
+	 daq_image_bottom 243 
+end. 
+
+acquire: 
+name: 20MABNDA000444_PR040
+instrument: BCAM 
+result: None 
+time: 0 
+config: 
+
+	 daq_adjust_flash 1 
+	 analysis_num_spots 2 
+	 daq_driver_socket 3
+	 daq_mux_socket 3
+	 daq_source_mux_socket 3
+	 daq_source_driver_socket 3
+	 daq_device_element 2 
+	 daq_source_device_element "3 4" 
+	 daq_image_left 20 
+	 daq_image_top 1 
+	 daq_image_right 343 
+	 daq_image_bottom 243 
+end. 
+
+acquire: 
+name: 20MABNDA000053_PR041
+instrument: BCAM 
+result: None 
+time: 0 
+config: 
+
+	 daq_adjust_flash 1 
+	 analysis_num_spots 2 
+	 daq_driver_socket 3
+	 daq_mux_socket 4
+	 daq_source_mux_socket 4
+	 daq_source_driver_socket 3
+	 daq_device_element 2 
+	 daq_source_device_element "3 4" 
+	 daq_image_left 20 
+	 daq_image_top 1 
+	 daq_image_right 343 
+	 daq_image_bottom 243 
+end. 
+
