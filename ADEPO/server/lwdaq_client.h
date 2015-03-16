@@ -15,7 +15,7 @@
 #define DEFAULT_RUN_TIME 45
 #define DEFAULT_PARAM_FILE "Acquisifier_Params.tcl"
 #define DEFAULT_SETTINGS_FILE "Acquisifier_Settings.tcl"
-#define DEFAULT_RESULTS_FILE "Acquisifier_Results.txt"
+#define DEFAULT_RESULT_FILE "Acquisifier_Results.txt"
 #define DEFAULT_SCRIPT_FILE "Acquisifier_Script.tcl"
 
 class LWDAQ_Client : public QObject {

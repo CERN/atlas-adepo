@@ -7,7 +7,6 @@
 
 #include "result.h"
 
-#define REFERENCE_INPUT_FOLDER "/../../ADEPO/input_folder/"
 #define REFERENCE_FILE "reference_file.txt"
 
 class Reference

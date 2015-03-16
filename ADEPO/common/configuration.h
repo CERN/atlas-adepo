@@ -12,7 +12,6 @@
 #include <map>
 #include <stdexcept>
 
-#define CONFIGURATION_INPUT_FOLDER "/../../ADEPO/input_folder/"
 #define CONFIGURATION_FILE "configuration_file.txt"
 
 class Configuration

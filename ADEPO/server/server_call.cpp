@@ -1,5 +1,7 @@
 #include "server.h"
 
+#include "util.h"
+
 void Server::start() {
     qDebug() << "SERVER Start called...";
     startDAQ();
@@ -53,5 +55,5 @@ void Server::updateAll() {
     updateReferenceFile();
 
     callback.changedState(adepoState, waitingTimer->remainingTime(), lwdaq_client->getState(), lwdaq_client->getRemainingTime());
-    callback.changedResultFile(resultFile);
+    callback.changedResultFile(Util::inputPath().append(DEFAULT_RESULT_FILE));
 }

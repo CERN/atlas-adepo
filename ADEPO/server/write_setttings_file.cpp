@@ -1,7 +1,7 @@
 #include "server.h"
 
 //fonction qui ecrit un fichier tcl avec les parametres par defaut pour la fenetre Acquisifier      [---> ok
-int Server::writeSettingsFile(QString settings_file)
+int Server::writeSettingsFile(QString settings_file, QString scriptFile, QString resultFile)
 {
     //écriture dans un fichier
     std::ofstream fichier(settings_file.toStdString().c_str(), std::ios::out | std::ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert

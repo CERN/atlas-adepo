@@ -19,13 +19,26 @@ QString Util::getSourceDeviceElement(bool isPrism, bool flashSeparate, int devic
     }
 }
 
-QString Util::appDirPath() {
+QString Util::appPath() {
     QString appPath = QCoreApplication::instance()->applicationDirPath();
     if (appPath.endsWith("/Contents/MacOS")) {
         QDir dir(appPath + "/../../..");
         appPath = dir.absolutePath();
     }
+    if (!appPath.endsWith("/")) {
+        appPath += "/";
+    }
     return appPath;
+}
+
+QString Util::inputPath() {
+    QString inputPath = Util::appPath();
+    QDir dir(inputPath + "../../ADEPO/input_folder");
+    inputPath = dir.absolutePath();
+    if (!inputPath.endsWith("/")) {
+        inputPath += "/";
+    }
+    return inputPath;
 }
 
 

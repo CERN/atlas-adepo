@@ -1,6 +1,6 @@
 #include "server.h"
 
-int Server::readLWDAQOutput()
+int Server::readLWDAQOutput(QString resultFile)
 {
     std::ifstream fichier((char*)resultFile.toStdString().c_str(), std::ios::in);
     if(fichier)

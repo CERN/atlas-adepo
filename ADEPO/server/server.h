@@ -34,7 +34,7 @@ public:
     void startDAQ();
     void stopDAQ();
     QString calculateCoordinates();
-    int readLWDAQOutput();
+    int readLWDAQOutput(QString resultFile);
 
     // implementation of Call
     void start();
@@ -55,7 +55,7 @@ private slots:
 private:
     Callback& callback;
 
-    int writeSettingsFile(QString settings_file);
+    int writeSettingsFile(QString settings_file, QString scriptFile, QString resultFile);
     int writeParamsFile(QString params_file);
     int writeScriptFile(QString fileName);
 
@@ -76,9 +76,6 @@ private:
     QTimer *updateTimer;
 
     QString adepoState;
-
-    QString resultFile;
-    QString scriptFile;
 
     LWDAQ_Client *lwdaq_client;
     QString previousState;

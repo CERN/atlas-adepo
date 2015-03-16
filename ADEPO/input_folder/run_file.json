@@ -2,11 +2,10 @@
     "AcquisitionTime": null,
     "Airpad": null,
     "Detectors": [
-        8,
-        6,
-        4
+        4,
+        6
     ],
     "FullPrecisionFormat": null,
-    "Mode": "Monitoring",
+    "Mode": "Closure",
     "WaitingTime": 360
 }

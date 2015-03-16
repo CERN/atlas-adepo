@@ -9,7 +9,8 @@ public:
     Util() {};
     virtual ~Util() {};
 
-    static QString appDirPath();
+    static QString appPath();
+    static QString inputPath();
     static QString getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first);
 };
 

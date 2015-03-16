@@ -15,26 +15,21 @@
 #define um2m 0.000001
 
 Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(callback) {
-    QString appPath = Util::appDirPath();
-    std::cout << "SERVER AppPath: " << appPath.toStdString() << std::endl;
+    std::cout << "SERVER AppPath: " << Util::appPath().toStdString() << std::endl;
+    std::cout << "SERVER InputPath: " << Util::inputPath().toStdString() << std::endl;
 
     // connect to LWDAQ server
     lwdaq_client = new LWDAQ_Client("localhost", 1090, this);
     QObject::connect(lwdaq_client, SIGNAL(stateChanged()), this, SLOT(lwdaqStateChanged()));
     QObject::connect(lwdaq_client, SIGNAL(remainingTimeChanged()), this, SLOT(timeChanged()));
 
-    QDir lwdaqDir = lwdaq_client->find(QDir(appPath));
+    QDir lwdaqDir = lwdaq_client->find(QDir(Util::appPath()));
     if (!lwdaqDir.exists()) {
-        std::cerr << "FATAL: could not find LWDAQ directory up from " << appPath.toStdString() << std::endl;
+        std::cerr << "FATAL: could not find LWDAQ directory up from " << Util::appPath().toStdString() << std::endl;
         exit(1);
     } else {
         std::cout << "SERVER Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
     }
-
-    resultFile = appPath;
-    resultFile.append("/").append(DEFAULT_RESULTS_FILE);
-    scriptFile = appPath;
-    scriptFile.append("/").append(DEFAULT_SCRIPT_FILE);
 
     previousState = LWDAQ_UNSET;
     needToCalculateResults = false;
@@ -51,16 +46,11 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     QObject::connect(updateTimer, SIGNAL(timeout()), this, SLOT(timeChanged()));
 
     // read run file
-    QString runFile = appPath;
-    runFile.append(RUN_INPUT_FOLDER).append(RUN_FILE);
-    run.read(runFile);
-
+    run.read(Util::inputPath().append(RUN_FILE));
     std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
 
     // read config file
-    QString configurationFile = appPath;
-    configurationFile.append(CONFIGURATION_INPUT_FOLDER).append(CONFIGURATION_FILE);
-    config.read(configurationFile);
+    config.read(Util::inputPath().append(CONFIGURATION_FILE));
 
     helmert(config, data);
 
@@ -71,14 +61,10 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     }
 
     //lecture du fichier de calibration
-    QString calibrationFile = appPath;
-    calibrationFile.append(CALIBRATION_INPUT_FOLDER).append(CALIBRATION_FILE);
-    calibration.read(calibrationFile);
+    calibration.read(Util::inputPath().append(CALIBRATION_FILE));
 
     // read reference file
-    QString refFile = appPath;
-    refFile.append(REFERENCE_INPUT_FOLDER).append(REFERENCE_FILE);
-    reference.read(refFile);
+    reference.read(Util::inputPath().append(REFERENCE_FILE));
 
     lwdaq_client->init();
 }
@@ -99,17 +85,17 @@ void Server::startDAQ()
         }
     }
 
-    QString dir = Util::appDirPath();
+    writeParamsFile(Util::inputPath().append(DEFAULT_PARAM_FILE));
 
-    writeParamsFile(dir + "/" + DEFAULT_PARAM_FILE);
+    writeSettingsFile(Util::inputPath().append(DEFAULT_SETTINGS_FILE),
+                      Util::inputPath().append(DEFAULT_SCRIPT_FILE),
+                      Util::inputPath().append(DEFAULT_RESULT_FILE));
 
-    writeSettingsFile(dir + "/" + DEFAULT_SETTINGS_FILE);
-
-    writeScriptFile(dir+"/"+DEFAULT_SCRIPT_FILE);
+    writeScriptFile(Util::inputPath().append(DEFAULT_SCRIPT_FILE));
 
     //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
-    std::cout << "*** Removing " << resultFile.toStdString() << std::endl;
-    QFile file(resultFile);
+    QFile file(Util::inputPath().append(DEFAULT_RESULT_FILE));
+    std::cout << "*** Removing " << file.fileName().toStdString() << std::endl;
     if (file.exists() && !file.remove()) {
         std::cout << "SERVER WARNING Cannot remove result file " << file.fileName().toStdString() << std::endl;
         std::cout << "SERVER WARNING Start aborted." << std::endl;
@@ -122,10 +108,8 @@ void Server::startDAQ()
 }
 
 void Server::runDAQ() {
-    QString dir = Util::appDirPath();
-
     needToCalculateResults = true;
-    lwdaq_client->startRun(dir, run.getAcquisitionTime());
+    lwdaq_client->startRun(Util::appPath(), run.getAcquisitionTime());
 }
 
 void Server::stopDAQ()
@@ -216,7 +200,7 @@ void Server::updateState() {
 QString Server::calculateCoordinates()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
-   int lecture_output_result = readLWDAQOutput();
+   int lecture_output_result = readLWDAQOutput(Util::inputPath().append(DEFAULT_RESULT_FILE));
 
    if(lecture_output_result == 0 )
    {
@@ -240,17 +224,12 @@ QString Server::calculateCoordinates()
 //   updateResults(results);
 
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
-   QDir(".").mkpath(Util::appDirPath().append("/Archive"));
-
-   QString fileName = Util::appDirPath();
-   fileName.append("/Archive/Observations_MOUNT_System_");
+   QDir(".").mkpath(Util::appPath().append("/Archive"));
 
    // current date/time based on current system
    QString now = getDateTime();
 
-   fileName = fileName.append(now).append(".txt");
-
-   writeFileObsMountSystem(fileName, now);
+   writeFileObsMountSystem(Util::appPath().append("/Archive/Observations_MOUNT_System_").append(now).append(".txt"), now);
 
 //   settings.setValue(RESULT_FILE, fileName);
 
