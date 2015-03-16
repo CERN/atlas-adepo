@@ -103,9 +103,9 @@ void Server::startDAQ()
         return;
     }
 
-    std::cout << "SERVER Starting LWDAQ on " << config.getDriverIpAddress().toStdString() << std::endl;
+    std::cout << "SERVER Connecting to LWDAQ on " << config.getDriverIpAddress().toStdString() << std::endl;
 
-    startDAQ();
+    runDAQ();
 }
 
 void Server::runDAQ() {
@@ -173,7 +173,7 @@ void Server::lwdaqStateChanged() {
 //            ui->stop->setEnabled(false);
 //            ui->stopButton->setEnabled(false);
     } else if (lwdaq_client->getState() == LWDAQ_INIT) {
-        adepoState = ADEPO_IDLE;
+        adepoState = ADEPO_INIT;
         updateState();
 //            ui->repeatButton->setEnabled(false);
 //            ui->Boutton_lancer->setEnabled(false);

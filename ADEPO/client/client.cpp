@@ -110,8 +110,8 @@ void Client::showBCAM(int row, int /* column */) {
 
 
 void Client::setEnabled() {
-    bool enabled = adepoState == ADEPO_IDLE;
-    bool canStart = enabled &&
+    bool enabled = (adepoState == ADEPO_INIT) || (adepoState == ADEPO_IDLE);
+    bool canStart = (adepoState == ADEPO_IDLE) &&
             ui->tableWidget_liste_bcams->rowCount() > 0;
     ui->singleShot->setEnabled(canStart);
     ui->nextMeasurement->setEnabled(canStart);

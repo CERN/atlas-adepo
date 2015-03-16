@@ -2,6 +2,7 @@
 #define BRIDGE_H
 
 #define ADEPO_UNSET "Unset"
+#define ADEPO_INIT "Init"
 #define ADEPO_IDLE "Idle"
 #define ADEPO_RUN "Run"
 #define ADEPO_STOP "Stop"
