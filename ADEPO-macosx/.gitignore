@@ -3,7 +3,4 @@
 *.gif
 *.a
 /Acquisifier_Results.txt
-/Acquisifier_Params.tcl
-/Acquisifier_Settings.tcl
-/Acquisifier_Script.tcl
 
