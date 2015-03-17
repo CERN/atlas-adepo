@@ -151,7 +151,7 @@ void Server::lwdaqStateChanged() {
 //                setEnabled(false);
 
 //            waitingTimer->start(ui->waitingTime->value()*1000);
-            waitingTimer->start(run.getWaitingTime());
+            waitingTimer->start(run.getWaitingTime()*1000);
                 updateTimer->start();
         } else {
             adepoState = ADEPO_IDLE;
