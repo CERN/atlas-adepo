@@ -47,7 +47,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     QObject::connect(updateTimer, SIGNAL(timeout()), this, SLOT(timeChanged()));
 
     // read run file
-    run.read(Util::inputPath().append(RUN_FILE));
+    run.read(Util::workPath().append(RUN_FILE));
     std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
 
     // read config file
@@ -65,7 +65,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     calibration.read(Util::inputPath().append(CALIBRATION_FILE));
 
     // read reference file
-    reference.read(Util::inputPath().append(REFERENCE_FILE));
+    reference.read(Util::workPath().append(REFERENCE_FILE));
 
     lwdaq_client->init();
 }
