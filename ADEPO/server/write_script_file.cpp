@@ -34,7 +34,7 @@ int Server::writeScriptFile(QString fileName)
            <<" LWDAQ_print $info(text) \"Appended modified result to [file tail $config(run_results)].\" blue ;  \n"
            <<" set suffix $iconfig(daq_source_device_element) \n"
            <<" regsub -all \" \" $suffix \"-\" suffix \n"
-           <<" set fn [file join [file dirname $config(run_results)] /images/$name-$suffix.gif] \n"
+           <<" set fn [file join [file dirname $config(run_results)] images/$name-$suffix.gif] \n"
            <<" LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
            <<" LWDAQ_print $info(text) \"Saved raw image to $fn\" blue ; \n"
            <<" } \n"
