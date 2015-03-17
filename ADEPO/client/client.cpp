@@ -88,7 +88,7 @@ void Client::showBCAM(int row, int /* column */) {
     //    }
 
     QString suffix1 = Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, true).replace(" ", "-");
-    QString imageName = Util::outputPath().append("/").append(name).append("-").append(suffix1).append(".gif");
+    QString imageName = Util::workPath().append("/images/").append(name).append("-").append(suffix1).append(".gif");
     QFileInfo file(imageName);
     if (file.exists()) {
         QDateTime dateTime = file.lastModified();
@@ -98,7 +98,7 @@ void Client::showBCAM(int row, int /* column */) {
         ui->bcamImage2->setVisible(flashSeparate);
         if (flashSeparate) {
             QString suffix2 = Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false);
-            QPixmap pix2(Util::outputPath().append("/").append(name).append("-").append(suffix2).append(".gif"));
+            QPixmap pix2(Util::workPath().append("/images/").append(name).append("-").append(suffix2).append(".gif"));
             ui->bcamImage2->setPixmap(pix2);
         }
     } else {

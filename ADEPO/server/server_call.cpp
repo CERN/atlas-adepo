@@ -55,5 +55,5 @@ void Server::updateAll() {
     updateReferenceFile();
 
     callback.changedState(adepoState, waitingTimer->remainingTime(), lwdaq_client->getState(), lwdaq_client->getRemainingTime());
-    callback.changedResultFile(Util::outputPath().append(DEFAULT_RESULT_FILE));
+    callback.changedResultFile(Util::workPath().append(DEFAULT_RESULT_FILE));
 }
