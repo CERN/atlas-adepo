@@ -8,7 +8,6 @@
 #include "json_util.h"
 #include "json_rpc.h"
 
-#define RUN_INPUT_FOLDER "/../../ADEPO/input_folder/"
 #define RUN_FILE "run_file.json"
 
 #define AIRPAD "Airpad"
