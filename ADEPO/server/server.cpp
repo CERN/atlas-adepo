@@ -120,7 +120,7 @@ void Server::stopDAQ()
     std::cout << "SERVER stop DAQ" << std::endl;
     needToCalculateResults = false;
 
-    if (run.getMode() == MODE_CLOSURE) {
+    if (run.getMode() == MODE_MONITORING) {
         waitingTimer->stop();
         updateTimer->stop();
     }
@@ -131,6 +131,7 @@ void Server::stopDAQ()
         lwdaq_client->stopRun();
     }
 
+    run.setMode(MODE_CLOSURE);
     updateState();
 }
 
