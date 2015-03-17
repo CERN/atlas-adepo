@@ -72,6 +72,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
 void Server::startDAQ()
 {
+    std::cout << "SERVER start DAQ" << std::endl;
     std::vector<int> detectors = run.getDetectors();
 
     setup.getBCAMs().clear();
@@ -109,12 +110,14 @@ void Server::startDAQ()
 }
 
 void Server::runDAQ() {
+    std::cout << "SERVER run DAQ" << std::endl;
     needToCalculateResults = true;
     lwdaq_client->startRun(Util::workPath(), run.getAcquisitionTime());
 }
 
 void Server::stopDAQ()
 {
+    std::cout << "SERVER stop DAQ" << std::endl;
     needToCalculateResults = false;
 
     if (run.getMode() == MODE_CLOSURE) {
@@ -132,7 +135,7 @@ void Server::stopDAQ()
 }
 
 void Server::lwdaqStateChanged() {
-    std::cout << "SERVER state changed to " << lwdaq_client->getState().toStdString() << " Calculate: " << needToCalculateResults << std::endl;
+    std::cout << "SERVER state changed to " << lwdaq_client->getState().toStdString() << std::endl;
 
     if (lwdaq_client->getState() == LWDAQ_IDLE) {
         if (needToCalculateResults) {
