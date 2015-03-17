@@ -167,7 +167,7 @@ void Server::lwdaqStateChanged() {
         updateState();
 //            setEnabled(false);
     } else if (lwdaq_client->getState() == LWDAQ_STOP) {
-        adepoState = run.getMode() == MODE_MONITORING ? ADEPO_WAITING : ADEPO_IDLE;
+        adepoState = run.getMode() == MODE_MONITORING ? ADEPO_WAITING : ADEPO_STOP;
         updateState();
 //            ui->repeatButton->setEnabled(false);
 //            ui->Boutton_lancer->setEnabled(false);
