@@ -1,4 +1,8 @@
 .qmake.stash
 *.o
 *.a
-
+/Acquisifier_Params.tcl
+/Acquisifier_Results.txt
+/Acquisifier_Script.tcl
+/Acquisifier_Settings.tcl
+/run_file.json
