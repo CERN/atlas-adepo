@@ -34,7 +34,7 @@ public:
     }
 
     QDir find(QDir dir);
-    bool startRun(QString dir = ".", int seconds = -1);
+    bool startRun(QString workDir = ".", int seconds = -1);
 
 signals:
     void stateChanged();

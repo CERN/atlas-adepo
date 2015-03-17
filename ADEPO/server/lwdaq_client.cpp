@@ -89,7 +89,7 @@ void LWDAQ_Client::init() {
     tcpSocket->connectToHost(hostName, portNo);
 }
 
-bool LWDAQ_Client::startRun(QString dir, int seconds) {
+bool LWDAQ_Client::startRun(QString workDir, int seconds) {
     if (seconds < 0) {
         seconds = DEFAULT_RUN_TIME;
     }
@@ -99,9 +99,9 @@ bool LWDAQ_Client::startRun(QString dir, int seconds) {
     ret.clear();
 
     // setup run
-    cmd.append("LWDAQ_run_tool "+dir+"/"+DEFAULT_PARAM_FILE);
+    cmd.append("LWDAQ_run_tool "+workDir+DEFAULT_PARAM_FILE);
     ret.append(DEFAULT_PARAM_FILE);
-    cmd.append("LWDAQ_run_tool "+dir+"/"+DEFAULT_SETTINGS_FILE);
+    cmd.append("LWDAQ_run_tool "+workDir+DEFAULT_SETTINGS_FILE);
     ret.append(DEFAULT_SETTINGS_FILE);
     cmd.append("Acquisifier_load_script");
     ret.append("1");
