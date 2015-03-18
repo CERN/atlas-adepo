@@ -224,7 +224,7 @@ void Server::calculateCoordinates()
 // TODO or not, as the results can be calculated when read in the client
 //   calculateResults(data, results);
 
-   std::cout << "Updating Results..." << std::endl;
+   qDebug() << "Updating Results...";
 // TODO same as above
 //   updateResults(results);
 

@@ -11,7 +11,7 @@ int Server::writeScriptFile(QString fileName)
 
     if(file)
     {
-        std::cerr << "Writing to " << fileName.toStdString() << std::endl;
+        qDebug() << "Writing to " << fileName;
 
         //écriture la partie du script qui gère l'enregistrement dans un fichier externe
         file<<"acquisifier: \n"
