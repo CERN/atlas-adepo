@@ -113,13 +113,15 @@ void Client::setEnabled() {
     bool enabled = (adepoState == ADEPO_INIT) || (adepoState == ADEPO_IDLE);
     bool canStart = (adepoState == ADEPO_IDLE) &&
             ui->tableWidget_liste_bcams->rowCount() > 0;
+    bool canStop = !enabled && (adepoState != ADEPO_CALCULATING);
+
     ui->singleShot->setEnabled(canStart);
     ui->nextMeasurement->setEnabled(canStart);
     ui->monitoring->setEnabled(canStart);
 
-    ui->singleShotStop->setEnabled(!enabled && run.getMode() == MODE_CLOSURE);
-    ui->stop->setEnabled(!enabled && run.getMode() == MODE_CLOSURE);
-    ui->monitoringStop->setEnabled(!enabled && run.getMode() == MODE_MONITORING);
+    ui->singleShotStop->setEnabled(canStop && run.getMode() == MODE_CLOSURE);
+    ui->stop->setEnabled(canStop && run.getMode() == MODE_CLOSURE);
+    ui->monitoringStop->setEnabled(canStop && run.getMode() == MODE_MONITORING);
 
     ui->tableWidget_liste_detectors->setEnabled(enabled);
     ui->mode->setEnabled(enabled);
