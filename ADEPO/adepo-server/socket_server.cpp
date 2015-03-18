@@ -122,6 +122,7 @@ void SocketServer::sendJson(QJsonObject o) {
     QList<QWebSocket*>::iterator client = clients.begin();
     while (client != clients.end()) {
         (*client)->sendTextMessage(json);
+        (*client)->flush();
         ++client;
     }
 }
