@@ -21,6 +21,7 @@ Client::Client(QWidget *parent) :
     lwdaqState = LWDAQ_UNSET;
 
     ui->setupUi(this);
+    ui->statusBar->addPermanentWidget(&adepoStatus);
     ui->statusBar->addPermanentWidget(&lwdaqStatus);
     setWindowTitle(QCoreApplication::applicationName()+" "+QCoreApplication::applicationVersion());
 

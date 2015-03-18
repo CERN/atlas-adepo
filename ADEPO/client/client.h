@@ -71,6 +71,7 @@ private:
     int selectedBCAM;
 
     QString refFile;
+    QLabel adepoStatus;
     QLabel lwdaqStatus;
 
     QString adepoState;
