@@ -4,7 +4,7 @@
 #include "ui_client.h"
 
 void Client::changedRunFile(QString filename) {
-    std::cout << "CLIENT Changed Run File " << filename.toStdString() << std::endl;
+    qDebug() << "CLIENT Changed Run File " << filename;
 
     run.read(filename);
 

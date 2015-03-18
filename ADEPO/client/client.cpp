@@ -72,7 +72,7 @@ Client::~Client()
 }
 
 void Client::showBCAM(int row, int /* column */) {
-    std::cout << "CLIENT SB" << std::endl;
+    qDebug() << "CLIENT ShowBCAM";
     selectedBCAM = row;
     QString prism = ui->tableWidget_liste_bcams->item(row,5)->text();
     QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(prism);
@@ -152,7 +152,7 @@ void Client::display(QLabel *label, QTextBrowser *browser, QString filename) {
 
 void Client::fillDetectorTable()
 {
-    std::cout << "CLIENT Fill Detector Table" << std::endl;
+    qDebug() << "CLIENT Fill Detector Table";
 
     //recuperation de la liste des nom des detecteurs
     std::vector<Detector> detectors_data = config.getDetectors();
@@ -202,7 +202,7 @@ void Client::selectDetectorRow(int row, int /* column */) {
 //fonction permettant de charger la liste des BCAMs qui appartiennent a un detector                 [---> ok
 void Client::showBCAMTable()
 {
-    std::cout << "CLIENT Show BCAM Table" << std::endl;
+    qDebug() << "CLIENT Show BCAM Table";
     int noColumn = ui->tableWidget_liste_detectors->columnCount();
 
     //recuperation du nombre de detecteurs
@@ -315,6 +315,7 @@ void Client::showBCAMTable()
 }
 
 void Client::setResult(int row, Result &result) {
+    qDebug() << "CLIENT setResult";
     QTableWidgetItem *n = new QTableWidgetItem(QString::number(result.getN()));
     ui->tableWidget_results->setItem(row, 3, n);
 

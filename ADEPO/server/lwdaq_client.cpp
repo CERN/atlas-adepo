@@ -56,7 +56,7 @@ QDir LWDAQ_Client::find(QDir dir) {
 void LWDAQ_Client::init() {
     stateChange(LWDAQ_INIT);
 
-    std::cout << "Connecting to " << hostName.toStdString() << ":" << portNo << std::endl;
+    qDebug() << "LWDAQ Connecting to " << hostName << ":" << portNo;
 
     cmdNo = 0;
     cmd.clear();
@@ -125,7 +125,7 @@ bool LWDAQ_Client::startRun(QString workDir, int seconds) {
 
 void LWDAQ_Client::stopRun() {
     if (currentState == LWDAQ_RUN) {
-        std::cout << "Stopping run..." << std::endl;
+        qDebug() << "LWDAQ Stopping run...";
 
         runTimer->stop();
         updateTimer->stop();
@@ -146,11 +146,11 @@ void LWDAQ_Client::stopRun() {
 }
 
 void LWDAQ_Client::updateStatus() {
-    std::cout << "Updating status..." << std::endl;
+    qDebug() << "LWDAQ Updating status...";
     if (isConnected()) {
         write("Acquisifier_status");
     } else {
-        std::cout << "Ending status update" << std::endl;
+        qDebug() << "Ending status update";
         statusTimer->stop();
         statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
     }
@@ -158,15 +158,14 @@ void LWDAQ_Client::updateStatus() {
 
 
 void LWDAQ_Client::gotConnected() {
-    std::cout << "Connected to " << tcpSocket->peerAddress().toString().toStdString()
-              << ":" << tcpSocket->peerPort() << std::endl;
+    qDebug() << "Connected to " << tcpSocket->peerAddress() << ":" << tcpSocket->peerPort();
 
     command(cmdNo);
     cmdNo++;
 }
 
 void LWDAQ_Client::gotDisconnected() {
-    std::cout << "Disconnected" << std::endl;
+    qDebug() << "Disconnected";
     runTimer->stop();
     updateTimer->stop();
     statusTimer->stop();
@@ -177,7 +176,7 @@ void LWDAQ_Client::gotDisconnected() {
 }
 
 void LWDAQ_Client::readStatus() {
-//    std::cout << "readyRead " << tcpSocket->bytesAvailable() << std::endl;
+//    qDebug() << "readyRead " << tcpSocket->bytesAvailable();
     if (!tcpSocket->canReadLine()) {
         std::cout << "Line incomplete..." << std::endl;
         return;
@@ -197,7 +196,7 @@ void LWDAQ_Client::readStatus() {
     line.chop(2);
     QStringList parts = line.split(" ", QString::SkipEmptyParts);
 
-    std::cout << "RET: " << line.toStdString() << " #" << parts.length() << std::endl;
+    qDebug() << "RET: " << line << " #" << parts.length();
 
     // get originating socket e.g. "sock12"
     if (parts.length() == 5 && parts[0].startsWith("sock")) {
@@ -289,7 +288,7 @@ void LWDAQ_Client::stateChange(QString newState) {
         return;
     }
     if (currentState == LWDAQ_INIT && (newState != LWDAQ_UNSET || newState != LWDAQ_INIT)) {
-        std::cout << "Starting update timer " << statusTimer->interval() << std::endl;
+//        qDebug() << "Starting update timer " << statusTimer->interval();
     //    statusTimer->start();
     }
     currentState = newState;
@@ -301,7 +300,8 @@ void LWDAQ_Client::updateRemainingTime() {
 }
 
 void LWDAQ_Client::command(int no) {
-    std::cout << std::endl << "CMD" << no << ":" << cmd[no].toStdString() << std::endl;
+    qDebug() << "";
+    qDebug() << "CMD" << no << ":" << cmd[no];
     write(cmd[no]);
 }
 

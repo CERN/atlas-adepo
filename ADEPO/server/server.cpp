@@ -72,7 +72,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
 void Server::startDAQ()
 {
-    std::cout << "SERVER start DAQ" << std::endl;
+    qDebug() << "SERVER start DAQ";
     std::vector<int> detectors = run.getDetectors();
 
     setup.getBCAMs().clear();
@@ -97,27 +97,27 @@ void Server::startDAQ()
 
     //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
     QFile file(Util::workPath().append(DEFAULT_RESULT_FILE));
-    std::cout << "*** Removing " << file.fileName().toStdString() << std::endl;
+    qDebug() << "*** Removing " << file.fileName();
     if (file.exists() && !file.remove()) {
         std::cout << "SERVER WARNING Cannot remove result file " << file.fileName().toStdString() << std::endl;
         std::cout << "SERVER WARNING Start aborted." << std::endl;
         return;
     }
 
-    std::cout << "SERVER Connecting to LWDAQ on " << config.getDriverIpAddress().toStdString() << std::endl;
+    qDebug() << "SERVER Connecting to LWDAQ on " << config.getDriverIpAddress();
 
     runDAQ();
 }
 
 void Server::runDAQ() {
-    std::cout << "SERVER run DAQ" << std::endl;
+    qDebug() << "SERVER run DAQ";
     needToCalculateResults = true;
     lwdaq_client->startRun(Util::workPath(), run.getAcquisitionTime());
 }
 
 void Server::stopDAQ()
 {
-    std::cout << "SERVER stop DAQ" << std::endl;
+    qDebug() << "SERVER stop DAQ";
     needToCalculateResults = false;
 
     if (run.getMode() == MODE_MONITORING) {
@@ -136,7 +136,7 @@ void Server::stopDAQ()
 }
 
 void Server::lwdaqStateChanged() {
-    std::cout << "SERVER state changed to " << lwdaq_client->getState().toStdString() << std::endl;
+    qDebug() << "SERVER state changed to " << lwdaq_client->getState();
 
     if (lwdaq_client->getState() == LWDAQ_IDLE) {
         if (needToCalculateResults) {
@@ -549,7 +549,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
   // setup default precision
     fichier<<std::fixed<<std::setprecision(8);
 
-    std::cout << "Writing results into " << fileName.toStdString() << std::endl;
+    qDebug() << "Writing results into " << fileName;
 
     fichier<<"********** Fichier qui contient une sauvegarde des coordonnees images + coordonnees images transformees dans le repere BCAM (MOUNT) + coordonnees des prismes dans le repere MOUNT********** \n"
            <<"********************************************************************** Unite en metres (m)************************************************************************************************** \n"

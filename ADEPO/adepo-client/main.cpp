@@ -15,6 +15,8 @@ int main(int argc, char *argv[]) {
 
     QCoreApplication::setApplicationName("ADEPO client");
 
+    Util::handleDebug(app);
+
     Client client;
     SocketClient webSocketClient(client, QStringLiteral("ws://localhost:5687"));
     client.setServer(webSocketClient);

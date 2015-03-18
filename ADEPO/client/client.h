@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QTextEdit>
 #include <QString>
+#include <QDebug>
 
 #include "call.h"
 #include "callback.h"

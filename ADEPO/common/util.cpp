@@ -2,6 +2,8 @@
 
 #include <QCoreApplication>
 #include <QDir>
+#include <QDebug>
+#include <QtGlobal>
 
 QString Util::getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first) {
     if (flashSeparate) {
@@ -18,6 +20,20 @@ QString Util::getSourceDeviceElement(bool isPrism, bool flashSeparate, int devic
         }
     }
 }
+
+void Util::handleDebug(QCoreApplication app) {
+    if (!app.arguments().contains("-d")) {
+        qInstallMessageHandler(noMessageOutput);
+    }
+}
+
+void Util::noMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    Q_UNUSED(type);
+    Q_UNUSED(context);
+    Q_UNUSED(msg);
+}
+
 
 QString Util::appPath() {
     QString appPath = QCoreApplication::instance()->applicationDirPath();
