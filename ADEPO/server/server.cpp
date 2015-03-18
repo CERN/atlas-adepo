@@ -152,47 +152,27 @@ void Server::lwdaqStateChanged() {
 
         if (run.getMode() == MODE_MONITORING) {
             adepoState = ADEPO_WAITING;
-//                setEnabled(false);
-
-//            waitingTimer->start(ui->waitingTime->value()*1000);
             waitingTimer->start(run.getWaitingTime()*1000);
-                updateTimer->start();
+            updateTimer->start();
         } else {
             adepoState = ADEPO_IDLE;
-//                askQuestion = true;
-//                setEnabled(true);
-                waitingTimer->stop();
-                updateTimer->stop();
+            waitingTimer->stop();
+            updateTimer->stop();
         }
         updateState();
     } else if (lwdaq_client->getState() == LWDAQ_RUN) {
         adepoState = ADEPO_RUN;
         updateState();
-//            setEnabled(false);
     } else if (lwdaq_client->getState() == LWDAQ_STOP) {
-        adepoState = run.getMode() == MODE_MONITORING ? ADEPO_WAITING : ADEPO_STOP;
+        adepoState = run.getMode() == MODE_MONITORING ? ADEPO_RUN : ADEPO_STOP;
         updateState();
-//            ui->repeatButton->setEnabled(false);
-//            ui->Boutton_lancer->setEnabled(false);
-//            ui->nextMeasurement->setEnabled(false);
-//            ui->boutton_arreter->setEnabled(false);
-//            ui->stop->setEnabled(false);
-//            ui->stopButton->setEnabled(false);
     } else if (lwdaq_client->getState() == LWDAQ_CONNECTING) {
         adepoState = ADEPO_CONNECTING;
         updateState();
-//            ui->repeatButton->setEnabled(false);
-//            ui->Boutton_lancer->setEnabled(false);
-//            ui->nextMeasurement->setEnabled(false);
-//            ui->boutton_arreter->setEnabled(false);
-//            ui->stop->setEnabled(false);
-//            ui->stopButton->setEnabled(false);
         needToCalculateResults = false;
     }
 
     previousState = lwdaq_client->getState();
-
-//    updateState();
 }
 
 void Server::timeChanged() {
