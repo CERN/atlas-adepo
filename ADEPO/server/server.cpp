@@ -146,7 +146,6 @@ void Server::lwdaqStateChanged() {
             adepoState = ADEPO_CALCULATING;
             callback.changedResultFile(resultFile);
             updateState();
-            QThread::sleep(1);
             calculateCoordinates();
             needToCalculateResults = false;
         }
