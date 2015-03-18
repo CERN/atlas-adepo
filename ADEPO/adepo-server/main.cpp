@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
     Util::setApplicationInfo("ADEPO server");
     Util::handleDebug(app);
 
+    std::cout << app.applicationName() << " " << app.applicationVersion() << std::endl;
+
     SocketServer webSocketServer(5687);
     Server server(webSocketServer);
     webSocketServer.setServer(server);
