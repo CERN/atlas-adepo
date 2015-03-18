@@ -761,20 +761,13 @@
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFichier">
+   <widget class="QMenu" name="FileMenu">
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="action_Quitter"/>
+    <addaction name="quit"/>
    </widget>
-   <widget class="QMenu" name="menuAide">
-    <property name="title">
-     <string>Help</string>
-    </property>
-    <addaction name="actionAbout_Qt"/>
-   </widget>
-   <addaction name="menuFichier"/>
-   <addaction name="menuAide"/>
+   <addaction name="FileMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionCharger">
@@ -798,7 +791,7 @@
     <string>Help on ADEPO</string>
    </property>
   </action>
-  <action name="action_Quitter">
+  <action name="quit">
    <property name="text">
     <string>Quit</string>
    </property>

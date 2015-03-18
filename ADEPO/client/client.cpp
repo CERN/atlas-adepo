@@ -28,11 +28,7 @@ Client::Client(QWidget *parent) :
     ui->tableWidget_liste_detectors->horizontalHeader()->setVisible(true);
     ui->tableWidget_liste_bcams->horizontalHeader()->setVisible(true);
 
-    QObject::connect(ui->action_Quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
-    ui->action_Quitter->setShortcut(QKeySequence("Ctrl+Q"));
-
-    QObject::connect(ui->actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-    ui->actionAbout_Qt->setShortcut(QKeySequence("Ctrl+I"));
+    QObject::connect(ui->quit, SIGNAL(triggered()), qApp, SLOT(quit()));
 
     //clic detecteur-affichage bcam
     QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)), this, SLOT(selectDetectorRow(int,int)));
