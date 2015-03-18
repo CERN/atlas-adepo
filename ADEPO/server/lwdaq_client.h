@@ -26,7 +26,7 @@ public:
 
     LWDAQ_Client(QString hostName, quint16 port, QObject *parent = 0);
     ~LWDAQ_Client() {};
-    bool isConnected() { return (currentState != LWDAQ_IDLE) && (currentState != LWDAQ_INIT); }
+    bool isConnected() { return (currentState != LWDAQ_IDLE) && (currentState != LWDAQ_CONNECTING); }
     bool isIdle() { return currentState == LWDAQ_IDLE; }
     QString getState() { return currentState; }
     int getRemainingTime() {

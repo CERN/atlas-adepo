@@ -54,7 +54,7 @@ QDir LWDAQ_Client::find(QDir dir) {
 }
 
 void LWDAQ_Client::init() {
-    stateChange(LWDAQ_INIT);
+    stateChange(LWDAQ_CONNECTING);
 
     qDebug() << "LWDAQ Connecting to " << hostName << ":" << portNo;
 
@@ -170,7 +170,7 @@ void LWDAQ_Client::gotDisconnected() {
     updateTimer->stop();
     statusTimer->stop();
     statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
-    stateChange(LWDAQ_INIT);
+    stateChange(LWDAQ_CONNECTING);
 
     connectTimer->start();
 }
@@ -287,7 +287,7 @@ void LWDAQ_Client::stateChange(QString newState) {
     if (currentState == newState) {
         return;
     }
-    if (currentState == LWDAQ_INIT && (newState != LWDAQ_UNSET || newState != LWDAQ_INIT)) {
+    if (currentState == LWDAQ_CONNECTING && (newState != LWDAQ_UNSET || newState != LWDAQ_CONNECTING)) {
 //        qDebug() << "Starting update timer " << statusTimer->interval();
     //    statusTimer->start();
     }

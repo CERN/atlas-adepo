@@ -178,8 +178,8 @@ void Server::lwdaqStateChanged() {
 //            ui->boutton_arreter->setEnabled(false);
 //            ui->stop->setEnabled(false);
 //            ui->stopButton->setEnabled(false);
-    } else if (lwdaq_client->getState() == LWDAQ_INIT) {
-        adepoState = ADEPO_INIT;
+    } else if (lwdaq_client->getState() == LWDAQ_CONNECTING) {
+        adepoState = ADEPO_CONNECTING;
         updateState();
 //            ui->repeatButton->setEnabled(false);
 //            ui->Boutton_lancer->setEnabled(false);
