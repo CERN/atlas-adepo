@@ -42,9 +42,7 @@ void Client::changedState(QString adepoState, int adepoSeconds, QString lwdaqSta
                 append(" seconds remaining...");
     }
 
-    if (adepoState == ADEPO_RUN) {
-            // filled already
-    } else if (adepoState == ADEPO_WAITING) {
+    if (adepoState == ADEPO_WAITING) {
         adepo = adepoState.append(" ").append(QString::number(adepoSeconds)).
                 append(" seconds remaining...");
     } else {
