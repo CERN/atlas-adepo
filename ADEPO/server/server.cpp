@@ -196,11 +196,13 @@ void Server::lwdaqStateChanged() {
 }
 
 void Server::timeChanged() {
-    updateState();
+    updateState(true);
 }
 
-void Server::updateState() {
-    qDebug() << "SERVER state changed to (ADEPO) " << adepoState << " (LWDAQ) " << lwdaq_client->getState();
+void Server::updateState(bool timeChange) {
+    if (!timeChange) {
+        qDebug() << "SERVER state changed to (ADEPO) " << adepoState << " (LWDAQ) " << lwdaq_client->getState();
+    }
     callback.changedState(adepoState, waitingTimer->remainingTime()/1000, lwdaq_client->getState(), lwdaq_client->getRemainingTime()/1000);
 }
 

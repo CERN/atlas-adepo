@@ -70,7 +70,7 @@ private:
 
     void helmert(Configuration &config, Data& data);
 
-    void updateState();
+    void updateState(bool timeChange = false);
 
     QTimer *waitingTimer;
     QTimer *updateTimer;
