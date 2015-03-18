@@ -10,6 +10,7 @@ public:
     Util() {};
     virtual ~Util() {};
 
+    static void setApplicationInfo(QString name);
     static void handleDebug(QCoreApplication &app);
     static void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg);
     static QString appPath();

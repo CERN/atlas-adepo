@@ -7,8 +7,8 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
-    QCoreApplication::setApplicationName("ADEPO server");
 
+    Util::setApplicationInfo("ADEPO server");
     Util::handleDebug(app);
 
     SocketServer webSocketServer(5687);

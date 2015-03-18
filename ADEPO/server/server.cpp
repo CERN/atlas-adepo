@@ -67,6 +67,8 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     // read reference file
     reference.read(Util::workPath().append(REFERENCE_FILE));
 
+    resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
+
     lwdaq_client->init();
 }
 
@@ -142,6 +144,7 @@ void Server::lwdaqStateChanged() {
         if (needToCalculateResults) {
             // calculate
             adepoState = ADEPO_CALCULATING;
+            callback.changedResultFile(resultFile);
             updateState();
             calculateCoordinates();
             needToCalculateResults = false;
@@ -204,11 +207,11 @@ void Server::updateState() {
 void Server::calculateCoordinates()
 {
    //je lis le fichier de sortie de LWDAQ qui contient les observations puis je stocke ce qui nous interesse dans la bdd
-   int lecture_output_result = readLWDAQOutput(Util::workPath().append(DEFAULT_RESULT_FILE));
+   int lecture_output_result = readLWDAQOutput(resultFile);
 
    if(lecture_output_result == 0 )
    {
-       qWarning() << "Output file cannot be found at " << Util::workPath().append(DEFAULT_RESULT_FILE);
+       qWarning() << "Output file cannot be found at " << resultFile;
        return;
    }
 

@@ -23,6 +23,13 @@ QString Util::getSourceDeviceElement(bool isPrism, bool flashSeparate, int devic
     }
 }
 
+void Util::setApplicationInfo(QString name) {
+    QCoreApplication::setOrganizationName("ATLAS CERN");
+    QCoreApplication::setOrganizationDomain("atlas.cern.ch");
+    QCoreApplication::setApplicationName(name);
+    QCoreApplication::setApplicationVersion("1.4");
+}
+
 bool Util::debug;
 
 void Util::handleDebug(QCoreApplication &app) {

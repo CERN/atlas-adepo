@@ -2,6 +2,7 @@
 
 #include <QPixmapCache>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QMessageBox>
 #include <QDateTime>
 
@@ -18,10 +19,6 @@ Client::Client(QWidget *parent) :
 {
     adepoState = ADEPO_UNSET;
     lwdaqState = LWDAQ_UNSET;
-
-    QCoreApplication::setOrganizationName("ATLAS CERN");
-    QCoreApplication::setOrganizationDomain("atlas.cern.ch");
-    QCoreApplication::setApplicationVersion("1.4");
 
     ui->setupUi(this);
     ui->statusBar->addPermanentWidget(&lwdaqStatus);
@@ -131,7 +128,9 @@ void Client::setEnabled() {
 }
 
 void Client::display(QLabel *label, QTextBrowser *browser, QString filename) {
-    label->setText(filename);
+    QFileInfo info = QFileInfo(filename);
+
+    label->setText(filename + " - " + info.lastModified().toString());
     browser->setReadOnly(true);
 
     std::ifstream file((char*)filename.toStdString().c_str(), std::ios::in);

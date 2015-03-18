@@ -13,8 +13,7 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    QCoreApplication::setApplicationName("ADEPO client");
-
+    Util::setApplicationInfo("ADEPO client");
     Util::handleDebug(app);
 
     Client client;

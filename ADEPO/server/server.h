@@ -87,6 +87,7 @@ private:
     Setup setup;
     Data data;
     Reference reference;
+    QString resultFile;
 };
 
 #endif // SERVER_H
