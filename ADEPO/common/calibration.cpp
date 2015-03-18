@@ -1,6 +1,8 @@
 #include <fstream>
 #include <iostream>
 
+#include <QDebug>
+
 #include "calibration.h"
 #include "point3f.h"
 
@@ -8,8 +10,8 @@ int Calibration::read(QString filename)
 {
        std::ifstream fichier((char*)filename.toStdString().c_str(), std::ios::in);
        if (!fichier) {
-           std::cout << "WARNING Cannot read calibration file " << filename.toStdString() << std::endl;
-            return 0;
+           qWarning() << "Cannot read calibration file " << filename;
+           return 0;
        }
 
        clear();

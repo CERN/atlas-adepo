@@ -1,9 +1,11 @@
-#include "util.h"
+#include <iostream>
 
 #include <QCoreApplication>
 #include <QDir>
 #include <QDebug>
 #include <QtGlobal>
+
+#include "util.h"
 
 QString Util::getSourceDeviceElement(bool isPrism, bool flashSeparate, int deviceElement, bool first) {
     if (flashSeparate) {
@@ -21,17 +23,34 @@ QString Util::getSourceDeviceElement(bool isPrism, bool flashSeparate, int devic
     }
 }
 
-void Util::handleDebug(QCoreApplication app) {
-    if (!app.arguments().contains("-d")) {
-        qInstallMessageHandler(noMessageOutput);
-    }
+bool Util::debug;
+
+void Util::handleDebug(QCoreApplication &app) {
+    qInstallMessageHandler(messageHandler);
+    debug = app.arguments().contains("-d");
 }
 
-void Util::noMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+void Util::messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    Q_UNUSED(type);
     Q_UNUSED(context);
-    Q_UNUSED(msg);
+
+    switch (type) {
+        case QtDebugMsg:
+            if (debug) {
+                std::cerr << "Debug: " << msg.toStdString() << std::endl;
+            }
+            break;
+        case QtWarningMsg:
+            std::cerr << "Warning: " << msg.toStdString() << std::endl;
+            break;
+        case QtCriticalMsg:
+            std::cerr << "Critical: " << msg.toStdString() << std::endl;
+            abort();
+            break;
+        case QtFatalMsg:
+            std::cerr << "Fatal: " << msg.toStdString() << std::endl;
+            abort();
+    }
 }
 
 

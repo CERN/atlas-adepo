@@ -1,4 +1,7 @@
 #include <fstream>
+
+#include <QDebug>
+
 #include "iostream"
 #include "iomanip"
 
@@ -7,7 +10,7 @@
 int Reference::write(QString filename) {
     std::ofstream file(filename.toStdString().c_str(), std::ios::out | std::ios::trunc);
     if(!file) {
-        std::cout << "WARNING Cannot write reference file " << filename.toStdString() << std::endl;
+        qWarning() << "Cannot write reference file " << filename;
         return 0;
     }
 
@@ -50,7 +53,7 @@ int Reference::write(QString filename) {
 int Reference::read(QString filename) {
     std::ifstream file(filename.toStdString().c_str(), std::ios::in);
     if(!file) {
-        std::cout << "WARNING Cannot read reference file " << filename.toStdString() << std::endl;
+        qWarning() << "Cannot read reference file " << filename;
         return 0;
     }
 

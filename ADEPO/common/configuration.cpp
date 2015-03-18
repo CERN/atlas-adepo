@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 
+#include <QDebug>
+
 #include "configuration.h"
 
 #define NBR_DETECTORS 8
@@ -14,7 +16,7 @@ int Configuration::read(QString filename)
 
     std::ifstream file((char*)filename.toStdString().c_str(), std::ios::in);
     if(!file) {
-        std::cout << "WARNING Cannot read configuration file " << filename.toStdString() << std::endl;
+        qWarning() << "Cannot read configuration file " << filename;
         return 0;
     }
 
@@ -164,7 +166,7 @@ int Configuration::read(QString filename)
                        int nb_string = std::count(line.begin(), line.end(), ' '); //nombre de colonne dans la line
 
                        if (nb_string < 5) {
-                            std::cout << "Error in config: " << nb_string << ":" << line << ":" << std::endl;
+                            qCritical() << "Error in config: " << nb_string << ":" << QString::fromStdString(line);
                        } else {
                            // 20MABNDA000318 3 2 1 PR004 ...
                            QString nom_BCAM = QString::fromStdString(strtok(buffer," "));
@@ -177,7 +179,7 @@ int Configuration::read(QString filename)
                            switch(nb_string)
                            {
                                default:
-                                   std::cout << "Error in config: " << nb_string << ":" << line << ":" << std::endl;
+                                   qCritical() << "Error in config: " << nb_string << ":" << QString::fromStdString(line);
                                    break;
                                case 5: //cas ou une BCAM simple ou double vise un prisme
                                {    // 20MABNDA000318 3 2 1 PR004 2

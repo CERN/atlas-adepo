@@ -226,7 +226,7 @@ void LWDAQ_Client::readStatus() {
 
     // bail out if error
     if (error) {
-        std::cout << "ERR: " << errorText.toStdString() << std::endl;
+        qWarning() << "ERR: " << errorText;
         write("Acquisifier_status");
         return;
     }
@@ -268,18 +268,18 @@ void LWDAQ_Client::readStatus() {
 void LWDAQ_Client::displayError(QAbstractSocket::SocketError socketError) {
     switch (socketError) {
     case QAbstractSocket::RemoteHostClosedError:
-        std::cerr << "Remote host closed connection, reconnect in " << connectTimer->interval() << " ms." << std::endl;
+        qWarning() << "Remote host closed connection, reconnect in " << connectTimer->interval() << " ms.";
         connectTimer->start();
         break;
     case QAbstractSocket::HostNotFoundError:
-        std::cerr << "Host not found" << std::endl;
+        qWarning() << "Host not found";
         break;
     case QAbstractSocket::ConnectionRefusedError:
-        std::cerr << "Connection refused, reconnect in " << connectTimer->interval() << " ms." << std::endl;
+        qWarning() << "Connection refused, reconnect in " << connectTimer->interval() << " ms.";
         connectTimer->start();
         break;
     default:
-        std::cerr << "The following error occurred: " << tcpSocket->errorString().toStdString() << std::endl;
+        qWarning() << "The following error occurred: " << tcpSocket->errorString();
     }
 }
 

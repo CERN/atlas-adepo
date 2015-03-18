@@ -183,7 +183,6 @@ void Client::fillDetectorTable()
 
 void Client::selectDetectorRow(int row, int /* column */) {
     int id = ui->tableWidget_liste_detectors->item(row, 0)->data(Qt::DisplayRole).toInt();
-    std::cout << "Select " << id << std::endl;
     std::vector<int> selectedDetectors = run.getDetectors();
 
     // find the id

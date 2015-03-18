@@ -26,7 +26,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
     QDir lwdaqDir = lwdaq_client->find(QDir(Util::appPath()));
     if (!lwdaqDir.exists()) {
-        std::cerr << "FATAL: could not find LWDAQ directory up from " << Util::appPath().toStdString() << std::endl;
+        qCritical() << "FATAL: could not find LWDAQ directory up from " << Util::appPath();
         exit(1);
     } else {
         std::cout << "SERVER Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
@@ -57,7 +57,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
     QString result = config.check();
     if (result != "") {
-        std::cerr << result.toStdString() << std::endl;
+        qCritical() << result;
         std::exit(1);
     }
 
@@ -99,8 +99,8 @@ void Server::startDAQ()
     QFile file(Util::workPath().append(DEFAULT_RESULT_FILE));
     qDebug() << "*** Removing " << file.fileName();
     if (file.exists() && !file.remove()) {
-        std::cout << "SERVER WARNING Cannot remove result file " << file.fileName().toStdString() << std::endl;
-        std::cout << "SERVER WARNING Start aborted." << std::endl;
+        qWarning() << "SERVER Cannot remove result file " << file.fileName();
+        qWarning() << "SERVER Start aborted.";
         return;
     }
 
@@ -208,7 +208,7 @@ void Server::calculateCoordinates()
 
    if(lecture_output_result == 0 )
    {
-       std::cout << "ERROR: output file cannot be found at " << Util::workPath().append(DEFAULT_RESULT_FILE).toStdString() << std::endl;
+       qWarning() << "Output file cannot be found at " << Util::workPath().append(DEFAULT_RESULT_FILE);
        return;
    }
 

@@ -1,5 +1,7 @@
 #include <stdexcept>
 
+#include <QDebug>
+
 #include "setup.h"
 #include "bcam_config.h"
 
@@ -9,7 +11,7 @@ BCAM Setup::getBCAM(QString bcam_prism) {
            return mBCAMs[i];
        }
     }
-    std::cout << "WARNING BCAM with name " << bcam_prism.toStdString() << " not defined in current selection." << std::endl;
+    qWarning() << "BCAM with name " << bcam_prism << " not defined in current selection.";
     throw std::invalid_argument(bcam_prism.toStdString());
 }
 
