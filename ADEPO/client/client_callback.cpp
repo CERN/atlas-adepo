@@ -30,6 +30,7 @@ void Client::changedRunFile(QString filename) {
 }
 
 void Client::changedState(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds) {
+    qDebug() << "XXX " << adepoState << " YYY " << lwdaqState;
     QString adepo;
     this->adepoState = adepoState;
     this->lwdaqState = lwdaqState;
