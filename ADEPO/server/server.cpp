@@ -138,7 +138,7 @@ void Server::stopDAQ()
 }
 
 void Server::lwdaqStateChanged() {
-    qDebug() << "SERVER state changed to " << lwdaq_client->getState();
+    qDebug() << "SERVER LWDAQ state changed to " << lwdaq_client->getState();
 
     if (lwdaq_client->getState() == LWDAQ_IDLE) {
         if (needToCalculateResults) {
@@ -200,6 +200,7 @@ void Server::timeChanged() {
 }
 
 void Server::updateState() {
+    qDebug() << "SERVER state changed to (ADEPO) " << adepoState << " (LWDAQ) " << lwdaq_client->getState();
     callback.changedState(adepoState, waitingTimer->remainingTime()/1000, lwdaq_client->getState(), lwdaq_client->getRemainingTime()/1000);
 }
 
