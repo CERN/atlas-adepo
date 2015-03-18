@@ -770,27 +770,6 @@
    <addaction name="FileMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionCharger">
-   <property name="text">
-    <string>Input Folder</string>
-   </property>
-   <property name="toolTip">
-    <string>INPUT FOLDER</string>
-   </property>
-   <property name="statusTip">
-    <string>Ouverture du projet</string>
-   </property>
-  </action>
-  <action name="actionAbout_Qt">
-   <property name="text">
-    <string>About &amp;Qt</string>
-   </property>
-  </action>
-  <action name="action_Aide">
-   <property name="text">
-    <string>Help on ADEPO</string>
-   </property>
-  </action>
   <action name="quit">
    <property name="text">
     <string>Quit</string>
