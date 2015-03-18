@@ -51,6 +51,7 @@ void Client::changedState(QString adepoState, int adepoSeconds, QString lwdaqSta
 
     lwdaqStatus.setText("LWDAQ: "+lwdaqState);
     adepoStatus.setText("ADEPO: "+adepo);
+    QCoreApplication::flush();
 }
 
 void Client::changedConfigurationFile(QString filename) {
