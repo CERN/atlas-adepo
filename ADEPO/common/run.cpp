@@ -37,7 +37,7 @@ void Run::read(QString fileName, Configuration& config) {
 
     write();
 
-    initBCAMs(config);
+//    initBCAMs(config);
 }
 
 
