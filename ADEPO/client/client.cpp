@@ -190,114 +190,86 @@ void Client::selectDetectorRow(int row, int /* column */) {
     } else {
         selectedDetectors.erase(it);
     }
-    run.setDetectors(selectedDetectors);
+    run.setDetectors(selectedDetectors, config);
     call->updateRunFile();
 
     showBCAMTable();
 }
 
-//fonction permettant de charger la liste des BCAMs qui appartiennent a un detector                 [---> ok
 void Client::showBCAMTable()
 {
     qDebug() << "CLIENT Show BCAM Table";
-    int noColumn = ui->tableWidget_liste_detectors->columnCount();
-
-    //recuperation du nombre de detecteurs
-    int noOfdetectors = ui->tableWidget_liste_detectors->selectedItems().size()/noColumn;
-
-    setup.getBCAMs().clear();
-
-//    selectedDetectors.clear();
-
-    //recuperation des donnees a afficher
-    for(int i=0; i<noOfdetectors; i++)
-    {
-        //recuperation de l'identifiant du detecteur
-        int detectorId = ui->tableWidget_liste_detectors->selectedItems().at(i*noColumn)->text().toInt();
-
-//        selectedDetectors.push_back(detectorId);
-
-        //recuperation des donnes a afficher
-        std::vector<BCAM> bcams = setup.getBCAMs(detectorId, config);
-
-        //insertion dans la tableWidget qui affiche les bcams
-        for (unsigned int j=0; j<bcams.size(); j++) {
-            setup.getBCAMs().push_back(bcams.at(j));
-        }
-    }
-//    run.setDetectors(selectedDetectors);
 
     // nombre de lignes dans la table
     ui->tableWidget_liste_bcams->clearContents();
-    ui->tableWidget_liste_bcams->setRowCount(setup.getBCAMs().size());
+    ui->tableWidget_liste_bcams->setRowCount(run.getBCAMs().size());
     ui->tableWidget_results->setRowCount(100);
 
     int row = 0;
-    for(unsigned int i=0; i<setup.getBCAMs().size(); i++)
-    {
-        BCAM bcam = setup.getBCAMs().at(i);
+    for(int i=0; i<ui->tableWidget_liste_bcams->rowCount(); i++) {
+        BCAM bcam = run.getBCAMs().at(i);
 
-      //ajout dans la tableWidget qui affiche les BCAMs
-      QTableWidgetItem *nom_bcam = new QTableWidgetItem();
-      nom_bcam->setText(bcam.getName());
-      ui->tableWidget_liste_bcams->setItem(i,0,nom_bcam);
+        //ajout dans la tableWidget qui affiche les BCAMs
+        QTableWidgetItem *nom_bcam = new QTableWidgetItem();
+        nom_bcam->setText(bcam.getName());
+        ui->tableWidget_liste_bcams->setItem(i,0,nom_bcam);
 
-      QTableWidgetItem *num_detector = new QTableWidgetItem();
-      num_detector->setData(Qt::DisplayRole,bcam.getDetectorId());
-      ui->tableWidget_liste_bcams->setItem(i,1,num_detector);
+        QTableWidgetItem *num_detector = new QTableWidgetItem();
+        num_detector->setData(Qt::DisplayRole,bcam.getDetectorId());
+        ui->tableWidget_liste_bcams->setItem(i,1,num_detector);
 
-      QTableWidgetItem *num_port_driver = new QTableWidgetItem();
-      num_port_driver->setData(Qt::DisplayRole,bcam.getDriverSocket());
-      ui->tableWidget_liste_bcams->setItem(i,2,num_port_driver);
+        QTableWidgetItem *num_port_driver = new QTableWidgetItem();
+        num_port_driver->setData(Qt::DisplayRole,bcam.getDriverSocket());
+        ui->tableWidget_liste_bcams->setItem(i,2,num_port_driver);
 
-      QTableWidgetItem *num_port_mux = new QTableWidgetItem();
-      num_port_mux->setData(Qt::DisplayRole,bcam.getMuxSocket());
-      ui->tableWidget_liste_bcams->setItem(i,3,num_port_mux);
+        QTableWidgetItem *num_port_mux = new QTableWidgetItem();
+        num_port_mux->setData(Qt::DisplayRole,bcam.getMuxSocket());
+        ui->tableWidget_liste_bcams->setItem(i,3,num_port_mux);
 
-      Prism prism = bcam.getPrism();
+        Prism prism = bcam.getPrism();
 
-      QTableWidgetItem *num_chip = new QTableWidgetItem();
-      num_chip->setData(Qt::DisplayRole,prism.getNumChip());
-      ui->tableWidget_liste_bcams->setItem(i,4,num_chip);
+        QTableWidgetItem *num_chip = new QTableWidgetItem();
+        num_chip->setData(Qt::DisplayRole,prism.getNumChip());
+        ui->tableWidget_liste_bcams->setItem(i,4,num_chip);
 
-      QTableWidgetItem *objet_vise = new QTableWidgetItem();
-      objet_vise->setText(prism.getName());
-      ui->tableWidget_liste_bcams->setItem(i,5,objet_vise);
+        QTableWidgetItem *objet_vise = new QTableWidgetItem();
+        objet_vise->setText(prism.getName());
+        ui->tableWidget_liste_bcams->setItem(i,5,objet_vise);
 
-      QTableWidgetItem *left = new QTableWidgetItem();
-      left->setData(Qt::DisplayRole,prism.getLeft());
-      ui->tableWidget_liste_bcams->setItem(i,6,left);
+        QTableWidgetItem *left = new QTableWidgetItem();
+        left->setData(Qt::DisplayRole,prism.getLeft());
+        ui->tableWidget_liste_bcams->setItem(i,6,left);
 
-      QTableWidgetItem *right = new QTableWidgetItem();
-      right->setData(Qt::DisplayRole,prism.getRight());
-      ui->tableWidget_liste_bcams->setItem(i,7,right);
+        QTableWidgetItem *right = new QTableWidgetItem();
+        right->setData(Qt::DisplayRole,prism.getRight());
+        ui->tableWidget_liste_bcams->setItem(i,7,right);
 
-      QTableWidgetItem *separate = new QTableWidgetItem();
-      separate->setData(Qt::DisplayRole,prism.flashSeparate() ? "Yes" : "No");
-      ui->tableWidget_liste_bcams->setItem(i,8,separate);
+        QTableWidgetItem *separate = new QTableWidgetItem();
+        separate->setData(Qt::DisplayRole,prism.flashSeparate() ? "Yes" : "No");
+        ui->tableWidget_liste_bcams->setItem(i,8,separate);
 
-      QTableWidgetItem *adjust = new QTableWidgetItem();
-      adjust->setData(Qt::DisplayRole,prism.flashAdjust() ? "Yes" : "No");
-      ui->tableWidget_liste_bcams->setItem(i,9,adjust);
+        QTableWidgetItem *adjust = new QTableWidgetItem();
+        adjust->setData(Qt::DisplayRole,prism.flashAdjust() ? "Yes" : "No");
+        ui->tableWidget_liste_bcams->setItem(i,9,adjust);
 
-      // Result Table
-      QString prismName = config.getName(prism.getName());
-      Result& result = results[prismName];
+        // Result Table
+        QString prismName = config.getName(prism.getName());
+        Result& result = results[prismName];
 
-      QTableWidgetItem *name = new QTableWidgetItem();
-      name->setText(prismName);
-      ui->tableWidget_results->setItem(row, 0, name);
+        QTableWidgetItem *name = new QTableWidgetItem();
+        name->setText(prismName);
+        ui->tableWidget_results->setItem(row, 0, name);
 
-      QTableWidgetItem *bcamName = new QTableWidgetItem();
-      bcamName->setText(bcam.getName());
-      ui->tableWidget_results->setItem(row, 1, bcamName);
+        QTableWidgetItem *bcamName = new QTableWidgetItem();
+        bcamName->setText(bcam.getName());
+        ui->tableWidget_results->setItem(row, 1, bcamName);
 
-      QTableWidgetItem *prismCell = new QTableWidgetItem();
-      prismCell->setText(prism.getName());
-      ui->tableWidget_results->setItem(row, 2, prismCell);
+        QTableWidgetItem *prismCell = new QTableWidgetItem();
+        prismCell->setText(prism.getName());
+        ui->tableWidget_results->setItem(row, 2, prismCell);
 
-      setResult(row, result);
-      row++;
+        setResult(row, result);
+        row++;
     }
 
     ui->tableWidget_results->setRowCount(row);

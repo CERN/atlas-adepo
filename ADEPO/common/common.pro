@@ -11,7 +11,6 @@ SOURCES += \
     configuration.cpp \
     util.cpp \
     calibration.cpp \
-    setup.cpp \
     reference.cpp \
     run.cpp
 
@@ -30,7 +29,6 @@ HEADERS += \
     prism_correction.h \
     util.h \
     calibration.h \
-    setup.h \
     reference.h \
     result.h \
     run.h \

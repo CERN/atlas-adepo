@@ -571,13 +571,14 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/common/reference.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
 		../../ADEPO/server/lwdaq_client.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QtNetwork \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractnetworkcache.h \
@@ -613,7 +614,6 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
 		../../ADEPO/bridge/bridge.h \
-		../../ADEPO/common/setup.h \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/adepo-server/socket_server.h \

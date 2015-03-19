@@ -19,7 +19,6 @@
 
 #include "lwdaq_client.h"
 #include "point3f.h"
-#include "setup.h"
 #include "call.h"
 #include "callback.h"
 
@@ -62,8 +61,8 @@ private:
     QString getDateTime();
     int writeBCAMScript(Configuration &config, std::ofstream &file, BCAM bcam, int spots, QString sourceDeviceElement);
 
-    void imgCoordToBcamCoord(Calibration &calibration, Setup &setup, Data &data);
-    void calculCoordBcamSystem(Configuration &config, Calibration &calibration, Setup &setup, Data& data);
+    void imgCoordToBcamCoord(Calibration &calibration, Run &run, Data &data);
+    void calculCoordBcamSystem(Configuration &config, Calibration &calibration, Run &run, Data& data);
     void mountPrismToGlobalPrism();
     int writeFileObsMountSystem(QString fileName, QString datetime);
     Point3f changeReference(Point3f coord_sys1, Point3f translation, Point3f rotation);
@@ -84,7 +83,6 @@ private:
     Run run;
     Configuration config;
     Calibration calibration;
-    Setup setup;
     Data data;
     Reference reference;
     QString resultFile;

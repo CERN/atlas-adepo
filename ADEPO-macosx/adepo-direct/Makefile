@@ -698,16 +698,16 @@ main.o: ../../ADEPO/adepo-direct/main.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/Q
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/common/setup.h \
-		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/run.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
+		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		../../ADEPO/server/server.h \

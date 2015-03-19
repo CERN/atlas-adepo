@@ -7,8 +7,8 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 SOURCES += \
-    client_callback.cpp \
-    client.cpp
+    client.cpp \
+    client_callback.cpp
 
 HEADERS += \
     float_table_widget_item.h \

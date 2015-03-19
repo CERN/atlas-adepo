@@ -11,8 +11,8 @@ CONFIG += staticlib
 INCLUDEPATH += ../eigen-eigen-ffa86ffb5570
 
 SOURCES += \
-    helmert.cpp \
     lwdaq_client.cpp \
+    helmert.cpp \
     server.cpp \
     server_call.cpp \
     write_params_file.cpp \

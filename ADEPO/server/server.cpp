@@ -75,19 +75,6 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 void Server::startDAQ()
 {
     qDebug() << "SERVER start DAQ";
-    std::vector<int> detectors = run.getDetectors();
-
-    setup.getBCAMs().clear();
-    for(unsigned int i=0; i<detectors.size(); i++)
-    {
-        //recuperation des donnes a afficher
-        std::vector<BCAM> bcams = setup.getBCAMs(detectors[i], config);
-
-        //insertion dans la tableWidget qui affiche les bcams
-        for (unsigned int j=0; j<bcams.size(); j++) {
-            setup.getBCAMs().push_back(bcams.at(j));
-        }
-    }
 
     writeParamsFile(Util::workPath().append(DEFAULT_PARAM_FILE));
 
@@ -199,10 +186,10 @@ void Server::calculateCoordinates()
    }
 
    //je fais la transformation du capteur CCD au systeme MOUNT. Attention, la lecture du fichier de calibration est deja faite !
-   imgCoordToBcamCoord(calibration, setup, data);
+   imgCoordToBcamCoord(calibration, run, data);
 
    //je calcule les coordonnees du prisme en 3D dans le repere MOUNT
-   calculCoordBcamSystem(config, calibration, setup, data);
+   calculCoordBcamSystem(config, calibration, run, data);
 
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mountPrismToGlobalPrism();
@@ -252,7 +239,7 @@ QString Server::getDateTime() {
 
 
 //fonction de transformation du repere ccd au repere BCAM (MOUNT)
-void Server::imgCoordToBcamCoord(Calibration &calibration, Setup& setup, Data& data)
+void Server::imgCoordToBcamCoord(Calibration &calibration, Run &run, Data& data)
 {
     bool found = false;
     for(unsigned int i=0; i<data.getDualSpots().size(); i++) //je parcours la base de donnees des coordonnees images
@@ -262,7 +249,7 @@ void Server::imgCoordToBcamCoord(Calibration &calibration, Setup& setup, Data& d
             DualSpot spot = data.getDualSpots().at(i);
             Calib1 calib1 = calibration.getCalibs1().at(j);
             // NumChip == 2 is Z+ direction
-            int num_chip = setup.getBCAM(spot.getName()).getPrism().getNumChip();
+            int num_chip = run.getBCAM(spot.getName()).getPrism().getNumChip();
             bool directionOk = ((num_chip == 2) && (calib1.getDirection() == 1)) || ((num_chip == 1) && (calib1.getDirection() == -1));
 //            std::cout << spot.getBCAM() << " " << calib1.getBCAM() << " " << directionOk << " " <<  num_chip << " " << calib1.getCoordAxis().z() << std::endl;
 
@@ -362,7 +349,7 @@ void Server::imgCoordToBcamCoord(Calibration &calibration, Setup& setup, Data& d
     }
 }
 
-void Server::calculCoordBcamSystem(Configuration& config, Calibration &calibration, Setup& setup, Data& data)
+void Server::calculCoordBcamSystem(Configuration& config, Calibration &calibration, Run &run, Data& data)
 {
     bool found = false;
     for (unsigned int i=0; i<data.getMountCoordSpots().size(); i++) // je parcours la database qui contient les coord des observation dans le system MOUNT
@@ -374,7 +361,7 @@ void Server::calculCoordBcamSystem(Configuration& config, Calibration &calibrati
             Calib1 calib1 = calibration.getCalibs1().at(j);
 
             // NumChip == 2 is Z+ direction
-            int num_chip = setup.getBCAM(spot.getName()).getPrism().getNumChip();
+            int num_chip = run.getBCAM(spot.getName()).getPrism().getNumChip();
             bool directionOk1 = ((num_chip == 2) && (calib1.getDirection() == 1)) || ((num_chip == 1) && (calib1.getDirection() == -1));
 
             for(unsigned int k=0; k<calibration.getCalibs2().size(); k++) //je parcours la base de donnee de calibration 2

@@ -1,10 +1,12 @@
 #ifndef RUN_H
 #define RUN_H
 
-#include "qstring.h"
-#include "qjsondocument.h"
-#include "qjsonobject.h"
+#include <QString>
+#include <QJsonDocument>
+#include <QJsonObject>
 
+#include "configuration.h"
+#include "bcam.h"
 #include "json_util.h"
 #include "json_rpc.h"
 
@@ -58,10 +60,19 @@ public:
         return JsonUtil::fromIntArray(json[DETECTORS].toArray());
     }
 
-    void setDetectors(std::vector<int> detectors) {
+    void setDetectors(std::vector<int> detectors, Configuration& config) {
         json[DETECTORS] = JsonUtil::toIntArray(detectors);
         write();
+        initBCAMs(config);
     }
+
+    std::vector<BCAM> getBCAMs() {
+        return bcams;
+    }
+
+    std::vector<BCAM> getBCAMs(int id_detector, Configuration& config);
+
+    BCAM getBCAM(QString bcam_prism);
 
     bool getAirpad() {
         return json[AIRPAD].isNull() ? AIRPAD_DEFAULT : json[AIRPAD].toBool();
@@ -100,8 +111,11 @@ public:
     }
 
 private:
+    void initBCAMs(Configuration& config);
+
     QString fileName;
     QJsonObject json;
+    std::vector<BCAM> bcams;
 };
 
 #endif // RUN_H

@@ -50,7 +50,7 @@ int Server::writeScriptFile(QString fileName)
            <<"end. \n"
            <<"\n";
 
-        std::vector<BCAM> bcams = setup.getBCAMs();
+        std::vector<BCAM> bcams = run.getBCAMs();
 
         //écriture dans le fichier de la partie acquisition du script : un paragraphe par BCAM
         for(unsigned int i=0; i<bcams.size(); i++)

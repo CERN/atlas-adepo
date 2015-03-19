@@ -12,6 +12,9 @@ TEMPLATE = app
 SOURCES += main.cpp \
     socket_client.cpp
 
+HEADERS += \
+    socket_client.h
+
 unix:!mac{
   QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib
   QMAKE_RPATH=
@@ -36,6 +39,4 @@ DEPENDPATH += $$PWD/../common
 
 unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a
 
-HEADERS += \
-    socket_client.h
 

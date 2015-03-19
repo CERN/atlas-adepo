@@ -15,7 +15,6 @@
 #include "call.h"
 #include "callback.h"
 #include "configuration.h"
-#include "setup.h"
 #include "run.h"
 
 #include "result.h"
@@ -64,7 +63,6 @@ private:
 
     Run run;
     Configuration config;
-    Setup setup;
 
     Ui::Client *ui;
     std::map<QString, Result> results;
