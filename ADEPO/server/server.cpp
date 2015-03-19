@@ -46,12 +46,12 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     updateTimer->setSingleShot(false);
     QObject::connect(updateTimer, SIGNAL(timeout()), this, SLOT(timeChanged()));
 
-    // read run file
-    run.read(Util::workPath().append(RUN_FILE));
-    std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
-
     // read config file
     config.read(Util::inputPath().append(CONFIGURATION_FILE));
+
+    // read run file
+    run.read(Util::workPath().append(RUN_FILE), config);
+    std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
 
     helmert(config, data);
 

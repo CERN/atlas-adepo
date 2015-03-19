@@ -28,7 +28,7 @@ void Run::write() {
     jsonFile.write(doc.toJson());
 }
 
-void Run::read(QString fileName) {
+void Run::read(QString fileName, Configuration& config) {
     QFile jsonFile(fileName);
     jsonFile.open(QFile::ReadOnly);
     json = QJsonDocument().fromJson(jsonFile.readAll()).object();
@@ -36,6 +36,8 @@ void Run::read(QString fileName) {
     this->fileName = fileName;
 
     write();
+
+    initBCAMs(config);
 }
 
 

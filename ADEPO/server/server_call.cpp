@@ -16,7 +16,7 @@ void Server::updateRunFile() {
     qDebug() << "SERVER UpdateRunFile called...";
 
     // reread run file
-    run.read(run.getFileName());
+    run.read(run.getFileName(), config);
 
     callback.changedRunFile(run.getFileName());
 }
@@ -49,10 +49,11 @@ void Server::updateReferenceFile() {
 void Server::updateAll() {
     qDebug() << "SERVER UpdateAll called...";
 
-    updateRunFile();
     updateConfigurationFile();
     updateCalibrationFile();
     updateReferenceFile();
+    // needs to be last, needs config
+    updateRunFile();
 
     callback.changedState(adepoState, waitingTimer->remainingTime(), lwdaq_client->getState(), lwdaq_client->getRemainingTime());
     callback.changedResultFile(Util::workPath().append(DEFAULT_RESULT_FILE));

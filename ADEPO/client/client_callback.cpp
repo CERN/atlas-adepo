@@ -6,7 +6,7 @@
 void Client::changedRunFile(QString filename) {
     qDebug() << "CLIENT Changed Run File " << filename;
 
-    run.read(filename);
+    run.read(filename, config);
 
     // select selected detectors
     ui->tableWidget_liste_detectors->clearSelection();

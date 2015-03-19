@@ -41,7 +41,7 @@ public:
     virtual ~Run() {};
 
     void write();
-    void read(QString fileName);
+    void read(QString fileName, Configuration &config);
 
     QString getFileName() {
         return fileName;
