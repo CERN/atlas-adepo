@@ -162,7 +162,7 @@ void Client::fillDetectorTable()
 
     for(int i=0; i<nb_lignes; i++)
     {
-        //ajout du numero id du detetcteur
+        //ajout du numero id du detecteur
         QTableWidgetItem *item_num = new QTableWidgetItem();
         item_num->setData(Qt::DisplayRole,detectors_data.at(i).getId());
         ui->tableWidget_liste_detectors->setItem(i,0,item_num);

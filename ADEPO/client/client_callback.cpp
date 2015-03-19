@@ -30,7 +30,6 @@ void Client::changedRunFile(QString filename) {
 }
 
 void Client::changedState(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds) {
-    qDebug() << "XXX " << adepoState << " YYY " << lwdaqState;
     QString adepo;
     this->adepoState = adepoState;
     this->lwdaqState = lwdaqState;
@@ -38,13 +37,11 @@ void Client::changedState(QString adepoState, int adepoSeconds, QString lwdaqSta
     setEnabled();
 
     if (lwdaqState == LWDAQ_RUN) {
-        adepo = adepoState.append(" ").append(QString::number(lwdaqSeconds)).
-                append(" seconds remaining...");
+        adepo = adepoState.append(" ").append(QString::number(lwdaqSeconds)).append(" seconds remaining...");
     }
 
     if (adepoState == ADEPO_WAITING) {
-        adepo = adepoState.append(" ").append(QString::number(adepoSeconds)).
-                append(" seconds remaining...");
+        adepo = adepoState.append(" ").append(QString::number(adepoSeconds)).append(" seconds remaining...");
     } else {
         adepo = adepoState;
     }
