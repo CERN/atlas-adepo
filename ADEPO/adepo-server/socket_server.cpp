@@ -69,7 +69,7 @@ void SocketServer::processBinaryMessage(QByteArray message)
 
 void SocketServer::socketDisconnected()
 {
-    qWarning() << "SERVER Disconnected !";
+    qDebug() << "SERVER Disconnected !";
     QWebSocket *client = qobject_cast<QWebSocket *>(sender());
     if (client) {
         clients.removeAll(client);

@@ -17,11 +17,12 @@ int main(int argc, char *argv[]) {
     Util::handleDebug(app);
 
     Client client;
+    client.changedState(ADEPO_UNKNOWN, 0, LWDAQ_UNKNOWN, 0);
+
     SocketClient webSocketClient(client, QStringLiteral("ws://localhost:5687"));
     client.setServer(webSocketClient);
     client.show();
 
-    client.changedState(ADEPO_UNSET, 0, LWDAQ_UNSET, 0);
 
     return app.exec();
 }

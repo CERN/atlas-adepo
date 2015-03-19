@@ -6,7 +6,7 @@
 LWDAQ_Client::LWDAQ_Client(QString host, quint16 port, QObject *parent) : QObject(parent),
                                   hostName(host),
                                   portNo(port),
-                                  currentState(LWDAQ_UNSET),
+                                  currentState(LWDAQ_UNKNOWN),
                                   cmdNo(0),
                                   redirect(true),
                                   error(false),
@@ -287,7 +287,7 @@ void LWDAQ_Client::stateChange(QString newState) {
     if (currentState == newState) {
         return;
     }
-    if (currentState == LWDAQ_CONNECTING && (newState != LWDAQ_UNSET || newState != LWDAQ_CONNECTING)) {
+    if (currentState == LWDAQ_CONNECTING && (newState != LWDAQ_UNKNOWN || newState != LWDAQ_CONNECTING)) {
 //        qDebug() << "Starting update timer " << statusTimer->interval();
     //    statusTimer->start();
     }

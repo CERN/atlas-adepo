@@ -16,6 +16,14 @@ SocketClient::SocketClient(Callback& callback, const QUrl &url, QObject *parent)
 {
     connect(&webSocket, &QWebSocket::connected, this, &SocketClient::onConnected);
     connect(&webSocket, &QWebSocket::disconnected, this, &SocketClient::socketDisconnected);
+
+    reconnectTimer = new QTimer(this);
+    reconnectTimer->setSingleShot(true);
+    reconnectTimer->setInterval(RECONNECT_TIME * 1000);
+    connect(reconnectTimer, &QTimer::timeout, this, &SocketClient::reconnect);
+
+    callback.changedState(ADEPO_CONNECTING, 0, LWDAQ_UNKNOWN, 0);
+
     webSocket.open(QUrl(url));
 }
 
@@ -29,7 +37,15 @@ void SocketClient::onConnected()
 }
 
 void SocketClient::socketDisconnected() {
-    qWarning() << "CLIENT disconnected !";
+    qDebug() << "CLIENT disconnected, reconnecting in " << RECONNECT_TIME << "s...";
+
+    callback.changedState(ADEPO_CONNECTING, 0, LWDAQ_UNKNOWN, 0);
+
+    reconnectTimer->start();
+}
+
+void SocketClient::reconnect() {
+    webSocket.open(QUrl(url));
 }
 
 void SocketClient::onTextMessageReceived(QString message)

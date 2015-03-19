@@ -5,10 +5,14 @@
 #include <QWebSocket>
 #include <QUrl>
 #include <QObject>
+#include <QTimer>
+
 #include <QJsonObject>
 
 #include "call.h"
 #include "callback.h"
+
+#define RECONNECT_TIME 15
 
 class SocketClient : public QObject, public Call
 {
@@ -30,6 +34,7 @@ Q_SIGNALS:
 private Q_SLOTS:
     void onConnected();
     void socketDisconnected();
+    void reconnect();
     void onTextMessageReceived(QString message);
 
 private:
@@ -38,6 +43,7 @@ private:
     Callback& callback;
     QUrl url;
     QWebSocket webSocket;
+    QTimer* reconnectTimer;
 };
 
 #endif // SOCKET_CLIENT_H

@@ -17,8 +17,8 @@ Client::Client(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Client)
 {
-    adepoState = ADEPO_UNSET;
-    lwdaqState = LWDAQ_UNSET;
+    adepoState = ADEPO_UNKNOWN;
+    lwdaqState = LWDAQ_UNKNOWN;
 
     ui->setupUi(this);
     ui->statusBar->addPermanentWidget(&adepoStatus);

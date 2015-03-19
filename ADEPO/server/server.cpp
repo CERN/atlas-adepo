@@ -32,10 +32,10 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
         std::cout << "SERVER Found LWDAQ installation at " << lwdaqDir.absolutePath().toStdString() << std::endl;
     }
 
-    previousState = LWDAQ_UNSET;
+    previousState = LWDAQ_UNKNOWN;
     needToCalculateResults = false;
 
-    adepoState = ADEPO_IDLE;
+    adepoState = ADEPO_UNKNOWN;
 
     waitingTimer = new QTimer(this);
     waitingTimer->setSingleShot(true);
