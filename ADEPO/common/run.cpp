@@ -12,10 +12,10 @@ void Run::initBCAMs(Configuration& config) {
     std::vector<int> detectors = getDetectors();
     for(unsigned int i=0; i<detectors.size(); i++)
     {
-        std::vector<BCAM> bcams = getBCAMs(detectors[i], config);
+        std::vector<BCAM> b = getBCAMs(detectors[i], config);
 
-        for (unsigned int j=0; j<bcams.size(); j++) {
-            bcams.push_back(bcams.at(j));
+        for (unsigned int j=0; j<b.size(); j++) {
+            bcams.push_back(b.at(j));
         }
     }
 }
@@ -37,7 +37,7 @@ void Run::read(QString fileName, Configuration& config) {
 
     write();
 
-//    initBCAMs(config);
+    initBCAMs(config);
 }
 
 
