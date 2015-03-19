@@ -545,13 +545,15 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../../../Qt5.4.1/include/QtCore/QCo
 		../../ADEPO/common/reference.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
-		../../ADEPO/common/json_rpc.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
+		../../ADEPO/common/json_rpc.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -717,7 +719,6 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../../../Qt5.4.1/include/QtCore/QCo
 		../../../../Qt5.4.1/include/QtNetwork/qsslkey.h \
 		../../../../Qt5.4.1/include/QtNetwork/qtnetworkversion.h \
 		../../ADEPO/bridge/bridge.h \
-		../../ADEPO/common/setup.h \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/adepo-server/socket_server.h \
@@ -730,7 +731,8 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../../../Qt5.4.1/include/QtCore/QCo
 		../../../../Qt5.4.1/include/QtWebSockets/qwebsocketprotocol.h \
 		../../../../Qt5.4.1/include/QtWebSockets/QWebSocketServer \
 		../../../../Qt5.4.1/include/QtWebSockets/qwebsocketserver.h \
-		../../../../Qt5.4.1/include/QtNetwork/QHostAddress
+		../../../../Qt5.4.1/include/QtNetwork/QHostAddress \
+		../../ADEPO/common/util.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../ADEPO/adepo-server/main.cpp
 
 socket_server.o: ../../ADEPO/adepo-server/socket_server.cpp ../../../../Qt5.4.1/include/QtCore/QJsonDocument \

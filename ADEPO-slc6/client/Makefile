@@ -45,10 +45,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../../ADEPO/client/client_callback.cpp \
-		../../ADEPO/client/client.cpp moc_client.cpp
-OBJECTS       = client_callback.o \
-		client.o \
+SOURCES       = ../../ADEPO/client/client.cpp \
+		../../ADEPO/client/client_callback.cpp moc_client.cpp
+OBJECTS       = client.o \
+		client_callback.o \
 		moc_client.o
 DIST          = ../../../../Qt5.4.1/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.4.1/mkspecs/common/shell-unix.conf \
@@ -157,8 +157,8 @@ DIST          = ../../../../Qt5.4.1/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.4.1/mkspecs/features/yacc.prf \
 		../../../../Qt5.4.1/mkspecs/features/lex.prf \
 		../../ADEPO/client/client.pro ../../ADEPO/client/float_table_widget_item.h \
-		../../ADEPO/client/client.h ../../ADEPO/client/client_callback.cpp \
-		../../ADEPO/client/client.cpp
+		../../ADEPO/client/client.h ../../ADEPO/client/client.cpp \
+		../../ADEPO/client/client_callback.cpp
 QMAKE_TARGET  = client
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = libclient.a
@@ -433,7 +433,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/client/float_table_widget_item.h ../../ADEPO/client/client.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/client/client_callback.cpp ../../ADEPO/client/client.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/client/client.cpp ../../ADEPO/client/client_callback.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/client/client.ui $(DISTDIR)/
 
 
@@ -582,6 +582,7 @@ moc_client.cpp: ../../../../Qt5.4.1/include/QtWidgets/QMainWindow \
 		../../../../Qt5.4.1/include/QtWidgets/qlabel.h \
 		../../../../Qt5.4.1/include/QtWidgets/QTextEdit \
 		../../../../Qt5.4.1/include/QtCore/QString \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
@@ -595,18 +596,22 @@ moc_client.cpp: ../../../../Qt5.4.1/include/QtWidgets/QMainWindow \
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/common/setup.h \
-		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/run.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
-		../../ADEPO/common/json_rpc.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../ADEPO/common/bcam.h \
+		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
+		../../ADEPO/common/json_rpc.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../ADEPO/client/client.h
 	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/adepo-test/ADEPO/client -I/det/ti/PosMov/git/adepo-test/ADEPO/bridge -I/det/ti/PosMov/git/adepo-test/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtWidgets -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtTest -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/client/client.h -o moc_client.cpp
 
@@ -627,6 +632,231 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
+
+client.o: ../../ADEPO/client/client.cpp ../../../../Qt5.4.1/include/QtGui/QPixmapCache \
+		../../../../Qt5.4.1/include/QtGui/qpixmapcache.h \
+		../../../../Qt5.4.1/include/QtGui/qpixmap.h \
+		../../../../Qt5.4.1/include/QtGui/qpaintdevice.h \
+		../../../../Qt5.4.1/include/QtGui/qwindowdefs.h \
+		../../../../Qt5.4.1/include/QtCore/qglobal.h \
+		../../../../Qt5.4.1/include/QtCore/qconfig.h \
+		../../../../Qt5.4.1/include/QtCore/qfeatures.h \
+		../../../../Qt5.4.1/include/QtCore/qsystemdetection.h \
+		../../../../Qt5.4.1/include/QtCore/qprocessordetection.h \
+		../../../../Qt5.4.1/include/QtCore/qcompilerdetection.h \
+		../../../../Qt5.4.1/include/QtCore/qtypeinfo.h \
+		../../../../Qt5.4.1/include/QtCore/qtypetraits.h \
+		../../../../Qt5.4.1/include/QtCore/qsysinfo.h \
+		../../../../Qt5.4.1/include/QtCore/qlogging.h \
+		../../../../Qt5.4.1/include/QtCore/qflags.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic.h \
+		../../../../Qt5.4.1/include/QtCore/qbasicatomic.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt5.4.1/include/QtCore/qgenericatomic.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic_msvc.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic_armv7.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic_armv6.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic_armv5.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic_ia64.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic_mips.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic_x86.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic_gcc.h \
+		../../../../Qt5.4.1/include/QtCore/qatomic_unix.h \
+		../../../../Qt5.4.1/include/QtCore/qglobalstatic.h \
+		../../../../Qt5.4.1/include/QtCore/qmutex.h \
+		../../../../Qt5.4.1/include/QtCore/qnumeric.h \
+		../../../../Qt5.4.1/include/QtCore/qobjectdefs.h \
+		../../../../Qt5.4.1/include/QtCore/qnamespace.h \
+		../../../../Qt5.4.1/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt5.4.1/include/QtGui/qwindowdefs_win.h \
+		../../../../Qt5.4.1/include/QtCore/qrect.h \
+		../../../../Qt5.4.1/include/QtCore/qmargins.h \
+		../../../../Qt5.4.1/include/QtCore/qsize.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtGui/qcolor.h \
+		../../../../Qt5.4.1/include/QtGui/qrgb.h \
+		../../../../Qt5.4.1/include/QtCore/qstringlist.h \
+		../../../../Qt5.4.1/include/QtCore/qalgorithms.h \
+		../../../../Qt5.4.1/include/QtCore/qdatastream.h \
+		../../../../Qt5.4.1/include/QtCore/qscopedpointer.h \
+		../../../../Qt5.4.1/include/QtCore/qiodevice.h \
+		../../../../Qt5.4.1/include/QtCore/qobject.h \
+		../../../../Qt5.4.1/include/QtCore/qstring.h \
+		../../../../Qt5.4.1/include/QtCore/qchar.h \
+		../../../../Qt5.4.1/include/QtCore/qbytearray.h \
+		../../../../Qt5.4.1/include/QtCore/qrefcount.h \
+		../../../../Qt5.4.1/include/QtCore/qarraydata.h \
+		../../../../Qt5.4.1/include/QtCore/qstringbuilder.h \
+		../../../../Qt5.4.1/include/QtCore/qlist.h \
+		../../../../Qt5.4.1/include/QtCore/qiterator.h \
+		../../../../Qt5.4.1/include/QtCore/qbytearraylist.h \
+		../../../../Qt5.4.1/include/QtCore/qcoreevent.h \
+		../../../../Qt5.4.1/include/QtCore/qmetatype.h \
+		../../../../Qt5.4.1/include/QtCore/qvarlengtharray.h \
+		../../../../Qt5.4.1/include/QtCore/qcontainerfwd.h \
+		../../../../Qt5.4.1/include/QtCore/qisenum.h \
+		../../../../Qt5.4.1/include/QtCore/qobject_impl.h \
+		../../../../Qt5.4.1/include/QtCore/qpair.h \
+		../../../../Qt5.4.1/include/QtCore/qregexp.h \
+		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
+		../../../../Qt5.4.1/include/QtCore/qsharedpointer.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../../../Qt5.4.1/include/QtCore/qhash.h \
+		../../../../Qt5.4.1/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt5.4.1/include/QtGui/qimage.h \
+		../../../../Qt5.4.1/include/QtGui/qtransform.h \
+		../../../../Qt5.4.1/include/QtGui/qmatrix.h \
+		../../../../Qt5.4.1/include/QtGui/qpolygon.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtGui/qregion.h \
+		../../../../Qt5.4.1/include/QtCore/qline.h \
+		../../../../Qt5.4.1/include/QtGui/qpainterpath.h \
+		../../../../Qt5.4.1/include/QtGui/qpixelformat.h \
+		../../../../Qt5.4.1/include/QtWidgets/QFileDialog \
+		../../../../Qt5.4.1/include/QtWidgets/qfiledialog.h \
+		../../../../Qt5.4.1/include/QtCore/qdir.h \
+		../../../../Qt5.4.1/include/QtCore/qfileinfo.h \
+		../../../../Qt5.4.1/include/QtCore/qfile.h \
+		../../../../Qt5.4.1/include/QtCore/qfiledevice.h \
+		../../../../Qt5.4.1/include/QtCore/qurl.h \
+		../../../../Qt5.4.1/include/QtCore/qurlquery.h \
+		../../../../Qt5.4.1/include/QtWidgets/qdialog.h \
+		../../../../Qt5.4.1/include/QtWidgets/qwidget.h \
+		../../../../Qt5.4.1/include/QtGui/qpalette.h \
+		../../../../Qt5.4.1/include/QtGui/qbrush.h \
+		../../../../Qt5.4.1/include/QtGui/qfont.h \
+		../../../../Qt5.4.1/include/QtGui/qfontmetrics.h \
+		../../../../Qt5.4.1/include/QtGui/qfontinfo.h \
+		../../../../Qt5.4.1/include/QtWidgets/qsizepolicy.h \
+		../../../../Qt5.4.1/include/QtGui/qcursor.h \
+		../../../../Qt5.4.1/include/QtGui/qkeysequence.h \
+		../../../../Qt5.4.1/include/QtGui/qevent.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
+		../../../../Qt5.4.1/include/QtGui/qvector2d.h \
+		../../../../Qt5.4.1/include/QtGui/qtouchdevice.h \
+		../../../../Qt5.4.1/include/QtCore/QFileInfo \
+		../../../../Qt5.4.1/include/QtWidgets/QMessageBox \
+		../../../../Qt5.4.1/include/QtWidgets/qmessagebox.h \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../ADEPO/client/client.h \
+		../../../../Qt5.4.1/include/QtWidgets/QMainWindow \
+		../../../../Qt5.4.1/include/QtWidgets/qmainwindow.h \
+		../../../../Qt5.4.1/include/QtWidgets/qtabwidget.h \
+		../../../../Qt5.4.1/include/QtGui/qicon.h \
+		../../../../Qt5.4.1/include/QtWidgets/QWidget \
+		../../../../Qt5.4.1/include/QtWidgets/QTextBrowser \
+		../../../../Qt5.4.1/include/QtWidgets/qtextbrowser.h \
+		../../../../Qt5.4.1/include/QtWidgets/qtextedit.h \
+		../../../../Qt5.4.1/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt5.4.1/include/QtWidgets/qframe.h \
+		../../../../Qt5.4.1/include/QtGui/qtextdocument.h \
+		../../../../Qt5.4.1/include/QtGui/qtextoption.h \
+		../../../../Qt5.4.1/include/QtGui/qtextcursor.h \
+		../../../../Qt5.4.1/include/QtGui/qtextformat.h \
+		../../../../Qt5.4.1/include/QtGui/qpen.h \
+		../../../../Qt5.4.1/include/QtWidgets/QLineEdit \
+		../../../../Qt5.4.1/include/QtWidgets/qlineedit.h \
+		../../../../Qt5.4.1/include/QtWidgets/QLabel \
+		../../../../Qt5.4.1/include/QtWidgets/qlabel.h \
+		../../../../Qt5.4.1/include/QtWidgets/QTextEdit \
+		../../../../Qt5.4.1/include/QtCore/QString \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../ADEPO/bridge/call.h \
+		../../ADEPO/bridge/bridge.h \
+		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/configuration.h \
+		../../ADEPO/common/detector.h \
+		../../ADEPO/common/bcam_adapter.h \
+		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/bcam_config.h \
+		../../ADEPO/common/prism.h \
+		../../../../Qt5.4.1/include/QtCore/QStringList \
+		../../ADEPO/common/absolute_distances.h \
+		../../ADEPO/common/atlas_coordinates.h \
+		../../ADEPO/common/prism_correction.h \
+		../../ADEPO/common/run.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
+		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../ADEPO/common/bcam.h \
+		../../ADEPO/common/json_util.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonArray \
+		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
+		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
+		ui_client.h \
+		../../../../Qt5.4.1/include/QtCore/QVariant \
+		../../../../Qt5.4.1/include/QtWidgets/QAction \
+		../../../../Qt5.4.1/include/QtWidgets/qaction.h \
+		../../../../Qt5.4.1/include/QtWidgets/qactiongroup.h \
+		../../../../Qt5.4.1/include/QtWidgets/QApplication \
+		../../../../Qt5.4.1/include/QtWidgets/qapplication.h \
+		../../../../Qt5.4.1/include/QtWidgets/qdesktopwidget.h \
+		../../../../Qt5.4.1/include/QtGui/qguiapplication.h \
+		../../../../Qt5.4.1/include/QtGui/qinputmethod.h \
+		../../../../Qt5.4.1/include/QtWidgets/QButtonGroup \
+		../../../../Qt5.4.1/include/QtWidgets/qbuttongroup.h \
+		../../../../Qt5.4.1/include/QtWidgets/QCheckBox \
+		../../../../Qt5.4.1/include/QtWidgets/qcheckbox.h \
+		../../../../Qt5.4.1/include/QtWidgets/qabstractbutton.h \
+		../../../../Qt5.4.1/include/QtWidgets/QComboBox \
+		../../../../Qt5.4.1/include/QtWidgets/qcombobox.h \
+		../../../../Qt5.4.1/include/QtWidgets/qabstractitemdelegate.h \
+		../../../../Qt5.4.1/include/QtWidgets/qstyleoption.h \
+		../../../../Qt5.4.1/include/QtWidgets/qabstractspinbox.h \
+		../../../../Qt5.4.1/include/QtGui/qvalidator.h \
+		../../../../Qt5.4.1/include/QtCore/qregularexpression.h \
+		../../../../Qt5.4.1/include/QtWidgets/qslider.h \
+		../../../../Qt5.4.1/include/QtWidgets/qabstractslider.h \
+		../../../../Qt5.4.1/include/QtWidgets/qstyle.h \
+		../../../../Qt5.4.1/include/QtWidgets/qtabbar.h \
+		../../../../Qt5.4.1/include/QtWidgets/qrubberband.h \
+		../../../../Qt5.4.1/include/QtCore/qabstractitemmodel.h \
+		../../../../Qt5.4.1/include/QtWidgets/QFrame \
+		../../../../Qt5.4.1/include/QtWidgets/QGridLayout \
+		../../../../Qt5.4.1/include/QtWidgets/qgridlayout.h \
+		../../../../Qt5.4.1/include/QtWidgets/qlayout.h \
+		../../../../Qt5.4.1/include/QtWidgets/qlayoutitem.h \
+		../../../../Qt5.4.1/include/QtWidgets/qboxlayout.h \
+		../../../../Qt5.4.1/include/QtWidgets/QGroupBox \
+		../../../../Qt5.4.1/include/QtWidgets/qgroupbox.h \
+		../../../../Qt5.4.1/include/QtWidgets/QHBoxLayout \
+		../../../../Qt5.4.1/include/QtWidgets/QHeaderView \
+		../../../../Qt5.4.1/include/QtWidgets/qheaderview.h \
+		../../../../Qt5.4.1/include/QtWidgets/qabstractitemview.h \
+		../../../../Qt5.4.1/include/QtCore/qitemselectionmodel.h \
+		../../../../Qt5.4.1/include/QtWidgets/QMenu \
+		../../../../Qt5.4.1/include/QtWidgets/qmenu.h \
+		../../../../Qt5.4.1/include/QtWidgets/QMenuBar \
+		../../../../Qt5.4.1/include/QtWidgets/qmenubar.h \
+		../../../../Qt5.4.1/include/QtWidgets/QPushButton \
+		../../../../Qt5.4.1/include/QtWidgets/qpushbutton.h \
+		../../../../Qt5.4.1/include/QtWidgets/QSpacerItem \
+		../../../../Qt5.4.1/include/QtWidgets/QSpinBox \
+		../../../../Qt5.4.1/include/QtWidgets/qspinbox.h \
+		../../../../Qt5.4.1/include/QtWidgets/QStatusBar \
+		../../../../Qt5.4.1/include/QtWidgets/qstatusbar.h \
+		../../../../Qt5.4.1/include/QtWidgets/QTabWidget \
+		../../../../Qt5.4.1/include/QtWidgets/QTableWidget \
+		../../../../Qt5.4.1/include/QtWidgets/qtablewidget.h \
+		../../../../Qt5.4.1/include/QtWidgets/qtableview.h \
+		../../../../Qt5.4.1/include/QtWidgets/QVBoxLayout \
+		../../ADEPO/client/float_table_widget_item.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client.o ../../ADEPO/client/client.cpp
 
 client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/callback.h \
 		../../../../Qt5.4.1/include/QtCore/QString \
@@ -753,6 +983,7 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../../../Qt5.4.1/include/QtWidgets/QLabel \
 		../../../../Qt5.4.1/include/QtWidgets/qlabel.h \
 		../../../../Qt5.4.1/include/QtWidgets/QTextEdit \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -764,18 +995,22 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/common/setup.h \
-		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/run.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
-		../../ADEPO/common/json_rpc.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../ADEPO/common/bcam.h \
+		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
+		../../ADEPO/common/json_rpc.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		ui_client.h \
 		../../../../Qt5.4.1/include/QtCore/QVariant \
 		../../../../Qt5.4.1/include/QtWidgets/QAction \
@@ -783,8 +1018,6 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../../../Qt5.4.1/include/QtWidgets/qactiongroup.h \
 		../../../../Qt5.4.1/include/QtWidgets/QApplication \
 		../../../../Qt5.4.1/include/QtWidgets/qapplication.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../../../Qt5.4.1/include/QtWidgets/qdesktopwidget.h \
 		../../../../Qt5.4.1/include/QtGui/qguiapplication.h \
 		../../../../Qt5.4.1/include/QtGui/qinputmethod.h \
@@ -806,6 +1039,7 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../../../Qt5.4.1/include/QtWidgets/qtabbar.h \
 		../../../../Qt5.4.1/include/QtWidgets/qrubberband.h \
 		../../../../Qt5.4.1/include/QtCore/qabstractitemmodel.h \
+		../../../../Qt5.4.1/include/QtWidgets/QFrame \
 		../../../../Qt5.4.1/include/QtWidgets/QGridLayout \
 		../../../../Qt5.4.1/include/QtWidgets/qgridlayout.h \
 		../../../../Qt5.4.1/include/QtWidgets/qlayout.h \
@@ -835,226 +1069,6 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../../../Qt5.4.1/include/QtWidgets/qtableview.h \
 		../../../../Qt5.4.1/include/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client_callback.o ../../ADEPO/client/client_callback.cpp
-
-client.o: ../../ADEPO/client/client.cpp ../../../../Qt5.4.1/include/QtGui/QPixmapCache \
-		../../../../Qt5.4.1/include/QtGui/qpixmapcache.h \
-		../../../../Qt5.4.1/include/QtGui/qpixmap.h \
-		../../../../Qt5.4.1/include/QtGui/qpaintdevice.h \
-		../../../../Qt5.4.1/include/QtGui/qwindowdefs.h \
-		../../../../Qt5.4.1/include/QtCore/qglobal.h \
-		../../../../Qt5.4.1/include/QtCore/qconfig.h \
-		../../../../Qt5.4.1/include/QtCore/qfeatures.h \
-		../../../../Qt5.4.1/include/QtCore/qsystemdetection.h \
-		../../../../Qt5.4.1/include/QtCore/qprocessordetection.h \
-		../../../../Qt5.4.1/include/QtCore/qcompilerdetection.h \
-		../../../../Qt5.4.1/include/QtCore/qtypeinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qtypetraits.h \
-		../../../../Qt5.4.1/include/QtCore/qsysinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qlogging.h \
-		../../../../Qt5.4.1/include/QtCore/qflags.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic.h \
-		../../../../Qt5.4.1/include/QtCore/qbasicatomic.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_bootstrap.h \
-		../../../../Qt5.4.1/include/QtCore/qgenericatomic.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_msvc.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_armv7.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_armv6.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_armv5.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_ia64.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_mips.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_x86.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_cxx11.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_gcc.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_unix.h \
-		../../../../Qt5.4.1/include/QtCore/qglobalstatic.h \
-		../../../../Qt5.4.1/include/QtCore/qmutex.h \
-		../../../../Qt5.4.1/include/QtCore/qnumeric.h \
-		../../../../Qt5.4.1/include/QtCore/qobjectdefs.h \
-		../../../../Qt5.4.1/include/QtCore/qnamespace.h \
-		../../../../Qt5.4.1/include/QtCore/qobjectdefs_impl.h \
-		../../../../Qt5.4.1/include/QtGui/qwindowdefs_win.h \
-		../../../../Qt5.4.1/include/QtCore/qrect.h \
-		../../../../Qt5.4.1/include/QtCore/qmargins.h \
-		../../../../Qt5.4.1/include/QtCore/qsize.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtGui/qcolor.h \
-		../../../../Qt5.4.1/include/QtGui/qrgb.h \
-		../../../../Qt5.4.1/include/QtCore/qstringlist.h \
-		../../../../Qt5.4.1/include/QtCore/qalgorithms.h \
-		../../../../Qt5.4.1/include/QtCore/qdatastream.h \
-		../../../../Qt5.4.1/include/QtCore/qscopedpointer.h \
-		../../../../Qt5.4.1/include/QtCore/qiodevice.h \
-		../../../../Qt5.4.1/include/QtCore/qobject.h \
-		../../../../Qt5.4.1/include/QtCore/qstring.h \
-		../../../../Qt5.4.1/include/QtCore/qchar.h \
-		../../../../Qt5.4.1/include/QtCore/qbytearray.h \
-		../../../../Qt5.4.1/include/QtCore/qrefcount.h \
-		../../../../Qt5.4.1/include/QtCore/qarraydata.h \
-		../../../../Qt5.4.1/include/QtCore/qstringbuilder.h \
-		../../../../Qt5.4.1/include/QtCore/qlist.h \
-		../../../../Qt5.4.1/include/QtCore/qiterator.h \
-		../../../../Qt5.4.1/include/QtCore/qbytearraylist.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreevent.h \
-		../../../../Qt5.4.1/include/QtCore/qmetatype.h \
-		../../../../Qt5.4.1/include/QtCore/qvarlengtharray.h \
-		../../../../Qt5.4.1/include/QtCore/qcontainerfwd.h \
-		../../../../Qt5.4.1/include/QtCore/qisenum.h \
-		../../../../Qt5.4.1/include/QtCore/qobject_impl.h \
-		../../../../Qt5.4.1/include/QtCore/qpair.h \
-		../../../../Qt5.4.1/include/QtCore/qregexp.h \
-		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
-		../../../../Qt5.4.1/include/QtCore/qsharedpointer.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
-		../../../../Qt5.4.1/include/QtCore/qhash.h \
-		../../../../Qt5.4.1/include/QtCore/qsharedpointer_impl.h \
-		../../../../Qt5.4.1/include/QtGui/qimage.h \
-		../../../../Qt5.4.1/include/QtGui/qtransform.h \
-		../../../../Qt5.4.1/include/QtGui/qmatrix.h \
-		../../../../Qt5.4.1/include/QtGui/qpolygon.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtGui/qregion.h \
-		../../../../Qt5.4.1/include/QtCore/qline.h \
-		../../../../Qt5.4.1/include/QtGui/qpainterpath.h \
-		../../../../Qt5.4.1/include/QtGui/qpixelformat.h \
-		../../../../Qt5.4.1/include/QtWidgets/QFileDialog \
-		../../../../Qt5.4.1/include/QtWidgets/qfiledialog.h \
-		../../../../Qt5.4.1/include/QtCore/qdir.h \
-		../../../../Qt5.4.1/include/QtCore/qfileinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qfile.h \
-		../../../../Qt5.4.1/include/QtCore/qfiledevice.h \
-		../../../../Qt5.4.1/include/QtCore/qurl.h \
-		../../../../Qt5.4.1/include/QtCore/qurlquery.h \
-		../../../../Qt5.4.1/include/QtWidgets/qdialog.h \
-		../../../../Qt5.4.1/include/QtWidgets/qwidget.h \
-		../../../../Qt5.4.1/include/QtGui/qpalette.h \
-		../../../../Qt5.4.1/include/QtGui/qbrush.h \
-		../../../../Qt5.4.1/include/QtGui/qfont.h \
-		../../../../Qt5.4.1/include/QtGui/qfontmetrics.h \
-		../../../../Qt5.4.1/include/QtGui/qfontinfo.h \
-		../../../../Qt5.4.1/include/QtWidgets/qsizepolicy.h \
-		../../../../Qt5.4.1/include/QtGui/qcursor.h \
-		../../../../Qt5.4.1/include/QtGui/qkeysequence.h \
-		../../../../Qt5.4.1/include/QtGui/qevent.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
-		../../../../Qt5.4.1/include/QtGui/qvector2d.h \
-		../../../../Qt5.4.1/include/QtGui/qtouchdevice.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMessageBox \
-		../../../../Qt5.4.1/include/QtWidgets/qmessagebox.h \
-		../../../../Qt5.4.1/include/QtCore/QDateTime \
-		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
-		../../ADEPO/client/client.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMainWindow \
-		../../../../Qt5.4.1/include/QtWidgets/qmainwindow.h \
-		../../../../Qt5.4.1/include/QtWidgets/qtabwidget.h \
-		../../../../Qt5.4.1/include/QtGui/qicon.h \
-		../../../../Qt5.4.1/include/QtWidgets/QWidget \
-		../../../../Qt5.4.1/include/QtWidgets/QTextBrowser \
-		../../../../Qt5.4.1/include/QtWidgets/qtextbrowser.h \
-		../../../../Qt5.4.1/include/QtWidgets/qtextedit.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractscrollarea.h \
-		../../../../Qt5.4.1/include/QtWidgets/qframe.h \
-		../../../../Qt5.4.1/include/QtGui/qtextdocument.h \
-		../../../../Qt5.4.1/include/QtGui/qtextoption.h \
-		../../../../Qt5.4.1/include/QtGui/qtextcursor.h \
-		../../../../Qt5.4.1/include/QtGui/qtextformat.h \
-		../../../../Qt5.4.1/include/QtGui/qpen.h \
-		../../../../Qt5.4.1/include/QtWidgets/QLineEdit \
-		../../../../Qt5.4.1/include/QtWidgets/qlineedit.h \
-		../../../../Qt5.4.1/include/QtWidgets/QLabel \
-		../../../../Qt5.4.1/include/QtWidgets/qlabel.h \
-		../../../../Qt5.4.1/include/QtWidgets/QTextEdit \
-		../../../../Qt5.4.1/include/QtCore/QString \
-		../../ADEPO/bridge/call.h \
-		../../ADEPO/bridge/bridge.h \
-		../../ADEPO/bridge/callback.h \
-		../../ADEPO/common/configuration.h \
-		../../ADEPO/common/detector.h \
-		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
-		../../ADEPO/common/bcam_config.h \
-		../../ADEPO/common/prism.h \
-		../../../../Qt5.4.1/include/QtCore/QStringList \
-		../../ADEPO/common/absolute_distances.h \
-		../../ADEPO/common/atlas_coordinates.h \
-		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/common/setup.h \
-		../../ADEPO/common/bcam.h \
-		../../ADEPO/common/run.h \
-		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
-		../../ADEPO/common/json_rpc.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/QJsonArray \
-		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
-		../../ADEPO/common/result.h \
-		../../ADEPO/common/util.h \
-		ui_client.h \
-		../../../../Qt5.4.1/include/QtCore/QVariant \
-		../../../../Qt5.4.1/include/QtWidgets/QAction \
-		../../../../Qt5.4.1/include/QtWidgets/qaction.h \
-		../../../../Qt5.4.1/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.4.1/include/QtWidgets/QApplication \
-		../../../../Qt5.4.1/include/QtWidgets/qapplication.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
-		../../../../Qt5.4.1/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.4.1/include/QtGui/qguiapplication.h \
-		../../../../Qt5.4.1/include/QtGui/qinputmethod.h \
-		../../../../Qt5.4.1/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.4.1/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.4.1/include/QtWidgets/QCheckBox \
-		../../../../Qt5.4.1/include/QtWidgets/qcheckbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt5.4.1/include/QtWidgets/QComboBox \
-		../../../../Qt5.4.1/include/QtWidgets/qcombobox.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractitemdelegate.h \
-		../../../../Qt5.4.1/include/QtWidgets/qstyleoption.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractspinbox.h \
-		../../../../Qt5.4.1/include/QtGui/qvalidator.h \
-		../../../../Qt5.4.1/include/QtCore/qregularexpression.h \
-		../../../../Qt5.4.1/include/QtWidgets/qslider.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractslider.h \
-		../../../../Qt5.4.1/include/QtWidgets/qstyle.h \
-		../../../../Qt5.4.1/include/QtWidgets/qtabbar.h \
-		../../../../Qt5.4.1/include/QtWidgets/qrubberband.h \
-		../../../../Qt5.4.1/include/QtCore/qabstractitemmodel.h \
-		../../../../Qt5.4.1/include/QtWidgets/QGridLayout \
-		../../../../Qt5.4.1/include/QtWidgets/qgridlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/qlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt5.4.1/include/QtWidgets/qboxlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/QGroupBox \
-		../../../../Qt5.4.1/include/QtWidgets/qgroupbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/QHBoxLayout \
-		../../../../Qt5.4.1/include/QtWidgets/QHeaderView \
-		../../../../Qt5.4.1/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractitemview.h \
-		../../../../Qt5.4.1/include/QtCore/qitemselectionmodel.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMenu \
-		../../../../Qt5.4.1/include/QtWidgets/qmenu.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMenuBar \
-		../../../../Qt5.4.1/include/QtWidgets/qmenubar.h \
-		../../../../Qt5.4.1/include/QtWidgets/QPushButton \
-		../../../../Qt5.4.1/include/QtWidgets/qpushbutton.h \
-		../../../../Qt5.4.1/include/QtWidgets/QSpacerItem \
-		../../../../Qt5.4.1/include/QtWidgets/QSpinBox \
-		../../../../Qt5.4.1/include/QtWidgets/qspinbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/QStatusBar \
-		../../../../Qt5.4.1/include/QtWidgets/qstatusbar.h \
-		../../../../Qt5.4.1/include/QtWidgets/QTabWidget \
-		../../../../Qt5.4.1/include/QtWidgets/QTableWidget \
-		../../../../Qt5.4.1/include/QtWidgets/qtablewidget.h \
-		../../../../Qt5.4.1/include/QtWidgets/qtableview.h \
-		../../../../Qt5.4.1/include/QtWidgets/QVBoxLayout \
-		../../ADEPO/client/float_table_widget_item.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client.o ../../ADEPO/client/client.cpp
 
 moc_client.o: moc_client.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_client.o moc_client.cpp

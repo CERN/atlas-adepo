@@ -788,6 +788,7 @@ main.o: ../../ADEPO/adepo-direct/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../../../Qt5.4.1/include/QtWidgets/qlabel.h \
 		../../../../Qt5.4.1/include/QtWidgets/QTextEdit \
 		../../../../Qt5.4.1/include/QtCore/QString \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
@@ -800,14 +801,16 @@ main.o: ../../ADEPO/adepo-direct/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/common/setup.h \
-		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/run.h \
-		../../ADEPO/common/json_rpc.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../ADEPO/common/bcam.h \
+		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
+		../../ADEPO/common/json_rpc.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/QFile \
 		../../../../Qt5.4.1/include/QtCore/QTimer \
