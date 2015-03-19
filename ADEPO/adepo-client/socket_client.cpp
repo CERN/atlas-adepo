@@ -15,7 +15,7 @@ SocketClient::SocketClient(Callback& callback, const QUrl &url, QObject *parent)
     url(url)
 {
     connect(&webSocket, &QWebSocket::connected, this, &SocketClient::onConnected);
-//    connect(&webSocket, &QWebSocket::disconnected, this, &SocketClient::closed);
+    connect(&webSocket, &QWebSocket::disconnected, this, &SocketClient::socketDisconnected);
     webSocket.open(QUrl(url));
 }
 
@@ -26,6 +26,10 @@ void SocketClient::onConnected()
 //    webSocket.sendTextMessage(QStringLiteral("Hello, world!"))
 
     updateAll();
+}
+
+void SocketClient::socketDisconnected() {
+    qWarning() << "CLIENT disconnected !";
 }
 
 void SocketClient::onTextMessageReceived(QString message)

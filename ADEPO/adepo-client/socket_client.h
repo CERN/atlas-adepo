@@ -29,6 +29,7 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void onConnected();
+    void socketDisconnected();
     void onTextMessageReceived(QString message);
 
 private:
