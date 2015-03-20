@@ -125,7 +125,7 @@ int Configuration::read(QString filename)
                         char *X1 = strtok( NULL, " " );
                         char *Y1 = strtok( NULL, " " );
                         char *Z1 = strtok( NULL, " " );
-                        Point3f pt_cible(atof(X1),atof(Y1),atof(Z1));
+                        Point3d pt_cible(atof(X1),atof(Y1),atof(Z1));
                         QString type_bcam = "Blue";
                         BCAMAdapter blue_model(type_bcam, id_cible, pt_cible);
                         //blue_model.Affiche();
@@ -141,7 +141,7 @@ int Configuration::read(QString filename)
                         char *X1 = strtok( NULL, " " );
                         char *Y1 = strtok( NULL, " " );
                         char *Z1 = strtok( NULL, " " );
-                        Point3f pt_cible(atof(X1),atof(Y1),atof(Z1));
+                        Point3d pt_cible(atof(X1),atof(Y1),atof(Z1));
                         QString type_bcam = "Black";
                         BCAMAdapter black_model(type_bcam, id_cible, pt_cible);
                         //black_model.Affiche();
@@ -244,7 +244,7 @@ int Configuration::read(QString filename)
                         char *dist_pivot_prisme = strtok( NULL, " " );
                         char *dist_source1_prisme = strtok( NULL, " " );
                         char *dist_source2_prisme = strtok( NULL, " " );
-                        Point3f dist(atof(dist_pivot_prisme), atof(dist_source1_prisme),atof(dist_source2_prisme));
+                        Point3d dist(atof(dist_pivot_prisme), atof(dist_source1_prisme),atof(dist_source2_prisme));
                         AbsoluteDistances abs_dist(id_bcam, id_prisme, dist);
                         //abs_dist.Affiche();
                         add(abs_dist);
@@ -267,10 +267,10 @@ int Configuration::read(QString filename)
                         char *B4_x =  strtok( NULL, " " );
                         char *B4_y =  strtok( NULL, " " );
                         char *B4_z =  strtok( NULL, " " );
-                        Point3f B1(atof(B1_x), atof(B1_y), atof(B1_z));
-                        Point3f B2(atof(B2_x), atof(B2_y), atof(B2_z));
-                        Point3f B3(atof(B3_x), atof(B3_y), atof(B3_z));
-                        Point3f B4(atof(B4_x), atof(B4_y), atof(B4_z));
+                        Point3d B1(atof(B1_x), atof(B1_y), atof(B1_z));
+                        Point3d B2(atof(B2_x), atof(B2_y), atof(B2_z));
+                        Point3d B3(atof(B3_x), atof(B3_y), atof(B3_z));
+                        Point3d B4(atof(B4_x), atof(B4_y), atof(B4_z));
                         ATLASCoordinates pos1_bcam(id_bcam, B1);
                         ATLASCoordinates pos2_bcam(id_bcam, B2);
                         ATLASCoordinates pos3_bcam(id_bcam, B3);
@@ -302,7 +302,7 @@ int Configuration::read(QString filename)
                         char *delta_x = strtok( NULL, " " );
                         char *delta_y = strtok( NULL, " " );
                         char *delta_z = strtok( NULL, " " );
-                        Point3f delta(atof(delta_x),atof(delta_y),atof(delta_z));
+                        Point3d delta(atof(delta_x),atof(delta_y),atof(delta_z));
                         PrismCorrection pr_corr(id_prisme, delta);
                         //pr_corr.Affiche();
                         add(pr_corr);

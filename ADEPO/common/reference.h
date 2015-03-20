@@ -15,10 +15,11 @@ public:
     Reference() {};
     ~Reference() {};
 
-    int write(QString fileName);
+    int write();
     int read(QString fileName);
 
     QString getFilename() const { return filename; }
+    std::map<QString, Result>& getResults() { return results; }
 
 private:
     QString filename;

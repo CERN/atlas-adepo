@@ -1,7 +1,7 @@
 #ifndef CALIB2_H
 #define CALIB2_H
 
-#include "point3f.h"
+#include "point3d.h"
 #include "iostream"
 
 #include <QString>
@@ -9,15 +9,15 @@
 class Calib2
 {
 public:
-    Calib2(QString bcam, Point3f coordFlash1, Point3f coordFlash2) : mBCAM(bcam), mCoordFlash1(coordFlash1), mCoordFlash2(coordFlash2) {};
+    Calib2(QString bcam, Point3d coordFlash1, Point3d coordFlash2) : mBCAM(bcam), mCoordFlash1(coordFlash1), mCoordFlash2(coordFlash2) {};
     virtual ~Calib2() {};
 
     //setter et getter
     QString getBCAM() const { return mBCAM; }
 
-    Point3f getCoordFlash1() const {return mCoordFlash1; }
+    Point3d getCoordFlash1() const {return mCoordFlash1; }
 
-    Point3f getCoordFlash2() const {return mCoordFlash2; }
+    Point3d getCoordFlash2() const {return mCoordFlash2; }
 
     int getDirection() const { return mCoordFlash1.z() > 0 ? 1 : -1; }
 
@@ -35,8 +35,8 @@ public:
 protected:
 private:
     QString mBCAM;
-    Point3f mCoordFlash1;
-    Point3f mCoordFlash2;
+    Point3d mCoordFlash1;
+    Point3d mCoordFlash2;
 };
 
 #endif // CALIB2_H

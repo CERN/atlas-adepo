@@ -70,6 +70,17 @@ void SocketClient::onTextMessageReceived(QString message)
     } else if (method == "changedReferenceFile") {
         QJsonArray params = json["params"].toArray();
         callback.changedReferenceFile(params[0].toString());
+    } else if (method == "changedResults") {
+        QJsonArray params = json["params"].toArray();
+        std::map<QString, Result> map;
+        QJsonObject results = params[0].toObject();
+        QStringList keys = results.keys();
+        for (int i=0; i<keys.size(); i++) {
+            QString key = keys[i];
+            Result result = Result(results[key].toObject());
+            map[key] = result;
+        }
+        callback.changedResults(map);
     } else if (method == "changedResultFile") {
         QJsonArray params = json["params"].toArray();
         callback.changedResultFile(params[0].toString());
@@ -105,6 +116,11 @@ void SocketClient::updateReferenceFile() {
 
 void SocketClient::updateRunFile() {
     JsonRpc rpc("updateRunFile");
+    sendJson(rpc);
+}
+
+void SocketClient::resetDelta() {
+    JsonRpc rpc("resetDelta");
     sendJson(rpc);
 }
 

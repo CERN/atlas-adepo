@@ -2,20 +2,20 @@
 #define PRISM_CORRECTION_H
 
 #include "iostream"
-#include "point3f.h"
+#include "point3d.h"
 
 #include <QString>
 
 class PrismCorrection
 {
 public:
-    PrismCorrection(QString prism, Point3f delta) : mPrism(prism), mDelta(delta) {};
+    PrismCorrection(QString prism, Point3d delta) : mPrism(prism), mDelta(delta) {};
     virtual ~PrismCorrection() {};
 
     //setter et getter
     QString getPrism() const {return mPrism;}
 
-    Point3f getDelta() const {return mDelta;}
+    Point3d getDelta() const {return mDelta;}
 
     //methodes
     void print() {
@@ -28,7 +28,7 @@ public:
 protected:
 private:
     QString mPrism;
-    Point3f mDelta;
+    Point3d mDelta;
 };
 
 #endif // PRISM_CORRECTION_H

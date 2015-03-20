@@ -3,7 +3,7 @@
 
 #include "Eigen/Eigen"
 
-std::map<QString, Result> Server::calculateResults() {
+void Server::calculateResults() {
 
     //on parcourt tous les points transformes dans le repere global : moyenne + dispersion
     // current date/time based on current system
@@ -25,7 +25,7 @@ std::map<QString, Result> Server::calculateResults() {
         //nomenclature dans le repere ATLAS
         QString name_prism_atlas = config.getName(prism.getPrism().getName());
 
-        Result result;
+        Result result = reference.getResults()[name_prism_atlas];
         result.setName(name_prism_atlas);
         result.setTime(now);
 
@@ -60,7 +60,7 @@ std::map<QString, Result> Server::calculateResults() {
         Eigen::MatrixXd result_std_square(1,3); //calcul de l'ecart-type au carre
         result_std_square=result_var.colwise().sum()/ligne;
 
-        result.setStd(Point3f(sqrt(result_std_square(0,0)),sqrt(result_std_square(0,1)),sqrt(result_std_square(0,2))));
+        result.setStd(Point3d(sqrt(result_std_square(0,0)),sqrt(result_std_square(0,1)),sqrt(result_std_square(0,2))));
 
         //delta selon composantes axiales
         float dx=0;
@@ -78,10 +78,8 @@ std::map<QString, Result> Server::calculateResults() {
             }
         }
 
-        result.setValue(Point3f(mean(0,0) + dx, mean(0,1) + dy, mean(0,2) + dz));
+        result.setValue(Point3d(mean(0,0) + dx, mean(0,1) + dy, mean(0,2) + dz));
 
-        results.insert(std::make_pair(name_prism_atlas, result));
+        results[name_prism_atlas] = result;
     }
-
-    return results;
 }

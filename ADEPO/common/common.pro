@@ -24,7 +24,6 @@ HEADERS += \
     calib2.h \
     configuration.h \
     detector.h \
-    point3f.h \
     prism.h \
     prism_correction.h \
     util.h \
@@ -33,4 +32,5 @@ HEADERS += \
     result.h \
     run.h \
     json_rpc.h \
-    json_util.h
+    json_util.h \
+    point3d.h

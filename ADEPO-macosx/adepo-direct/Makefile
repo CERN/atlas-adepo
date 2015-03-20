@@ -687,10 +687,13 @@ main.o: ../../ADEPO/adepo-direct/main.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/Q
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
@@ -701,14 +704,11 @@ main.o: ../../ADEPO/adepo-direct/main.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/Q
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \

@@ -190,7 +190,6 @@ DIST          = /Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
-		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/prism.h \
 		../../ADEPO/common/prism_correction.h \
 		../../ADEPO/common/util.h \
@@ -199,7 +198,8 @@ DIST          = /Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/json_util.h ../../ADEPO/common/configuration.cpp \
+		../../ADEPO/common/json_util.h \
+		../../ADEPO/common/point3d.h ../../ADEPO/common/configuration.cpp \
 		../../ADEPO/common/util.cpp \
 		../../ADEPO/common/calibration.cpp \
 		../../ADEPO/common/reference.cpp \
@@ -520,7 +520,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/common/absolute_distances.h ../../ADEPO/common/atlas_coordinates.h ../../ADEPO/common/bcam.h ../../ADEPO/common/bcam_adapter.h ../../ADEPO/common/bcam_config.h ../../ADEPO/common/calib1.h ../../ADEPO/common/calib2.h ../../ADEPO/common/configuration.h ../../ADEPO/common/detector.h ../../ADEPO/common/point3f.h ../../ADEPO/common/prism.h ../../ADEPO/common/prism_correction.h ../../ADEPO/common/util.h ../../ADEPO/common/calibration.h ../../ADEPO/common/reference.h ../../ADEPO/common/result.h ../../ADEPO/common/run.h ../../ADEPO/common/json_rpc.h ../../ADEPO/common/json_util.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/common/absolute_distances.h ../../ADEPO/common/atlas_coordinates.h ../../ADEPO/common/bcam.h ../../ADEPO/common/bcam_adapter.h ../../ADEPO/common/bcam_config.h ../../ADEPO/common/calib1.h ../../ADEPO/common/calib2.h ../../ADEPO/common/configuration.h ../../ADEPO/common/detector.h ../../ADEPO/common/prism.h ../../ADEPO/common/prism_correction.h ../../ADEPO/common/util.h ../../ADEPO/common/calibration.h ../../ADEPO/common/reference.h ../../ADEPO/common/result.h ../../ADEPO/common/run.h ../../ADEPO/common/json_rpc.h ../../ADEPO/common/json_util.h ../../ADEPO/common/point3d.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/common/configuration.cpp ../../ADEPO/common/util.cpp ../../ADEPO/common/calibration.cpp ../../ADEPO/common/reference.cpp ../../ADEPO/common/run.cpp $(DISTDIR)/
 
 
@@ -569,7 +569,9 @@ configuration.o: ../../ADEPO/common/configuration.cpp /Users/duns/Qt5.4.1/5.4/cl
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
@@ -598,7 +600,9 @@ calibration.o: ../../ADEPO/common/calibration.cpp /Users/duns/Qt5.4.1/5.4/clang_
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/calib2.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calibration.o ../../ADEPO/common/calibration.cpp
 
@@ -608,7 +612,9 @@ reference.o: ../../ADEPO/common/reference.cpp /Users/duns/Qt5.4.1/5.4/clang_64/l
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/common/result.h \
-		../../ADEPO/common/point3f.h
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o reference.o ../../ADEPO/common/reference.cpp
 
 run.o: ../../ADEPO/common/run.cpp ../../ADEPO/common/run.h \
@@ -621,7 +627,7 @@ run.o: ../../ADEPO/common/run.cpp ../../ADEPO/common/run.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \

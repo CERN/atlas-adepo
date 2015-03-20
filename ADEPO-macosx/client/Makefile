@@ -561,10 +561,13 @@ moc_client.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Version
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
@@ -575,14 +578,11 @@ moc_client.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Version
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		../../ADEPO/client/client.h
 	/Users/duns/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/client -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtTest.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.1/5.4/clang_64/lib ../../ADEPO/client/client.h -o moc_client.cpp
@@ -617,6 +617,8 @@ client.o: ../../ADEPO/client/client.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtG
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmessagebox.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDateTime \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/QImageReader \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers/qimagereader.h \
 		../../ADEPO/client/client.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
@@ -637,10 +639,13 @@ client.o: ../../ADEPO/client/client.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtG
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
@@ -651,14 +656,11 @@ client.o: ../../ADEPO/client/client.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtG
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		ui_client.h \
 		../../ADEPO/client/float_table_widget_item.h
@@ -668,6 +670,10 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/bridge/bridge.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/client/client.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
@@ -687,7 +693,6 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
@@ -698,14 +703,11 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		ui_client.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client_callback.o ../../ADEPO/client/client_callback.cpp

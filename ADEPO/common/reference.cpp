@@ -7,7 +7,7 @@
 
 #include "reference.h"
 
-int Reference::write(QString filename) {
+int Reference::write() {
     std::ofstream file(filename.toStdString().c_str(), std::ios::out | std::ios::trunc);
     if(!file) {
         qWarning() << "Cannot write reference file " << filename;
@@ -19,9 +19,9 @@ int Reference::write(QString filename) {
 
     for (std::map<QString, Result>::iterator i = results.begin(); i != results.end(); i++) {
         Result& result = i->second;
-        Point3f value = result.getValue();
-        Point3f std = result.getStd();
-        Point3f offset = result.getOffset();
+        Point3d value = result.getValue();
+        Point3d std = result.getStd();
+        Point3d offset = result.getOffset();
 
         QString datetime = result.getTime();
 
@@ -75,19 +75,19 @@ int Reference::read(QString filename) {
             y = strtok( NULL, " " );
             z = strtok( NULL, " " );
             valid = strtok( NULL, " " );
-            Point3f value(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
+            Point3d value(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
             // std
             x = strtok( NULL, " " );
             y = strtok( NULL, " " );
             z = strtok( NULL, " " );
             valid = strtok( NULL, " " );
-            Point3f std(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
+            Point3d std(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
             // offset
             x = strtok( NULL, " " );
             y = strtok( NULL, " " );
             z = strtok( NULL, " " );
             valid = strtok( NULL, " " );
-            Point3f offset(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
+            Point3d offset(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
 
             // get it and put it back
             Result r = results[name];

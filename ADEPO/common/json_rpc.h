@@ -36,6 +36,11 @@ public:
         insert("params", params);
     }
 
+    void append(QJsonObject o) {
+        params.append(o);
+        insert("params", params);
+    }
+
 private:
     QJsonArray params;
 };

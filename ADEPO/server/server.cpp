@@ -194,10 +194,11 @@ void Server::calculateCoordinates()
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mountPrismToGlobalPrism();
 
-   std::map<QString, Result> results = calculateResults();
+   calculateResults();
+   reference.write();
 
    qDebug() << "Updating Results...";
-   callback.changedResults(results);
+   callback.changedResults(reference.getResults());
 
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
    QDir(".").mkpath(Util::workPath().append("/Archive"));
@@ -324,8 +325,8 @@ void Server::imgCoordToBcamCoord(Calibration &calibration, Run &run, Data& data)
                 //std::cout<<coord_mount<<std::endl;
 
                 //sauvegarde dans la base de donnee
-                Point3f mount_sp1(coord_mount1(0,0), coord_mount1(0,1), coord_mount1(0,2));
-                Point3f mount_sp2(coord_mount2(0,0), coord_mount2(0,1), coord_mount2(0,2));
+                Point3d mount_sp1(coord_mount1(0,0), coord_mount1(0,1), coord_mount1(0,2));
+                Point3d mount_sp2(coord_mount2(0,0), coord_mount2(0,1), coord_mount2(0,2));
                 MountCoordSpots mount_couple_spots(spot.getBCAM(), mount_sp1, mount_sp2);
                 data.add(mount_couple_spots);
 
@@ -443,7 +444,7 @@ void Server::calculCoordBcamSystem(Configuration& config, Calibration &calibrati
 
                         //ajout dans la base de donnees (check multiplication by Z? )
 //                        std::cout << spot.getName() << " " << calib1.getCoordAxis().z() << " " << num_chip << std::endl;
-                        Point3f xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z);
+                        Point3d xyz(coordPrisme_x, coordPrisme_y, coordPrisme_z);
                         MountCoordPrism xyz_prism(spot.getBCAM(), xyz);
                         data.add(xyz_prism);
                         found = true;
@@ -482,10 +483,10 @@ void Server::mountPrismToGlobalPrism()
 
             if(prism.getBCAM().getName() == params.getBCAM())
             {
-                 Point3f point_transforme = changeReference(prism.getCoordPrismMountSys(),
+                 Point3d point_transforme = changeReference(prism.getCoordPrismMountSys(),
                                                             params.getTranslation(),
                                                             params.getRotation());
-                 Point3f point_airpad(point_transforme.x(), point_transforme.y()+airpad, point_transforme.z());
+                 Point3d point_airpad(point_transforme.x(), point_transforme.y()+airpad, point_transforme.z());
                  GlobalCoordPrism pt_global(prism.getBCAM(), point_airpad, airpad);
                  data.add(pt_global);
                  found = true;
@@ -698,7 +699,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
     return 1;
 }
 
-Point3f Server::changeReference(Point3f coord_sys1, Point3f translation, Point3f rotation)
+Point3d Server::changeReference(Point3d coord_sys1, Point3d translation, Point3d rotation)
 {
 
     float x_sys1 = coord_sys1.x();
@@ -757,12 +758,12 @@ Point3f Server::changeReference(Point3f coord_sys1, Point3f translation, Point3f
     //std::cout<<pt_sys2<<std::endl;
     //std::cout<<"---------->"<<std::endl;
 
-    //transformation en point3f
+    //transformation en Point3d
     float x_sys2 = pt_sys2(0);
     float y_sys2 = pt_sys2(1);
     float z_sys2 = pt_sys2(2);
 
-    Point3f pt_transforme(x_sys2, y_sys2, z_sys2);
+    Point3d pt_transforme(x_sys2, y_sys2, z_sys2);
     //pt_transforme.Affiche();
 
     //retourne le point transfrome

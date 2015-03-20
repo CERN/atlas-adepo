@@ -81,7 +81,7 @@ private:
     void fillDetectorTable();
     void fillBCAMandResultTable();
     void setResult(int row, Result& result);
-    void setResult(int row, Point3f point, int columnSet, int precision);
+    void setResult(int row, Point3d point, int columnSet, int precision);
     void updateResults(std::map<QString, Result> &results);
     void setEnabled();
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);

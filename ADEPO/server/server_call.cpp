@@ -45,6 +45,21 @@ void Server::updateReferenceFile() {
     callback.changedReferenceFile(reference.getFilename());
 }
 
+void Server::resetDelta() {
+    qDebug() << "SERVER resetDelta";
+
+    for(unsigned int i=0; i<run.getBCAMs().size(); i++) {
+        BCAM bcam = run.getBCAMs().at(i);
+        QString prismName = config.getName(bcam.getPrism().getName());
+        Result& r = reference.getResults()[prismName];
+        r.setOffset(r.getValue());
+        reference.getResults()[prismName] = r;
+    }
+
+    reference.write();
+    callback.changedResults(reference.getResults());
+}
+
 
 void Server::updateAll() {
     qDebug() << "SERVER UpdateAll called...";
@@ -57,4 +72,5 @@ void Server::updateAll() {
 
     callback.changedState(adepoState, waitingTimer->remainingTime(), lwdaq_client->getState(), lwdaq_client->getRemainingTime());
     callback.changedResultFile(Util::workPath().append(DEFAULT_RESULT_FILE));
+    callback.changedResults(reference.getResults());
 }

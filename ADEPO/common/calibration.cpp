@@ -4,7 +4,7 @@
 #include <QDebug>
 
 #include "calibration.h"
-#include "point3f.h"
+#include "point3d.h"
 
 int Calibration::read(QString filename)
 {
@@ -56,8 +56,8 @@ int Calibration::read(QString filename)
                         char *dist_ccd_pivot = strtok( NULL, " " );
                         char *ccd_rotation = strtok( NULL, " " );
 
-                        Point3f pv(atof(x_pivot), atof(y_pivot), atof(z_pivot));
-                        Point3f ax(atof(x_axis), atof(y_axis),atof(z_axis));
+                        Point3d pv(atof(x_pivot), atof(y_pivot), atof(z_pivot));
+                        Point3d ax(atof(x_axis), atof(y_axis),atof(z_axis));
                         float focale = atof(dist_ccd_pivot);
                         float angle_rotation = atof(ccd_rotation);
                         Calib1 cal1(id_BCAM, tps_calib, pv, ax, focale, angle_rotation);
@@ -76,8 +76,8 @@ int Calibration::read(QString filename)
                         char *y2_flash = strtok( NULL, " " );
                         char *z_flash = strtok( NULL, " " );
 
-                        Point3f spt1(atof(x1_flash), atof(y1_flash), atof(z_flash));
-                        Point3f spt2(atof(x2_flash), atof(y2_flash), atof(z_flash));
+                        Point3d spt1(atof(x1_flash), atof(y1_flash), atof(z_flash));
+                        Point3d spt2(atof(x2_flash), atof(y2_flash), atof(z_flash));
                         Calib2 cal2(id_BCAM_2, spt1, spt2);
                         add(cal2);
                     }

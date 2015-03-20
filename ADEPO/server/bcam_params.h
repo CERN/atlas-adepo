@@ -2,23 +2,23 @@
 #define BCAM_PARAMS_H
 
 #include "iostream"
-#include "point3f.h"
+#include "point3d.h"
 
 #include <QString>
 
 class BCAMParams
 {
 public:
-    BCAMParams(QString bcam, Point3f translation, Point3f rotation) : mBCAM(bcam), mTranslation(translation), mRotation(rotation) {};
+    BCAMParams(QString bcam, Point3d translation, Point3d rotation) : mBCAM(bcam), mTranslation(translation), mRotation(rotation) {};
 
     virtual ~BCAMParams() {};
 
     //setter et getter
     QString getBCAM() const {return mBCAM;}
 
-    Point3f getTranslation() const {return mTranslation;}
+    Point3d getTranslation() const {return mTranslation;}
 
-    Point3f getRotation() const {return mRotation;}
+    Point3d getRotation() const {return mRotation;}
 
     //methodes
     void print() {
@@ -33,8 +33,8 @@ public:
 protected:
 private:
     QString mBCAM;
-    Point3f mTranslation;
-    Point3f mRotation;
+    Point3d mTranslation;
+    Point3d mRotation;
 };
 
 #endif // BCAM_PARAMS_H

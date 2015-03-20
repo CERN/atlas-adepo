@@ -181,7 +181,7 @@ void Client::fillBCAMandResultTable()
     ui->tableWidget_results->setRowCount(100);
 
     int row = 0;
-    for(int i=0; i<ui->tableWidget_liste_bcams->rowCount(); i++) {
+    for(unsigned int i=0; i<run.getBCAMs().size(); i++) {
         BCAM bcam = run.getBCAMs().at(i);
 
         //ajout dans la tableWidget qui affiche les BCAMs
@@ -318,17 +318,17 @@ void Client::setResult(int row, Result &result) {
     ui->tableWidget_results->setItem(row, 3, n);
 
     if (ui->fullPrecision->isChecked()) {
-        setResult(row, Point3f(result.getValue(), 1000), 0, 8);
-        setResult(row, Point3f(result.getStd(), 1000), 1, 8);
-        setResult(row, Point3f(Point3f(result.getValue(), result.getOffset()), 1000), 2, 8);
+        setResult(row, Point3d(result.getValue(), 1000), 0, 8);
+        setResult(row, Point3d(result.getStd(), 1000), 1, 8);
+        setResult(row, Point3d(Point3d(result.getValue(), result.getOffset()), 1000), 2, 8);
     } else {
-        setResult(row, Point3f(result.getValue(), 1000), 0, 3);
-        setResult(row, Point3f(result.getStd(), 1000), 1, 3);
-        setResult(row, Point3f(Point3f(result.getValue(), result.getOffset()), 1000), 2, 3);
+        setResult(row, Point3d(result.getValue(), 1000), 0, 3);
+        setResult(row, Point3d(result.getStd(), 1000), 1, 3);
+        setResult(row, Point3d(Point3d(result.getValue(), result.getOffset()), 1000), 2, 3);
     }
 }
 
-void Client::setResult(int row, Point3f point, int columnSet, int precision) {
+void Client::setResult(int row, Point3d point, int columnSet, int precision) {
     int firstColumn = 4;
 
     if (point.isValid()) {
@@ -348,17 +348,8 @@ void Client::setResult(int row, Point3f point, int columnSet, int precision) {
     }
 }
 
-
-
 void Client::resetDelta() {
-    for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
-        QString name = ui->tableWidget_results->item(row, 0)->text();
-        Result& r = results[name];
-        r.setOffset(r.getValue());
-        results[name] = r;
-    }
-
-    updateResults(results);
+    call->resetDelta();
 }
 
 void Client::startClosure()

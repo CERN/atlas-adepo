@@ -60,6 +60,8 @@ void SocketServer::processBinaryMessage(QByteArray message)
         call->updateConfigurationFile();
     } else if (method == "updateReferenceFile") {
         call->updateReferenceFile();
+    } else if (method == "resetDelta") {
+        call->resetDelta();
     } else if (method == "updateAll") {
         call->updateAll();
     } else {
@@ -118,7 +120,13 @@ void SocketServer::changedResultFile(QString filename) {
 }
 
 void SocketServer::changedResults(std::map<QString, Result> results) {
-    qCritical() << "NOT IMPLEMENTED";
+    JsonRpc rpc("changedResults");
+    QJsonObject map;
+    for (std::map<QString, Result>::iterator it=results.begin(); it!=results.end(); ++it) {
+        map[it->first] = it->second.toJson();
+    }
+    rpc.append(map);
+    sendJson(rpc);
 }
 
 void SocketServer::sendJson(QJsonObject o) {

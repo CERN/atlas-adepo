@@ -2,14 +2,14 @@
 #define BCAM_ADAPTER_H
 
 #include "iostream"
-#include "point3f.h"
+#include "point3d.h"
 
 #include <QString>
 
 class BCAMAdapter
 {
 public:
-    BCAMAdapter(QString typeBCAM, QString target, Point3f targetCoord) : mTypeBCAM(typeBCAM), mTarget(target), mTargetCoord(targetCoord) {};
+    BCAMAdapter(QString typeBCAM, QString target, Point3d targetCoord) : mTypeBCAM(typeBCAM), mTarget(target), mTargetCoord(targetCoord) {};
     virtual ~BCAMAdapter() {};
 
     //setter et getter
@@ -17,7 +17,7 @@ public:
 
     QString getTarget() const {return mTarget;}
 
-    Point3f getTargetCoord() const {return mTargetCoord;}
+    Point3d getTargetCoord() const {return mTargetCoord;}
 
     //methodes
     void print() {
@@ -32,7 +32,7 @@ protected:
 private:
     QString mTypeBCAM;
     QString mTarget;
-    Point3f mTargetCoord;
+    Point3d mTargetCoord;
 };
 
 #endif // BCAM_ADAPTER_H

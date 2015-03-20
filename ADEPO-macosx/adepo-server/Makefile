@@ -552,7 +552,9 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -573,8 +575,6 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
@@ -650,6 +650,8 @@ socket_server.o: ../../ADEPO/adepo-server/socket_server.cpp /Users/duns/Qt5.4.1/
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
 		../../ADEPO/common/json_rpc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_server.o ../../ADEPO/adepo-server/socket_server.cpp
 

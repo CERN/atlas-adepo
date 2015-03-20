@@ -617,7 +617,9 @@ moc_server.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -638,8 +640,6 @@ moc_server.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
@@ -941,7 +941,9 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
@@ -972,8 +974,6 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
@@ -1035,7 +1035,9 @@ server.o: ../../ADEPO/server/server.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtC
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -1056,8 +1058,6 @@ server.o: ../../ADEPO/server/server.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtC
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
@@ -1248,7 +1248,9 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -1269,8 +1271,6 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
@@ -1330,7 +1330,9 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -1351,8 +1353,6 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
@@ -1411,7 +1411,9 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -1432,8 +1434,6 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
@@ -1492,7 +1492,9 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -1513,8 +1515,6 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
@@ -1574,7 +1574,9 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -1595,8 +1597,6 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
@@ -1640,7 +1640,283 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../ADEPO/bridge/callback.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o read_lwdaq_output.o ../../ADEPO/server/read_lwdaq_output.cpp
 
-calculate_results.o: ../../ADEPO/server/calculate_results.cpp 
+calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server/server.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		../../ADEPO/common/bcam.h \
+		../../ADEPO/common/prism.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
+		../../ADEPO/common/calibration.h \
+		../../ADEPO/common/calib1.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
+		../../ADEPO/common/calib2.h \
+		../../ADEPO/common/configuration.h \
+		../../ADEPO/common/detector.h \
+		../../ADEPO/common/bcam_adapter.h \
+		../../ADEPO/common/bcam_config.h \
+		../../ADEPO/common/absolute_distances.h \
+		../../ADEPO/common/atlas_coordinates.h \
+		../../ADEPO/common/prism_correction.h \
+		../../ADEPO/server/data.h \
+		../../ADEPO/server/dual_spot.h \
+		../../ADEPO/server/spot.h \
+		../../ADEPO/server/mount_coord_spots.h \
+		../../ADEPO/server/mount_coord_prism.h \
+		../../ADEPO/server/global_coord_prism.h \
+		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/common/reference.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/run.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
+		../../ADEPO/common/json_util.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
+		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/server/lwdaq_client.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QtNetwork \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractnetworkcache.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhttpmultipart.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkaccessmanager.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkcookie.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkcookiejar.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkdiskcache.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkreply.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkrequest.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkconfigmanager.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkconfiguration.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworksession.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qauthenticator.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qdnslookup.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhostaddress.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhostinfo.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkinterface.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkproxy.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractsocket.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qlocalserver.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qlocalsocket.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpserver.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpsocket.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qudpsocket.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qssl.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcertificate.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcertificateextension.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcipher.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslconfiguration.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslerror.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslkey.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
+		../../ADEPO/bridge/bridge.h \
+		../../ADEPO/bridge/call.h \
+		../../ADEPO/bridge/callback.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Eigen \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Dense \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Core \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/DisableStupidWarnings.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/Macros.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/MKL_support.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/Constants.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/ForwardDeclarations.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/Meta.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/StaticAssert.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/XprHelper.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/Memory.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/NumTraits.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/MathFunctions.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/GenericPacketMath.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/arch/SSE/PacketMath.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/arch/SSE/MathFunctions.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/arch/SSE/Complex.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/arch/AltiVec/PacketMath.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/arch/AltiVec/Complex.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/arch/NEON/PacketMath.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/arch/NEON/Complex.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/arch/Default/Settings.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Functors.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/DenseCoeffsBase.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/DenseBase.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/plugins/BlockMethods.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/MatrixBase.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/plugins/CommonCwiseUnaryOps.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/plugins/CommonCwiseBinaryOps.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/plugins/MatrixCwiseUnaryOps.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/plugins/MatrixCwiseBinaryOps.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/EigenBase.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Assign.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/BlasUtil.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/DenseStorage.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/NestByValue.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/ForceAlignedAccess.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/ReturnByValue.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/NoAlias.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/PlainObjectBase.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Matrix.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Array.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/CwiseBinaryOp.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/CwiseUnaryOp.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/CwiseNullaryOp.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/CwiseUnaryView.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/SelfCwiseBinaryOp.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Dot.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/StableNorm.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/MapBase.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Stride.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Map.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Block.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/VectorBlock.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Ref.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Transpose.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/DiagonalMatrix.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Diagonal.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/DiagonalProduct.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/PermutationMatrix.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Transpositions.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Redux.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Visitor.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Fuzzy.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/IO.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Swap.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/CommaInitializer.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Flagged.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/ProductBase.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/GeneralProduct.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/TriangularMatrix.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/SelfAdjointView.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/GeneralBlockPanelKernel.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/Parallelizer.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/CoeffBasedProduct.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/GeneralMatrixVector.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/GeneralMatrixMatrix.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/SolveTriangular.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/SelfadjointMatrixVector.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/SelfadjointMatrixMatrix.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/SelfadjointProduct.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/SelfadjointRank2Update.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/TriangularMatrixVector.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/TriangularMatrixMatrix.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/TriangularSolverMatrix.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/TriangularSolverVector.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/BandMatrix.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/CoreIterators.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/BooleanRedux.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Select.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/VectorwiseOp.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Random.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Replicate.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Reverse.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/ArrayBase.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/plugins/ArrayCwiseUnaryOps.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/plugins/ArrayCwiseBinaryOps.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/ArrayWrapper.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/GeneralMatrixMatrix_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/GeneralMatrixVector_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/GeneralMatrixMatrixTriangular_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/SelfadjointMatrixMatrix_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/SelfadjointMatrixVector_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/TriangularMatrixMatrix_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/TriangularMatrixVector_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/products/TriangularSolverMatrix_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/Assign_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/GlobalFunctions.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/ReenableStupidWarnings.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Eigen2Support \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Macros.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Memory.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Meta.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Lazy.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Cwise.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/CwiseOperators.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/TriangularSolver.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Block.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/VectorBlock.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Minor.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/MathFunctions.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/LU \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/misc/Solve.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/misc/Kernel.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/misc/Image.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/FullPivLU.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/PartialPivLU.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/PartialPivLU_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/Determinant.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/Inverse.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/arch/Inverse_SSE.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/LU.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Cholesky \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Cholesky/LLT.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Cholesky/LDLT.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Cholesky/LLT_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/QR \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Jacobi \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Jacobi/Jacobi.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Householder \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Householder/Householder.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Householder/HouseholderSequence.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Householder/BlockHouseholder.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/QR/HouseholderQR.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/QR/FullPivHouseholderQR.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/QR/ColPivHouseholderQR.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/QR/HouseholderQR_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/QR/ColPivHouseholderQR_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/QR.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Eigenvalues \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Geometry \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/SVD \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/SVD/JacobiSVD.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/SVD/JacobiSVD_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/SVD/UpperBidiagonalization.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/SVD.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/OrthoMethods.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/EulerAngles.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/Homogeneous.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/RotationBase.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/Rotation2D.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/Quaternion.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/AngleAxis.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/Transform.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/Translation.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/Scaling.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/Hyperplane.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/ParametrizedLine.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/AlignedBox.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/Umeyama.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Geometry/arch/Geometry_SSE.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Geometry/All.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Geometry/RotationBase.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Geometry/Rotation2D.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Geometry/Quaternion.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Geometry/AngleAxis.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Geometry/Transform.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Geometry/Translation.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Geometry/Scaling.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Geometry/AlignedBox.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Geometry/Hyperplane.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/Tridiagonalization.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/RealSchur.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/HessenbergDecomposition.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/EigenSolver.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/GeneralizedSelfAdjointEigenSolver.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/ComplexSchur.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/ComplexEigenSolver.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/RealQZ.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/RealSchur_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/ComplexSchur_MKL.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculate_results.o ../../ADEPO/server/calculate_results.cpp
 
 moc_lwdaq_client.o: moc_lwdaq_client.cpp 

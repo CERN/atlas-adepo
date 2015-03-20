@@ -299,8 +299,8 @@ void Server::helmert(Configuration& config, Data &data) {
           }
             //enregistrement dans la base de donnees des parametres de chaque BCAM
             QString id_bcam = config.getBCAMConfigs().at(i).getName();
-            Point3f translation(Tx0,Ty0,Tz0);
-            Point3f rotation(phi0,teta0,psi0);
+            Point3d translation(Tx0,Ty0,Tz0);
+            Point3d rotation(phi0,teta0,psi0);
             BCAMParams parametres_bcam(id_bcam, translation, rotation);
             data.add(parametres_bcam);
      }

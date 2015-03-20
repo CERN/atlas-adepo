@@ -3,14 +3,14 @@
 
 #include <iostream>
 #include "vector"
-#include "point3f.h"
+#include "point3d.h"
 #include "bcam.h"
 
 
 class MountCoordPrism
 {
 public:
-    MountCoordPrism(BCAM bcam, Point3f coordPrismMountSys) :
+    MountCoordPrism(BCAM bcam, Point3d coordPrismMountSys) :
         mBCAM(bcam), mCoordPrismMountSys(coordPrismMountSys) {};
     virtual ~MountCoordPrism() {};
 
@@ -18,7 +18,7 @@ public:
     BCAM getBCAM() const {return mBCAM; }
     Prism getPrism() const {return mBCAM.getPrism(); }
     QString getName() const { return getBCAM().getName()+"_"+getPrism().getName(); }
-    Point3f getCoordPrismMountSys() const {return mCoordPrismMountSys; }
+    Point3d getCoordPrismMountSys() const {return mCoordPrismMountSys; }
 
 
     //methodes
@@ -33,7 +33,7 @@ public:
 protected:
 private:
     BCAM mBCAM;
-    Point3f mCoordPrismMountSys;
+    Point3d mCoordPrismMountSys;
 };
 
 #endif // MOUNT_COORD_PRISM_H

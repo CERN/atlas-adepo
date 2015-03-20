@@ -3,20 +3,20 @@
 
 #include "iostream"
 #include "vector"
-#include "point3f.h"
+#include "point3d.h"
 
 #include <QString>
 
 class ATLASCoordinates
 {
 public:
-    ATLASCoordinates(QString bcam, Point3f target) : mBCAM(bcam), mTarget(target) {};
+    ATLASCoordinates(QString bcam, Point3d target) : mBCAM(bcam), mTarget(target) {};
     virtual ~ATLASCoordinates() {};
 
     //setter et getter
     QString getBCAM() const {return mBCAM; }
 
-    Point3f getTarget() const {return mTarget;}
+    Point3d getTarget() const {return mTarget;}
 
     //methodes
     void print() {
@@ -30,7 +30,7 @@ public:
 protected:
 private:
     QString mBCAM;
-    Point3f mTarget;
+    Point3d mTarget;
 };
 
 #endif // ATLAS_COORDINATES_H

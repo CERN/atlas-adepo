@@ -5,12 +5,12 @@
 
 #include <QString>
 
-#include "point3f.h"
+#include "point3d.h"
 
 class AbsoluteDistances
 {
 public:
-    AbsoluteDistances(QString bcam, QString prism, Point3f distances) : mBCAM(bcam), mPrism(prism), mDistances(distances) {};
+    AbsoluteDistances(QString bcam, QString prism, Point3d distances) : mBCAM(bcam), mPrism(prism), mDistances(distances) {};
     virtual ~AbsoluteDistances() {};
 
    //setter et getter
@@ -18,7 +18,7 @@ public:
     QString getPrism() const {return mPrism;}
     QString getName() const { return getBCAM()+"_"+getPrism(); }
 
-    Point3f getDistances() const {return mDistances;}
+    Point3d getDistances() const {return mDistances;}
 
     //methodes
     void print() {
@@ -32,7 +32,7 @@ protected:
 private:
     QString mBCAM;
     QString mPrism;
-    Point3f mDistances;
+    Point3d mDistances;
 };
 
 #endif // ABSOLUTE_DISTANCES_H

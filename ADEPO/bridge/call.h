@@ -18,6 +18,7 @@ public:
     virtual void updateConfigurationFile() = 0;
     virtual void updateCalibrationFile() = 0;
     virtual void updateReferenceFile() = 0;
+    virtual void resetDelta() = 0;
 
     virtual void updateAll() = 0;
 };

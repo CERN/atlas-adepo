@@ -26,6 +26,7 @@ public:
     void updateConfigurationFile();
     void updateCalibrationFile();
     void updateReferenceFile();
+    void resetDelta();
     void updateAll();
 
 Q_SIGNALS:

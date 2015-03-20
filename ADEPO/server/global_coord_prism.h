@@ -6,7 +6,7 @@
 class GlobalCoordPrism
 {
 public:
-    GlobalCoordPrism(BCAM bcam, Point3f coordPrismMountSys, float airpad) :
+    GlobalCoordPrism(BCAM bcam, Point3d coordPrismMountSys, float airpad) :
         mBCAM(bcam), mCoordPrismMountSys(coordPrismMountSys), mAirpad(airpad) {};
     virtual ~GlobalCoordPrism() {};
 
@@ -14,7 +14,7 @@ public:
     BCAM getBCAM() const {return mBCAM; }
     Prism getPrism() const {return mBCAM.getPrism(); }
     QString getName() const { return getBCAM().getName()+"_"+getPrism().getName(); }
-    Point3f getCoordPrismMountSys() const {return mCoordPrismMountSys; }
+    Point3d getCoordPrismMountSys() const {return mCoordPrismMountSys; }
 
     float getAirpad() { return mAirpad; }
 
@@ -30,7 +30,7 @@ public:
 protected:
 private:
     BCAM mBCAM;
-    Point3f mCoordPrismMountSys;
+    Point3d mCoordPrismMountSys;
     float mAirpad;
 };
 

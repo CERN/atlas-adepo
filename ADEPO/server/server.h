@@ -18,7 +18,7 @@
 #include "run.h"
 
 #include "lwdaq_client.h"
-#include "point3f.h"
+#include "point3d.h"
 #include "call.h"
 #include "callback.h"
 
@@ -43,6 +43,7 @@ public:
     void updateConfigurationFile();
     void updateCalibrationFile();
     void updateReferenceFile();
+    void resetDelta();
 
     void updateAll();
 
@@ -64,9 +65,9 @@ private:
     void imgCoordToBcamCoord(Calibration &calibration, Run &run, Data &data);
     void calculCoordBcamSystem(Configuration &config, Calibration &calibration, Run &run, Data& data);
     void mountPrismToGlobalPrism();
-    std::map<QString, Result> calculateResults();
+    void calculateResults();
     int writeFileObsMountSystem(QString fileName, QString datetime);
-    Point3f changeReference(Point3f coord_sys1, Point3f translation, Point3f rotation);
+    Point3d changeReference(Point3d coord_sys1, Point3d translation, Point3d rotation);
 
     void helmert(Configuration &config, Data& data);
 
@@ -86,6 +87,7 @@ private:
     Calibration calibration;
     Data data;
     Reference reference;
+    std::map<QString, Result> results;
     QString resultFile;
 };
 
