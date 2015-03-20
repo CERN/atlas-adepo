@@ -792,10 +792,12 @@ main.o: ../../ADEPO/adepo-direct/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		../../ADEPO/common/absolute_distances.h \
@@ -803,12 +805,10 @@ main.o: ../../ADEPO/adepo-direct/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../ADEPO/common/prism_correction.h \
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
 		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../ADEPO/server/server.h \

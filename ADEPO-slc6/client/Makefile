@@ -586,10 +586,14 @@ moc_client.cpp: ../../../../Qt5.4.1/include/QtWidgets/QMainWindow \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		../../../../Qt5.4.1/include/QtCore/QStringList \
@@ -599,15 +603,11 @@ moc_client.cpp: ../../../../Qt5.4.1/include/QtWidgets/QMainWindow \
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
@@ -746,6 +746,16 @@ client.o: ../../ADEPO/client/client.cpp ../../../../Qt5.4.1/include/QtGui/QPixma
 		../../../../Qt5.4.1/include/QtWidgets/qmessagebox.h \
 		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../../../Qt5.4.1/include/QtGui/QImageReader \
+		../../../../Qt5.4.1/include/QtGui/qimagereader.h \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
+		../../../../Qt5.4.1/include/QtGui/qimageiohandler.h \
+		../../../../Qt5.4.1/include/QtCore/qplugin.h \
+		../../../../Qt5.4.1/include/QtCore/qpointer.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
+		../../../../Qt5.4.1/include/QtCore/qfactoryinterface.h \
 		../../ADEPO/client/client.h \
 		../../../../Qt5.4.1/include/QtWidgets/QMainWindow \
 		../../../../Qt5.4.1/include/QtWidgets/qmainwindow.h \
@@ -772,10 +782,12 @@ client.o: ../../ADEPO/client/client.cpp ../../../../Qt5.4.1/include/QtGui/QPixma
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		../../../../Qt5.4.1/include/QtCore/QStringList \
@@ -785,19 +797,13 @@ client.o: ../../ADEPO/client/client.cpp ../../../../Qt5.4.1/include/QtGui/QPixma
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		ui_client.h \
 		../../../../Qt5.4.1/include/QtCore/QVariant \
 		../../../../Qt5.4.1/include/QtWidgets/QAction \
@@ -896,6 +902,13 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../../../Qt5.4.1/include/QtCore/qarraydata.h \
 		../../../../Qt5.4.1/include/QtCore/qstringbuilder.h \
 		../../ADEPO/bridge/bridge.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
+		../../../../Qt5.4.1/include/QtCore/qiterator.h \
+		../../../../Qt5.4.1/include/QtCore/qpair.h \
 		../../ADEPO/client/client.h \
 		../../../../Qt5.4.1/include/QtWidgets/QMainWindow \
 		../../../../Qt5.4.1/include/QtWidgets/qmainwindow.h \
@@ -907,7 +920,6 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../../../Qt5.4.1/include/QtCore/qobject.h \
 		../../../../Qt5.4.1/include/QtCore/qlist.h \
 		../../../../Qt5.4.1/include/QtCore/qalgorithms.h \
-		../../../../Qt5.4.1/include/QtCore/qiterator.h \
 		../../../../Qt5.4.1/include/QtCore/qbytearraylist.h \
 		../../../../Qt5.4.1/include/QtCore/qcoreevent.h \
 		../../../../Qt5.4.1/include/QtCore/qscopedpointer.h \
@@ -927,7 +939,6 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../../../Qt5.4.1/include/QtCore/qstringlist.h \
 		../../../../Qt5.4.1/include/QtCore/qdatastream.h \
 		../../../../Qt5.4.1/include/QtCore/qiodevice.h \
-		../../../../Qt5.4.1/include/QtCore/qpair.h \
 		../../../../Qt5.4.1/include/QtCore/qregexp.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../../../Qt5.4.1/include/QtGui/qbrush.h \
@@ -988,7 +999,6 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		../../../../Qt5.4.1/include/QtCore/QStringList \
@@ -998,15 +1008,11 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \

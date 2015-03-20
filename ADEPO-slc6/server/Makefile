@@ -783,7 +783,10 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -804,9 +807,6 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -1466,7 +1466,12 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../../../Qt5.4.1/include/QtCore/qarraydata.h \
 		../../../../Qt5.4.1/include/QtCore/qstringbuilder.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
+		../../../../Qt5.4.1/include/QtCore/qiterator.h \
+		../../../../Qt5.4.1/include/QtCore/qpair.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		../../../../Qt5.4.1/include/QtCore/QStringList \
@@ -1479,7 +1484,6 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../../../Qt5.4.1/include/QtCore/qobjectdefs.h \
 		../../../../Qt5.4.1/include/QtCore/qobjectdefs_impl.h \
 		../../../../Qt5.4.1/include/QtCore/qlist.h \
-		../../../../Qt5.4.1/include/QtCore/qiterator.h \
 		../../../../Qt5.4.1/include/QtCore/qbytearraylist.h \
 		../../../../Qt5.4.1/include/QtCore/qcoreevent.h \
 		../../../../Qt5.4.1/include/QtCore/qmetatype.h \
@@ -1487,7 +1491,6 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../../../Qt5.4.1/include/QtCore/qcontainerfwd.h \
 		../../../../Qt5.4.1/include/QtCore/qisenum.h \
 		../../../../Qt5.4.1/include/QtCore/qobject_impl.h \
-		../../../../Qt5.4.1/include/QtCore/qpair.h \
 		../../../../Qt5.4.1/include/QtCore/qregexp.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/absolute_distances.h \
@@ -1517,9 +1520,6 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -1770,7 +1770,10 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../../../Qt5.4.1/include/QtCore/QStringList \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -1791,9 +1794,6 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -2167,7 +2167,10 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -2188,9 +2191,6 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -2437,7 +2437,10 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -2458,9 +2461,6 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -2705,7 +2705,10 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -2726,9 +2729,6 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -2973,7 +2973,10 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -2994,9 +2997,6 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -3243,7 +3243,10 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -3264,9 +3267,6 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -3511,7 +3511,10 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -3532,9 +3535,6 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \

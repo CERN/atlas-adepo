@@ -526,7 +526,10 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../../../Qt5.4.1/include/QtCore/QCo
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3f.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
+		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
@@ -547,9 +550,6 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../../../Qt5.4.1/include/QtCore/QCo
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
-		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
-		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -847,6 +847,8 @@ socket_server.o: ../../ADEPO/adepo-server/socket_server.cpp ../../../../Qt5.4.1/
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
 		../../ADEPO/common/json_rpc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_server.o ../../ADEPO/adepo-server/socket_server.cpp
 

@@ -799,10 +799,12 @@ main.o: ../../ADEPO/adepo-client/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
 		../../ADEPO/common/configuration.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/point3f.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		../../ADEPO/common/absolute_distances.h \
@@ -810,12 +812,10 @@ main.o: ../../ADEPO/adepo-client/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../ADEPO/common/prism_correction.h \
 		../../ADEPO/common/run.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
 		../../ADEPO/common/bcam.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/result.h \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../ADEPO/adepo-client/socket_client.h \
@@ -838,7 +838,8 @@ main.o: ../../ADEPO/adepo-client/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../../../Qt5.4.1/include/QtNetwork/qsslsocket.h \
 		../../../../Qt5.4.1/include/QtNetwork/qtcpsocket.h \
 		../../../../Qt5.4.1/include/QtWebSockets/qwebsockets_global.h \
-		../../../../Qt5.4.1/include/QtWebSockets/qwebsocketprotocol.h
+		../../../../Qt5.4.1/include/QtWebSockets/qwebsocketprotocol.h \
+		../../../../Qt5.4.1/include/QtCore/QTimer
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../ADEPO/adepo-client/main.cpp
 
 socket_client.o: ../../ADEPO/adepo-client/socket_client.cpp ../../../../Qt5.4.1/include/QtCore/QJsonDocument \
@@ -946,9 +947,14 @@ socket_client.o: ../../ADEPO/adepo-client/socket_client.cpp ../../../../Qt5.4.1/
 		../../../../Qt5.4.1/include/QtWebSockets/qwebsockets_global.h \
 		../../../../Qt5.4.1/include/QtWebSockets/qwebsocketprotocol.h \
 		../../../../Qt5.4.1/include/QtCore/QObject \
+		../../../../Qt5.4.1/include/QtCore/QTimer \
+		../../../../Qt5.4.1/include/QtCore/qtimer.h \
+		../../../../Qt5.4.1/include/QtCore/qbasictimer.h \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/callback.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/point3d.h \
 		../../ADEPO/common/json_rpc.h \
 		../../ADEPO/common/json_util.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_client.o ../../ADEPO/adepo-client/socket_client.cpp
