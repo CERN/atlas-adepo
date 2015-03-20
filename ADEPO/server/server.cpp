@@ -194,12 +194,10 @@ void Server::calculateCoordinates()
    //je calcule les coordonnees du prisme en 3D dans le repere ATLAS
    mountPrismToGlobalPrism();
 
-// TODO or not, as the results can be calculated when read in the client
-//   calculateResults(data, results);
+   std::map<QString, Result> results = calculateResults();
 
    qDebug() << "Updating Results...";
-// TODO same as above
-//   updateResults(results);
+   callback.changedResults(results);
 
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
    QDir(".").mkpath(Util::workPath().append("/Archive"));

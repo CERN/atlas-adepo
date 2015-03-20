@@ -41,14 +41,15 @@ public:
     void changedCalibrationFile(QString filename);
     void changedReferenceFile(QString filename);
     void changedResultFile(QString filename);
+    void changedResults(std::map<QString, Result> results);
 
 public slots:
 
 signals:
 
 private slots:
-    void selectDetectorRow(int row, int /* column */);
-    void showBCAM(int row, int);
+    void selectDetectorRow(int row, int column);
+    void showBCAMimage(int row, int column);
     void changedAirpad(int index) { run.setAirpad(index == 1); ; call->updateRunFile(); }
     void changedAcquisitionTimeValue(int value) { run.setAcquisitionTime(value); ; call->updateRunFile(); }
     void changedWaitingTimeValue(int value) { run.setWaitingTime(value); call->updateRunFile(); }
@@ -78,7 +79,7 @@ private:
     bool askQuestion;
 
     void fillDetectorTable();
-    void showBCAMTable();
+    void fillBCAMandResultTable();
     void setResult(int row, Result& result);
     void setResult(int row, Point3f point, int columnSet, int precision);
     void updateResults(std::map<QString, Result> &results);

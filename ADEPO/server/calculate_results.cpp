@@ -1,33 +1,40 @@
+#include "server.h"
+#include "global_coord_prism.h"
 
-void ATLAS_BCAM::calculateResults(BDD &base_donnees, std::map<std::string, result> &results) {
+#include "Eigen/Eigen"
+
+std::map<QString, Result> Server::calculateResults() {
 
     //on parcourt tous les points transformes dans le repere global : moyenne + dispersion
     // current date/time based on current system
     QString now = getDateTime();
 
     //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
-    std::string premier_prisme_atlas = base_donnees.getGlobalCoordPrisms().at(0).getName();
+    QString premier_prisme_atlas = data.getGlobalCoordPrisms().at(0).getName();
 
-    for(unsigned int i=0; i<base_donnees.getGlobalCoordPrisms().size(); i++)
+    std::map<QString, Result> results;
+
+    for(unsigned int i=0; i<data.getGlobalCoordPrisms().size(); i++)
     {
-        if(i>0 && base_donnees.getGlobalCoordPrisms().at(i).getName() == premier_prisme_atlas)
+        if(i>0 && data.getGlobalCoordPrisms().at(i).getName() == premier_prisme_atlas) {
             break;
+        }
 
-        GlobalCoordPrism prism = base_donnees.getGlobalCoordPrisms().at(i);
+        GlobalCoordPrism prism = data.getGlobalCoordPrisms().at(i);
 
         //nomenclature dans le repere ATLAS
-        std::string name_prism_atlas = config.getName(prism.getPrism().getName());
+        QString name_prism_atlas = config.getName(prism.getPrism().getName());
 
-        result& result = results[name_prism_atlas];
+        Result result;
         result.setName(name_prism_atlas);
-        result.setTime(now.toStdString());
+        result.setTime(now);
 
         Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
         int ligne=0;
 
-        for(unsigned int j=0; j<base_donnees.getGlobalCoordPrisms().size(); j++)
+        for(unsigned int j=0; j<data.getGlobalCoordPrisms().size(); j++)
         {
-            GlobalCoordPrism checkedPrism = base_donnees.getGlobalCoordPrisms().at(j);
+            GlobalCoordPrism checkedPrism = data.getGlobalCoordPrisms().at(j);
             if(prism.getName() == checkedPrism.getName())
             {
                 coord(ligne,0)=checkedPrism.getCoordPrismMountSys().x();
@@ -63,7 +70,7 @@ void ATLAS_BCAM::calculateResults(BDD &base_donnees, std::map<std::string, resul
         for(unsigned int n=0; n<config.getPrismCorrections().size(); n++)
         {
             PrismCorrection correction = config.getPrismCorrections().at(n);
-            if(base_donnees.getGlobalCoordPrisms().at(i).getPrism().getName() == correction.getPrism())
+            if(data.getGlobalCoordPrisms().at(i).getPrism().getName() == correction.getPrism())
             {
                 dx = correction.getDelta().x();
                 dy = correction.getDelta().y();
@@ -73,6 +80,8 @@ void ATLAS_BCAM::calculateResults(BDD &base_donnees, std::map<std::string, resul
 
         result.setValue(Point3f(mean(0,0) + dx, mean(0,1) + dy, mean(0,2) + dz));
 
-        results[name_prism_atlas] = result;
+        results.insert(std::make_pair(name_prism_atlas, result));
     }
+
+    return results;
 }

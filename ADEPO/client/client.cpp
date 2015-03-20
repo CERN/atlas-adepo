@@ -5,6 +5,7 @@
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QDateTime>
+#include <QImageReader>
 
 #include "client.h"
 #include "ui_client.h"
@@ -32,8 +33,8 @@ Client::Client(QWidget *parent) :
     QObject::connect(ui->quit, SIGNAL(triggered()), qApp, SLOT(quit()));
 
     //clic detecteur-affichage bcam
-    QObject::connect(ui->tableWidget_liste_detectors, SIGNAL(cellClicked(int,int)), this, SLOT(selectDetectorRow(int,int)));
-    QObject::connect(ui->tableWidget_liste_bcams, SIGNAL(cellClicked(int,int)), this, SLOT(showBCAM(int,int)));
+    connect(ui->tableWidget_liste_detectors, &QTableWidget::cellClicked, this, &Client::selectDetectorRow);
+    connect(ui->tableWidget_liste_bcams, &QTableWidget::cellClicked, this, &Client::showBCAMimage);
 
     //lancer les acquisitions
     QObject::connect(ui->singleShot, SIGNAL(clicked()), this, SLOT(startClosure()));
@@ -58,48 +59,20 @@ Client::Client(QWidget *parent) :
     ui->tableWidget_liste_detectors->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     setEnabled();
+
+    // show supported image formats
+    QList<QByteArray> list = QImageReader::supportedImageFormats();
+    QString imageFormats;
+    for (int i=0; i<list.size(); i++) {
+        if (i > 0) imageFormats.append(", ");
+        imageFormats.append(list[i]);
+    }
+    qDebug() << "Supported image formats: " << imageFormats;
 }
 
 Client::~Client()
 {
     delete ui;
-}
-
-void Client::showBCAM(int row, int /* column */) {
-    qDebug() << "CLIENT ShowBCAM";
-    selectedBCAM = row;
-    QString prism = ui->tableWidget_liste_bcams->item(row,5)->text();
-    QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(prism);
-    bool isPrism = prism.startsWith("PR");
-    bool flashSeparate = ui->tableWidget_liste_bcams->item(row, 8)->text().toStdString() == "Yes";
-    int deviceElement = ui->tableWidget_liste_bcams->item(row, 4)->text().toStdString() == "2" ? 2 : 1;
-    ui->bcamLabel->setText(name);
-    QPixmapCache::clear();
-
-    //    QList<QByteArray> list = QImageReader::supportedImageFormats();
-    //    for (int i=0; i<list.size(); i++) {
-    //        std::cout << QString(list[i]).toStdString() << std::endl;
-    //    }
-
-    QString suffix1 = Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, true).replace(" ", "-");
-    QString imageName = Util::workPath().append("/images/").append(name).append("-").append(suffix1).append(".gif");
-    QFileInfo file(imageName);
-    if (file.exists()) {
-        QDateTime dateTime = file.lastModified();
-        QPixmap pix1(imageName);
-        ui->bcamImage1->setPixmap(pix1);
-        ui->bcamDateTime->setText(dateTime.toString());
-        ui->bcamImage2->setVisible(flashSeparate);
-        if (flashSeparate) {
-            QString suffix2 = Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false);
-            QPixmap pix2(Util::workPath().append("/images/").append(name).append("-").append(suffix2).append(".gif"));
-            ui->bcamImage2->setPixmap(pix2);
-        }
-    } else {
-        ui->bcamImage1->setText("No BCAM Image");
-        ui->bcamImage2->setVisible(false);
-        ui->bcamDateTime->setText("");
-    }
 }
 
 
@@ -179,7 +152,9 @@ void Client::fillDetectorTable()
     }
 }
 
-void Client::selectDetectorRow(int row, int /* column */) {
+void Client::selectDetectorRow(int row, int column) {
+    Q_UNUSED(column);
+
     int id = ui->tableWidget_liste_detectors->item(row, 0)->data(Qt::DisplayRole).toInt();
     std::vector<int> selectedDetectors = run.getDetectors();
 
@@ -193,10 +168,10 @@ void Client::selectDetectorRow(int row, int /* column */) {
     run.setDetectors(selectedDetectors, config);
     call->updateRunFile();
 
-    showBCAMTable();
+    fillBCAMandResultTable();
 }
 
-void Client::showBCAMTable()
+void Client::fillBCAMandResultTable()
 {
     qDebug() << "CLIENT Show BCAM Table";
 
@@ -279,9 +254,63 @@ void Client::showBCAMTable()
     setEnabled();
     if (ui->tableWidget_liste_bcams->rowCount() > 0) {
         ui->tableWidget_liste_bcams->selectRow(0);
-        showBCAM(0, 0);
+        showBCAMimage(0, 0);
     }
 }
+
+void Client::showBCAMimage(int row, int column) {
+    Q_UNUSED(column);
+
+    qDebug() << "CLIENT ShowBCAM";
+    selectedBCAM = row;
+    QString prism = ui->tableWidget_liste_bcams->item(row,5)->text();
+    QString name =  ui->tableWidget_liste_bcams->item(row, 0)->text().append("_").append(prism);
+    bool isPrism = prism.startsWith("PR");
+    bool flashSeparate = ui->tableWidget_liste_bcams->item(row, 8)->text().toStdString() == "Yes";
+    int deviceElement = ui->tableWidget_liste_bcams->item(row, 4)->text().toStdString() == "2" ? 2 : 1;
+    ui->bcamLabel->setText(name);
+    QPixmapCache::clear();
+
+    QString suffix1 = Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, true).replace(" ", "-");
+    QString imageName = Util::workPath().append("/images/").append(name).append("-").append(suffix1).append(".gif");
+    QFileInfo file(imageName);
+    if (file.exists()) {
+        QDateTime dateTime = file.lastModified();
+        QPixmap pix1(imageName);
+        ui->bcamImage1->setPixmap(pix1);
+        ui->bcamDateTime->setText(dateTime.toString());
+        ui->bcamImage2->setVisible(flashSeparate);
+        if (flashSeparate) {
+            QString suffix2 = Util::getSourceDeviceElement(isPrism, flashSeparate, deviceElement, false);
+            QPixmap pix2(Util::workPath().append("/images/").append(name).append("-").append(suffix2).append(".gif"));
+            ui->bcamImage2->setPixmap(pix2);
+        }
+    } else {
+        ui->bcamImage1->setText("No BCAM Image");
+        ui->bcamImage2->setVisible(false);
+        ui->bcamDateTime->setText("");
+    }
+}
+
+
+void Client::updateResults(std::map<QString, Result> &results) {
+    for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
+        QString prism = ui->tableWidget_results->item(row, 0)->text();
+
+        Result& r = results[prism];
+        r.setName(prism);
+        results[prism] = r;
+
+        setResult(row, r);
+    }
+    ui->tableWidget_results->resizeColumnsToContents();
+
+    // TODO write ref file
+//    writeRef(refFile, results);
+    display(ui->refFileLabel, ui->refFile, refFile);
+}
+
+
 
 void Client::setResult(int row, Result &result) {
     qDebug() << "CLIENT setResult";
@@ -331,24 +360,6 @@ void Client::resetDelta() {
 
     updateResults(results);
 }
-
-void Client::updateResults(std::map<QString, Result> &results) {
-    for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
-        QString prism = ui->tableWidget_results->item(row, 0)->text();
-
-        Result& r = results[prism];
-        r.setName(prism);
-        results[prism] = r;
-
-        setResult(row, r);
-    }
-    ui->tableWidget_results->resizeColumnsToContents();
-
-    // TODO write ref file
-//    writeRef(refFile, results);
-    display(ui->refFileLabel, ui->refFile, refFile);
-}
-
 
 void Client::startClosure()
 {

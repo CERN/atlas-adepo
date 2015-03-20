@@ -117,6 +117,10 @@ void SocketServer::changedResultFile(QString filename) {
     sendJson(rpc);
 }
 
+void SocketServer::changedResults(std::map<QString, Result> results) {
+    qCritical() << "NOT IMPLEMENTED";
+}
+
 void SocketServer::sendJson(QJsonObject o) {
     QJsonDocument doc(o);
     QByteArray json = doc.toJson();

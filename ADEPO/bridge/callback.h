@@ -2,10 +2,12 @@
 #define CALLBACK_H
 
 #include <vector>
+#include <map>
 
 #include <QString>
 
 #include "bridge.h"
+#include "result.h"
 
 class Callback: public Bridge
 {
@@ -20,6 +22,7 @@ public:
     virtual void changedCalibrationFile(QString filename) = 0;
     virtual void changedReferenceFile(QString filename) = 0;
     virtual void changedResultFile(QString filename) = 0;
+    virtual void changedResults(std::map<QString, Result> results) = 0;
 };
 
 #endif // CALLBACK_H

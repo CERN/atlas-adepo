@@ -22,7 +22,7 @@ public:
         name = _name;
     }
 
-    QString getName() {
+    QString getName() const {
         return name;
     }
 
@@ -30,7 +30,7 @@ public:
         dateTime = _dateTime;
     }
 
-    QString getTime() {
+    QString getTime() const {
         return dateTime;
     }
 
@@ -38,7 +38,7 @@ public:
         n = _n;
     }
 
-    int getN() {
+    int getN() const {
         return n;
     }
 
@@ -46,7 +46,7 @@ public:
         std = _std;
     }
 
-    Point3f getStd() {
+    Point3f getStd() const {
         return std;
     }
 
@@ -57,7 +57,7 @@ public:
         }
     }
 
-    Point3f getValue() {
+    Point3f getValue() const {
         return value;
     }
 
@@ -65,7 +65,7 @@ public:
         offset = _offset;
     }
 
-    Point3f getOffset() {
+    Point3f getOffset() const {
         return offset;
     }
 

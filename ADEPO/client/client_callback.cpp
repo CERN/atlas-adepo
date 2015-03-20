@@ -6,6 +6,10 @@
 void Client::changedRunFile(QString filename) {
     qDebug() << "CLIENT Changed Run File " << filename;
 
+    if (filename == "") {
+        return;
+    }
+
     run.read(filename, config);
 
     // select selected detectors
@@ -19,7 +23,7 @@ void Client::changedRunFile(QString filename) {
         }
     }
 
-    showBCAMTable();
+    fillBCAMandResultTable();
 
     // set the other params
     ui->mode->setText(run.getMode());
@@ -70,4 +74,10 @@ void Client::changedReferenceFile(QString filename) {
 
 void Client::changedResultFile(QString filename) {
     display(ui->resultFileLabel, ui->resultFile, filename);
+}
+
+void Client::changedResults(std::map<QString, Result> results) {
+    qDebug() << "CLIENT changedResults";
+
+    updateResults(results);
 }

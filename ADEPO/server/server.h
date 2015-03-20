@@ -64,6 +64,7 @@ private:
     void imgCoordToBcamCoord(Calibration &calibration, Run &run, Data &data);
     void calculCoordBcamSystem(Configuration &config, Calibration &calibration, Run &run, Data& data);
     void mountPrismToGlobalPrism();
+    std::map<QString, Result> calculateResults();
     int writeFileObsMountSystem(QString fileName, QString datetime);
     Point3f changeReference(Point3f coord_sys1, Point3f translation, Point3f rotation);
 
