@@ -4,6 +4,7 @@
 
 #include "socket_server.h"
 #include "json_rpc.h"
+#include "json_util.h"
 
 SocketServer::SocketServer(quint16 port, QObject *parent) :
     QObject(parent),
@@ -121,11 +122,7 @@ void SocketServer::changedResultFile(QString filename) {
 
 void SocketServer::changedResults(std::map<QString, Result> results) {
     JsonRpc rpc("changedResults");
-    QJsonObject map;
-    for (std::map<QString, Result>::iterator it=results.begin(); it!=results.end(); ++it) {
-        map[it->first] = it->second.toJson();
-    }
-    rpc.append(map);
+    rpc.append(JsonUtil::toJsonObject(results));
     sendJson(rpc);
 }
 

@@ -298,22 +298,17 @@ void Client::updateResults(std::map<QString, Result> &results) {
         QString prism = ui->tableWidget_results->item(row, 0)->text();
 
         Result& r = results[prism];
-        r.setName(prism);
-        results[prism] = r;
 
         setResult(row, r);
     }
     ui->tableWidget_results->resizeColumnsToContents();
 
-    // TODO write ref file
-//    writeRef(refFile, results);
     display(ui->refFileLabel, ui->refFile, refFile);
 }
 
 
 
 void Client::setResult(int row, Result &result) {
-    qDebug() << "CLIENT setResult";
     QTableWidgetItem *n = new QTableWidgetItem(QString::number(result.getN()));
     ui->tableWidget_results->setItem(row, 3, n);
 

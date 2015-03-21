@@ -72,15 +72,8 @@ void SocketClient::onTextMessageReceived(QString message)
         callback.changedReferenceFile(params[0].toString());
     } else if (method == "changedResults") {
         QJsonArray params = json["params"].toArray();
-        std::map<QString, Result> map;
-        QJsonObject results = params[0].toObject();
-        QStringList keys = results.keys();
-        for (int i=0; i<keys.size(); i++) {
-            QString key = keys[i];
-            Result result = Result(results[key].toObject());
-            map[key] = result;
-        }
-        callback.changedResults(map);
+        Result t;
+        callback.changedResults(JsonUtil::fromJsonObject(params[0].toObject(), t));
     } else if (method == "changedResultFile") {
         QJsonArray params = json["params"].toArray();
         callback.changedResultFile(params[0].toString());
