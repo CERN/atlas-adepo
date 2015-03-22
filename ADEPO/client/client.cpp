@@ -30,28 +30,28 @@ Client::Client(QWidget *parent) :
     ui->tableWidget_liste_detectors->horizontalHeader()->setVisible(true);
     ui->tableWidget_liste_bcams->horizontalHeader()->setVisible(true);
 
-    QObject::connect(ui->quit, SIGNAL(triggered()), qApp, SLOT(quit()));
+    connect(ui->quit, &QAction::triggered, qApp, &QCoreApplication::quit);
 
     //clic detecteur-affichage bcam
     connect(ui->tableWidget_liste_detectors, &QTableWidget::cellClicked, this, &Client::selectDetectorRow);
     connect(ui->tableWidget_liste_bcams, &QTableWidget::cellClicked, this, &Client::showBCAMimage);
 
     //lancer les acquisitions
-    QObject::connect(ui->singleShot, SIGNAL(clicked()), this, SLOT(startClosure()));
-    QObject::connect(ui->nextMeasurement, SIGNAL(clicked()), this, SLOT(startClosure()));
-    QObject::connect(ui->monitoring, SIGNAL(clicked()), this, SLOT(startMonitoring()));
+    connect(ui->singleShot, &QPushButton::clicked, this, &Client::startClosure);
+    connect(ui->nextMeasurement, &QPushButton::clicked, this, &Client::startClosure);
+    connect(ui->monitoring, &QPushButton::clicked, this, &Client::startMonitoring);
 
     //stopper l'acquisition
-    QObject::connect(ui->singleShotStop, SIGNAL(clicked()), this, SLOT(stop()));
-    QObject::connect(ui->stop, SIGNAL(clicked()), this, SLOT(stop()));
-    QObject::connect(ui->monitoringStop, SIGNAL(clicked()), this, SLOT(stop()));
+    connect(ui->singleShotStop, &QPushButton::clicked, this, &Client::stop);
+    connect(ui->stop, &QPushButton::clicked, this, &Client::stop);
+    connect(ui->monitoringStop, &QPushButton::clicked, this, &Client::stop);
 
-    QObject::connect(ui->reset, SIGNAL(clicked()),this,SLOT(resetDelta()));
+    connect(ui->reset, &QPushButton::clicked, this, &Client::resetDelta);
 
-    QObject::connect(ui->fullPrecision, SIGNAL(stateChanged(int)), this, SLOT(changedFormat(int)));
-    QObject::connect(ui->acquisitionTime, SIGNAL(valueChanged(int)), this, SLOT(changedAcquisitionTimeValue(int)));
-    QObject::connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
-    QObject::connect(ui->airpad, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
+    connect(ui->fullPrecision, &QCheckBox::stateChanged, this, &Client::changedFormat);
+    connect(ui->acquisitionTime, SIGNAL(valueChanged(int)), this, SLOT(changedAcquisitionTimeValue(int)));
+    connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
+    connect(ui->airpad, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
 
     askQuestion = true;
 

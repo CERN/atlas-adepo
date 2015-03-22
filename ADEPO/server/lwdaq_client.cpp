@@ -14,31 +14,31 @@ LWDAQ_Client::LWDAQ_Client(QString host, quint16 port, QObject *parent) : QObjec
 
     tcpSocket = new QTcpSocket(this);
 
-    connect(tcpSocket, SIGNAL(connected()), this, SLOT(gotConnected()));
-    connect(tcpSocket, SIGNAL(disconnected()), this, SLOT(gotDisconnected()));
-    connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readStatus()));
+    connect(tcpSocket, &QTcpSocket::connected, this, &LWDAQ_Client::gotConnected);
+    connect(tcpSocket, &QTcpSocket::disconnected, this, &LWDAQ_Client::gotDisconnected);
+    connect(tcpSocket, &QTcpSocket::readyRead, this, &LWDAQ_Client::readStatus);
     connect(tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)),
                 this, SLOT(displayError(QAbstractSocket::SocketError)));
 
     connectTimer = new QTimer(this);
     connectTimer->setInterval(RECONNECT_TIME*1000);
     connectTimer->setSingleShot(true);
-    connect(connectTimer, SIGNAL(timeout()), this, SLOT(init()));
+    connect(connectTimer, &QTimer::timeout, this, &LWDAQ_Client::init);
 
     statusTimer = new QTimer(this);
     statusTimer->setInterval(SLOW_UPDATE_TIME*1000);
     statusTimer->setSingleShot(true);
-    connect(statusTimer, SIGNAL(timeout()), this, SLOT(updateStatus()));
+    connect(statusTimer, &QTimer::timeout, this, &LWDAQ_Client::updateStatus);
 
     runTimer = new QTimer(this);
     runTimer->setInterval(DEFAULT_RUN_TIME*1000);
     runTimer->setSingleShot(true);
-    connect(runTimer, SIGNAL(timeout()), this, SLOT(stopRun()));
+    connect(runTimer, &QTimer::timeout, this, &LWDAQ_Client::stopRun);
 
     updateTimer = new QTimer(this);
     updateTimer->setInterval(DEFAULT_UPDATE_TIME*1000);
     updateTimer->setSingleShot(false);
-    connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateRemainingTime()));
+    connect(updateTimer, &QTimer::timeout, this, &LWDAQ_Client::updateRemainingTime);
 }
 
 QDir LWDAQ_Client::find(QDir dir) {

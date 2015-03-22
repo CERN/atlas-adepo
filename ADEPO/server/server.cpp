@@ -21,8 +21,8 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
     // connect to LWDAQ server
     lwdaq_client = new LWDAQ_Client("localhost", 1090, this);
-    QObject::connect(lwdaq_client, SIGNAL(stateChanged()), this, SLOT(lwdaqStateChanged()));
-    QObject::connect(lwdaq_client, SIGNAL(remainingTimeChanged()), this, SLOT(timeChanged()));
+    connect(lwdaq_client, &LWDAQ_Client::stateChanged, this, &Server::lwdaqStateChanged);
+    connect(lwdaq_client, &LWDAQ_Client::remainingTimeChanged, this, &Server::timeChanged);
 
     QDir lwdaqDir = lwdaq_client->find(QDir(Util::appPath()));
     if (!lwdaqDir.exists()) {
@@ -39,12 +39,12 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
     waitingTimer = new QTimer(this);
     waitingTimer->setSingleShot(true);
-    QObject::connect(waitingTimer, SIGNAL(timeout()), this, SLOT(runDAQ()));
+    connect(waitingTimer, &QTimer::timeout, this, &Server::runDAQ);
 
     updateTimer = new QTimer(this);
     updateTimer->setInterval(FAST_UPDATE_TIME*1000);
     updateTimer->setSingleShot(false);
-    QObject::connect(updateTimer, SIGNAL(timeout()), this, SLOT(timeChanged()));
+    connect(updateTimer, &QTimer::timeout, this, &Server::timeChanged);
 
     // read config file
     config.read(Util::inputPath().append(CONFIGURATION_FILE));
