@@ -294,6 +294,8 @@ void Client::showBCAMimage(int row, int column) {
 
 
 void Client::updateResults(std::map<QString, Result> &results) {
+    this->results = results;
+
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
         QString prism = ui->tableWidget_results->item(row, 0)->text();
 
