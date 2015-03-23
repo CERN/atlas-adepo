@@ -12,7 +12,7 @@ void Server::calculateResults() {
     //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
     QString premier_prisme_atlas = data.getGlobalCoordPrisms().at(0).getName();
 
-    std::map<QString, Result> results;
+    std::map<QString, Result> results = reference.getResults();
 
     for(unsigned int i=0; i<data.getGlobalCoordPrisms().size(); i++)
     {
@@ -25,7 +25,7 @@ void Server::calculateResults() {
         //nomenclature dans le repere ATLAS
         QString name_prism_atlas = config.getName(prism.getPrism().getName());
 
-        Result result = reference.getResults()[name_prism_atlas];
+        Result result = results[name_prism_atlas];
         result.setName(name_prism_atlas);
         result.setTime(now);
 
