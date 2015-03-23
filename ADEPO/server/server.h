@@ -87,7 +87,6 @@ private:
     Calibration calibration;
     Data data;
     Reference reference;
-    std::map<QString, Result> results;
     QString resultFile;
 };
 

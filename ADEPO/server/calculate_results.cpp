@@ -81,5 +81,7 @@ void Server::calculateResults() {
         result.setValue(Point3d(mean(0,0) + dx, mean(0,1) + dy, mean(0,2) + dz));
 
         results[name_prism_atlas] = result;
+
+        qDebug() << now << " " << results[name_prism_atlas].getTime();
     }
 }
