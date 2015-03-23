@@ -46,11 +46,11 @@ int Reference::write() {
 
     file.close();
 
-    this->filename = filename;
     return 1;
 }
 
 int Reference::read(QString filename) {
+
     std::ifstream file(filename.toStdString().c_str(), std::ios::in);
     if(!file) {
         qWarning() << "Cannot read reference file " << filename;

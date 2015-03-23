@@ -297,20 +297,19 @@ void Client::updateResults(std::map<QString, Result> &results) {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
         QString prism = ui->tableWidget_results->item(row, 0)->text();
 
-        Result& r = results[prism];
-
-        setResult(row, r);
+        setResult(row, results[prism]);
     }
     ui->tableWidget_results->resizeColumnsToContents();
-
-    display(ui->refFileLabel, ui->refFile, refFile);
 }
 
 
 
 void Client::setResult(int row, Result &result) {
+    QTableWidgetItem *time = new QTableWidgetItem(result.getTime());
+    ui->tableWidget_results->setItem(row, 3, time);
+
     QTableWidgetItem *n = new QTableWidgetItem(QString::number(result.getN()));
-    ui->tableWidget_results->setItem(row, 3, n);
+    ui->tableWidget_results->setItem(row, 4, n);
 
     if (ui->fullPrecision->isChecked()) {
         setResult(row, Point3d(result.getValue(), 1000), 0, 8);
@@ -324,7 +323,7 @@ void Client::setResult(int row, Result &result) {
 }
 
 void Client::setResult(int row, Point3d point, int columnSet, int precision) {
-    int firstColumn = 4;
+    int firstColumn = 5;
 
     if (point.isValid()) {
         QTableWidgetItem *x = new FloatTableWidgetItem(QString::number(point.x(), 'f', precision));

@@ -29,9 +29,8 @@ SocketClient::SocketClient(Callback& callback, const QUrl &url, QObject *parent)
 
 void SocketClient::onConnected()
 {
-    qDebug() << "WebSocket connected";
+    qDebug() << "CLIENT WebSocket connected";
     connect(&webSocket, &QWebSocket::textMessageReceived, this, &SocketClient::onTextMessageReceived);
-//    webSocket.sendTextMessage(QStringLiteral("Hello, world!"))
 
     updateAll();
 }
@@ -50,7 +49,7 @@ void SocketClient::reconnect() {
 
 void SocketClient::onTextMessageReceived(QString message)
 {
-//    qDebug() << "Message received:" << message;
+//    qDebug() << "CLIENT Message received:" << message;
     QJsonDocument doc(QJsonDocument::fromJson(message.toUtf8()));
     QJsonObject json = doc.object();
     QString version = json["jsonrpc"].toString();
@@ -78,7 +77,7 @@ void SocketClient::onTextMessageReceived(QString message)
         QJsonArray params = json["params"].toArray();
         callback.changedResultFile(params[0].toString());
     } else {
-        std::cerr << "Unimplemented client rpc method: " << method.toStdString() << std::endl;
+        qWarning() << "CLIENT Unimplemented client rpc method: " << method;
     }
 }
 

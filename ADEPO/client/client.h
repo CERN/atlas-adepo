@@ -69,7 +69,6 @@ private:
     std::map<QString, Result> results;
     int selectedBCAM;
 
-    QString refFile;
     QLabel adepoStatus;
     QLabel lwdaqStatus;
 
