@@ -27,6 +27,7 @@ void Server::calculateResults() {
 
         Result result = reference.getResults()[name_prism_atlas];
         result.setName(name_prism_atlas);
+        qDebug() << "Time: " << now;
         result.setTime(now);
 
         Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
