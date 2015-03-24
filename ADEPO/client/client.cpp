@@ -90,8 +90,8 @@ void Client::setEnabled() {
     ui->stop->setEnabled(canStop && run.getMode() == MODE_CLOSURE);
     ui->monitoringStop->setEnabled(canStop && run.getMode() == MODE_MONITORING);
 
-    ui->reset->setEnabled(canStart);
-
+    ui->reset->setEnabled(enabled);
+    ui->fullPrecision->setEnabled(enabled);
     ui->tableWidget_liste_detectors->setEnabled(enabled);
     ui->mode->setEnabled(enabled);
     ui->airpad->setEnabled(enabled);
