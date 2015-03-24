@@ -25,7 +25,7 @@ void Server::calculateResults() {
         //nomenclature dans le repere ATLAS
         QString name_prism_atlas = config.getName(prism.getPrism().getName());
 
-        Result result = results[name_prism_atlas];
+        Result& result = results[name_prism_atlas];
         result.setName(name_prism_atlas);
         result.setTime(now);
 
