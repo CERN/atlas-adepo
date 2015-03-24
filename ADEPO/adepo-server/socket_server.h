@@ -29,8 +29,8 @@ public:
     void changedConfigurationFile(QString filename);
     void changedCalibrationFile(QString filename);
     void changedReferenceFile(QString filename);
+    void changedOutputFile(QString filename);
     void changedResultFile(QString filename);
-    void changedResults(std::map<QString, Result> results);
 
 Q_SIGNALS:
     void closed();

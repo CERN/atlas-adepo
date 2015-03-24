@@ -16,6 +16,7 @@
 #include "callback.h"
 #include "configuration.h"
 #include "run.h"
+#include "reference.h"
 
 #include "result.h"
 #include "util.h"
@@ -40,6 +41,7 @@ public:
     void changedConfigurationFile(QString filename);
     void changedCalibrationFile(QString filename);
     void changedReferenceFile(QString filename);
+    void changedOutputFile(QString filename);
     void changedResultFile(QString filename);
     void changedResults(std::map<QString, Result> results);
 
@@ -53,7 +55,7 @@ private slots:
     void changedAirpad(int index) { run.setAirpad(index == 1); ; call->updateRunFile(); }
     void changedAcquisitionTimeValue(int value) { run.setAcquisitionTime(value); ; call->updateRunFile(); }
     void changedWaitingTimeValue(int value) { run.setWaitingTime(value); call->updateRunFile(); }
-    void changedFormat(int state) { run.setFullPrecisionFormat(state); ; call->updateRunFile(); updateResults(results); }
+    void changedFormat(int state) { run.setFullPrecisionFormat(state); ; call->updateRunFile(); updateResults(); }
     void resetDelta();
     void startClosure();
     void startMonitoring();
@@ -64,9 +66,10 @@ private:
 
     Run run;
     Configuration config;
+    Reference reference;
+    Reference output;
 
     Ui::Client *ui;
-    std::map<QString, Result> results;
     int selectedBCAM;
 
     QLabel adepoStatus;
@@ -79,9 +82,9 @@ private:
 
     void fillDetectorTable();
     void fillBCAMandResultTable();
-    void setResult(int row, Result& result);
+    void setResult(int row, Result& result, Result &offset);
     void setResult(int row, Point3d point, int columnSet, int precision);
-    void updateResults(std::map<QString, Result> &results);
+    void updateResults();
     void setEnabled();
     void display(QLabel* label, QTextBrowser* textEdit, QString filename);
 };

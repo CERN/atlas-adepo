@@ -66,6 +66,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
     // read reference file
     reference.read(Util::workPath().append(REFERENCE_FILE));
+    output.read(Util::workPath().append(OUTPUT_FILE));
 
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
 
@@ -195,10 +196,10 @@ void Server::calculateCoordinates()
    mountPrismToGlobalPrism();
 
    calculateResults();
-   reference.write();
+   output.write();
 
-   qDebug() << "Updating Results...";
-   callback.changedResults(reference.getResults());
+   qDebug() << "Updating Output...";
+   callback.changedOutputFile(output.getFilename());
 
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
    QDir(".").mkpath(Util::workPath().append("/Archive"));

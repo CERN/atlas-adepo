@@ -8,6 +8,7 @@
 #include "result.h"
 
 #define REFERENCE_FILE "reference_file.txt"
+#define OUTPUT_FILE "output_file.txt"
 
 class Reference
 {
@@ -19,7 +20,8 @@ public:
     int read(QString fileName);
 
     QString getFilename() const { return filename; }
-    std::map<QString, Result>& getResults() { return results; }
+    Result& getResult(QString prism) { return results[prism]; }
+    void setResult(QString prism, Result& result) { results[prism] = result; }
 
 private:
     QString filename;

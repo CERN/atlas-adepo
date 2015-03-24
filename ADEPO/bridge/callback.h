@@ -21,8 +21,8 @@ public:
     virtual void changedConfigurationFile(QString filename) = 0;
     virtual void changedCalibrationFile(QString filename) = 0;
     virtual void changedReferenceFile(QString filename) = 0;
+    virtual void changedOutputFile(QString filename) = 0;
     virtual void changedResultFile(QString filename) = 0;
-    virtual void changedResults(std::map<QString, Result> results) = 0;
 };
 
 #endif // CALLBACK_H

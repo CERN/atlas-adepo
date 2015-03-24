@@ -12,8 +12,6 @@ void Server::calculateResults() {
     //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
     QString premier_prisme_atlas = data.getGlobalCoordPrisms().at(0).getName();
 
-    std::map<QString, Result>& results = reference.getResults();
-
     for(unsigned int i=0; i<data.getGlobalCoordPrisms().size(); i++)
     {
         if(i>0 && data.getGlobalCoordPrisms().at(i).getName() == premier_prisme_atlas) {
@@ -25,8 +23,7 @@ void Server::calculateResults() {
         //nomenclature dans le repere ATLAS
         QString name_prism_atlas = config.getName(prism.getPrism().getName());
 
-        Result& result = results[name_prism_atlas];
-        result.setName(name_prism_atlas);
+        Result& result = output.getResult(name_prism_atlas);
         result.setTime(now);
 
         Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
@@ -79,9 +76,5 @@ void Server::calculateResults() {
         }
 
         result.setValue(Point3d(mean(0,0) + dx, mean(0,1) + dy, mean(0,2) + dz));
-
-        //results[name_prism_atlas] = result;
-
-        qDebug() << now << " " << result.getTime() << " " << results[name_prism_atlas].getTime();
     }
 }

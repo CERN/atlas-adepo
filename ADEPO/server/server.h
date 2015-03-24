@@ -43,6 +43,7 @@ public:
     void updateConfigurationFile();
     void updateCalibrationFile();
     void updateReferenceFile();
+    void updateOutputFile();
     void resetDelta();
 
     void updateAll();
@@ -87,6 +88,7 @@ private:
     Calibration calibration;
     Data data;
     Reference reference;
+    Reference output;
     QString resultFile;
 };
 

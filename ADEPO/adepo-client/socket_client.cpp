@@ -69,10 +69,9 @@ void SocketClient::onTextMessageReceived(QString message)
     } else if (method == "changedReferenceFile") {
         QJsonArray params = json["params"].toArray();
         callback.changedReferenceFile(params[0].toString());
-    } else if (method == "changedResults") {
+    } else if (method == "changedOutputFile") {
         QJsonArray params = json["params"].toArray();
-        Result t;
-        callback.changedResults(JsonUtil::fromJsonObject(params[0].toObject(), t));
+        callback.changedOutputFile(params[0].toString());
     } else if (method == "changedResultFile") {
         QJsonArray params = json["params"].toArray();
         callback.changedResultFile(params[0].toString());
@@ -103,6 +102,11 @@ void SocketClient::updateConfigurationFile() {
 
 void SocketClient::updateReferenceFile() {
     JsonRpc rpc("updateReferenceFile");
+    sendJson(rpc);
+}
+
+void SocketClient::updateOutputFile() {
+    JsonRpc rpc("updateOutputFile");
     sendJson(rpc);
 }
 

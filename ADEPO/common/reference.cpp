@@ -21,7 +21,6 @@ int Reference::write() {
         Result& result = i->second;
         Point3d value = result.getValue();
         Point3d std = result.getStd();
-        Point3d offset = result.getOffset();
 
         QString datetime = result.getTime();
 
@@ -36,11 +35,7 @@ int Reference::write() {
              << std::setw(14) << std.x() << " "
              << std::setw(14) << std.y() << " "
              << std::setw(14) << std.z() << " "
-             << std::setw(2) << std.isValid() << " "
-             << std::setw(14) << offset.x() << " "
-             << std::setw(14) << offset.y() << " "
-             << std::setw(14) << offset.z() << " "
-             << std::setw(2) << offset.isValid()
+             << std::setw(2) << std.isValid()
              << std::endl;
     }
 
@@ -82,21 +77,19 @@ int Reference::read(QString filename) {
             z = strtok( NULL, " " );
             valid = strtok( NULL, " " );
             Point3d std(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
-            // offset
-            x = strtok( NULL, " " );
-            y = strtok( NULL, " " );
-            z = strtok( NULL, " " );
-            valid = strtok( NULL, " " );
-            Point3d offset(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
+            // offset, ignored in future versions
+//            x = strtok( NULL, " " );
+//            y = strtok( NULL, " " );
+//            z = strtok( NULL, " " );
+//            valid = strtok( NULL, " " );
+//            Point3d offset(!strncmp(valid, "1", 1), atof(x),atof(y),atof(z));
 
             // get it and put it back
             Result r = results[name];
-            r.setName(name);
             r.setTime(dateTime);
             r.setN(atoi(n));
             r.setValue(value);
             r.setStd(std);
-            r.setOffset(offset);
             results[name] = r;
         }
     }

@@ -231,7 +231,8 @@ void Client::fillBCAMandResultTable()
 
         // Result Table
         QString prismName = config.getName(prism.getName());
-        Result& result = results[prismName];
+        Result& result = output.getResult(prismName);
+        Result& offset = reference.getResult(prismName);
 
         QTableWidgetItem *name = new QTableWidgetItem();
         name->setText(prismName);
@@ -245,7 +246,7 @@ void Client::fillBCAMandResultTable()
         prismCell->setText(prism.getName());
         ui->tableWidget_results->setItem(row, 2, prismCell);
 
-        setResult(row, result);
+        setResult(row, result, offset);
         row++;
     }
 
@@ -295,35 +296,28 @@ void Client::showBCAMimage(int row, int column) {
 }
 
 
-void Client::updateResults(std::map<QString, Result> &results) {
-    this->results = results;
-
+void Client::updateResults() {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
         QString prism = ui->tableWidget_results->item(row, 0)->text();
 
-        setResult(row, results[prism]);
+        setResult(row, output.getResult(prism), reference.getResult(prism));
     }
     ui->tableWidget_results->resizeColumnsToContents();
 }
 
 
 
-void Client::setResult(int row, Result &result) {
+void Client::setResult(int row, Result &result, Result &offset) {
     QTableWidgetItem *time = new QTableWidgetItem(result.getTime());
     ui->tableWidget_results->setItem(row, 3, time);
 
     QTableWidgetItem *n = new QTableWidgetItem(QString::number(result.getN()));
     ui->tableWidget_results->setItem(row, 4, n);
 
-    if (ui->fullPrecision->isChecked()) {
-        setResult(row, Point3d(result.getValue(), 1000), 0, 8);
-        setResult(row, Point3d(result.getStd(), 1000), 1, 8);
-        setResult(row, Point3d(Point3d(result.getValue(), result.getOffset()), 1000), 2, 8);
-    } else {
-        setResult(row, Point3d(result.getValue(), 1000), 0, 3);
-        setResult(row, Point3d(result.getStd(), 1000), 1, 3);
-        setResult(row, Point3d(Point3d(result.getValue(), result.getOffset()), 1000), 2, 3);
-    }
+    int precision = ui->fullPrecision->isChecked() ? 8 : 3;
+    setResult(row, Point3d(result.getValue(), 1000), 0, precision);
+    setResult(row, Point3d(result.getStd(), 1000), 1, precision);
+    setResult(row, Point3d(Point3d(result.getValue(), offset.getValue()), 1000), 2, precision);
 }
 
 void Client::setResult(int row, Point3d point, int columnSet, int precision) {

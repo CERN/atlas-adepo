@@ -61,7 +61,9 @@ void Client::changedConfigurationFile(QString filename) {
     config.read(filename);
     fillDetectorTable();
 
-    changedRunFile(run.getFileName());
+    if (run.getFileName() != "") {
+        changedRunFile(run.getFileName());
+    }
 }
 
 void Client::changedCalibrationFile(QString filename) {
@@ -69,15 +71,19 @@ void Client::changedCalibrationFile(QString filename) {
 }
 
 void Client::changedReferenceFile(QString filename) {
+    reference.read(filename);
+
+    updateResults();
+
     display(ui->refFileLabel, ui->refFile, filename);
+}
+
+void Client::changedOutputFile(QString filename) {
+    output.read(filename);
+
+    updateResults();
 }
 
 void Client::changedResultFile(QString filename) {
     display(ui->resultFileLabel, ui->resultFile, filename);
-}
-
-void Client::changedResults(std::map<QString, Result> results) {
-    qDebug() << "CLIENT changedResults";
-
-    updateResults(results);
 }

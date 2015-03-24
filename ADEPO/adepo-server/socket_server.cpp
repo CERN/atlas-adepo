@@ -61,6 +61,8 @@ void SocketServer::processBinaryMessage(QByteArray message)
         call->updateConfigurationFile();
     } else if (method == "updateReferenceFile") {
         call->updateReferenceFile();
+    } else if (method == "updateOutputFile") {
+        call->updateOutputFile();
     } else if (method == "resetDelta") {
         call->resetDelta();
     } else if (method == "updateAll") {
@@ -114,15 +116,15 @@ void SocketServer::changedReferenceFile(QString filename) {
     sendJson(rpc);
 }
 
-void SocketServer::changedResultFile(QString filename) {
-    JsonRpc rpc("changedResultFile");
+void SocketServer::changedOutputFile(QString filename) {
+    JsonRpc rpc("changedOutputFile");
     rpc.append(filename);
     sendJson(rpc);
 }
 
-void SocketServer::changedResults(std::map<QString, Result> results) {
-    JsonRpc rpc("changedResults");
-    rpc.append(JsonUtil::toJsonObject(results));
+void SocketServer::changedResultFile(QString filename) {
+    JsonRpc rpc("changedResultFile");
+    rpc.append(filename);
     sendJson(rpc);
 }
 
