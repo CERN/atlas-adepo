@@ -803,6 +803,7 @@ main.o: ../../ADEPO/adepo-client/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -816,6 +817,8 @@ main.o: ../../ADEPO/adepo-client/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/results.h \
+		../../../../Qt5.4.1/include/QtCore/QFile \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../ADEPO/adepo-client/socket_client.h \
@@ -956,7 +959,10 @@ socket_client.o: ../../ADEPO/adepo-client/socket_client.cpp ../../../../Qt5.4.1/
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/point3d.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/json_util.h
+		../../ADEPO/common/json_util.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_client.o ../../ADEPO/adepo-client/socket_client.cpp
 
 ####### Install

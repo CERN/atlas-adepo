@@ -782,6 +782,7 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtCore/qregexp.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
 		../../ADEPO/common/calib1.h \
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
@@ -789,6 +790,8 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -802,11 +805,11 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
-		../../ADEPO/common/result.h \
-		../../ADEPO/common/run.h \
+		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -828,7 +831,6 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtCore/qvariant.h \
 		../../../../Qt5.4.1/include/QtCore/qmap.h \
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
 		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
@@ -954,7 +956,6 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtNetwork/qssl.h \
 		../../../../Qt5.4.1/include/QtCore/QFlags \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookie.h \
-		../../../../Qt5.4.1/include/QtCore/QList \
 		../../../../Qt5.4.1/include/QtCore/QMetaType \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookiejar.h \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkdiskcache.h \
@@ -1428,10 +1429,9 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h \
 		../../ADEPO/server/adepo.h \
 		../../ADEPO/common/configuration.h \
-		../../ADEPO/common/detector.h \
-		../../../../Qt5.4.1/include/QtCore/QString \
-		../../../../Qt5.4.1/include/QtCore/qstring.h \
-		../../../../Qt5.4.1/include/QtCore/qchar.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
+		../../../../Qt5.4.1/include/QtCore/qlist.h \
+		../../../../Qt5.4.1/include/QtCore/qalgorithms.h \
 		../../../../Qt5.4.1/include/QtCore/qglobal.h \
 		../../../../Qt5.4.1/include/QtCore/qconfig.h \
 		../../../../Qt5.4.1/include/QtCore/qfeatures.h \
@@ -1460,31 +1460,35 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../../../Qt5.4.1/include/QtCore/qglobalstatic.h \
 		../../../../Qt5.4.1/include/QtCore/qmutex.h \
 		../../../../Qt5.4.1/include/QtCore/qnumeric.h \
-		../../../../Qt5.4.1/include/QtCore/qbytearray.h \
+		../../../../Qt5.4.1/include/QtCore/qiterator.h \
 		../../../../Qt5.4.1/include/QtCore/qrefcount.h \
-		../../../../Qt5.4.1/include/QtCore/qnamespace.h \
 		../../../../Qt5.4.1/include/QtCore/qarraydata.h \
+		../../../../Qt5.4.1/include/QtCore/qbytearraylist.h \
+		../../../../Qt5.4.1/include/QtCore/qbytearray.h \
+		../../../../Qt5.4.1/include/QtCore/qnamespace.h \
+		../../../../Qt5.4.1/include/QtCore/qstring.h \
+		../../../../Qt5.4.1/include/QtCore/qchar.h \
 		../../../../Qt5.4.1/include/QtCore/qstringbuilder.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/qhash.h \
+		../../../../Qt5.4.1/include/QtCore/qpair.h \
+		../../ADEPO/common/detector.h \
+		../../../../Qt5.4.1/include/QtCore/QString \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
 		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
-		../../../../Qt5.4.1/include/QtCore/qiterator.h \
-		../../../../Qt5.4.1/include/QtCore/qpair.h \
 		../../ADEPO/common/bcam_config.h \
 		../../ADEPO/common/prism.h \
 		../../../../Qt5.4.1/include/QtCore/QStringList \
 		../../../../Qt5.4.1/include/QtCore/qstringlist.h \
-		../../../../Qt5.4.1/include/QtCore/qalgorithms.h \
 		../../../../Qt5.4.1/include/QtCore/qdatastream.h \
 		../../../../Qt5.4.1/include/QtCore/qscopedpointer.h \
 		../../../../Qt5.4.1/include/QtCore/qiodevice.h \
 		../../../../Qt5.4.1/include/QtCore/qobject.h \
 		../../../../Qt5.4.1/include/QtCore/qobjectdefs.h \
 		../../../../Qt5.4.1/include/QtCore/qobjectdefs_impl.h \
-		../../../../Qt5.4.1/include/QtCore/qlist.h \
-		../../../../Qt5.4.1/include/QtCore/qbytearraylist.h \
 		../../../../Qt5.4.1/include/QtCore/qcoreevent.h \
 		../../../../Qt5.4.1/include/QtCore/qmetatype.h \
 		../../../../Qt5.4.1/include/QtCore/qvarlengtharray.h \
@@ -1515,11 +1519,11 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
-		../../ADEPO/common/result.h \
-		../../ADEPO/common/run.h \
+		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -1541,7 +1545,6 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../../../Qt5.4.1/include/QtCore/qvariant.h \
 		../../../../Qt5.4.1/include/QtCore/qmap.h \
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
 		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
@@ -1667,7 +1670,6 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../../../Qt5.4.1/include/QtNetwork/qssl.h \
 		../../../../Qt5.4.1/include/QtCore/QFlags \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookie.h \
-		../../../../Qt5.4.1/include/QtCore/QList \
 		../../../../Qt5.4.1/include/QtCore/QMetaType \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookiejar.h \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkdiskcache.h \
@@ -1769,6 +1771,7 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../ADEPO/common/prism.h \
 		../../../../Qt5.4.1/include/QtCore/QStringList \
 		../../ADEPO/common/calibration.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
 		../../ADEPO/common/calib1.h \
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
@@ -1776,6 +1779,7 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -1789,11 +1793,11 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
-		../../ADEPO/common/result.h \
-		../../ADEPO/common/run.h \
+		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -1937,7 +1941,6 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../../../Qt5.4.1/include/QtNetwork/qssl.h \
 		../../../../Qt5.4.1/include/QtCore/QFlags \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookie.h \
-		../../../../Qt5.4.1/include/QtCore/QList \
 		../../../../Qt5.4.1/include/QtCore/QMetaType \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookiejar.h \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkdiskcache.h \
@@ -2166,6 +2169,7 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/qregexp.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
 		../../ADEPO/common/calib1.h \
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
@@ -2173,6 +2177,8 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -2186,11 +2192,11 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
-		../../ADEPO/common/result.h \
-		../../ADEPO/common/run.h \
+		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -2212,7 +2218,6 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/qvariant.h \
 		../../../../Qt5.4.1/include/QtCore/qmap.h \
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
 		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
@@ -2338,7 +2343,6 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtNetwork/qssl.h \
 		../../../../Qt5.4.1/include/QtCore/QFlags \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookie.h \
-		../../../../Qt5.4.1/include/QtCore/QList \
 		../../../../Qt5.4.1/include/QtCore/QMetaType \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookiejar.h \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkdiskcache.h \
@@ -2436,6 +2440,7 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qregexp.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
 		../../ADEPO/common/calib1.h \
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
@@ -2443,6 +2448,8 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -2456,11 +2463,11 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
-		../../ADEPO/common/result.h \
-		../../ADEPO/common/run.h \
+		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -2482,7 +2489,6 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qvariant.h \
 		../../../../Qt5.4.1/include/QtCore/qmap.h \
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
 		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
@@ -2608,7 +2614,6 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtNetwork/qssl.h \
 		../../../../Qt5.4.1/include/QtCore/QFlags \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookie.h \
-		../../../../Qt5.4.1/include/QtCore/QList \
 		../../../../Qt5.4.1/include/QtCore/QMetaType \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookiejar.h \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkdiskcache.h \
@@ -2704,6 +2709,7 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../../../Qt5.4.1/include/QtCore/qregexp.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
 		../../ADEPO/common/calib1.h \
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
@@ -2711,6 +2717,8 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -2724,11 +2732,11 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
-		../../ADEPO/common/result.h \
-		../../ADEPO/common/run.h \
+		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -2750,7 +2758,6 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../../../Qt5.4.1/include/QtCore/qvariant.h \
 		../../../../Qt5.4.1/include/QtCore/qmap.h \
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
 		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
@@ -2876,7 +2883,6 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../../../Qt5.4.1/include/QtNetwork/qssl.h \
 		../../../../Qt5.4.1/include/QtCore/QFlags \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookie.h \
-		../../../../Qt5.4.1/include/QtCore/QList \
 		../../../../Qt5.4.1/include/QtCore/QMetaType \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookiejar.h \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkdiskcache.h \
@@ -2972,6 +2978,7 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qregexp.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
 		../../ADEPO/common/calib1.h \
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
@@ -2979,6 +2986,8 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -2992,11 +3001,11 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
-		../../ADEPO/common/result.h \
-		../../ADEPO/common/run.h \
+		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -3018,7 +3027,6 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qvariant.h \
 		../../../../Qt5.4.1/include/QtCore/qmap.h \
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
 		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
@@ -3144,7 +3152,6 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtNetwork/qssl.h \
 		../../../../Qt5.4.1/include/QtCore/QFlags \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookie.h \
-		../../../../Qt5.4.1/include/QtCore/QList \
 		../../../../Qt5.4.1/include/QtCore/QMetaType \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookiejar.h \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkdiskcache.h \
@@ -3242,6 +3249,7 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qregexp.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
 		../../ADEPO/common/calib1.h \
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
@@ -3249,6 +3257,8 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -3262,11 +3272,11 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
-		../../ADEPO/common/result.h \
-		../../ADEPO/common/run.h \
+		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -3288,7 +3298,6 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qvariant.h \
 		../../../../Qt5.4.1/include/QtCore/qmap.h \
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
 		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
@@ -3414,7 +3423,6 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtNetwork/qssl.h \
 		../../../../Qt5.4.1/include/QtCore/QFlags \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookie.h \
-		../../../../Qt5.4.1/include/QtCore/QList \
 		../../../../Qt5.4.1/include/QtCore/QMetaType \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookiejar.h \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkdiskcache.h \
@@ -3510,6 +3518,7 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qregexp.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
 		../../ADEPO/common/calibration.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
 		../../ADEPO/common/calib1.h \
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
@@ -3517,6 +3526,8 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/calib2.h \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -3530,11 +3541,11 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
-		../../ADEPO/common/result.h \
-		../../ADEPO/common/run.h \
+		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
+		../../ADEPO/common/result.h \
+		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
@@ -3556,7 +3567,6 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qvariant.h \
 		../../../../Qt5.4.1/include/QtCore/qmap.h \
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qhash.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
 		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
@@ -3682,7 +3692,6 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtNetwork/qssl.h \
 		../../../../Qt5.4.1/include/QtCore/QFlags \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookie.h \
-		../../../../Qt5.4.1/include/QtCore/QList \
 		../../../../Qt5.4.1/include/QtCore/QMetaType \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkcookiejar.h \
 		../../../../Qt5.4.1/include/QtNetwork/qnetworkdiskcache.h \

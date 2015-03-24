@@ -592,6 +592,8 @@ moc_client.cpp: ../../../../Qt5.4.1/include/QtWidgets/QMainWindow \
 		../../../../Qt5.4.1/include/QtCore/qjsonobject.h \
 		../../../../Qt5.4.1/include/QtCore/qjsonvalue.h \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
+		../../../../Qt5.4.1/include/QtCore/QHash \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -608,6 +610,8 @@ moc_client.cpp: ../../../../Qt5.4.1/include/QtWidgets/QMainWindow \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/results.h \
+		../../../../Qt5.4.1/include/QtCore/QFile \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
@@ -786,6 +790,8 @@ client.o: ../../ADEPO/client/client.cpp ../../../../Qt5.4.1/include/QtGui/QPixma
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
+		../../../../Qt5.4.1/include/QtCore/QHash \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -802,65 +808,11 @@ client.o: ../../ADEPO/client/client.cpp ../../../../Qt5.4.1/include/QtGui/QPixma
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/results.h \
+		../../../../Qt5.4.1/include/QtCore/QFile \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		ui_client.h \
-		../../../../Qt5.4.1/include/QtCore/QVariant \
-		../../../../Qt5.4.1/include/QtWidgets/QAction \
-		../../../../Qt5.4.1/include/QtWidgets/qaction.h \
-		../../../../Qt5.4.1/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.4.1/include/QtWidgets/QApplication \
-		../../../../Qt5.4.1/include/QtWidgets/qapplication.h \
-		../../../../Qt5.4.1/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.4.1/include/QtGui/qguiapplication.h \
-		../../../../Qt5.4.1/include/QtGui/qinputmethod.h \
-		../../../../Qt5.4.1/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.4.1/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.4.1/include/QtWidgets/QCheckBox \
-		../../../../Qt5.4.1/include/QtWidgets/qcheckbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt5.4.1/include/QtWidgets/QComboBox \
-		../../../../Qt5.4.1/include/QtWidgets/qcombobox.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractitemdelegate.h \
-		../../../../Qt5.4.1/include/QtWidgets/qstyleoption.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractspinbox.h \
-		../../../../Qt5.4.1/include/QtGui/qvalidator.h \
-		../../../../Qt5.4.1/include/QtCore/qregularexpression.h \
-		../../../../Qt5.4.1/include/QtWidgets/qslider.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractslider.h \
-		../../../../Qt5.4.1/include/QtWidgets/qstyle.h \
-		../../../../Qt5.4.1/include/QtWidgets/qtabbar.h \
-		../../../../Qt5.4.1/include/QtWidgets/qrubberband.h \
-		../../../../Qt5.4.1/include/QtCore/qabstractitemmodel.h \
-		../../../../Qt5.4.1/include/QtWidgets/QFrame \
-		../../../../Qt5.4.1/include/QtWidgets/QGridLayout \
-		../../../../Qt5.4.1/include/QtWidgets/qgridlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/qlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt5.4.1/include/QtWidgets/qboxlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/QGroupBox \
-		../../../../Qt5.4.1/include/QtWidgets/qgroupbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/QHBoxLayout \
-		../../../../Qt5.4.1/include/QtWidgets/QHeaderView \
-		../../../../Qt5.4.1/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractitemview.h \
-		../../../../Qt5.4.1/include/QtCore/qitemselectionmodel.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMenu \
-		../../../../Qt5.4.1/include/QtWidgets/qmenu.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMenuBar \
-		../../../../Qt5.4.1/include/QtWidgets/qmenubar.h \
-		../../../../Qt5.4.1/include/QtWidgets/QPushButton \
-		../../../../Qt5.4.1/include/QtWidgets/qpushbutton.h \
-		../../../../Qt5.4.1/include/QtWidgets/QSpacerItem \
-		../../../../Qt5.4.1/include/QtWidgets/QSpinBox \
-		../../../../Qt5.4.1/include/QtWidgets/qspinbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/QStatusBar \
-		../../../../Qt5.4.1/include/QtWidgets/qstatusbar.h \
-		../../../../Qt5.4.1/include/QtWidgets/QTabWidget \
-		../../../../Qt5.4.1/include/QtWidgets/QTableWidget \
-		../../../../Qt5.4.1/include/QtWidgets/qtablewidget.h \
-		../../../../Qt5.4.1/include/QtWidgets/qtableview.h \
-		../../../../Qt5.4.1/include/QtWidgets/QVBoxLayout \
 		../../ADEPO/client/float_table_widget_item.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client.o ../../ADEPO/client/client.cpp
 
@@ -997,6 +949,8 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../../../Qt5.4.1/include/QtCore/QDebug \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
+		../../../../Qt5.4.1/include/QtCore/QHash \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -1013,67 +967,13 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/results.h \
+		../../../../Qt5.4.1/include/QtCore/QFile \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
-		ui_client.h \
-		../../../../Qt5.4.1/include/QtCore/QVariant \
-		../../../../Qt5.4.1/include/QtWidgets/QAction \
-		../../../../Qt5.4.1/include/QtWidgets/qaction.h \
-		../../../../Qt5.4.1/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.4.1/include/QtWidgets/QApplication \
-		../../../../Qt5.4.1/include/QtWidgets/qapplication.h \
-		../../../../Qt5.4.1/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.4.1/include/QtGui/qguiapplication.h \
-		../../../../Qt5.4.1/include/QtGui/qinputmethod.h \
-		../../../../Qt5.4.1/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.4.1/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.4.1/include/QtWidgets/QCheckBox \
-		../../../../Qt5.4.1/include/QtWidgets/qcheckbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt5.4.1/include/QtWidgets/QComboBox \
-		../../../../Qt5.4.1/include/QtWidgets/qcombobox.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractitemdelegate.h \
-		../../../../Qt5.4.1/include/QtWidgets/qstyleoption.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractspinbox.h \
-		../../../../Qt5.4.1/include/QtGui/qvalidator.h \
-		../../../../Qt5.4.1/include/QtCore/qregularexpression.h \
-		../../../../Qt5.4.1/include/QtWidgets/qslider.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractslider.h \
-		../../../../Qt5.4.1/include/QtWidgets/qstyle.h \
-		../../../../Qt5.4.1/include/QtWidgets/qtabbar.h \
-		../../../../Qt5.4.1/include/QtWidgets/qrubberband.h \
-		../../../../Qt5.4.1/include/QtCore/qabstractitemmodel.h \
-		../../../../Qt5.4.1/include/QtWidgets/QFrame \
-		../../../../Qt5.4.1/include/QtWidgets/QGridLayout \
-		../../../../Qt5.4.1/include/QtWidgets/qgridlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/qlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt5.4.1/include/QtWidgets/qboxlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/QGroupBox \
-		../../../../Qt5.4.1/include/QtWidgets/qgroupbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/QHBoxLayout \
-		../../../../Qt5.4.1/include/QtWidgets/QHeaderView \
-		../../../../Qt5.4.1/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractitemview.h \
-		../../../../Qt5.4.1/include/QtCore/qitemselectionmodel.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMenu \
-		../../../../Qt5.4.1/include/QtWidgets/qmenu.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMenuBar \
-		../../../../Qt5.4.1/include/QtWidgets/qmenubar.h \
-		../../../../Qt5.4.1/include/QtWidgets/QPushButton \
-		../../../../Qt5.4.1/include/QtWidgets/qpushbutton.h \
-		../../../../Qt5.4.1/include/QtWidgets/QSpacerItem \
-		../../../../Qt5.4.1/include/QtWidgets/QSpinBox \
-		../../../../Qt5.4.1/include/QtWidgets/qspinbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/QStatusBar \
-		../../../../Qt5.4.1/include/QtWidgets/qstatusbar.h \
-		../../../../Qt5.4.1/include/QtWidgets/QTabWidget \
-		../../../../Qt5.4.1/include/QtWidgets/QTableWidget \
-		../../../../Qt5.4.1/include/QtWidgets/qtablewidget.h \
-		../../../../Qt5.4.1/include/QtWidgets/qtableview.h \
-		../../../../Qt5.4.1/include/QtWidgets/QVBoxLayout
+		ui_client.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client_callback.o ../../ADEPO/client/client_callback.cpp
 
 moc_client.o: moc_client.cpp 

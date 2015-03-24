@@ -796,6 +796,7 @@ main.o: ../../ADEPO/adepo-direct/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../ADEPO/common/point3d.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonObject \
 		../../ADEPO/common/configuration.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -809,10 +810,11 @@ main.o: ../../ADEPO/adepo-direct/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/results.h \
+		../../../../Qt5.4.1/include/QtCore/QFile \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../ADEPO/server/server.h \
-		../../../../Qt5.4.1/include/QtCore/QFile \
 		../../../../Qt5.4.1/include/QtCore/QTimer \
 		../../ADEPO/common/calibration.h \
 		../../ADEPO/common/calib1.h \
@@ -824,7 +826,6 @@ main.o: ../../ADEPO/adepo-direct/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
