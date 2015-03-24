@@ -67,10 +67,12 @@ public:
 
     void write(QJsonObject &json) const {
         json["time"] = dateTime;
-        QJsonObject v = json["value"].toObject();
+        QJsonObject v;
         value.write(v);
-        QJsonObject s = json["std"].toObject();
+        json["value"] = v;
+        QJsonObject s;
         std.write(s);
+        json["std"] = s;
         json["n"] = n;
     }
 
