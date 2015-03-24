@@ -4,6 +4,8 @@
 #include <QtCore/QCoreApplication>
 #include <QString>
 
+#define DATE_FORMAT "yyyy-MMM-d H:mm"
+
 class Util
 {
 public:

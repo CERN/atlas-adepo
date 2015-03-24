@@ -102,7 +102,7 @@ void Client::setEnabled() {
 void Client::display(QLabel *label, QTextBrowser *browser, QString filename) {
     QFileInfo info = QFileInfo(filename);
 
-    label->setText(filename + " - " + info.lastModified().toString());
+    label->setText(filename + " - " + info.lastModified().toString(DATE_FORMAT));
     browser->setReadOnly(true);
 
     std::ifstream file((char*)filename.toStdString().c_str(), std::ios::in);
@@ -306,7 +306,7 @@ void Client::updateResults() {
 
 
 void Client::setResult(int row, Result &result, Result &offset) {
-    QTableWidgetItem *time = new QTableWidgetItem(result.getTime().toString("yyyy-MMM-dd H:mm:ss"));
+    QTableWidgetItem *time = new QTableWidgetItem(result.getTime().toString(DATE_FORMAT));
     ui->tableWidget_results->setItem(row, 3, time);
 
     QTableWidgetItem *n = new QTableWidgetItem(QString::number(result.getN()));

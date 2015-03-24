@@ -8,8 +8,6 @@
 #include <QJsonObject>
 #include <QDateTime>
 
-#define DATE_FORMAT ""
-
 class Result
 {
 public:
