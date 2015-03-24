@@ -2,7 +2,6 @@
 #define MOUNT_COORD_PRISM_H
 
 #include <iostream>
-#include "vector"
 #include "point3d.h"
 #include "bcam.h"
 

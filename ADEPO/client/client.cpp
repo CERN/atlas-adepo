@@ -128,7 +128,7 @@ void Client::fillDetectorTable()
     qDebug() << "CLIENT Fill Detector Table";
 
     //recuperation de la liste des nom des detecteurs
-    std::vector<Detector> detectors_data = config.getDetectors();
+    QList<Detector> detectors_data = config.getDetectors();
 
     // nombre de lignes du tableau de detecteurs dans l'interface
     int nb_lignes = detectors_data.size();
@@ -158,14 +158,14 @@ void Client::selectDetectorRow(int row, int column) {
     Q_UNUSED(column);
 
     int id = ui->tableWidget_liste_detectors->item(row, 0)->data(Qt::DisplayRole).toInt();
-    std::vector<int> selectedDetectors = run.getDetectors();
+    QList<int> selectedDetectors = run.getDetectors();
 
     // find the id
-    std::vector<int>::iterator it = std::find(selectedDetectors.begin(), selectedDetectors.end(), id);
-    if (it == selectedDetectors.end()) {
+    int index = selectedDetectors.indexOf(id);
+    if (index < 0) {
         selectedDetectors.push_back(id);
     } else {
-        selectedDetectors.erase(it);
+        selectedDetectors.removeAt(index);
     }
     run.setDetectors(selectedDetectors, config);
     call->updateRunFile();
@@ -183,7 +183,7 @@ void Client::fillBCAMandResultTable()
     ui->tableWidget_results->setRowCount(100);
 
     int row = 0;
-    for(unsigned int i=0; i<run.getBCAMs().size(); i++) {
+    for(int i=0; i<run.getBCAMs().size(); i++) {
         BCAM bcam = run.getBCAMs().at(i);
 
         //ajout dans la tableWidget qui affiche les BCAMs

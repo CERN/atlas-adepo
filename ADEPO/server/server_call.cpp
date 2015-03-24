@@ -56,7 +56,7 @@ void Server::updateOutputFile() {
 void Server::resetDelta() {
     qDebug() << "SERVER resetDelta";
 
-    for(unsigned int i=0; i<run.getBCAMs().size(); i++) {
+    for(int i=0; i<run.getBCAMs().size(); i++) {
         BCAM bcam = run.getBCAMs().at(i);
         QString prismName = config.getName(bcam.getPrism().getName());
         Result& r = output.getResult(prismName);

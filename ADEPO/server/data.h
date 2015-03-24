@@ -1,8 +1,6 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include <vector>
-#include <map>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -16,6 +14,8 @@
 
 #include <QString>
 #include <QStringList>
+#include <QHash>
+#include <QList>
 
 #include "configuration.h"
 #include "bcam.h"
@@ -36,13 +36,13 @@ public:
     virtual ~Data() {};
 
     //getter
-    std::vector<DualSpot> getDualSpots() const {return mDualSpots;}
-    std::vector<MountCoordSpots> getMountCoordSpots() const {return mMountCoordSpots;}
-    std::vector<MountCoordPrism> getMountCoordPrisms() const {return mMountCoordPrisms;}
+    QList<DualSpot> getDualSpots() const {return mDualSpots;}
+    QList<MountCoordSpots> getMountCoordSpots() const {return mMountCoordSpots;}
+    QList<MountCoordPrism> getMountCoordPrisms() const {return mMountCoordPrisms;}
     //gestion des parametres de translation et de rotation par BCAM
-    std::vector<BCAMParams> getBCAMParams() const {return mBcamParams;}
+    QList<BCAMParams> getBCAMParams() const {return mBcamParams;}
     //gestion de la liste des coordonnees du prisme dans le repre global
-    std::vector<GlobalCoordPrism> getGlobalCoordPrisms() const {return mGlobalCoordPrisms;}
+    QList<GlobalCoordPrism> getGlobalCoordPrisms() const {return mGlobalCoordPrisms;}
 
    //methodes d'ajout
     void add(DualSpot val) {mDualSpots.push_back(val);}
@@ -61,11 +61,11 @@ public:
     }
 
 private:
-    std::vector<DualSpot> mDualSpots;
-    std::vector<MountCoordSpots> mMountCoordSpots;
-    std::vector<MountCoordPrism> mMountCoordPrisms;
-    std::vector<BCAMParams> mBcamParams;
-    std::vector<GlobalCoordPrism> mGlobalCoordPrisms;
+    QList<DualSpot> mDualSpots;
+    QList<MountCoordSpots> mMountCoordSpots;
+    QList<MountCoordPrism> mMountCoordPrisms;
+    QList<BCAMParams> mBcamParams;
+    QList<GlobalCoordPrism> mGlobalCoordPrisms;
 
 };
 

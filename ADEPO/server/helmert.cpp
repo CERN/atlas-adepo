@@ -13,7 +13,7 @@
 
 void Server::helmert(Configuration& config, Data &data) {
 
-    for(unsigned int i=0; i<config.getBCAMConfigs().size(); i++) //je parcours la liste des BCAMs dont je dispose
+    for(int i=0; i<config.getBCAMConfigs().size(); i++) //je parcours la liste des BCAMs dont je dispose
     {
         //definition de 2 sous-vecteurs d'observations
         Eigen::VectorXd l_terrain(12); l_terrain.setZero();
@@ -22,7 +22,7 @@ void Server::helmert(Configuration& config, Data &data) {
         if(config.getBCAMConfigs().at(i).getName().mid(7,1) == "A" || config.getBCAMConfigs().at(i).getName().mid(7,1) == "L") //si la bcam est noire
         {
             int cmpt=0;
-            for(unsigned int j=0; j<config.getBCAMAdapters().size(); j++) //je parcours la liste des coordonnees modele
+            for(int j=0; j<config.getBCAMAdapters().size(); j++) //je parcours la liste des coordonnees modele
             {
                 if(config.getBCAMAdapters().at(j).getTypeBCAM() == "Black")
                 {
@@ -37,7 +37,7 @@ void Server::helmert(Configuration& config, Data &data) {
         if(config.getBCAMConfigs().at(i).getName().mid(7,1) == "B" || config.getBCAMConfigs().at(i).getName().mid(7,1) == "M")
         {
             int cmpt=0;
-            for(unsigned int j=0; j<config.getBCAMAdapters().size(); j++) //je parcours la liste des coordonnees modele
+            for(int j=0; j<config.getBCAMAdapters().size(); j++) //je parcours la liste des coordonnees modele
             {
                 if(config.getBCAMAdapters().at(j).getTypeBCAM() == "Blue")
                 {
@@ -52,7 +52,7 @@ void Server::helmert(Configuration& config, Data &data) {
         //std::cout<<"----------------------"<<std::endl;
         //je remplie le vecteur des mesures terrain
         int cmpt=0;
-        for(unsigned int j=0; j<config.getATLASCoordinates().size(); j++)
+        for(int j=0; j<config.getATLASCoordinates().size(); j++)
         {
             if(config.getBCAMConfigs().at(i).getName() == config.getATLASCoordinates().at(j).getBCAM())
             {

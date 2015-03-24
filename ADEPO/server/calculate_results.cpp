@@ -12,7 +12,7 @@ void Server::calculateResults() {
     //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
     QString premier_prisme_atlas = data.getGlobalCoordPrisms().at(0).getName();
 
-    for(unsigned int i=0; i<data.getGlobalCoordPrisms().size(); i++)
+    for(int i=0; i<data.getGlobalCoordPrisms().size(); i++)
     {
         if(i>0 && data.getGlobalCoordPrisms().at(i).getName() == premier_prisme_atlas) {
             break;
@@ -29,7 +29,7 @@ void Server::calculateResults() {
         Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
         int ligne=0;
 
-        for(unsigned int j=0; j<data.getGlobalCoordPrisms().size(); j++)
+        for(int j=0; j<data.getGlobalCoordPrisms().size(); j++)
         {
             GlobalCoordPrism checkedPrism = data.getGlobalCoordPrisms().at(j);
             if(prism.getName() == checkedPrism.getName())
@@ -64,7 +64,7 @@ void Server::calculateResults() {
         float dy=0;
         float dz=0;
         //ajout de la constante de prisme
-        for(unsigned int n=0; n<config.getPrismCorrections().size(); n++)
+        for(int n=0; n<config.getPrismCorrections().size(); n++)
         {
             PrismCorrection correction = config.getPrismCorrections().at(n);
             if(data.getGlobalCoordPrisms().at(i).getPrism().getName() == correction.getPrism())

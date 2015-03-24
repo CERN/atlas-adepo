@@ -11,8 +11,7 @@ SOURCES += \
     configuration.cpp \
     util.cpp \
     calibration.cpp \
-    run.cpp \
-    results.cpp
+    run.cpp
 
 HEADERS += \
     absolute_distances.h \

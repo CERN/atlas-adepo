@@ -3,15 +3,16 @@
 
 #include <iostream>
 
-#include "prism.h"
-
 #include <QString>
+#include <QList>
+
+#include "prism.h"
 
 class BCAMConfig
 {
 public:
     //constructeurs et destructeurs
-    BCAMConfig(QString name, int detectorId, int driverSocket, int muxSocket, std::vector<Prism> prisms) :
+    BCAMConfig(QString name, int detectorId, int driverSocket, int muxSocket, QList<Prism> prisms) :
            mName(name), mDetectorId(detectorId), mDriverSocket(driverSocket), mMuxSocket(muxSocket), mPrisms(prisms) {};
     virtual ~BCAMConfig() {};
 
@@ -24,11 +25,11 @@ public:
 
     int getMuxSocket() const { return mMuxSocket; }
 
-    std::vector<Prism> getPrisms() const { return mPrisms; }
+    QList<Prism> getPrisms() const { return mPrisms; }
 
     QString getPrismsAsString() {
         QString s;
-        for (unsigned int i = 0; i < mPrisms.size(); i++) {
+        for (int i = 0; i < mPrisms.size(); i++) {
             if (i > 0) {
                 s.append("_");
             }
@@ -54,7 +55,7 @@ private:
     int mDetectorId;
     int mDriverSocket;
     int mMuxSocket;
-    std::vector<Prism> mPrisms;
+    QList<Prism> mPrisms;
 };
 
 #endif // BCAM_CONFIG_H

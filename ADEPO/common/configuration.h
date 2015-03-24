@@ -1,6 +1,9 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
+#include <QList>
+#include <QHash>
+
 #include "detector.h"
 #include "bcam_adapter.h"
 #include "bcam_config.h"
@@ -8,8 +11,6 @@
 #include "atlas_coordinates.h"
 #include "prism_correction.h"
 
-#include <vector>
-#include <map>
 #include <stdexcept>
 
 #define CONFIGURATION_FILE "configuration_file.txt"
@@ -24,10 +25,10 @@ public:
     QString getFilename() const { return filename; }
     QString check() const;
 
-    std::vector<Detector> getDetectors() const {return mDetectors;}
+    QList<Detector> getDetectors() const {return mDetectors;}
     Detector getDetector(QString bcamName) {
         BCAMConfig bcam = getBCAMConfig(bcamName);
-        for(unsigned int j=0; j < mDetectors.size(); j++) {
+        for(int j=0; j < mDetectors.size(); j++) {
             if (bcam.getDetectorId() == mDetectors[j].getId()) {
                 return mDetectors[j];
             }
@@ -36,11 +37,11 @@ public:
         throw std::invalid_argument(bcamName.toStdString());
     }
 
-    std::vector<BCAMAdapter> getBCAMAdapters() const {return mBCAMAdapters;}
+    QList<BCAMAdapter> getBCAMAdapters() const {return mBCAMAdapters;}
 
-    std::vector<BCAMConfig> getBCAMConfigs() const {return mBCAMConfigs;}
+    QList<BCAMConfig> getBCAMConfigs() const {return mBCAMConfigs;}
     BCAMConfig getBCAMConfig(QString name) {
-        for(unsigned int i=0; i < mBCAMConfigs.size(); i++) {
+        for(int i=0; i < mBCAMConfigs.size(); i++) {
             if (name == mBCAMConfigs[i].getName()) {
                 return mBCAMConfigs[i];
             }
@@ -49,13 +50,13 @@ public:
         throw std::invalid_argument(name.toStdString());
     }
 
-    std::vector<AbsoluteDistances> getAbsoluteDistances() const {return mAbsoluteDistances;}
+    QList<AbsoluteDistances> getAbsoluteDistances() const {return mAbsoluteDistances;}
 
-    std::vector<PrismCorrection> getPrismCorrections() const {return mPrismCorrections;}
+    QList<PrismCorrection> getPrismCorrections() const {return mPrismCorrections;}
 
-    std::vector<ATLASCoordinates> getATLASCoordinates() const {return mATLASCoordinates;}
+    QList<ATLASCoordinates> getATLASCoordinates() const {return mATLASCoordinates;}
 
-    QString getName(QString id) { return names.at(id); }
+    QString getName(QString id) { return names[id]; }
     QString getDriverIpAddress() const {return mDriverIpAddress;}
 
     void clear() {
@@ -80,14 +81,14 @@ private:
     void setDriverIpAddress(QString val) {mDriverIpAddress = val;}
 
     QString filename;
-    std::vector<Detector> mDetectors;
-    std::vector<BCAMAdapter> mBCAMAdapters;
+    QList<Detector> mDetectors;
+    QList<BCAMAdapter> mBCAMAdapters;
     QString mDriverIpAddress;
-    std::vector<BCAMConfig> mBCAMConfigs;
-    std::vector<AbsoluteDistances> mAbsoluteDistances;
-    std::vector<PrismCorrection> mPrismCorrections;
-    std::vector<ATLASCoordinates> mATLASCoordinates;
-    std::map<QString, QString> names;
+    QList<BCAMConfig> mBCAMConfigs;
+    QList<AbsoluteDistances> mAbsoluteDistances;
+    QList<PrismCorrection> mPrismCorrections;
+    QList<ATLASCoordinates> mATLASCoordinates;
+    QHash<QString, QString> names;
 };
 
 #endif // CONFIGURATION_H

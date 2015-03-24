@@ -1,9 +1,6 @@
 #ifndef CALLBACK_H
 #define CALLBACK_H
 
-#include <vector>
-#include <map>
-
 #include <QString>
 
 #include "bridge.h"

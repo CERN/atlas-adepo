@@ -50,10 +50,10 @@ int Server::writeScriptFile(QString fileName)
            <<"end. \n"
            <<"\n";
 
-        std::vector<BCAM> bcams = run.getBCAMs();
+        QList<BCAM> bcams = run.getBCAMs();
 
         //écriture dans le fichier de la partie acquisition du script : un paragraphe par BCAM
-        for(unsigned int i=0; i<bcams.size(); i++)
+        for(int i=0; i<bcams.size(); i++)
         {
             BCAM bcam = bcams.at(i);
             Prism prism = bcam.getPrism();

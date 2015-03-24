@@ -1,8 +1,6 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include <vector>
-
 #include <QMainWindow>
 #include <QWidget>
 #include <QTextBrowser>

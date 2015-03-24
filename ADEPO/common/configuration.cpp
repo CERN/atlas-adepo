@@ -173,7 +173,7 @@ int Configuration::read(QString filename)
                            char *id_detector = strtok( NULL, " " );
                            char *num_Port_Driver = strtok( NULL, " " );
                            char *num_Port_Multiplexer = strtok( NULL, " " );
-                           std::vector<Prism> prisms;
+                           QList<Prism> prisms;
                            QString prism1 = QString::fromStdString(strtok( NULL, " " ));
 
                            switch(nb_string)
@@ -327,7 +327,7 @@ int Configuration::read(QString filename)
 QString Configuration::check() const
 {
     //test des numéros des ports driver : sur les driver les numéros de ports possibles sont compris entre 1 et 8
-    for (unsigned int i=0; i<getBCAMConfigs().size(); i++)
+    for (int i=0; i<getBCAMConfigs().size(); i++)
     {
         if(getBCAMConfigs().at(i).getDriverSocket()>8 || getBCAMConfigs().at(i).getDriverSocket()<1)
         {
@@ -336,7 +336,7 @@ QString Configuration::check() const
     }
 
     //test des numéros des ports multiplexer : sur les multiplexer les numéros des ports possibles sont compris entre 1 et 10
-    for (unsigned int i=0; i<getBCAMConfigs().size(); i++)
+    for (int i=0; i<getBCAMConfigs().size(); i++)
     {
         if(getBCAMConfigs().at(i).getMuxSocket()>10 || getBCAMConfigs().at(i).getMuxSocket()<1)
         {
@@ -351,10 +351,10 @@ QString Configuration::check() const
 //    }
 
     //test pour vérifier si dans le file d'entrée, il y a un seul et unique détecteur avec un seul et unique identifiant
-    for (unsigned int i=0; i<getDetectors().size(); i++)
+    for (int i=0; i<getDetectors().size(); i++)
     {
 
-         for (unsigned int j=0; j<getDetectors().size(); j++)
+         for (int j=0; j<getDetectors().size(); j++)
         {
              if( j != i && getDetectors().at(i).getName() == getDetectors().at(j).getName())
              {
@@ -368,7 +368,7 @@ QString Configuration::check() const
     }
 
     //test sur la longueur des chaînes de caractères (identifiant des BCAMs)
-    for (unsigned int i=0; i<getBCAMConfigs().size(); i++)
+    for (int i=0; i<getBCAMConfigs().size(); i++)
     {
         if(getBCAMConfigs().at(i).getName().size() != ID_LENGTH_BCAM)
         {
@@ -378,9 +378,9 @@ QString Configuration::check() const
 
 
     //test pour vérifier si dans le file d'entrée, il y a une seule et unique BCAM (vu la structure du file elle appartient à un unique detecteur)
-    for (unsigned int i=0; i<getBCAMConfigs().size(); i++)
+    for (int i=0; i<getBCAMConfigs().size(); i++)
     {
-        for (unsigned int j=0; j<getBCAMConfigs().size(); j++)
+        for (int j=0; j<getBCAMConfigs().size(); j++)
         {
             if(j != i && getBCAMConfigs().at(i).getName() == getBCAMConfigs().at(j).getName())
             {
@@ -390,9 +390,9 @@ QString Configuration::check() const
     }
 
     //test pour éviter que 2 BCAMs ne soient branchées sur le même port multiplexer et même port driver à la fois
-    for (unsigned int i=0; i<getBCAMConfigs().size(); i++)
+    for (int i=0; i<getBCAMConfigs().size(); i++)
     {
-        for (unsigned int j=0; j<getBCAMConfigs().size(); j++)
+        for (int j=0; j<getBCAMConfigs().size(); j++)
         {
             if((i != j) && (getBCAMConfigs().at(i).getDriverSocket() == getBCAMConfigs().at(j).getDriverSocket()) &&
                     (getBCAMConfigs().at(i).getMuxSocket() == getBCAMConfigs().at(j).getMuxSocket()))

@@ -4,6 +4,7 @@
 #include <QString>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QList>
 
 #include "configuration.h"
 #include "bcam.h"
@@ -56,21 +57,21 @@ public:
         write();
     }
 
-    std::vector<int> getDetectors() {
+    QList<int> getDetectors() {
         return JsonUtil::fromIntArray(json[DETECTORS].toArray());
     }
 
-    void setDetectors(std::vector<int> detectors, Configuration& config) {
+    void setDetectors(QList<int> detectors, Configuration& config) {
         json[DETECTORS] = JsonUtil::toIntArray(detectors);
         write();
         initBCAMs(config);
     }
 
-    std::vector<BCAM> getBCAMs() {
+    QList<BCAM> getBCAMs() {
         return bcams;
     }
 
-    std::vector<BCAM> getBCAMs(int id_detector, Configuration& config);
+    QList<BCAM> getBCAMs(int id_detector, Configuration& config);
 
     BCAM getBCAM(QString bcam_prism);
 
@@ -115,7 +116,7 @@ private:
 
     QString fileName;
     QJsonObject json;
-    std::vector<BCAM> bcams;
+    QList<BCAM> bcams;
 };
 
 #endif // RUN_H

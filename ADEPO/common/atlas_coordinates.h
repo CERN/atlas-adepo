@@ -2,7 +2,6 @@
 #define ATLAS_COORDINATES_H
 
 #include "iostream"
-#include "vector"
 #include "point3d.h"
 
 #include <QString>

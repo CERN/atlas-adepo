@@ -14,11 +14,11 @@ void Client::changedRunFile(QString filename) {
 
     // select selected detectors
     ui->tableWidget_liste_detectors->clearSelection();
-    std::vector<int> selectedDetectors = run.getDetectors();
+    QList<int> selectedDetectors = run.getDetectors();
     for (int row=0; row < ui->tableWidget_liste_detectors->rowCount(); row++) {
         int id = ui->tableWidget_liste_detectors->item(row, 0)->data(Qt::DisplayRole).toInt();
         // select id in list
-        if (std::find(selectedDetectors.begin(), selectedDetectors.end(), id) != selectedDetectors.end()) {
+        if (selectedDetectors.contains(id)) {
             ui->tableWidget_liste_detectors->selectRow(row);
         }
     }

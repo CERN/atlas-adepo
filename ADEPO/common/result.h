@@ -16,12 +16,6 @@ public:
         std = Point3d(false);
         n = 0;
     }
-    Result(QJsonObject json) {
-        dateTime = json["time"].toString();
-        value = Point3d(json["value"].toObject());
-        std = Point3d(json["std"].toObject());
-        n = json["n"].toInt();
-    }
 
     ~Result() {};
 
@@ -64,17 +58,22 @@ public:
                   << std::endl;
     }
 
-    QJsonObject toJson() {
-        QJsonObject json;
-        json["time"] = dateTime;
-        json["value"] = value.toJson();
-        json["std"] = std.toJson();
-        json["n"] = n;
-
-        return json;
+    void read(const QJsonObject &json) {
+        dateTime = json["time"].toString();
+        value.read(json["value"].toObject());
+        std.read(json["std"].toObject());
+        n = json["n"].toInt();
     }
 
-private:
+    void write(QJsonObject &json) const {
+        json["time"] = dateTime;
+        QJsonObject v = json["value"].toObject();
+        value.write(v);
+        QJsonObject s = json["std"].toObject();
+        std.write(s);
+        json["n"] = n;
+    }
+
     QString dateTime;
     Point3d value;
     Point3d std;

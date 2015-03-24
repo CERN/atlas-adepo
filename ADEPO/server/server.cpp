@@ -242,9 +242,9 @@ QString Server::getDateTime() {
 void Server::imgCoordToBcamCoord(Calibration &calibration, Run &run, Data& data)
 {
     bool found = false;
-    for(unsigned int i=0; i<data.getDualSpots().size(); i++) //je parcours la base de donnees des coordonnees images
+    for(int i=0; i<data.getDualSpots().size(); i++) //je parcours la base de donnees des coordonnees images
     {
-        for (unsigned int j=0; j<calibration.getCalibs1().size(); j++) //je parcours la base de donnees qui contient les informations de calibration
+        for (int j=0; j<calibration.getCalibs1().size(); j++) //je parcours la base de donnees qui contient les informations de calibration
         {
             DualSpot spot = data.getDualSpots().at(i);
             Calib1 calib1 = calibration.getCalibs1().at(j);
@@ -352,11 +352,11 @@ void Server::imgCoordToBcamCoord(Calibration &calibration, Run &run, Data& data)
 void Server::calculCoordBcamSystem(Configuration& config, Calibration &calibration, Run &run, Data& data)
 {
     bool found = false;
-    for (unsigned int i=0; i<data.getMountCoordSpots().size(); i++) // je parcours la database qui contient les coord des observation dans le system MOUNT
+    for (int i=0; i<data.getMountCoordSpots().size(); i++) // je parcours la database qui contient les coord des observation dans le system MOUNT
     {
         MountCoordSpots spot = data.getMountCoordSpots().at(i);
 
-        for (unsigned int j=0; j<calibration.getCalibs1().size(); j++) //je parcours la base de donnee de calibration 1
+        for (int j=0; j<calibration.getCalibs1().size(); j++) //je parcours la base de donnee de calibration 1
         {
             Calib1 calib1 = calibration.getCalibs1().at(j);
 
@@ -364,14 +364,14 @@ void Server::calculCoordBcamSystem(Configuration& config, Calibration &calibrati
             int num_chip = run.getBCAM(spot.getName()).getPrism().getNumChip();
             bool directionOk1 = ((num_chip == 2) && (calib1.getDirection() == 1)) || ((num_chip == 1) && (calib1.getDirection() == -1));
 
-            for(unsigned int k=0; k<calibration.getCalibs2().size(); k++) //je parcours la base de donnee de calibration 2
+            for(int k=0; k<calibration.getCalibs2().size(); k++) //je parcours la base de donnee de calibration 2
             {
                 Calib2 calib2k = calibration.getCalibs2().at(k);
                 Calib2 calib2j = calibration.getCalibs2().at(j);
 
                 bool directionOk2 = ((num_chip == 2) && (calib2k.getDirection() == 1)) || ((num_chip == 1) && (calib2k.getDirection() == -1));
 
-                for(unsigned int l=0; l<config.getAbsoluteDistances().size(); l++) //je parcours la base de donnee des distances absolues
+                for(int l=0; l<config.getAbsoluteDistances().size(); l++) //je parcours la base de donnee des distances absolues
                 {
                     AbsoluteDistances absolutes_distances = config.getAbsoluteDistances().at(l);
 
@@ -473,12 +473,12 @@ void Server::calculCoordBcamSystem(Configuration& config, Calibration &calibrati
 void Server::mountPrismToGlobalPrism()
 {
     bool found = false;
-    for(unsigned int i=0; i<data.getMountCoordPrisms().size(); i++)
+    for(int i=0; i<data.getMountCoordPrisms().size(); i++)
     {
         MountCoordPrism prism = data.getMountCoordPrisms().at(i);
         float airpad = run.getAirpad() ? config.getDetector(prism.getBCAM().getName()).getAirpad() : 0.0f;
 
-        for(unsigned int j=0; j<data.getBCAMParams().size(); j++)
+        for(int j=0; j<data.getBCAMParams().size(); j++)
         {
             BCAMParams params = data.getBCAMParams().at(j);
 
@@ -497,7 +497,7 @@ void Server::mountPrismToGlobalPrism()
 
     //affichage base de donnee des prismes dans le repere global
 #ifdef ADEPO_DEBUG
-    for(unsigned int k=0; k<data.getGlobalCoordPrisms().size(); k++)
+    for(int k=0; k<data.getGlobalCoordPrisms().size(); k++)
     {
         data.getGlobalCoordPrisms().at(k).print();
     }
@@ -533,14 +533,14 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
 
         //sauvegarde des coordonnees images
         fichier<<"*******************************************************************coordonnees images dans le repere CCD *********************************************************************************** \n";
-        for(unsigned int i=0; i<data.getDualSpots().size(); i++)
+        for(int i=0; i<data.getDualSpots().size(); i++)
         {
             DualSpot spot1 = data.getDualSpots().at(i);
             if(i>0 && spot1.getName() == premier_objet_img) //si on a tout parcourut et on revient au premier objet ==> fin
                 break;
 
             fichier<<spot1.getName().toStdString()<<"\n";
-            for(unsigned int j=0; j<data.getDualSpots().size(); j++)
+            for(int j=0; j<data.getDualSpots().size(); j++)
             {
                 DualSpot spot2 = data.getDualSpots().at(j);
                 if(spot1.getName() == spot2.getName())
@@ -558,7 +558,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
         QString premier_objet_mount = data.getMountCoordSpots().at(0).getName();
 
         //sauvegarde des coordonnees images transformees dans le repere MOUNT
-        for(unsigned int i=0; i<data.getMountCoordSpots().size(); i++)
+        for(int i=0; i<data.getMountCoordSpots().size(); i++)
         {
             MountCoordSpots spots1 = data.getMountCoordSpots().at(i);
 //                std::cout << data.getMountCoordSpots().size() << " " << spots1.getName() << " " << premier_objet_mount << std::endl;
@@ -566,7 +566,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
                 break;
 
             fichier<<spots1.getName().toStdString()<<"\n";
-            for(unsigned int j=0; j<data.getMountCoordSpots().size(); j++)
+            for(int j=0; j<data.getMountCoordSpots().size(); j++)
             {
                 MountCoordSpots spots2 = data.getMountCoordSpots().at(j);
                 if(spots1.getName() == spots2.getName())
@@ -583,14 +583,14 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
         //sauvegarde des coordonnees du prisme dans le repere MOUNT pour chaque paire de spots
         QString premier_prisme_mount = data.getMountCoordPrisms().at(0).getName();
 
-        for(unsigned int i=0; i<data.getMountCoordPrisms().size(); i++)
+        for(int i=0; i<data.getMountCoordPrisms().size(); i++)
         {
             MountCoordPrism prism1 = data.getMountCoordPrisms().at(i);
             if(i>0 && prism1.getName() == premier_prisme_mount) //si on a tout parcourut et on revient au premier objet ==> fin
                 break;
 
             fichier<<prism1.getName().toStdString()<<"\n";
-            for(unsigned int j=0; j<data.getMountCoordPrisms().size(); j++)
+            for(int j=0; j<data.getMountCoordPrisms().size(); j++)
             {
                 MountCoordPrism prism2 = data.getMountCoordPrisms().at(j);
                 if(prism1.getName() == prism2.getName())
@@ -606,14 +606,14 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
         //sauvegarde des coordonnees du prisme dans le repere ATLAS pour chaque paire de spots
         QString premier_prisme_atlas = data.getGlobalCoordPrisms().at(0).getName();
 
-        for(unsigned int i=0; i<data.getGlobalCoordPrisms().size(); i++)
+        for(int i=0; i<data.getGlobalCoordPrisms().size(); i++)
         {
             GlobalCoordPrism prism1 = data.getGlobalCoordPrisms().at(i);
             if(i>0 && prism1.getName() == premier_prisme_atlas)
                 break;
 
             fichier<<prism1.getName().toStdString()<<" "<<prism1.getAirpad()<<"\n";
-            for(unsigned int j=0; j<data.getGlobalCoordPrisms().size(); j++)
+            for(int j=0; j<data.getGlobalCoordPrisms().size(); j++)
             {
                 GlobalCoordPrism prism2 = data.getGlobalCoordPrisms().at(j);
                 if(prism1.getName() == prism2.getName())
@@ -627,7 +627,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
                <<"*****************************************************************Rapport********************************************************************************** \n";
         //on parcourt tous les points transformes dans le repere global : moyenne + dispersion
 
-        for(unsigned int i=0; i<data.getGlobalCoordPrisms().size(); i++)
+        for(int i=0; i<data.getGlobalCoordPrisms().size(); i++)
         {
             GlobalCoordPrism prism1 = data.getGlobalCoordPrisms().at(i);
             if(i>0 && prism1.getName() == premier_prisme_atlas)
@@ -636,7 +636,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
             Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
             int ligne=0;
 
-            for(unsigned int j=0; j<data.getGlobalCoordPrisms().size(); j++)
+            for(int j=0; j<data.getGlobalCoordPrisms().size(); j++)
             {
                 GlobalCoordPrism prism2 = data.getGlobalCoordPrisms().at(j);
                 if(prism1.getName() == prism2.getName())
@@ -678,7 +678,7 @@ int Server::writeFileObsMountSystem(QString fileName, QString datetime)
             float delta_y=0;
             float delta_z=0;
             //ajout de la constante de prisme
-            for(unsigned int n=0; n<config.getPrismCorrections().size(); n++)
+            for(int n=0; n<config.getPrismCorrections().size(); n++)
             {
                 PrismCorrection correction = config.getPrismCorrections().at(n);
                 if(prism1.getPrism().getName() == correction.getPrism())

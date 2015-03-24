@@ -11,7 +11,6 @@ class Point3d
 
         //constructeurs et destructeurs
         Point3d() : mValid(true),mX(0),mY(0),mZ(0) {};
-        Point3d(QJsonObject json) : mValid(json["valid"].toBool()),mX(json["x"].toDouble()),mY(json["y"].toDouble()),mZ(json["z"].toDouble()) {};
 
         Point3d(float X,float Y,float Z) : mValid(true),mX(X),mY(Y),mZ(Z) {};
         Point3d(bool valid, float X,float Y,float Z) : mValid(valid),mX(X),mY(Y),mZ(Z) {};
@@ -37,14 +36,18 @@ class Point3d
             std::cout<<std::endl;
         }
 
-        QJsonObject toJson() {
-            QJsonObject json;
+        void read(const QJsonObject &json) {
+            mValid = json["valid"].toBool();
+            mX = json["x"].toDouble();
+            mY = json["y"].toDouble();
+            mZ = json["z"].toDouble();
+        }
+
+        void write(QJsonObject &json) const {
             json["valid"] = mValid;
             json["x"] = mX;
             json["y"] = mY;
             json["z"] = mZ;
-
-            return json;
         }
 
         bool equals(Point3d pt) { return (mValid == pt.isValid() && mX==pt.x() && mY==pt.y() && this->mZ==pt.z()); }
