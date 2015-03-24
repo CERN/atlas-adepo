@@ -15,6 +15,7 @@ public:
         value = Point3d(false);
         std = Point3d(false);
         n = 0;
+        verified = 0;
     }
 
     ~Result() {};
@@ -51,10 +52,19 @@ public:
         return value;
     }
 
+    void setVerified(Qt::CheckState _verified) {
+        verified = _verified;
+    }
+
+    int isVerified() {
+        return verified;
+    }
+
     void toString() {
         std::cout << dateTime.toStdString() << " " << n << " "
                   << value.isValid() << " value(" << value.x() << " " << value.y() << " " << value.z() << ") "
                   << std.isValid() << " std(" << std.x() << " " << std.y() << " " << std.z() << ") "
+                  << verified
                   << std::endl;
     }
 
@@ -63,6 +73,7 @@ public:
         value.read(json["value"].toObject());
         std.read(json["std"].toObject());
         n = json["n"].toInt();
+        verified = json["verified"].toInt();
     }
 
     void write(QJsonObject &json) const {
@@ -74,12 +85,14 @@ public:
         std.write(s);
         json["std"] = s;
         json["n"] = n;
+        json["verified"] = verified;
     }
 
     QString dateTime;
     Point3d value;
     Point3d std;
     int n;
+    int verified; // 0 unverified, 1 failed, 2 ok, same as CheckState
 };
 
 #endif // RESULT_H

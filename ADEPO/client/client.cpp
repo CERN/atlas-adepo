@@ -316,6 +316,11 @@ void Client::setResult(int row, Result &result, Result &offset) {
     setResult(row, Point3d(result.getValue(), 1000), 0, precision);
     setResult(row, Point3d(result.getStd(), 1000), 1, precision);
     setResult(row, Point3d(Point3d(result.getValue(), offset.getValue()), 1000), 2, precision);
+
+    QCheckBox *verified = new QCheckBox();
+    verified->setCheckState(static_cast<Qt::CheckState>(result.isVerified()));
+    verified->setEnabled(false);
+    ui->tableWidget_results->setCellWidget(row, 14, verified);
 }
 
 void Client::setResult(int row, Point3d point, int columnSet, int precision) {
