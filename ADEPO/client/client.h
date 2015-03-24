@@ -66,8 +66,8 @@ private:
 
     Run run;
     Configuration config;
-    Reference offset;
-    Reference output;
+    Results offset;
+    Results output;
 
     Ui::Client *ui;
     int selectedBCAM;

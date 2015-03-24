@@ -87,8 +87,8 @@ private:
     Configuration config;
     Calibration calibration;
     Data data;
-    Reference offset;
-    Reference output;
+    Results offset;
+    Results output;
     QString resultFile;
 };
 

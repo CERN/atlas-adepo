@@ -7,7 +7,7 @@
 
 #include "results.h"
 
-int Reference::write() {
+int Results::write() {
     std::ofstream file(filename.toStdString().c_str(), std::ios::out | std::ios::trunc);
     if(!file) {
         qWarning() << "Cannot write results file " << filename;
@@ -44,7 +44,7 @@ int Reference::write() {
     return 1;
 }
 
-int Reference::read(QString filename) {
+int Results::read(QString filename) {
     this->filename = filename;
 
     std::ifstream file(filename.toStdString().c_str(), std::ios::in);

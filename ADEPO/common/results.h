@@ -1,5 +1,5 @@
-#ifndef REFERENCE_H
-#define REFERENCE_H
+#ifndef RESULTS_H
+#define RESULTS_H
 
 #include <map>
 
@@ -10,11 +10,11 @@
 #define OFFSET_FILE "offset_file.txt"
 #define OUTPUT_FILE "output_file.txt"
 
-class Reference
+class Results
 {
 public:
-    Reference() {};
-    ~Reference() {};
+    Results() {};
+    ~Results() {};
 
     int write();
     int read(QString fileName);
@@ -28,4 +28,4 @@ private:
     std::map<QString, Result> results;
 };
 
-#endif // REFERENCE_H
+#endif // RESULTS_H
