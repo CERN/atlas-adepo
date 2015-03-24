@@ -11,8 +11,8 @@ SOURCES += \
     configuration.cpp \
     util.cpp \
     calibration.cpp \
-    reference.cpp \
-    run.cpp
+    run.cpp \
+    results.cpp
 
 HEADERS += \
     absolute_distances.h \
@@ -28,9 +28,9 @@ HEADERS += \
     prism_correction.h \
     util.h \
     calibration.h \
-    reference.h \
     result.h \
     run.h \
     json_rpc.h \
     json_util.h \
-    point3d.h
+    point3d.h \
+    results.h

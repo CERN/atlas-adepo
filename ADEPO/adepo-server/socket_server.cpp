@@ -59,8 +59,8 @@ void SocketServer::processBinaryMessage(QByteArray message)
         call->updateCalibrationFile();
     } else if (method == "updateConfigurationFile") {
         call->updateConfigurationFile();
-    } else if (method == "updateReferenceFile") {
-        call->updateReferenceFile();
+    } else if (method == "updateOffsetFile") {
+        call->updateOffsetFile();
     } else if (method == "updateOutputFile") {
         call->updateOutputFile();
     } else if (method == "resetDelta") {
@@ -110,8 +110,8 @@ void SocketServer::changedCalibrationFile(QString filename) {
     sendJson(rpc);
 }
 
-void SocketServer::changedReferenceFile(QString filename) {
-    JsonRpc rpc("changedReferenceFile");
+void SocketServer::changedOffsetFile(QString filename) {
+    JsonRpc rpc("changedOffsetFile");
     rpc.append(filename);
     sendJson(rpc);
 }

@@ -717,6 +717,7 @@ main.o: ../../ADEPO/adepo-client/main.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/Q
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/util.h \
 		../../ADEPO/adepo-client/socket_client.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/QWebSocket \

@@ -231,8 +231,6 @@ void Client::fillBCAMandResultTable()
 
         // Result Table
         QString prismName = config.getName(prism.getName());
-        Result& result = output.getResult(prismName);
-        Result& offset = reference.getResult(prismName);
 
         QTableWidgetItem *name = new QTableWidgetItem();
         name->setText(prismName);
@@ -246,7 +244,7 @@ void Client::fillBCAMandResultTable()
         prismCell->setText(prism.getName());
         ui->tableWidget_results->setItem(row, 2, prismCell);
 
-        setResult(row, result, offset);
+        setResult(row, output.getResult(prismName), offset.getResult(prismName));
         row++;
     }
 
@@ -300,7 +298,7 @@ void Client::updateResults() {
     for (int row = 0; row < ui->tableWidget_results->rowCount(); row++) {
         QString prism = ui->tableWidget_results->item(row, 0)->text();
 
-        setResult(row, output.getResult(prism), reference.getResult(prism));
+        setResult(row, output.getResult(prism), offset.getResult(prism));
     }
     ui->tableWidget_results->resizeColumnsToContents();
 }

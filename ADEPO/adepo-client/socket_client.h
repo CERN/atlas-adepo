@@ -25,7 +25,7 @@ public:
     void updateRunFile();
     void updateConfigurationFile();
     void updateCalibrationFile();
-    void updateReferenceFile();
+    void updateOffsetFile();
     void updateOutputFile();
     void resetDelta();
     void updateAll();

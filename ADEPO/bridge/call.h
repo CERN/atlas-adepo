@@ -17,7 +17,7 @@ public:
     virtual void updateRunFile() = 0;
     virtual void updateConfigurationFile() = 0;
     virtual void updateCalibrationFile() = 0;
-    virtual void updateReferenceFile() = 0;
+    virtual void updateOffsetFile() = 0;
     virtual void updateOutputFile() = 0;
     virtual void resetDelta() = 0;
 

@@ -635,7 +635,7 @@ moc_server.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
@@ -969,7 +969,7 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
@@ -1053,7 +1053,7 @@ server.o: ../../ADEPO/server/server.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtC
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
@@ -1266,7 +1266,7 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
@@ -1348,7 +1348,7 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
@@ -1429,7 +1429,7 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
@@ -1510,7 +1510,7 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
@@ -1592,7 +1592,7 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
@@ -1673,7 +1673,7 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \

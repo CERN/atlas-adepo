@@ -37,12 +37,12 @@ void Server::updateCalibrationFile() {
     callback.changedCalibrationFile(calibration.getFilename());
 }
 
-void Server::updateReferenceFile() {
-    qDebug() << "SERVER UpdateRefFile called...";
+void Server::updateOffsetFile() {
+    qDebug() << "SERVER UpdateOffsetFile called...";
 
-    reference.read(reference.getFilename());
+    offset.read(offset.getFilename());
 
-    callback.changedReferenceFile(reference.getFilename());
+    callback.changedOffsetFile(offset.getFilename());
 }
 
 void Server::updateOutputFile() {
@@ -60,11 +60,11 @@ void Server::resetDelta() {
         BCAM bcam = run.getBCAMs().at(i);
         QString prismName = config.getName(bcam.getPrism().getName());
         Result& r = output.getResult(prismName);
-        reference.setResult(prismName, r);
+        offset.setResult(prismName, r);
     }
 
-    reference.write();
-    callback.changedReferenceFile(reference.getFilename());
+    offset.write();
+    callback.changedOffsetFile(offset.getFilename());
 }
 
 
@@ -73,7 +73,7 @@ void Server::updateAll() {
 
     updateConfigurationFile();
     updateCalibrationFile();
-    updateReferenceFile();
+    updateOffsetFile();
     updateOutputFile();
     // needs to be last, needs config
     updateRunFile();

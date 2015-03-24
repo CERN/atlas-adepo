@@ -570,7 +570,7 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/run.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \

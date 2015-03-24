@@ -14,7 +14,7 @@
 #include "calibration.h"
 #include "configuration.h"
 #include "data.h"
-#include "reference.h"
+#include "results.h"
 #include "run.h"
 
 #include "lwdaq_client.h"
@@ -42,7 +42,7 @@ public:
     void updateRunFile();
     void updateConfigurationFile();
     void updateCalibrationFile();
-    void updateReferenceFile();
+    void updateOffsetFile();
     void updateOutputFile();
     void resetDelta();
 
@@ -87,7 +87,7 @@ private:
     Configuration config;
     Calibration calibration;
     Data data;
-    Reference reference;
+    Reference offset;
     Reference output;
     QString resultFile;
 };

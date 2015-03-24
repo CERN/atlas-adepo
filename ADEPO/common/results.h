@@ -7,7 +7,7 @@
 
 #include "result.h"
 
-#define REFERENCE_FILE "reference_file.txt"
+#define OFFSET_FILE "offset_file.txt"
 #define OUTPUT_FILE "output_file.txt"
 
 class Reference

@@ -70,18 +70,18 @@ void Client::changedCalibrationFile(QString filename) {
     display(ui->calibrationFileLabel, ui->calibrationFile, filename);
 }
 
-void Client::changedReferenceFile(QString filename) {
-    reference.read(filename);
+void Client::changedOffsetFile(QString filename) {
+    offset.read(filename);
 
     updateResults();
-
-    display(ui->refFileLabel, ui->refFile, filename);
 }
 
 void Client::changedOutputFile(QString filename) {
     output.read(filename);
 
     updateResults();
+
+    display(ui->refFileLabel, ui->refFile, filename);
 }
 
 void Client::changedResultFile(QString filename) {

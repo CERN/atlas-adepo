@@ -709,6 +709,7 @@ main.o: ../../ADEPO/adepo-direct/main.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/Q
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/results.h \
 		../../ADEPO/common/util.h \
 		../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
@@ -727,7 +728,6 @@ main.o: ../../ADEPO/adepo-direct/main.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/Q
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/common/reference.h \
 		../../ADEPO/server/lwdaq_client.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QtNetwork \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractnetworkcache.h \

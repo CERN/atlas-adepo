@@ -66,9 +66,9 @@ void SocketClient::onTextMessageReceived(QString message)
     } else if (method == "changedCalibrationFile") {
         QJsonArray params = json["params"].toArray();
         callback.changedCalibrationFile(params[0].toString());
-    } else if (method == "changedReferenceFile") {
+    } else if (method == "changedOffsetFile") {
         QJsonArray params = json["params"].toArray();
-        callback.changedReferenceFile(params[0].toString());
+        callback.changedOffsetFile(params[0].toString());
     } else if (method == "changedOutputFile") {
         QJsonArray params = json["params"].toArray();
         callback.changedOutputFile(params[0].toString());
@@ -100,8 +100,8 @@ void SocketClient::updateConfigurationFile() {
     sendJson(rpc);
 }
 
-void SocketClient::updateReferenceFile() {
-    JsonRpc rpc("updateReferenceFile");
+void SocketClient::updateOffsetFile() {
+    JsonRpc rpc("updateOffsetFile");
     sendJson(rpc);
 }
 

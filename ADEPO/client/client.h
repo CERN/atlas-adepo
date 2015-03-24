@@ -16,7 +16,7 @@
 #include "callback.h"
 #include "configuration.h"
 #include "run.h"
-#include "reference.h"
+#include "results.h"
 
 #include "result.h"
 #include "util.h"
@@ -40,7 +40,7 @@ public:
     void changedRunFile(QString filename);
     void changedConfigurationFile(QString filename);
     void changedCalibrationFile(QString filename);
-    void changedReferenceFile(QString filename);
+    void changedOffsetFile(QString filename);
     void changedOutputFile(QString filename);
     void changedResultFile(QString filename);
     void changedResults(std::map<QString, Result> results);
@@ -66,7 +66,7 @@ private:
 
     Run run;
     Configuration config;
-    Reference reference;
+    Reference offset;
     Reference output;
 
     Ui::Client *ui;

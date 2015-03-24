@@ -5,12 +5,12 @@
 #include "iostream"
 #include "iomanip"
 
-#include "reference.h"
+#include "results.h"
 
 int Reference::write() {
     std::ofstream file(filename.toStdString().c_str(), std::ios::out | std::ios::trunc);
     if(!file) {
-        qWarning() << "Cannot write reference file " << filename;
+        qWarning() << "Cannot write results file " << filename;
         return 0;
     }
 
@@ -45,10 +45,11 @@ int Reference::write() {
 }
 
 int Reference::read(QString filename) {
+    this->filename = filename;
 
     std::ifstream file(filename.toStdString().c_str(), std::ios::in);
     if(!file) {
-        qWarning() << "Cannot read reference file " << filename;
+        qWarning() << "Cannot read results file " << filename;
         return 0;
     }
 
@@ -93,8 +94,6 @@ int Reference::read(QString filename) {
             results[name] = r;
         }
     }
-
-    this->filename = filename;
 
     return 1;
 }

@@ -64,8 +64,8 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     //lecture du fichier de calibration
     calibration.read(Util::inputPath().append(CALIBRATION_FILE));
 
-    // read reference file
-    reference.read(Util::workPath().append(REFERENCE_FILE));
+    // read file
+    offset.read(Util::workPath().append(OFFSET_FILE));
     output.read(Util::workPath().append(OUTPUT_FILE));
 
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
