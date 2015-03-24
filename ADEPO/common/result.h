@@ -6,12 +6,15 @@
 
 #include <QString>
 #include <QJsonObject>
+#include <QDateTime>
+
+#define DATE_FORMAT ""
 
 class Result
 {
 public:
     Result() {
-        dateTime = "1970.01.01.00.00.00";
+        dateTime = QDateTime::fromTime_t(0);
         value = Point3d(false);
         std = Point3d(false);
         n = 0;
@@ -20,11 +23,11 @@ public:
 
     ~Result() {};
 
-    void setTime(QString _dateTime) {
+    void setTime(QDateTime _dateTime) {
         dateTime = _dateTime;
     }
 
-    QString getTime() const {
+    QDateTime getTime() const {
         return dateTime;
     }
 
@@ -61,7 +64,7 @@ public:
     }
 
     void toString() {
-        std::cout << dateTime.toStdString() << " " << n << " "
+        std::cout << dateTime.toString(Qt::ISODate).toStdString() << " " << n << " "
                   << value.isValid() << " value(" << value.x() << " " << value.y() << " " << value.z() << ") "
                   << std.isValid() << " std(" << std.x() << " " << std.y() << " " << std.z() << ") "
                   << verified
@@ -69,7 +72,7 @@ public:
     }
 
     void read(const QJsonObject &json) {
-        dateTime = json["time"].toString();
+        dateTime = QDateTime::fromString(json["time"].toString(), Qt::ISODate);
         value.read(json["value"].toObject());
         std.read(json["std"].toObject());
         n = json["n"].toInt();
@@ -77,7 +80,7 @@ public:
     }
 
     void write(QJsonObject &json) const {
-        json["time"] = dateTime;
+        json["time"] = dateTime.toString(Qt::ISODate);
         QJsonObject v;
         value.write(v);
         json["value"] = v;
@@ -88,7 +91,7 @@ public:
         json["verified"] = verified;
     }
 
-    QString dateTime;
+    QDateTime dateTime;
     Point3d value;
     Point3d std;
     int n;

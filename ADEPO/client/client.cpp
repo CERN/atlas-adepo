@@ -306,7 +306,7 @@ void Client::updateResults() {
 
 
 void Client::setResult(int row, Result &result, Result &offset) {
-    QTableWidgetItem *time = new QTableWidgetItem(result.getTime());
+    QTableWidgetItem *time = new QTableWidgetItem(result.getTime().toString("yyyy-MMM-dd H:mm:ss"));
     ui->tableWidget_results->setItem(row, 3, time);
 
     QTableWidgetItem *n = new QTableWidgetItem(QString::number(result.getN()));

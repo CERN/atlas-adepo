@@ -24,7 +24,7 @@ void Server::calculateResults() {
         QString name_prism_atlas = config.getName(prism.getPrism().getName());
 
         Result& result = output.getResult(name_prism_atlas);
-        result.setTime(now);
+        result.setTime(QDateTime::currentDateTime());
 
         Eigen::MatrixXd coord(Eigen::DynamicIndex,3);
         int ligne=0;
