@@ -39,6 +39,7 @@ public:
     void changedConfigurationFile(QString filename);
     void changedCalibrationFile(QString filename);
     void changedOffsetFile(QString filename);
+    void changedReferenceFile(QString filename);
     void changedOutputFile(QString filename);
     void changedResultFile(QString filename);
     void changedResults(std::map<QString, Result> results);
@@ -65,6 +66,7 @@ private:
     Run run;
     Configuration config;
     Results offset;
+    Results reference;
     Results output;
 
     Ui::Client *ui;

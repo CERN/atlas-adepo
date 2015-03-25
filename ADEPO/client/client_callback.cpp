@@ -76,6 +76,12 @@ void Client::changedOffsetFile(QString filename) {
     updateResults();
 }
 
+void Client::changedReferenceFile(QString filename) {
+    reference.read(filename);
+
+    updateResults();
+}
+
 void Client::changedOutputFile(QString filename) {
     output.read(filename);
 

@@ -45,6 +45,14 @@ void Server::updateOffsetFile() {
     callback.changedOffsetFile(offset.getFilename());
 }
 
+void Server::updateReferenceFile() {
+    qDebug() << "SERVER UpdateReferenceFile called...";
+
+    reference.read(reference.getFilename());
+
+    callback.changedReferenceFile(reference.getFilename());
+}
+
 void Server::updateOutputFile() {
     qDebug() << "SERVER UpdateOutputFile called...";
 
@@ -74,6 +82,7 @@ void Server::updateAll() {
     updateConfigurationFile();
     updateCalibrationFile();
     updateOffsetFile();
+    updateReferenceFile();
     updateOutputFile();
     // needs to be last, needs config
     updateRunFile();

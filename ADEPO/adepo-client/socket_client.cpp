@@ -54,25 +54,28 @@ void SocketClient::onTextMessageReceived(QString message)
     QJsonObject json = doc.object();
     QString version = json["jsonrpc"].toString();
     QString method = json["method"].toString();
-    if (method == "changedState") {
+    if (method == CHANGED_STATE) {
         QJsonArray params = json["params"].toArray();
         callback.changedState(params[0].toString(), params[1].toInt(), params[2].toString(), params[3].toInt());
-    } else if (method == "changedRunFile") {
+    } else if (method == CHANGED_RUN) {
         QJsonArray params = json["params"].toArray();
         callback.changedRunFile(params[0].toString());
-    } else if (method == "changedConfigurationFile") {
+    } else if (method == CHANGED_CONFIGURATION) {
         QJsonArray params = json["params"].toArray();
         callback.changedConfigurationFile(params[0].toString());
-    } else if (method == "changedCalibrationFile") {
+    } else if (method == CHANGED_CALIBRATION) {
         QJsonArray params = json["params"].toArray();
         callback.changedCalibrationFile(params[0].toString());
-    } else if (method == "changedOffsetFile") {
+    } else if (method == CHANGED_OFFSET) {
         QJsonArray params = json["params"].toArray();
         callback.changedOffsetFile(params[0].toString());
-    } else if (method == "changedOutputFile") {
+    } else if (method == CHANGED_REFERENCE) {
+        QJsonArray params = json["params"].toArray();
+        callback.changedReferenceFile(params[0].toString());
+    } else if (method == CHANGED_OUTPUT) {
         QJsonArray params = json["params"].toArray();
         callback.changedOutputFile(params[0].toString());
-    } else if (method == "changedResultFile") {
+    } else if (method == CHANGED_RESULTS) {
         QJsonArray params = json["params"].toArray();
         callback.changedResultFile(params[0].toString());
     } else {
@@ -81,47 +84,52 @@ void SocketClient::onTextMessageReceived(QString message)
 }
 
 void SocketClient::start() {
-    JsonRpc rpc("start");
+    JsonRpc rpc(START);
     sendJson(rpc);
 }
 
 void SocketClient::stop() {
-    JsonRpc rpc("stop");
+    JsonRpc rpc(STOP);
     sendJson(rpc);
 }
 
 void SocketClient::updateCalibrationFile() {
-    JsonRpc rpc("updateCalibrationFile");
+    JsonRpc rpc(UPDATE_CALIBRATION);
     sendJson(rpc);
 }
 
 void SocketClient::updateConfigurationFile() {
-    JsonRpc rpc("updateConfigurationFile");
+    JsonRpc rpc(UPDATE_CONFIGURATION);
     sendJson(rpc);
 }
 
 void SocketClient::updateOffsetFile() {
-    JsonRpc rpc("updateOffsetFile");
+    JsonRpc rpc(UPDATE_OFFSET);
+    sendJson(rpc);
+}
+
+void SocketClient::updateReferenceFile() {
+    JsonRpc rpc(UPDATE_OFFSET);
     sendJson(rpc);
 }
 
 void SocketClient::updateOutputFile() {
-    JsonRpc rpc("updateOutputFile");
+    JsonRpc rpc(UPDATE_OUTPUT);
     sendJson(rpc);
 }
 
 void SocketClient::updateRunFile() {
-    JsonRpc rpc("updateRunFile");
+    JsonRpc rpc(UPDATE_RUN);
     sendJson(rpc);
 }
 
 void SocketClient::resetDelta() {
-    JsonRpc rpc("resetDelta");
+    JsonRpc rpc(RESET_DELTA);
     sendJson(rpc);
 }
 
 void SocketClient::updateAll() {
-    JsonRpc rpc("updateAll");
+    JsonRpc rpc(UPDATE_ALL);
     sendJson(rpc);
 }
 

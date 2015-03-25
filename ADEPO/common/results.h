@@ -10,6 +10,7 @@
 #include "result.h"
 
 #define OFFSET_FILE "offset_file.json"
+#define REFERENCE_FILE "reference_file.json"
 #define OUTPUT_FILE "output_file.json"
 
 class Results

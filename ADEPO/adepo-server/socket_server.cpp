@@ -48,24 +48,26 @@ void SocketServer::processBinaryMessage(QByteArray message)
     QJsonObject json = doc.object();
     QString version = json["jsonrpc"].toString();
     QString method = json["method"].toString();
-    if (method == "start") {
+    if (method == START) {
         QJsonArray params = json["params"].toArray();
         call->start();
-    } else if (method == "stop") {
+    } else if (method == STOP) {
         call->stop();
-    } else if (method == "updateRunFile") {
+    } else if (method == UPDATE_RUN) {
         call->updateRunFile();
-    } else if (method == "updateCalibrationFile") {
+    } else if (method == UPDATE_CALIBRATION) {
         call->updateCalibrationFile();
-    } else if (method == "updateConfigurationFile") {
+    } else if (method == UPDATE_CONFIGURATION) {
         call->updateConfigurationFile();
-    } else if (method == "updateOffsetFile") {
+    } else if (method == UPDATE_OFFSET) {
         call->updateOffsetFile();
-    } else if (method == "updateOutputFile") {
+    } else if (method == UPDATE_REFERENCE) {
+        call->updateReferenceFile();
+    } else if (method == UPDATE_OUTPUT) {
         call->updateOutputFile();
-    } else if (method == "resetDelta") {
+    } else if (method == RESET_DELTA) {
         call->resetDelta();
-    } else if (method == "updateAll") {
+    } else if (method == UPDATE_ALL) {
         call->updateAll();
     } else {
         std::cerr << "Unimplemented server rpc method: " << method.toStdString() << std::endl;
@@ -84,13 +86,13 @@ void SocketServer::socketDisconnected()
 
 
 void SocketServer::changedRunFile(QString filename) {
-    JsonRpc rpc("changedRunFile");
+    JsonRpc rpc(CHANGED_RUN);
     rpc.append(filename);
     sendJson(rpc);
 }
 
 void SocketServer::changedState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds) {
-    JsonRpc rpc("changedState");
+    JsonRpc rpc(CHANGED_STATE);
     rpc.append(adepoStatus);
     rpc.append(adepoSeconds);
     rpc.append(lwdaqStatus);
@@ -99,31 +101,37 @@ void SocketServer::changedState(QString adepoStatus, int adepoSeconds, QString l
 }
 
 void SocketServer::changedConfigurationFile(QString filename) {
-    JsonRpc rpc("changedConfigurationFile");
+    JsonRpc rpc(CHANGED_CONFIGURATION);
     rpc.append(filename);
     sendJson(rpc);
 }
 
 void SocketServer::changedCalibrationFile(QString filename) {
-    JsonRpc rpc("changedCalibrationFile");
+    JsonRpc rpc(CHANGED_CALIBRATION);
     rpc.append(filename);
     sendJson(rpc);
 }
 
 void SocketServer::changedOffsetFile(QString filename) {
-    JsonRpc rpc("changedOffsetFile");
+    JsonRpc rpc(CHANGED_OFFSET);
+    rpc.append(filename);
+    sendJson(rpc);
+}
+
+void SocketServer::changedReferenceFile(QString filename) {
+    JsonRpc rpc(CHANGED_REFERENCE);
     rpc.append(filename);
     sendJson(rpc);
 }
 
 void SocketServer::changedOutputFile(QString filename) {
-    JsonRpc rpc("changedOutputFile");
+    JsonRpc rpc(CHANGED_OUTPUT);
     rpc.append(filename);
     sendJson(rpc);
 }
 
 void SocketServer::changedResultFile(QString filename) {
-    JsonRpc rpc("changedResultFile");
+    JsonRpc rpc(CHANGED_RESULTS);
     rpc.append(filename);
     sendJson(rpc);
 }
