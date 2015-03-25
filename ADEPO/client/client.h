@@ -17,6 +17,9 @@
 #include "results.h"
 #include "setup.h"
 
+#include "delayed_spin_box.h"
+#include "float_table_widget_item.h"
+
 #include "result.h"
 #include "util.h"
 

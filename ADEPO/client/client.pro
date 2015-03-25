@@ -12,7 +12,8 @@ SOURCES += \
 
 HEADERS += \
     float_table_widget_item.h \
-    client.h
+    client.h \
+    delayed_spin_box.h
 
 FORMS += \
     client.ui
