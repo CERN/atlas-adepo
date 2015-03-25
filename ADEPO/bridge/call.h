@@ -26,12 +26,12 @@ public:
     virtual void start() = 0;
     virtual void stop() = 0;
 
-    virtual void updateRunFile() = 0;
-    virtual void updateConfigurationFile() = 0;
-    virtual void updateCalibrationFile() = 0;
-    virtual void updateOffsetFile() = 0;
-    virtual void updateReferenceFile() = 0;
-    virtual void updateOutputFile() = 0;
+    virtual void updateRun() = 0;
+    virtual void updateConfiguration() = 0;
+    virtual void updateCalibration() = 0;
+    virtual void updateOffset() = 0;
+    virtual void updateReference() = 0;
+    virtual void updateOutput() = 0;
     virtual void resetDelta() = 0;
 
     virtual void updateAll() = 0;

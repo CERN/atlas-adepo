@@ -25,13 +25,13 @@ public:
 
     void changedState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
 
-    void changedRunFile(QString filename);
-    void changedConfigurationFile(QString filename);
-    void changedCalibrationFile(QString filename);
-    void changedOffsetFile(QString filename);
-    void changedReferenceFile(QString filename);
-    void changedOutputFile(QString filename);
-    void changedResultFile(QString filename);
+    void changedRun(QString filename);
+    void changedConfiguration(QString filename);
+    void changedCalibration(QString filename);
+    void changedOffset(QString filename);
+    void changedReference(QString filename);
+    void changedOutput(QString filename);
+    void changedResult(QString filename);
 
 Q_SIGNALS:
     void closed();

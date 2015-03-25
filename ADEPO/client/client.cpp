@@ -168,7 +168,7 @@ void Client::selectDetectorRow(int row, int column) {
         selectedDetectors.removeAt(index);
     }
     run.setDetectors(selectedDetectors, config);
-    call->updateRunFile();
+    call->updateRun();
 
     fillBCAMandResultTable();
 }
@@ -350,7 +350,7 @@ void Client::resetDelta() {
 void Client::startClosure()
 {
     run.setMode(MODE_CLOSURE);
-    call->updateRunFile();
+    call->updateRun();
     call->start();
 }
 
@@ -368,12 +368,12 @@ void Client::startMonitoring()
 
     askQuestion = false;
     run.setMode(MODE_MONITORING);
-    call->updateRunFile();
+    call->updateRun();
     call->start();
 }
 
 void Client::stop()
 {
     call->stop();
-    call->updateRunFile();
+    call->updateRun();
 }

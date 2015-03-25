@@ -54,17 +54,17 @@ void SocketServer::processBinaryMessage(QByteArray message)
     } else if (method == STOP) {
         call->stop();
     } else if (method == UPDATE_RUN) {
-        call->updateRunFile();
+        call->updateRun();
     } else if (method == UPDATE_CALIBRATION) {
-        call->updateCalibrationFile();
+        call->updateCalibration();
     } else if (method == UPDATE_CONFIGURATION) {
-        call->updateConfigurationFile();
+        call->updateConfiguration();
     } else if (method == UPDATE_OFFSET) {
-        call->updateOffsetFile();
+        call->updateOffset();
     } else if (method == UPDATE_REFERENCE) {
-        call->updateReferenceFile();
+        call->updateReference();
     } else if (method == UPDATE_OUTPUT) {
-        call->updateOutputFile();
+        call->updateOutput();
     } else if (method == RESET_DELTA) {
         call->resetDelta();
     } else if (method == UPDATE_ALL) {
@@ -85,7 +85,7 @@ void SocketServer::socketDisconnected()
 }
 
 
-void SocketServer::changedRunFile(QString filename) {
+void SocketServer::changedRun(QString filename) {
     JsonRpc rpc(CHANGED_RUN);
     rpc.append(filename);
     sendJson(rpc);
@@ -100,37 +100,37 @@ void SocketServer::changedState(QString adepoStatus, int adepoSeconds, QString l
     sendJson(rpc);
 }
 
-void SocketServer::changedConfigurationFile(QString filename) {
+void SocketServer::changedConfiguration(QString filename) {
     JsonRpc rpc(CHANGED_CONFIGURATION);
     rpc.append(filename);
     sendJson(rpc);
 }
 
-void SocketServer::changedCalibrationFile(QString filename) {
+void SocketServer::changedCalibration(QString filename) {
     JsonRpc rpc(CHANGED_CALIBRATION);
     rpc.append(filename);
     sendJson(rpc);
 }
 
-void SocketServer::changedOffsetFile(QString filename) {
+void SocketServer::changedOffset(QString filename) {
     JsonRpc rpc(CHANGED_OFFSET);
     rpc.append(filename);
     sendJson(rpc);
 }
 
-void SocketServer::changedReferenceFile(QString filename) {
+void SocketServer::changedReference(QString filename) {
     JsonRpc rpc(CHANGED_REFERENCE);
     rpc.append(filename);
     sendJson(rpc);
 }
 
-void SocketServer::changedOutputFile(QString filename) {
+void SocketServer::changedOutput(QString filename) {
     JsonRpc rpc(CHANGED_OUTPUT);
     rpc.append(filename);
     sendJson(rpc);
 }
 
-void SocketServer::changedResultFile(QString filename) {
+void SocketServer::changedResult(QString filename) {
     JsonRpc rpc(CHANGED_RESULTS);
     rpc.append(filename);
     sendJson(rpc);

@@ -3,7 +3,7 @@
 #include "client.h"
 #include "ui_client.h"
 
-void Client::changedRunFile(QString filename) {
+void Client::changedRun(QString filename) {
     qDebug() << "CLIENT Changed Run File " << filename;
 
     if (filename == "") {
@@ -55,34 +55,34 @@ void Client::changedState(QString adepoState, int adepoSeconds, QString lwdaqSta
     QCoreApplication::flush();
 }
 
-void Client::changedConfigurationFile(QString filename) {
+void Client::changedConfiguration(QString filename) {
     display(ui->configurationFileLabel, ui->configurationFile, filename);
 
     config.read(filename);
     fillDetectorTable();
 
     if (run.getFileName() != "") {
-        changedRunFile(run.getFileName());
+        changedRun(run.getFileName());
     }
 }
 
-void Client::changedCalibrationFile(QString filename) {
+void Client::changedCalibration(QString filename) {
     display(ui->calibrationFileLabel, ui->calibrationFile, filename);
 }
 
-void Client::changedOffsetFile(QString filename) {
+void Client::changedOffset(QString filename) {
     offset.read(filename);
 
     updateResults();
 }
 
-void Client::changedReferenceFile(QString filename) {
+void Client::changedReference(QString filename) {
     reference.read(filename);
 
     updateResults();
 }
 
-void Client::changedOutputFile(QString filename) {
+void Client::changedOutput(QString filename) {
     output.read(filename);
 
     updateResults();
@@ -90,6 +90,6 @@ void Client::changedOutputFile(QString filename) {
     display(ui->refFileLabel, ui->refFile, filename);
 }
 
-void Client::changedResultFile(QString filename) {
+void Client::changedResult(QString filename) {
     display(ui->resultFileLabel, ui->resultFile, filename);
 }

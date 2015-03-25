@@ -35,13 +35,13 @@ public:
 
     void changedState(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds);
 
-    void changedRunFile(QString filename);
-    void changedConfigurationFile(QString filename);
-    void changedCalibrationFile(QString filename);
-    void changedOffsetFile(QString filename);
-    void changedReferenceFile(QString filename);
-    void changedOutputFile(QString filename);
-    void changedResultFile(QString filename);
+    void changedRun(QString filename);
+    void changedConfiguration(QString filename);
+    void changedCalibration(QString filename);
+    void changedOffset(QString filename);
+    void changedReference(QString filename);
+    void changedOutput(QString filename);
+    void changedResult(QString filename);
     void changedResults(std::map<QString, Result> results);
 
 public slots:
@@ -51,10 +51,10 @@ signals:
 private slots:
     void selectDetectorRow(int row, int column);
     void showBCAMimage(int row, int column);
-    void changedAirpad(int index) { run.setAirpad(index == 1); ; call->updateRunFile(); }
-    void changedAcquisitionTimeValue(int value) { run.setAcquisitionTime(value); ; call->updateRunFile(); }
-    void changedWaitingTimeValue(int value) { run.setWaitingTime(value); call->updateRunFile(); }
-    void changedFormat(int state) { run.setFullPrecisionFormat(state); ; call->updateRunFile(); updateResults(); }
+    void changedAirpad(int index) { run.setAirpad(index == 1); ; call->updateRun(); }
+    void changedAcquisitionTimeValue(int value) { run.setAcquisitionTime(value); ; call->updateRun(); }
+    void changedWaitingTimeValue(int value) { run.setWaitingTime(value); call->updateRun(); }
+    void changedFormat(int state) { run.setFullPrecisionFormat(state); ; call->updateRun(); updateResults(); }
     void resetDelta();
     void startClosure();
     void startMonitoring();

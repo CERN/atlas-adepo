@@ -133,7 +133,7 @@ void Server::lwdaqStateChanged() {
         if (needToCalculateResults) {
             // calculate
             adepoState = ADEPO_CALCULATING;
-            callback.changedResultFile(resultFile);
+            callback.changedResult(resultFile);
             updateState();
             calculateCoordinates();
             needToCalculateResults = false;
@@ -200,7 +200,7 @@ void Server::calculateCoordinates()
    output.write();
 
    qDebug() << "Updating Output...";
-   callback.changedOutputFile(output.getFilename());
+   callback.changedOutput(output.getFilename());
 
    //enregistrement du fichier qui contient les observations dans le repere CCD et dans le repere MOUNT : spots + prismes
    QDir(".").mkpath(Util::workPath().append("/Archive"));

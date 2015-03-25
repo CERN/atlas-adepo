@@ -12,53 +12,53 @@ void Server::stop() {
     stopDAQ();
 }
 
-void Server::updateRunFile() {
-    qDebug() << "SERVER UpdateRunFile called...";
+void Server::updateRun() {
+    qDebug() << "SERVER UpdateRun called...";
 
     // reread run file
     run.read(run.getFileName(), config);
 
-    callback.changedRunFile(run.getFileName());
+    callback.changedRun(run.getFileName());
 }
 
-void Server::updateConfigurationFile() {
-    qDebug() << "SERVER UpdateConfigFile called...";
+void Server::updateConfiguration() {
+    qDebug() << "SERVER UpdateConfig called...";
 
     config.read(config.getFilename());
 
-    callback.changedConfigurationFile(config.getFilename());
+    callback.changedConfiguration(config.getFilename());
 }
 
-void Server::updateCalibrationFile() {
-    qDebug() << "SERVER UpdateCalibFile called...";
+void Server::updateCalibration() {
+    qDebug() << "SERVER UpdateCalib called...";
 
     calibration.read(calibration.getFilename());
 
-    callback.changedCalibrationFile(calibration.getFilename());
+    callback.changedCalibration(calibration.getFilename());
 }
 
-void Server::updateOffsetFile() {
-    qDebug() << "SERVER UpdateOffsetFile called...";
+void Server::updateOffset() {
+    qDebug() << "SERVER UpdateOffset called...";
 
     offset.read(offset.getFilename());
 
-    callback.changedOffsetFile(offset.getFilename());
+    callback.changedOffset(offset.getFilename());
 }
 
-void Server::updateReferenceFile() {
-    qDebug() << "SERVER UpdateReferenceFile called...";
+void Server::updateReference() {
+    qDebug() << "SERVER UpdateReference called...";
 
     reference.read(reference.getFilename());
 
-    callback.changedReferenceFile(reference.getFilename());
+    callback.changedReference(reference.getFilename());
 }
 
-void Server::updateOutputFile() {
-    qDebug() << "SERVER UpdateOutputFile called...";
+void Server::updateOutput() {
+    qDebug() << "SERVER UpdateOutput called...";
 
     output.read(output.getFilename());
 
-    callback.changedOutputFile(output.getFilename());
+    callback.changedOutput(output.getFilename());
 }
 
 void Server::resetDelta() {
@@ -72,21 +72,21 @@ void Server::resetDelta() {
     }
 
     offset.write();
-    callback.changedOffsetFile(offset.getFilename());
+    callback.changedOffset(offset.getFilename());
 }
 
 
 void Server::updateAll() {
     qDebug() << "SERVER UpdateAll called...";
 
-    updateConfigurationFile();
-    updateCalibrationFile();
-    updateOffsetFile();
-    updateReferenceFile();
-    updateOutputFile();
+    updateConfiguration();
+    updateCalibration();
+    updateOffset();
+    updateReference();
+    updateOutput();
     // needs to be last, needs config
-    updateRunFile();
+    updateRun();
 
     callback.changedState(adepoState, waitingTimer->remainingTime(), lwdaq_client->getState(), lwdaq_client->getRemainingTime());
-    callback.changedResultFile(Util::workPath().append(DEFAULT_RESULT_FILE));
+    callback.changedResult(Util::workPath().append(DEFAULT_RESULT_FILE));
 }

@@ -59,25 +59,25 @@ void SocketClient::onTextMessageReceived(QString message)
         callback.changedState(params[0].toString(), params[1].toInt(), params[2].toString(), params[3].toInt());
     } else if (method == CHANGED_RUN) {
         QJsonArray params = json["params"].toArray();
-        callback.changedRunFile(params[0].toString());
+        callback.changedRun(params[0].toString());
     } else if (method == CHANGED_CONFIGURATION) {
         QJsonArray params = json["params"].toArray();
-        callback.changedConfigurationFile(params[0].toString());
+        callback.changedConfiguration(params[0].toString());
     } else if (method == CHANGED_CALIBRATION) {
         QJsonArray params = json["params"].toArray();
-        callback.changedCalibrationFile(params[0].toString());
+        callback.changedCalibration(params[0].toString());
     } else if (method == CHANGED_OFFSET) {
         QJsonArray params = json["params"].toArray();
-        callback.changedOffsetFile(params[0].toString());
+        callback.changedOffset(params[0].toString());
     } else if (method == CHANGED_REFERENCE) {
         QJsonArray params = json["params"].toArray();
-        callback.changedReferenceFile(params[0].toString());
+        callback.changedReference(params[0].toString());
     } else if (method == CHANGED_OUTPUT) {
         QJsonArray params = json["params"].toArray();
-        callback.changedOutputFile(params[0].toString());
+        callback.changedOutput(params[0].toString());
     } else if (method == CHANGED_RESULTS) {
         QJsonArray params = json["params"].toArray();
-        callback.changedResultFile(params[0].toString());
+        callback.changedResult(params[0].toString());
     } else {
         qWarning() << "CLIENT Unimplemented client rpc method: " << method;
     }
@@ -93,32 +93,32 @@ void SocketClient::stop() {
     sendJson(rpc);
 }
 
-void SocketClient::updateCalibrationFile() {
+void SocketClient::updateCalibration() {
     JsonRpc rpc(UPDATE_CALIBRATION);
     sendJson(rpc);
 }
 
-void SocketClient::updateConfigurationFile() {
+void SocketClient::updateConfiguration() {
     JsonRpc rpc(UPDATE_CONFIGURATION);
     sendJson(rpc);
 }
 
-void SocketClient::updateOffsetFile() {
+void SocketClient::updateOffset() {
     JsonRpc rpc(UPDATE_OFFSET);
     sendJson(rpc);
 }
 
-void SocketClient::updateReferenceFile() {
+void SocketClient::updateReference() {
     JsonRpc rpc(UPDATE_OFFSET);
     sendJson(rpc);
 }
 
-void SocketClient::updateOutputFile() {
+void SocketClient::updateOutput() {
     JsonRpc rpc(UPDATE_OUTPUT);
     sendJson(rpc);
 }
 
-void SocketClient::updateRunFile() {
+void SocketClient::updateRun() {
     JsonRpc rpc(UPDATE_RUN);
     sendJson(rpc);
 }

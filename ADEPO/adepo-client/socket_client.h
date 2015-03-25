@@ -22,12 +22,12 @@ public:
 
     void start();
     void stop();
-    void updateRunFile();
-    void updateConfigurationFile();
-    void updateCalibrationFile();
-    void updateOffsetFile();
-    void updateReferenceFile();
-    void updateOutputFile();
+    void updateRun();
+    void updateConfiguration();
+    void updateCalibration();
+    void updateOffset();
+    void updateReference();
+    void updateOutput();
     void resetDelta();
     void updateAll();
 
