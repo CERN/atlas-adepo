@@ -49,12 +49,14 @@ void SocketServer::processBinaryMessage(QByteArray message)
     QString version = json["jsonrpc"].toString();
     QString method = json["method"].toString();
     if (method == START) {
-        QJsonArray params = json["params"].toArray();
         call->start();
     } else if (method == STOP) {
         call->stop();
     } else if (method == UPDATE_RUN) {
-        call->updateRun();
+        QJsonArray params = json["params"].toArray();
+        Run run;
+        run.read(params[0].toObject());
+        call->updateRun(run);
     } else if (method == UPDATE_CALIBRATION) {
         call->updateCalibration();
     } else if (method == UPDATE_CONFIGURATION) {
@@ -85,9 +87,11 @@ void SocketServer::socketDisconnected()
 }
 
 
-void SocketServer::changedRun(QString filename) {
+void SocketServer::changedRun(Run run) {
     JsonRpc rpc(CHANGED_RUN);
-    rpc.append(filename);
+    QJsonObject json;
+    run.write(json);
+    rpc.append(json);
     sendJson(rpc);
 }
 

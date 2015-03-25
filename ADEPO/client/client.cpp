@@ -167,8 +167,8 @@ void Client::selectDetectorRow(int row, int column) {
     } else {
         selectedDetectors.removeAt(index);
     }
-    run.setDetectors(selectedDetectors, config);
-    call->updateRun();
+    run.setDetectors(selectedDetectors);
+    call->updateRun(run);
 
     fillBCAMandResultTable();
 }
@@ -179,12 +179,12 @@ void Client::fillBCAMandResultTable()
 
     // nombre de lignes dans la table
     ui->tableWidget_liste_bcams->clearContents();
-    ui->tableWidget_liste_bcams->setRowCount(run.getBCAMs().size());
+    ui->tableWidget_liste_bcams->setRowCount(setup.getBCAMs().size());
     ui->tableWidget_results->setRowCount(100);
 
     int row = 0;
-    for(int i=0; i<run.getBCAMs().size(); i++) {
-        BCAM bcam = run.getBCAMs().at(i);
+    for(int i=0; i<setup.getBCAMs().size(); i++) {
+        BCAM bcam = setup.getBCAMs().at(i);
 
         //ajout dans la tableWidget qui affiche les BCAMs
         QTableWidgetItem *nom_bcam = new QTableWidgetItem();
@@ -350,7 +350,7 @@ void Client::resetDelta() {
 void Client::startClosure()
 {
     run.setMode(MODE_CLOSURE);
-    call->updateRun();
+    call->updateRun(run);
     call->start();
 }
 
@@ -368,12 +368,12 @@ void Client::startMonitoring()
 
     askQuestion = false;
     run.setMode(MODE_MONITORING);
-    call->updateRun();
+    call->updateRun(run);
     call->start();
 }
 
 void Client::stop()
 {
     call->stop();
-    call->updateRun();
+    call->updateRun(run);
 }

@@ -50,7 +50,7 @@ int Server::writeScriptFile(QString fileName)
            <<"end. \n"
            <<"\n";
 
-        QList<BCAM> bcams = run.getBCAMs();
+        QList<BCAM> bcams = setup.getBCAMs();
 
         //écriture dans le fichier de la partie acquisition du script : un paragraphe par BCAM
         for(int i=0; i<bcams.size(); i++)

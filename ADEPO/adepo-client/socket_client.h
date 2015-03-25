@@ -22,7 +22,7 @@ public:
 
     void start();
     void stop();
-    void updateRun();
+    void updateRun(Run run);
     void updateConfiguration();
     void updateCalibration();
     void updateOffset();

@@ -59,7 +59,9 @@ void SocketClient::onTextMessageReceived(QString message)
         callback.changedState(params[0].toString(), params[1].toInt(), params[2].toString(), params[3].toInt());
     } else if (method == CHANGED_RUN) {
         QJsonArray params = json["params"].toArray();
-        callback.changedRun(params[0].toString());
+        Run run;
+        run.read(params[0].toObject());
+        callback.changedRun(run);
     } else if (method == CHANGED_CONFIGURATION) {
         QJsonArray params = json["params"].toArray();
         callback.changedConfiguration(params[0].toString());
@@ -118,8 +120,11 @@ void SocketClient::updateOutput() {
     sendJson(rpc);
 }
 
-void SocketClient::updateRun() {
+void SocketClient::updateRun(Run run) {
     JsonRpc rpc(UPDATE_RUN);
+    QJsonObject json;
+    run.write(json);
+    rpc.append(json);
     sendJson(rpc);
 }
 

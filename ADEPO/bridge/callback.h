@@ -4,6 +4,7 @@
 #include <QString>
 
 #include "bridge.h"
+#include "run.h"
 #include "result.h"
 
 #define CHANGED_STATE "ChangedState"
@@ -23,7 +24,7 @@ public:
 
     virtual void changedState(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds) = 0;
 
-    virtual void changedRun(QString filename) = 0;
+    virtual void changedRun(Run run) = 0;
     virtual void changedConfiguration(QString filename) = 0;
     virtual void changedCalibration(QString filename) = 0;
     virtual void changedOffset(QString filename) = 0;

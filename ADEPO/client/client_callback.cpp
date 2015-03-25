@@ -3,14 +3,10 @@
 #include "client.h"
 #include "ui_client.h"
 
-void Client::changedRun(QString filename) {
-    qDebug() << "CLIENT Changed Run File " << filename;
+void Client::changedRun(Run run) {
+    qDebug() << "CLIENT Changed Run";
 
-    if (filename == "") {
-        return;
-    }
-
-    run.read(filename, config);
+    this->run = run;
 
     // select selected detectors
     ui->tableWidget_liste_detectors->clearSelection();
@@ -22,6 +18,8 @@ void Client::changedRun(QString filename) {
             ui->tableWidget_liste_detectors->selectRow(row);
         }
     }
+
+    setup.initBCAMs(run, config);
 
     fillBCAMandResultTable();
 
@@ -61,9 +59,7 @@ void Client::changedConfiguration(QString filename) {
     config.read(filename);
     fillDetectorTable();
 
-    if (run.getFileName() != "") {
-        changedRun(run.getFileName());
-    }
+    changedRun(run);
 }
 
 void Client::changedCalibration(QString filename) {

@@ -15,6 +15,7 @@
 #include "data.h"
 #include "results.h"
 #include "run.h"
+#include "setup.h"
 
 #include "lwdaq_client.h"
 #include "point3d.h"
@@ -38,7 +39,7 @@ public:
     void start();
     void stop();
 
-    void updateRun();
+    void updateRun(Run run);
     void updateConfiguration();
     void updateCalibration();
     void updateOffset();
@@ -63,8 +64,8 @@ private:
     QString getDateTime();
     int writeBCAMScript(Configuration &config, std::ofstream &file, BCAM bcam, int spots, QString sourceDeviceElement);
 
-    void imgCoordToBcamCoord(Calibration &calibration, Run &run, Data &data);
-    void calculCoordBcamSystem(Configuration &config, Calibration &calibration, Run &run, Data& data);
+    void imgCoordToBcamCoord();
+    void calculCoordBcamSystem();
     void mountPrismToGlobalPrism();
     void calculateResults();
     int writeFileObsMountSystem(QString fileName, QString datetime);
@@ -85,6 +86,7 @@ private:
 
     Run run;
     Configuration config;
+    Setup setup;
     Calibration calibration;
     Data data;
     Results offset;

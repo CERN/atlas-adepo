@@ -25,7 +25,7 @@ public:
 
     void changedState(QString adepoStatus, int adepoSeconds, QString lwdaqStatus, int lwdaqSeconds);
 
-    void changedRun(QString filename);
+    void changedRun(Run run);
     void changedConfiguration(QString filename);
     void changedCalibration(QString filename);
     void changedOffset(QString filename);

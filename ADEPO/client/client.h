@@ -15,6 +15,7 @@
 #include "configuration.h"
 #include "run.h"
 #include "results.h"
+#include "setup.h"
 
 #include "result.h"
 #include "util.h"
@@ -35,7 +36,7 @@ public:
 
     void changedState(QString adepoState, int adepoSeconds, QString lwdaqState, int lwdaqSeconds);
 
-    void changedRun(QString filename);
+    void changedRun(Run run);
     void changedConfiguration(QString filename);
     void changedCalibration(QString filename);
     void changedOffset(QString filename);
@@ -51,10 +52,10 @@ signals:
 private slots:
     void selectDetectorRow(int row, int column);
     void showBCAMimage(int row, int column);
-    void changedAirpad(int index) { run.setAirpad(index == 1); ; call->updateRun(); }
-    void changedAcquisitionTimeValue(int value) { run.setAcquisitionTime(value); ; call->updateRun(); }
-    void changedWaitingTimeValue(int value) { run.setWaitingTime(value); call->updateRun(); }
-    void changedFormat(int state) { run.setFullPrecisionFormat(state); ; call->updateRun(); updateResults(); }
+    void changedAirpad(int index) { run.setAirpad(index == 1); ; call->updateRun(run); }
+    void changedAcquisitionTimeValue(int value) { run.setAcquisitionTime(value); ; call->updateRun(run); }
+    void changedWaitingTimeValue(int value) { run.setWaitingTime(value); call->updateRun(run); }
+    void changedFormat(int state) { run.setFullPrecisionFormat(state); ; call->updateRun(run); updateResults(); }
     void resetDelta();
     void startClosure();
     void startMonitoring();
@@ -65,6 +66,7 @@ private:
 
     Run run;
     Configuration config;
+    Setup setup;
     Results offset;
     Results reference;
     Results output;

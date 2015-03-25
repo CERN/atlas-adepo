@@ -2,6 +2,7 @@
 #define CALL_H
 
 #include "bridge.h"
+#include "run.h"
 
 #include <QString>
 
@@ -26,7 +27,7 @@ public:
     virtual void start() = 0;
     virtual void stop() = 0;
 
-    virtual void updateRun() = 0;
+    virtual void updateRun(Run run) = 0;
     virtual void updateConfiguration() = 0;
     virtual void updateCalibration() = 0;
     virtual void updateOffset() = 0;

@@ -6,8 +6,6 @@
 #include <QJsonObject>
 #include <QList>
 
-#include "configuration.h"
-#include "bcam.h"
 #include "json_util.h"
 #include "json_rpc.h"
 
@@ -42,81 +40,73 @@ public:
     virtual ~Run() {};
 
     void write();
-    void read(QString fileName, Configuration &config);
+    void read(QString fileName);
 
     QString getFileName() {
         return fileName;
     }
 
     QString getMode() {
-        return json[MODE].isNull() ? MODE_DEFAULT : json[MODE].toString();
+        return data[MODE].isNull() ? MODE_DEFAULT : data[MODE].toString();
     }
 
     void setMode(QString mode) {
-        json[MODE] = mode;
-        write();
+        data[MODE] = mode;
     }
 
     QList<int> getDetectors() {
-        return JsonUtil::fromIntArray(json[DETECTORS].toArray());
+        return JsonUtil::fromIntArray(data[DETECTORS].toArray());
     }
 
-    void setDetectors(QList<int> detectors, Configuration& config) {
-        json[DETECTORS] = JsonUtil::toIntArray(detectors);
-        write();
-        initBCAMs(config);
+    void setDetectors(QList<int> detectors) {
+        data[DETECTORS] = JsonUtil::toIntArray(detectors);
     }
-
-    QList<BCAM> getBCAMs() {
-        return bcams;
-    }
-
-    QList<BCAM> getBCAMs(int id_detector, Configuration& config);
-
-    BCAM getBCAM(QString bcam_prism);
 
     bool getAirpad() {
-        return json[AIRPAD].isNull() ? AIRPAD_DEFAULT : json[AIRPAD].toBool();
+        return data[AIRPAD].isNull() ? AIRPAD_DEFAULT : data[AIRPAD].toBool();
     }
 
     void setAirpad(bool state) {
-        json[AIRPAD] = state;
-        write();
+        data[AIRPAD] = state;
     }
 
     bool getFullPrecisionFormat() {
-        return json[FULL_PRECISION_FORMAT].isNull() ? FULL_PRECISION_FORMAT_DEFAULT : json[FULL_PRECISION_FORMAT].toBool();
+        return data[FULL_PRECISION_FORMAT].isNull() ? FULL_PRECISION_FORMAT_DEFAULT : data[FULL_PRECISION_FORMAT].toBool();
     }
 
     void setFullPrecisionFormat(bool state) {
-        json[FULL_PRECISION_FORMAT] = state;
-        write();
+        data[FULL_PRECISION_FORMAT] = state;
     }
 
     int getAcquisitionTime() {
-        return json[ACQUISITION_TIME].isNull() ? ACQUISITION_TIME_DEFAULT : json[ACQUISITION_TIME].toInt();
+        return data[ACQUISITION_TIME].isNull() ? ACQUISITION_TIME_DEFAULT : data[ACQUISITION_TIME].toInt();
     }
 
     void setAcquisitionTime(int value) {
-        json[ACQUISITION_TIME] = value;
-        write();
+        data[ACQUISITION_TIME] = value;
     }
 
     int getWaitingTime() {
-        return json[WAITING_TIME].isNull() ? WAITING_TIME_DEFAULT : json[WAITING_TIME].toInt();
+        return data[WAITING_TIME].isNull() ? WAITING_TIME_DEFAULT : data[WAITING_TIME].toInt();
     }
 
     void setWaitingTime(int value) {
-        json[WAITING_TIME] = value;
-        write();
+        data[WAITING_TIME] = value;
+    }
+
+    void read(const QJsonObject &json) {
+        fileName = json["fileName"].toString();
+        data = json["data"].toObject();
+    }
+
+    void write(QJsonObject &json) const {
+        json["fileName"] = fileName;
+        json["data"] = data;
     }
 
 private:
-    void initBCAMs(Configuration& config);
-
     QString fileName;
-    QJsonObject json;
-    QList<BCAM> bcams;
+    QJsonObject data;
 };
 
 #endif // RUN_H

@@ -12,19 +12,25 @@ void Server::stop() {
     stopDAQ();
 }
 
-void Server::updateRun() {
+void Server::updateRun(Run run) {
     qDebug() << "SERVER UpdateRun called...";
 
-    // reread run file
-    run.read(run.getFileName(), config);
+    this->run = run;
 
-    callback.changedRun(run.getFileName());
+    // write run file
+    run.write();
+
+    setup.initBCAMs(run, config);
+
+    callback.changedRun(run);
 }
 
 void Server::updateConfiguration() {
     qDebug() << "SERVER UpdateConfig called...";
 
     config.read(config.getFilename());
+
+    setup.initBCAMs(run, config);
 
     callback.changedConfiguration(config.getFilename());
 }
@@ -64,8 +70,8 @@ void Server::updateOutput() {
 void Server::resetDelta() {
     qDebug() << "SERVER resetDelta";
 
-    for(int i=0; i<run.getBCAMs().size(); i++) {
-        BCAM bcam = run.getBCAMs().at(i);
+    for(int i=0; i<setup.getBCAMs().size(); i++) {
+        BCAM bcam = setup.getBCAMs().at(i);
         QString prismName = config.getName(bcam.getPrism().getName());
         Result& r = output.getResult(prismName);
         offset.setResult(prismName, r);
@@ -79,13 +85,12 @@ void Server::resetDelta() {
 void Server::updateAll() {
     qDebug() << "SERVER UpdateAll called...";
 
+    updateRun(run);
     updateConfiguration();
     updateCalibration();
     updateOffset();
     updateReference();
     updateOutput();
-    // needs to be last, needs config
-    updateRun();
 
     callback.changedState(adepoState, waitingTimer->remainingTime(), lwdaq_client->getState(), lwdaq_client->getRemainingTime());
     callback.changedResult(Util::workPath().append(DEFAULT_RESULT_FILE));
