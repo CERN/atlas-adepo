@@ -86,15 +86,6 @@ void Server::startDAQ()
 
     writeScriptFile(Util::workPath().append(DEFAULT_SCRIPT_FILE));
 
-    //si un fichier de resultats existe deja dans le dossier LWDAQ, je le supprime avant
-    QFile file(Util::workPath().append(DEFAULT_RESULT_FILE));
-    qDebug() << "*** Removing " << file.fileName();
-    if (file.exists() && !file.remove()) {
-        qWarning() << "SERVER Cannot remove result file " << file.fileName();
-        qWarning() << "SERVER Start aborted.";
-        return;
-    }
-
     qDebug() << "SERVER Connecting to LWDAQ on " << config.getDriverIpAddress();
 
     runDAQ();
@@ -103,6 +94,15 @@ void Server::startDAQ()
 void Server::runDAQ() {
     qDebug() << "SERVER run DAQ";
     needToCalculateResults = true;
+
+    QFile file(Util::workPath().append(DEFAULT_RESULT_FILE));
+    qDebug() << "*** Removing " << file.fileName();
+    if (file.exists() && !file.remove()) {
+        qWarning() << "SERVER Cannot remove result file " << file.fileName();
+        qWarning() << "SERVER Start aborted.";
+        return;
+    }
+
     lwdaq_client->startRun(Util::workPath(), run.getAcquisitionTime());
 }
 
