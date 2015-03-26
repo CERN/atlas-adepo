@@ -1,4 +1,5 @@
 /Makefile.client
 /adepo-client
 /moc_client.cpp
+/moc_delayed_spin_box.cpp
 /ui_client.h
