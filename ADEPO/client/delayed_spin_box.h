@@ -3,35 +3,37 @@
 
 #include <QSpinBox>
 #include <QTimer>
+#include <QDebug>
+#include <QEvent>
 
 class DelayedSpinBox : public QSpinBox {
+    Q_OBJECT
+
     public:
         DelayedSpinBox(QWidget * parent = 0) : QSpinBox(parent) {
             timer = new QTimer(this);
-            timer->setInterval(2000);
+            timer->setInterval(500);
             timer->setSingleShot(true);
 
             connect(timer, &QTimer::timeout, this, &DelayedSpinBox::timeout);
-
-            connect(this, SIGNAL(valueChanged(int)), this, SLOT(triggerValueChanged(int)));
+            connect(this, SIGNAL(valueChanged(int)), this, SLOT(myValueChanged(int)));
         }
 
-//    Q_SIGNALS:
-//        void delayedValueChanged(int i);
+    signals:
+        void delayedValueChanged(int i);
 
     private slots:
-        void triggerValueChanged(int i) {
-            std::cout << "Spin " << i << std::endl;
+        void myValueChanged(int i) {
+            Q_UNUSED(i);
+            timer->start();
         }
 
         void timeout() {
-            std::cout << "Timeout Spin " << value() << std::endl;
-//            emit delayedValueChanged(value());
+            emit delayedValueChanged(value());
         }
 
     private:
-        QTimer *timer;
+        QTimer* timer;
 };
 
 #endif // DELAYED_SPIN_BOX
-

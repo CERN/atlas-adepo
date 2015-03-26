@@ -49,8 +49,8 @@ Client::Client(QWidget *parent) :
     connect(ui->reset, &QPushButton::clicked, this, &Client::resetDelta);
 
     connect(ui->fullPrecision, &QCheckBox::stateChanged, this, &Client::changedFormat);
-    connect(ui->acquisitionTime, SIGNAL(valueChanged(int)), this, SLOT(changedAcquisitionTimeValue(int)));
-    connect(ui->waitingTime, SIGNAL(valueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
+    connect(ui->acquisitionTime, SIGNAL(delayedValueChanged(int)), this, SLOT(changedAcquisitionTimeValue(int)));
+    connect(ui->waitingTime, SIGNAL(delayedValueChanged(int)), this, SLOT(changedWaitingTimeValue(int)));
     connect(ui->airpad, SIGNAL(currentIndexChanged(int)), this, SLOT(changedAirpad(int)));
 
     askQuestion = true;

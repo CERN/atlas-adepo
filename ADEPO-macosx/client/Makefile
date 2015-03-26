@@ -46,10 +46,12 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../../ADEPO/client/client.cpp \
-		../../ADEPO/client/client_callback.cpp moc_client.cpp
+		../../ADEPO/client/client_callback.cpp moc_client.cpp \
+		moc_delayed_spin_box.cpp
 OBJECTS       = client.o \
 		client_callback.o \
-		moc_client.o
+		moc_client.o \
+		moc_delayed_spin_box.o
 DIST          = /Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/qdevice.pri \
 		/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/device_config.prf \
@@ -540,9 +542,9 @@ compiler_objective_c_make_all:
 compiler_objective_c_clean:
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_client.cpp
+compiler_moc_header_make_all: moc_client.cpp moc_delayed_spin_box.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_client.cpp
+	-$(DEL_FILE) moc_client.cpp moc_delayed_spin_box.cpp
 moc_client.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
@@ -594,16 +596,46 @@ moc_client.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Version
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
 		../../ADEPO/common/setup.h \
 		../../ADEPO/common/bcam.h \
+		../../ADEPO/client/delayed_spin_box.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QEvent \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qcoreevent.h \
+		../../ADEPO/client/float_table_widget_item.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTableWidgetItem \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtablewidget.h \
 		../../ADEPO/common/util.h \
 		../../ADEPO/client/client.h
 	/Users/duns/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/client -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtTest.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.1/5.4/clang_64/lib ../../ADEPO/client/client.h -o moc_client.cpp
+
+moc_delayed_spin_box.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QEvent \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qcoreevent.h \
+		../../ADEPO/client/delayed_spin_box.h
+	/Users/duns/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/client -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtTest.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.1/5.4/clang_64/lib ../../ADEPO/client/delayed_spin_box.h -o moc_delayed_spin_box.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all: ui_client.h
 compiler_uic_clean:
 	-$(DEL_FILE) ui_client.h
-ui_client.h: ../../ADEPO/client/client.ui
+ui_client.h: ../../ADEPO/client/client.ui \
+		../../ADEPO/client/delayed_spin_box.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QEvent \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qcoreevent.h
 	/Users/duns/Qt5.4.1/5.4/clang_64/bin/uic ../../ADEPO/client/client.ui -o ui_client.h
 
 compiler_rez_source_make_all:
@@ -680,11 +712,18 @@ client.o: ../../ADEPO/client/client.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtG
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
 		../../ADEPO/common/setup.h \
 		../../ADEPO/common/bcam.h \
-		../../ADEPO/common/util.h \
-		ui_client.h \
+		../../ADEPO/client/delayed_spin_box.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QEvent \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qcoreevent.h \
 		../../ADEPO/client/float_table_widget_item.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTableWidgetItem \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtablewidget.h
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtablewidget.h \
+		../../ADEPO/common/util.h \
+		ui_client.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client.o ../../ADEPO/client/client.cpp
 
 client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/callback.h \
@@ -739,12 +778,25 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
 		../../ADEPO/common/setup.h \
 		../../ADEPO/common/bcam.h \
+		../../ADEPO/client/delayed_spin_box.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSpinBox \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qspinbox.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QEvent \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qcoreevent.h \
+		../../ADEPO/client/float_table_widget_item.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTableWidgetItem \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtablewidget.h \
 		../../ADEPO/common/util.h \
 		ui_client.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client_callback.o ../../ADEPO/client/client_callback.cpp
 
 moc_client.o: moc_client.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_client.o moc_client.cpp
+
+moc_delayed_spin_box.o: moc_delayed_spin_box.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_delayed_spin_box.o moc_delayed_spin_box.cpp
 
 ####### Install
 
