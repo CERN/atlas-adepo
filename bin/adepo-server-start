@@ -1,0 +1,5 @@
+#!/bin/sh
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+$SCRIPTPATH/../ADEPO-slc6/adepo-server/adepo-server &> $SCRIPTPATH/../ADEPO-slc6/server.log &
+

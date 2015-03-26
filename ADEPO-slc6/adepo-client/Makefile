@@ -33,10 +33,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = adepo-client1.0.0
-DISTDIR = /det/ti/PosMov/git/adepo-test/ADEPO/adepo-client/.tmp/adepo-client1.0.0
+DISTDIR = /det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-client/.tmp/adepo-client1.0.0
 LINK          = g++
 LFLAGS        = -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib -Wl,-O1
-LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/adepo-test/ADEPO-slc6/adepo-client/../client/ -lclient -L/det/ti/PosMov/git/adepo-test/ADEPO-slc6/adepo-client/../common/ -lcommon -L/det/ti/PosMov/Qt5.4.1/lib -lQt5Widgets -lQt5Gui -lQt5WebSockets -lQt5Network -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-client/../client/ -lclient -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-client/../common/ -lcommon -L/det/ti/PosMov/Qt5.4.1/lib -lQt5Widgets -lQt5Gui -lQt5WebSockets -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -186,7 +186,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): /det/ti/PosMov/git/adepo-test/ADEPO-slc6/adepo-client/../client/libclient.a /det/ti/PosMov/git/adepo-test/ADEPO-slc6/adepo-client/../common/libcommon.a $(OBJECTS)  
+$(TARGET): /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-client/../client/libclient.a /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-client/../common/libcommon.a $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../../ADEPO/adepo-client/adepo-client.pro ../../../../Qt5.4.1/mkspecs/linux-g++/qmake.conf ../../../../Qt5.4.1/mkspecs/features/spec_pre.prf \
@@ -798,12 +798,18 @@ main.o: ../../ADEPO/adepo-client/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../../../Qt5.4.1/include/QtCore/QDebug \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
+		../../ADEPO/common/run.h \
+		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
+		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../ADEPO/common/json_util.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/QJsonArray \
+		../../ADEPO/common/json_rpc.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/point3d.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonObject \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../ADEPO/common/configuration.h \
-		../../../../Qt5.4.1/include/QtCore/QHash \
 		../../ADEPO/common/detector.h \
 		../../ADEPO/common/bcam_adapter.h \
 		../../ADEPO/common/bcam_config.h \
@@ -811,14 +817,27 @@ main.o: ../../ADEPO/adepo-client/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../ADEPO/common/absolute_distances.h \
 		../../ADEPO/common/atlas_coordinates.h \
 		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/common/run.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
-		../../ADEPO/common/bcam.h \
-		../../ADEPO/common/json_util.h \
-		../../../../Qt5.4.1/include/QtCore/QJsonArray \
-		../../ADEPO/common/json_rpc.h \
 		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QFile \
+		../../ADEPO/common/setup.h \
+		../../ADEPO/common/bcam.h \
+		../../ADEPO/client/delayed_spin_box.h \
+		../../../../Qt5.4.1/include/QtWidgets/QSpinBox \
+		../../../../Qt5.4.1/include/QtWidgets/qspinbox.h \
+		../../../../Qt5.4.1/include/QtWidgets/qabstractspinbox.h \
+		../../../../Qt5.4.1/include/QtCore/QTimer \
+		../../ADEPO/client/float_table_widget_item.h \
+		../../../../Qt5.4.1/include/QtWidgets/QTableWidgetItem \
+		../../../../Qt5.4.1/include/QtWidgets/qtablewidget.h \
+		../../../../Qt5.4.1/include/QtWidgets/qtableview.h \
+		../../../../Qt5.4.1/include/QtWidgets/qabstractitemview.h \
+		../../../../Qt5.4.1/include/QtWidgets/qabstractitemdelegate.h \
+		../../../../Qt5.4.1/include/QtWidgets/qstyleoption.h \
+		../../../../Qt5.4.1/include/QtWidgets/qslider.h \
+		../../../../Qt5.4.1/include/QtWidgets/qabstractslider.h \
+		../../../../Qt5.4.1/include/QtWidgets/qstyle.h \
+		../../../../Qt5.4.1/include/QtWidgets/qtabbar.h \
+		../../../../Qt5.4.1/include/QtWidgets/qrubberband.h \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../ADEPO/adepo-client/socket_client.h \
@@ -841,8 +860,7 @@ main.o: ../../ADEPO/adepo-client/main.cpp ../../../../Qt5.4.1/include/QtWidgets/
 		../../../../Qt5.4.1/include/QtNetwork/qsslsocket.h \
 		../../../../Qt5.4.1/include/QtNetwork/qtcpsocket.h \
 		../../../../Qt5.4.1/include/QtWebSockets/qwebsockets_global.h \
-		../../../../Qt5.4.1/include/QtWebSockets/qwebsocketprotocol.h \
-		../../../../Qt5.4.1/include/QtCore/QTimer
+		../../../../Qt5.4.1/include/QtWebSockets/qwebsocketprotocol.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../ADEPO/adepo-client/main.cpp
 
 socket_client.o: ../../ADEPO/adepo-client/socket_client.cpp ../../../../Qt5.4.1/include/QtCore/QJsonDocument \
@@ -955,14 +973,16 @@ socket_client.o: ../../ADEPO/adepo-client/socket_client.cpp ../../../../Qt5.4.1/
 		../../../../Qt5.4.1/include/QtCore/qbasictimer.h \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
+		../../ADEPO/common/run.h \
+		../../../../Qt5.4.1/include/QtCore/QList \
+		../../ADEPO/common/json_util.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/QStringList \
+		../../ADEPO/common/json_rpc.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/point3d.h \
-		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/json_util.h \
-		../../../../Qt5.4.1/include/QtCore/QList \
-		../../../../Qt5.4.1/include/QtCore/QHash \
-		../../../../Qt5.4.1/include/QtCore/QStringList
+		../../../../Qt5.4.1/include/QtCore/QDateTime
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_client.o ../../ADEPO/adepo-client/socket_client.cpp
 
 ####### Install

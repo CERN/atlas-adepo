@@ -33,10 +33,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = bridge1.0.0
-DISTDIR = /det/ti/PosMov/git/adepo-test/ADEPO/bridge/.tmp/bridge1.0.0
+DISTDIR = /det/ti/PosMov/git/atlas-adepo/ADEPO/bridge/.tmp/bridge1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/adepo-test/ADEPO-slc6/bridge/../common/ -lcommon 
+LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/bridge/../common/ -lcommon 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -184,7 +184,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): /det/ti/PosMov/git/adepo-test/ADEPO-slc6/bridge/../common/libcommon.a $(OBJECTS)  
+$(TARGET): /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/bridge/../common/libcommon.a $(OBJECTS)  
 	
 
 Makefile: ../../ADEPO/bridge/bridge.pro ../../../../Qt5.4.1/mkspecs/linux-g++/qmake.conf ../../../../Qt5.4.1/mkspecs/features/spec_pre.prf \

@@ -33,10 +33,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = adepo-server1.0.0
-DISTDIR = /det/ti/PosMov/git/adepo-test/ADEPO/adepo-server/.tmp/adepo-server1.0.0
+DISTDIR = /det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-server/.tmp/adepo-server1.0.0
 LINK          = g++
 LFLAGS        = -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib -Wl,-O1
-LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/adepo-test/ADEPO-slc6/adepo-server/../server/ -lserver -L/det/ti/PosMov/git/adepo-test/ADEPO-slc6/adepo-server/../common/ -lcommon -L/det/ti/PosMov/Qt5.4.1/lib -lQt5WebSockets -lQt5Network -lQt5Core -lpthread 
+LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-server/../server/ -lserver -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-server/../common/ -lcommon -L/det/ti/PosMov/Qt5.4.1/lib -lQt5WebSockets -lQt5Network -lQt5Core -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -184,7 +184,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): /det/ti/PosMov/git/adepo-test/ADEPO-slc6/adepo-server/../server/libserver.a /det/ti/PosMov/git/adepo-test/ADEPO-slc6/adepo-server/../common/libcommon.a $(OBJECTS)  
+$(TARGET): /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-server/../server/libserver.a /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-server/../common/libcommon.a $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../../ADEPO/adepo-server/adepo-server.pro ../../../../Qt5.4.1/mkspecs/linux-g++/qmake.conf ../../../../Qt5.4.1/mkspecs/features/spec_pre.prf \
@@ -552,11 +552,15 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../../../Qt5.4.1/include/QtCore/QCo
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -576,14 +580,12 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../../../Qt5.4.1/include/QtCore/QCo
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../../../Qt5.4.1/include/QtCore/qset.h \
 		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
 		../../../../Qt5.4.1/include/QtCore/qlibraryinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
 		../../../../Qt5.4.1/include/QtCore/qbuffer.h \
 		../../../../Qt5.4.1/include/QtCore/qdir.h \
 		../../../../Qt5.4.1/include/QtCore/qfileinfo.h \
@@ -847,13 +849,15 @@ socket_server.o: ../../ADEPO/adepo-server/socket_server.cpp ../../../../Qt5.4.1/
 		../../../../Qt5.4.1/include/QtNetwork/QHostAddress \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/bridge.h \
+		../../ADEPO/common/run.h \
+		../../ADEPO/common/json_util.h \
+		../../../../Qt5.4.1/include/QtCore/QHash \
+		../../../../Qt5.4.1/include/QtCore/QStringList \
+		../../ADEPO/common/json_rpc.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/common/result.h \
 		../../ADEPO/common/point3d.h \
-		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/json_util.h \
-		../../../../Qt5.4.1/include/QtCore/QHash \
-		../../../../Qt5.4.1/include/QtCore/QStringList
+		../../../../Qt5.4.1/include/QtCore/QDateTime
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_server.o ../../ADEPO/adepo-server/socket_server.cpp
 
 ####### Install

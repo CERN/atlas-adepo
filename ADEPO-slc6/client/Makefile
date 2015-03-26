@@ -12,7 +12,7 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_TESTLIB_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/det/ti/PosMov/git/adepo-test/ADEPO-slc6/client\"
+DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_TESTLIB_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/client\"
 CFLAGS        = -pipe -O2 -fPIC -Wall -W -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -pipe -O2 -fPIC -Wall -W -D_REENTRANT $(DEFINES)
 INCPATH       = -I../../ADEPO/client -I. -I../../ADEPO/bridge -I../../ADEPO/common -I../../../../Qt5.4.1/include -I../../../../Qt5.4.1/include/QtWidgets -I../../../../Qt5.4.1/include/QtGui -I../../../../Qt5.4.1/include/QtTest -I../../../../Qt5.4.1/include/QtNetwork -I../../../../Qt5.4.1/include/QtCore -I. -I. -I../../../../Qt5.4.1/mkspecs/linux-g++
@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = client1.0.0
-DISTDIR = /det/ti/PosMov/git/adepo-test/ADEPO/client/.tmp/client1.0.0
+DISTDIR = /det/ti/PosMov/git/atlas-adepo/ADEPO/client/.tmp/client1.0.0
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -191,7 +191,7 @@ first: all
 
 staticlib: $(TARGET)
 
-$(TARGET): /det/ti/PosMov/git/adepo-test/ADEPO-slc6/client/../common/libcommon.a ui_client.h $(OBJECTS) $(OBJCOMP) 
+$(TARGET): /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/client/../common/libcommon.a ui_client.h $(OBJECTS) $(OBJCOMP) 
 	-$(DEL_FILE) $(TARGET)
 	$(AR) $(TARGET) $(OBJECTS)
 
@@ -647,7 +647,7 @@ moc_client.cpp: ../../../../Qt5.4.1/include/QtWidgets/QMainWindow \
 		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../ADEPO/client/client.h
-	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/adepo-test/ADEPO/client -I/det/ti/PosMov/git/adepo-test/ADEPO/bridge -I/det/ti/PosMov/git/adepo-test/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtWidgets -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtTest -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/client/client.h -o moc_client.cpp
+	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/atlas-adepo/ADEPO/client -I/det/ti/PosMov/git/atlas-adepo/ADEPO/bridge -I/det/ti/PosMov/git/atlas-adepo/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtWidgets -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtTest -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/client/client.h -o moc_client.cpp
 
 moc_delayed_spin_box.cpp: ../../../../Qt5.4.1/include/QtWidgets/QSpinBox \
 		../../../../Qt5.4.1/include/QtWidgets/qspinbox.h \
@@ -761,7 +761,7 @@ moc_delayed_spin_box.cpp: ../../../../Qt5.4.1/include/QtWidgets/QSpinBox \
 		../../../../Qt5.4.1/include/QtCore/QDebug \
 		../../../../Qt5.4.1/include/QtCore/QEvent \
 		../../ADEPO/client/delayed_spin_box.h
-	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/adepo-test/ADEPO/client -I/det/ti/PosMov/git/adepo-test/ADEPO/bridge -I/det/ti/PosMov/git/adepo-test/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtWidgets -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtTest -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/client/delayed_spin_box.h -o moc_delayed_spin_box.cpp
+	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/atlas-adepo/ADEPO/client -I/det/ti/PosMov/git/atlas-adepo/ADEPO/bridge -I/det/ti/PosMov/git/atlas-adepo/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtWidgets -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtTest -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/client/delayed_spin_box.h -o moc_delayed_spin_box.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1093,46 +1093,7 @@ client.o: ../../ADEPO/client/client.cpp ../../../../Qt5.4.1/include/QtGui/QPixma
 		../../../../Qt5.4.1/include/QtWidgets/qrubberband.h \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
-		ui_client.h \
-		../../../../Qt5.4.1/include/QtCore/QVariant \
-		../../../../Qt5.4.1/include/QtWidgets/QAction \
-		../../../../Qt5.4.1/include/QtWidgets/qaction.h \
-		../../../../Qt5.4.1/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.4.1/include/QtWidgets/QApplication \
-		../../../../Qt5.4.1/include/QtWidgets/qapplication.h \
-		../../../../Qt5.4.1/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.4.1/include/QtGui/qguiapplication.h \
-		../../../../Qt5.4.1/include/QtGui/qinputmethod.h \
-		../../../../Qt5.4.1/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.4.1/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.4.1/include/QtWidgets/QCheckBox \
-		../../../../Qt5.4.1/include/QtWidgets/qcheckbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt5.4.1/include/QtWidgets/QComboBox \
-		../../../../Qt5.4.1/include/QtWidgets/qcombobox.h \
-		../../../../Qt5.4.1/include/QtWidgets/QFrame \
-		../../../../Qt5.4.1/include/QtWidgets/QGridLayout \
-		../../../../Qt5.4.1/include/QtWidgets/qgridlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/qlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt5.4.1/include/QtWidgets/qboxlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/QGroupBox \
-		../../../../Qt5.4.1/include/QtWidgets/qgroupbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/QHBoxLayout \
-		../../../../Qt5.4.1/include/QtWidgets/QHeaderView \
-		../../../../Qt5.4.1/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMenu \
-		../../../../Qt5.4.1/include/QtWidgets/qmenu.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMenuBar \
-		../../../../Qt5.4.1/include/QtWidgets/qmenubar.h \
-		../../../../Qt5.4.1/include/QtWidgets/QPushButton \
-		../../../../Qt5.4.1/include/QtWidgets/qpushbutton.h \
-		../../../../Qt5.4.1/include/QtWidgets/QSpacerItem \
-		../../../../Qt5.4.1/include/QtWidgets/QStatusBar \
-		../../../../Qt5.4.1/include/QtWidgets/qstatusbar.h \
-		../../../../Qt5.4.1/include/QtWidgets/QTabWidget \
-		../../../../Qt5.4.1/include/QtWidgets/QTableWidget \
-		../../../../Qt5.4.1/include/QtWidgets/QVBoxLayout
+		ui_client.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client.o ../../ADEPO/client/client.cpp
 
 client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/callback.h \
@@ -1319,46 +1280,7 @@ client_callback.o: ../../ADEPO/client/client_callback.cpp ../../ADEPO/bridge/cal
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
-		ui_client.h \
-		../../../../Qt5.4.1/include/QtCore/QVariant \
-		../../../../Qt5.4.1/include/QtWidgets/QAction \
-		../../../../Qt5.4.1/include/QtWidgets/qaction.h \
-		../../../../Qt5.4.1/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.4.1/include/QtWidgets/QApplication \
-		../../../../Qt5.4.1/include/QtWidgets/qapplication.h \
-		../../../../Qt5.4.1/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.4.1/include/QtGui/qguiapplication.h \
-		../../../../Qt5.4.1/include/QtGui/qinputmethod.h \
-		../../../../Qt5.4.1/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.4.1/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.4.1/include/QtWidgets/QCheckBox \
-		../../../../Qt5.4.1/include/QtWidgets/qcheckbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt5.4.1/include/QtWidgets/QComboBox \
-		../../../../Qt5.4.1/include/QtWidgets/qcombobox.h \
-		../../../../Qt5.4.1/include/QtWidgets/QFrame \
-		../../../../Qt5.4.1/include/QtWidgets/QGridLayout \
-		../../../../Qt5.4.1/include/QtWidgets/qgridlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/qlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt5.4.1/include/QtWidgets/qboxlayout.h \
-		../../../../Qt5.4.1/include/QtWidgets/QGroupBox \
-		../../../../Qt5.4.1/include/QtWidgets/qgroupbox.h \
-		../../../../Qt5.4.1/include/QtWidgets/QHBoxLayout \
-		../../../../Qt5.4.1/include/QtWidgets/QHeaderView \
-		../../../../Qt5.4.1/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMenu \
-		../../../../Qt5.4.1/include/QtWidgets/qmenu.h \
-		../../../../Qt5.4.1/include/QtWidgets/QMenuBar \
-		../../../../Qt5.4.1/include/QtWidgets/qmenubar.h \
-		../../../../Qt5.4.1/include/QtWidgets/QPushButton \
-		../../../../Qt5.4.1/include/QtWidgets/qpushbutton.h \
-		../../../../Qt5.4.1/include/QtWidgets/QSpacerItem \
-		../../../../Qt5.4.1/include/QtWidgets/QStatusBar \
-		../../../../Qt5.4.1/include/QtWidgets/qstatusbar.h \
-		../../../../Qt5.4.1/include/QtWidgets/QTabWidget \
-		../../../../Qt5.4.1/include/QtWidgets/QTableWidget \
-		../../../../Qt5.4.1/include/QtWidgets/QVBoxLayout
+		ui_client.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client_callback.o ../../ADEPO/client/client_callback.cpp
 
 moc_client.o: moc_client.cpp 

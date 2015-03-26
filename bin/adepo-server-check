@@ -1,0 +1,2 @@
+#!/bin/sh
+ps -ef | grep -e adepo-server | grep -v 'grep -e adepo-server' | grep -v 'adepo-server-check'

@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = server1.0.0
-DISTDIR = /det/ti/PosMov/git/adepo-test/ADEPO/server/.tmp/server1.0.0
+DISTDIR = /det/ti/PosMov/git/atlas-adepo/ADEPO/server/.tmp/server1.0.0
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -217,7 +217,7 @@ first: all
 
 staticlib: $(TARGET)
 
-$(TARGET): /det/ti/PosMov/git/adepo-test/ADEPO-slc6/server/../common/libcommon.a $(OBJECTS) $(OBJCOMP) 
+$(TARGET): /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/server/../common/libcommon.a $(OBJECTS) $(OBJCOMP) 
 	-$(DEL_FILE) $(TARGET)
 	$(AR) $(TARGET) $(OBJECTS)
 
@@ -713,7 +713,7 @@ moc_lwdaq_client.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtNetwork/qtnetworkversion.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/lwdaq_client.h
-	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/adepo-test/ADEPO/server -I/det/ti/PosMov/git/adepo-test/ADEPO/eigen-eigen-ffa86ffb5570 -I/det/ti/PosMov/git/adepo-test/ADEPO/bridge -I/det/ti/PosMov/git/adepo-test/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
+	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/atlas-adepo/ADEPO/server -I/det/ti/PosMov/git/atlas-adepo/ADEPO/eigen-eigen-ffa86ffb5570 -I/det/ti/PosMov/git/atlas-adepo/ADEPO/bridge -I/det/ti/PosMov/git/atlas-adepo/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
 
 moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtCore/qobject.h \
@@ -809,11 +809,15 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -833,14 +837,12 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../../../Qt5.4.1/include/QtCore/qset.h \
 		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
 		../../../../Qt5.4.1/include/QtCore/qlibraryinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
 		../../../../Qt5.4.1/include/QtCore/qbuffer.h \
 		../../../../Qt5.4.1/include/QtCore/qdir.h \
 		../../../../Qt5.4.1/include/QtCore/qfileinfo.h \
@@ -982,7 +984,7 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/server/server.h
-	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/adepo-test/ADEPO/server -I/det/ti/PosMov/git/adepo-test/ADEPO/eigen-eigen-ffa86ffb5570 -I/det/ti/PosMov/git/adepo-test/ADEPO/bridge -I/det/ti/PosMov/git/adepo-test/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/server.h -o moc_server.cpp
+	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/atlas-adepo/ADEPO/server -I/det/ti/PosMov/git/atlas-adepo/ADEPO/eigen-eigen-ffa86ffb5570 -I/det/ti/PosMov/git/atlas-adepo/ADEPO/bridge -I/det/ti/PosMov/git/atlas-adepo/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/server.h -o moc_server.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1523,11 +1525,15 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -1547,14 +1553,12 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../../../Qt5.4.1/include/QtCore/qset.h \
 		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
 		../../../../Qt5.4.1/include/QtCore/qlibraryinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
 		../../../../Qt5.4.1/include/QtCore/qbuffer.h \
 		../../../../Qt5.4.1/include/QtCore/qdir.h \
 		../../../../Qt5.4.1/include/QtCore/qfileinfo.h \
@@ -1797,11 +1801,14 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -1827,7 +1834,6 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
 		../../../../Qt5.4.1/include/QtCore/qlibraryinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
 		../../../../Qt5.4.1/include/QtCore/qbuffer.h \
 		../../../../Qt5.4.1/include/QtCore/qdiriterator.h \
 		../../../../Qt5.4.1/include/QtCore/qfileselector.h \
@@ -2196,11 +2202,15 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -2220,14 +2230,12 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../../../Qt5.4.1/include/QtCore/qset.h \
 		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
 		../../../../Qt5.4.1/include/QtCore/qlibraryinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
 		../../../../Qt5.4.1/include/QtCore/qbuffer.h \
 		../../../../Qt5.4.1/include/QtCore/qdir.h \
 		../../../../Qt5.4.1/include/QtCore/qfileinfo.h \
@@ -2467,11 +2475,15 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -2491,14 +2503,12 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../../../Qt5.4.1/include/QtCore/qset.h \
 		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
 		../../../../Qt5.4.1/include/QtCore/qlibraryinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
 		../../../../Qt5.4.1/include/QtCore/qbuffer.h \
 		../../../../Qt5.4.1/include/QtCore/qdir.h \
 		../../../../Qt5.4.1/include/QtCore/qfileinfo.h \
@@ -2736,11 +2746,15 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -2760,14 +2774,12 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../../../Qt5.4.1/include/QtCore/qset.h \
 		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
 		../../../../Qt5.4.1/include/QtCore/qlibraryinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
 		../../../../Qt5.4.1/include/QtCore/qbuffer.h \
 		../../../../Qt5.4.1/include/QtCore/qdir.h \
 		../../../../Qt5.4.1/include/QtCore/qfileinfo.h \
@@ -3005,11 +3017,15 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -3029,14 +3045,12 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../../../Qt5.4.1/include/QtCore/qset.h \
 		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
 		../../../../Qt5.4.1/include/QtCore/qlibraryinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
 		../../../../Qt5.4.1/include/QtCore/qbuffer.h \
 		../../../../Qt5.4.1/include/QtCore/qdir.h \
 		../../../../Qt5.4.1/include/QtCore/qfileinfo.h \
@@ -3276,11 +3290,15 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -3300,14 +3318,12 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../../../Qt5.4.1/include/QtCore/qset.h \
 		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
 		../../../../Qt5.4.1/include/QtCore/qlibraryinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
 		../../../../Qt5.4.1/include/QtCore/qbuffer.h \
 		../../../../Qt5.4.1/include/QtCore/qdir.h \
 		../../../../Qt5.4.1/include/QtCore/qfileinfo.h \
@@ -3545,11 +3561,15 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -3569,14 +3589,12 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qdebug.h \
 		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
 		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
 		../../../../Qt5.4.1/include/QtCore/qset.h \
 		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
 		../../../../Qt5.4.1/include/QtCore/qlibraryinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
 		../../../../Qt5.4.1/include/QtCore/qbuffer.h \
 		../../../../Qt5.4.1/include/QtCore/qdir.h \
 		../../../../Qt5.4.1/include/QtCore/qfileinfo.h \
