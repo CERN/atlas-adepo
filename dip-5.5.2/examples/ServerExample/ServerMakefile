@@ -1,0 +1,2 @@
+Server: Server.cpp
+	gcc Server.cpp -I../../include -L../.. -ldip_slc3 -o Server

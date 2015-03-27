@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+                  function HTMLDecode(s){
+                    s = s.replace(new RegExp(/&lt;/gi), "<");
+                    s = s.replace(new RegExp(/&gt;/gi), ">");
+                    s = s.replace(new RegExp(/&amp;/gi), "&");
+                    return s;
+               }
+               </script>
+<link rel="stylesheet" href="http://wikis.cern.ch/s/1627/45/11/_/styles/combined.css?spaceKey=EN" type="text/css">
+<link rel="stylesheet" type="text/css" href="http://wikis.cern.ch/s/1627/45/1/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/hmenu/src/skin-longhorn.css">
+<link rel="stylesheet" type="text/css" href="http://wikis.cern.ch/plugins/builder/layout-resources.action?layoutId=ENDEPARTMENT&amp;key=EN&amp;resource=combinedcss&amp;hash=-59677564s16274511_">
+<title>DIP Distribution&nbsp;5.5.2 Change Log</title>
+</head>
+<body style="margin: 20px; background-color: white;">
+<h1>DIP Distribution&nbsp;5.5.2 Change Log</h1>
+<noscript>
+<b>WARNING</b> : Javascript is required for correct rendering of the <b>description</b> column.</noscript>
+<p>
+<table class="grid" cellspacing="0" width="100%">
+<caption style="text-align: left; font-weight: bold">
+<a href="http://cern.ch/DIP">DIP Distribution version 5.5.2</a><span class="smalltext"> (3 issues)</span>
+</caption>
+<tbody>
+<tr>
+<th style="text-align: left;">Type</th><th style="text-align: left;">Key</th><th style="text-align: left;">Summary</th><th style="text-align: left;">Description</th>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://icecontrols.its.cern.ch/jira/browse/DIP-118">Task</a></td><td valign="top" nowrap="true"><b><a href="https://icecontrols.its.cern.ch/jira/browse/DIP-118">DIP-118</a></b></td><td valign="top"><b><a href="https://icecontrols.its.cern.ch/jira/browse/DIP-118">Upgrade to DIM v20r7</a></b></td><td valign="top" id="td2">&lt;p&gt;We need to upgrade DIM to v20r7.&lt;/p&gt;<script>td2.innerHTML=HTMLDecode(td2.innerHTML);</script></td>
+</tr>
+<tr class="rowNormal">
+<td valign="top" nowrap="true"><a href="https://icecontrols.its.cern.ch/jira/browse/DIP-115">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://icecontrols.its.cern.ch/jira/browse/DIP-115">DIP-115</a></b></td><td valign="top"><b><a href="https://icecontrols.its.cern.ch/jira/browse/DIP-115">Switch logging libraries from LOG4CXX to LOG4CPLUS</a></b></td><td valign="top" id="td3">&lt;p&gt;Apache Log4CXX was introduced in order to provide fine-grained logging support for the DIP API.&lt;/p&gt;
+
+&lt;p&gt;However, this dependency introduced various problems :&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;the Log4CXX source code has not been updated since 2009&lt;/li&gt;
+	&lt;li&gt;Log4CXX header files are platform-specific ( Windows / Linux ) - so build dependencies are all platform-specific too.&lt;/li&gt;
+	&lt;li&gt;The official LINUX build procedure for Log4CXX does not work on Linux SLC5 (as the standard LIBTOOL version is not compatible with the build, the build only works for SLC6, but we need an SLC5 version too)&lt;/li&gt;
+	&lt;li&gt;non-official Windows 64 bits builds are available on the Internet.&lt;/li&gt;
+	&lt;li&gt;Log4CXX on Linux imposes the deployment of further libraries (APR, APR Util, Xerces)&lt;/li&gt;
+	&lt;li&gt;Pre-built versions of Log4cxx for SLC5 use symbolic links and naming conventions that feature version numbers (for instance liblog4cxx.so.10), which are incompatible with JNLP (Java Webstart) - as JNLP only unpacks Linux libraries with a .SO extension and refuses to consider any other file as a native binary.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;By opposition log4CPLUS :&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;... does not depend on anything but standard C++ libraries.&lt;/li&gt;
+	&lt;li&gt;... builds out of the box on SLC5, SLC6 32 / 64 bits and Windows 7 64 bits.&lt;/li&gt;
+	&lt;li&gt;... is largely compatible with Log4CXX (same configuration file format, same capabilities, better stability).&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;We therefore need to replace LOG4CXX with LOG4CPLUS.&lt;/p&gt;<script>td3.innerHTML=HTMLDecode(td3.innerHTML);</script></td>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://icecontrols.its.cern.ch/jira/browse/DIP-88">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://icecontrols.its.cern.ch/jira/browse/DIP-88">DIP-88</a></b></td><td valign="top"><b><a href="https://icecontrols.its.cern.ch/jira/browse/DIP-88">Create a JNLP link to the latest DIP browser to launch from the web</a></b></td><td valign="top" id="td4"><script>td4.innerHTML=HTMLDecode(td4.innerHTML);</script></td>
+</tr>
+</tbody>
+</table>
+</p>
+</body>
+</html>

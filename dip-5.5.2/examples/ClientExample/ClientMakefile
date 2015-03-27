@@ -1,0 +1,2 @@
+Client: Client.cpp
+	gcc Client.cpp -I../../include -L../.. -ldip_slc3 -o Client
