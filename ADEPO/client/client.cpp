@@ -87,11 +87,11 @@ void Client::setEnabled() {
     ui->monitoring->setEnabled(canStart);
 
     ui->singleShotStop->setEnabled(canStop && run.getMode() == MODE_CLOSURE);
-    ui->stop->setEnabled(canStop && run.getMode() == MODE_CLOSURE);
+    ui->stop->setEnabled(canStop);
     ui->monitoringStop->setEnabled(canStop && run.getMode() == MODE_MONITORING);
 
     ui->reset->setEnabled(enabled);
-    ui->fullPrecision->setEnabled(enabled);
+    ui->fullPrecision->setEnabled(true);
     ui->tableWidget_liste_detectors->setEnabled(enabled);
     ui->mode->setEnabled(enabled);
     ui->airpad->setEnabled(enabled);

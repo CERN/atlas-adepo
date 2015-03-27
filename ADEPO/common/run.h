@@ -42,11 +42,15 @@ public:
     void write();
     void read(QString fileName);
 
-    QString getFileName() {
+    QString getFileName() const {
         return fileName;
     }
 
-    QString getMode() {
+    void setFileName(QString fileName) {
+        this->fileName = fileName;
+    }
+
+    QString getMode() const {
         return data[MODE].isNull() ? MODE_DEFAULT : data[MODE].toString();
     }
 
@@ -54,7 +58,7 @@ public:
         data[MODE] = mode;
     }
 
-    QList<int> getDetectors() {
+    QList<int> getDetectors() const {
         return JsonUtil::fromIntArray(data[DETECTORS].toArray());
     }
 
@@ -62,7 +66,7 @@ public:
         data[DETECTORS] = JsonUtil::toIntArray(detectors);
     }
 
-    bool getAirpad() {
+    bool getAirpad() const {
         return data[AIRPAD].isNull() ? AIRPAD_DEFAULT : data[AIRPAD].toBool();
     }
 
@@ -70,7 +74,7 @@ public:
         data[AIRPAD] = state;
     }
 
-    bool getFullPrecisionFormat() {
+    bool getFullPrecisionFormat() const {
         return data[FULL_PRECISION_FORMAT].isNull() ? FULL_PRECISION_FORMAT_DEFAULT : data[FULL_PRECISION_FORMAT].toBool();
     }
 
@@ -78,7 +82,7 @@ public:
         data[FULL_PRECISION_FORMAT] = state;
     }
 
-    int getAcquisitionTime() {
+    int getAcquisitionTime() const {
         return data[ACQUISITION_TIME].isNull() ? ACQUISITION_TIME_DEFAULT : data[ACQUISITION_TIME].toInt();
     }
 
@@ -86,7 +90,7 @@ public:
         data[ACQUISITION_TIME] = value;
     }
 
-    int getWaitingTime() {
+    int getWaitingTime() const {
         return data[WAITING_TIME].isNull() ? WAITING_TIME_DEFAULT : data[WAITING_TIME].toInt();
     }
 

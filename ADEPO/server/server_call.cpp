@@ -15,6 +15,10 @@ void Server::stop() {
 void Server::updateRun(Run run) {
     qDebug() << "SERVER UpdateRun called...";
 
+    if (run.getFileName() == "") {
+        run.setFileName(this->run.getFileName());
+    }
+
     this->run = run;
 
     // write run file
