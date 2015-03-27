@@ -16,6 +16,7 @@ void Server::updateRun(Run run) {
     qDebug() << "SERVER UpdateRun called...";
 
     if (run.getFileName() == "") {
+        qWarning() << "Run has no filename, setting it now...";
         run.setFileName(this->run.getFileName());
     }
 
