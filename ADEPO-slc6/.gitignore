@@ -6,3 +6,5 @@
 /Acquisifier_Script.tcl
 /Acquisifier_Settings.tcl
 /output_file.json
+/server.log
+/adepo-server/.nfs*
