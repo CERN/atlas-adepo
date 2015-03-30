@@ -78,6 +78,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     QString dipServerName = "ADEPO-Server";
     DipErrorHandler dipErrorHandler;
 
+    qDebug() << "Starting DIP";
     DipFactory *dip = Dip::create(dipServerName.toStdString().c_str());
     dip->setDNSNode("localhost");
 
