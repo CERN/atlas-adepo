@@ -14,7 +14,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
+CXXFLAGS      = -pipe -DUSE_DIP -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I../../ADEPO/adepo-server -I. -I../../ADEPO/server -I../../ADEPO/bridge -I../../ADEPO/common -I../../../../Qt5.4.1/include -I../../../../Qt5.4.1/include/QtWebSockets -I../../../../Qt5.4.1/include/QtNetwork -I../../../../Qt5.4.1/include/QtCore -I. -I../../../../Qt5.4.1/mkspecs/linux-g++
 QMAKE         = /det/ti/PosMov/Qt5.4.1/bin/qmake
 DEL_FILE      = rm -f
@@ -35,8 +35,8 @@ COMPRESS      = gzip -9f
 DISTNAME      = adepo-server1.0.0
 DISTDIR = /det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-server/.tmp/adepo-server1.0.0
 LINK          = g++
-LFLAGS        = -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib -Wl,-O1
-LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-server/../server/ -lserver -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-server/../common/ -lcommon -L/det/ti/PosMov/Qt5.4.1/lib -lQt5WebSockets -lQt5Network -lQt5Core -lpthread 
+LFLAGS        = -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib -Wl,--rpath=/det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-server/../dip/lib64 -Wl,-O1
+LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-server/../dip/lib64 -ldip -llog4cplus -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-server/../server/ -lserver -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-server/../common/ -lcommon -L/det/ti/PosMov/Qt5.4.1/lib -lQt5WebSockets -lQt5Network -lQt5Core -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed

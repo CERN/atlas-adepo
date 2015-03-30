@@ -35,8 +35,8 @@ COMPRESS      = gzip -9f
 DISTNAME      = adepo-direct1.0.0
 DISTDIR = /det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-direct/.tmp/adepo-direct1.0.0
 LINK          = g++
-LFLAGS        = -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib -Wl,-O1
-LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../client/ -lclient -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../server/ -lserver -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../common/ -lcommon -L/det/ti/PosMov/Qt5.4.1/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
+LFLAGS        = -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib -Wl,--rpath=/det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-direct/../dip/lib64 -Wl,-O1
+LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-direct/../dip/lib64 -ldip -llog4cplus -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../client/ -lclient -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../server/ -lserver -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../common/ -lcommon -L/det/ti/PosMov/Qt5.4.1/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed

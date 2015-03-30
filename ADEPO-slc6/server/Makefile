@@ -14,8 +14,8 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -fPIC -Wall -W -D_REENTRANT $(DEFINES)
-CXXFLAGS      = -pipe -O2 -fPIC -Wall -W -D_REENTRANT $(DEFINES)
-INCPATH       = -I../../ADEPO/server -I. -I../../ADEPO/eigen-eigen -I../../ADEPO/dip/include -I../../ADEPO/bridge -I../../ADEPO/common -I../../../../Qt5.4.1/include -I../../../../Qt5.4.1/include/QtGui -I../../../../Qt5.4.1/include/QtNetwork -I../../../../Qt5.4.1/include/QtCore -I. -I../../../../Qt5.4.1/mkspecs/linux-g++
+CXXFLAGS      = -pipe -DUSE_DIP -O2 -fPIC -Wall -W -D_REENTRANT $(DEFINES)
+INCPATH       = -I../../ADEPO/server -I. -I../../ADEPO/eigen-eigen -I../../ADEPO/dip/include -I../../ADEPO/log4cplus/include -I../../ADEPO/bridge -I../../ADEPO/common -I../../../../Qt5.4.1/include -I../../../../Qt5.4.1/include/QtGui -I../../../../Qt5.4.1/include/QtNetwork -I../../../../Qt5.4.1/include/QtCore -I. -I../../../../Qt5.4.1/mkspecs/linux-g++
 QMAKE         = /det/ti/PosMov/Qt5.4.1/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -714,7 +714,7 @@ moc_lwdaq_client.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtNetwork/qtnetworkversion.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/lwdaq_client.h
-	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/atlas-adepo/ADEPO/server -I/det/ti/PosMov/git/atlas-adepo/ADEPO/eigen-eigen -I/det/ti/PosMov/git/atlas-adepo/ADEPO/dip/include -I/det/ti/PosMov/git/atlas-adepo/ADEPO/bridge -I/det/ti/PosMov/git/atlas-adepo/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
+	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/atlas-adepo/ADEPO/server -I/det/ti/PosMov/git/atlas-adepo/ADEPO/eigen-eigen -I/det/ti/PosMov/git/atlas-adepo/ADEPO/dip/include -I/det/ti/PosMov/git/atlas-adepo/ADEPO/log4cplus/include -I/det/ti/PosMov/git/atlas-adepo/ADEPO/bridge -I/det/ti/PosMov/git/atlas-adepo/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
 
 moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtCore/qobject.h \
@@ -985,7 +985,7 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/server/server.h
-	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/atlas-adepo/ADEPO/server -I/det/ti/PosMov/git/atlas-adepo/ADEPO/eigen-eigen -I/det/ti/PosMov/git/atlas-adepo/ADEPO/dip/include -I/det/ti/PosMov/git/atlas-adepo/ADEPO/bridge -I/det/ti/PosMov/git/atlas-adepo/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/server.h -o moc_server.cpp
+	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/atlas-adepo/ADEPO/server -I/det/ti/PosMov/git/atlas-adepo/ADEPO/eigen-eigen -I/det/ti/PosMov/git/atlas-adepo/ADEPO/dip/include -I/det/ti/PosMov/git/atlas-adepo/ADEPO/log4cplus/include -I/det/ti/PosMov/git/atlas-adepo/ADEPO/bridge -I/det/ti/PosMov/git/atlas-adepo/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/server.h -o moc_server.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1782,6 +1782,36 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../ADEPO/dip-5.5.2/include/DipDataType.h \
 		../../ADEPO/dip-5.5.2/include/DipFactory.h \
 		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/QObject \
@@ -1840,15 +1870,6 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../../../Qt5.4.1/include/QtCore/qpropertyanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qvariantanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qeasingcurve.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
@@ -1992,8 +2013,6 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
-		../../ADEPO/server/dip_error_handler.h \
-		../../../../Qt5.4.1/include/QtCore/QDebug \
 		../../ADEPO/eigen-eigen/Eigen/Core \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/DisableStupidWarnings.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/Macros.h \
