@@ -55,6 +55,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     setup.initBCAMs(run, config);
 
     std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
+    std::cout << "Configs read" << std::endl;
 
     helmert(config, data);
 
