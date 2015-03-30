@@ -3,7 +3,7 @@
 #ifdef USE_DIP
 #include "Dip.h"
 #include "dip_error_handler.h"
-#include "log4cpp/PropertyConfigurator.hh"
+#include "log4cplus/configurator.h"
 #endif // USE_DIP
 
 #include "bridge.h"
@@ -77,7 +77,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
 
 #ifdef USE_DIP
-    log4cpp::PropertyConfigurator::configure(Util::workPath().append("log4cpp.properties").toStdString());
+    log4cplus::PropertyConfigurator::doConfigure(Util::workPath().append("log4cpp.properties").toStdString());
 
     QString dipNameRoot = "dip/test/API/";
     QString dipServerName = "ADEPO-Server";
