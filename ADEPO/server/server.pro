@@ -14,6 +14,7 @@ unix:!mac{
 
 INCLUDEPATH += ../eigen-eigen
 INCLUDEPATH += ../dip/include
+INCLUDEPATH += ../log4cpp/include
 
 SOURCES += \
     lwdaq_client.cpp \

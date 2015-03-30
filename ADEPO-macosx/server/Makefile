@@ -15,7 +15,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -fPIC -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W $(DEFINES)
 CXXFLAGS      = -pipe -g -fPIC -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W $(DEFINES)
-INCPATH       = -I../../ADEPO/server -I. -I../../ADEPO/eigen-eigen -I../../ADEPO/dip/include -I../../ADEPO/bridge -I../../ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AGL.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -F/Users/duns/Qt5.4.1/5.4/clang_64/lib
+INCPATH       = -I../../ADEPO/server -I. -I../../ADEPO/eigen-eigen -I../../ADEPO/dip/include -I../../ADEPO/log4cpp/include -I../../ADEPO/bridge -I../../ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AGL.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -F/Users/duns/Qt5.4.1/5.4/clang_64/lib
 QMAKE         = /Users/duns/Qt5.4.1/5.4/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -602,7 +602,7 @@ moc_lwdaq_client.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Vers
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/lwdaq_client.h
-	/Users/duns/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/cern/git/atlas-adepo/ADEPO/eigen-eigen -I/Users/duns/cern/git/atlas-adepo/ADEPO/dip/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.1/5.4/clang_64/lib ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
+	/Users/duns/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/cern/git/atlas-adepo/ADEPO/eigen-eigen -I/Users/duns/cern/git/atlas-adepo/ADEPO/dip/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/log4cpp/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.1/5.4/clang_64/lib ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
 
 moc_server.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
@@ -690,7 +690,7 @@ moc_server.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/server/server.h
-	/Users/duns/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/cern/git/atlas-adepo/ADEPO/eigen-eigen -I/Users/duns/cern/git/atlas-adepo/ADEPO/dip/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.1/5.4/clang_64/lib ../../ADEPO/server/server.h -o moc_server.cpp
+	/Users/duns/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/cern/git/atlas-adepo/ADEPO/eigen-eigen -I/Users/duns/cern/git/atlas-adepo/ADEPO/dip/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/log4cpp/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.1/5.4/clang_64/lib ../../ADEPO/server/server.h -o moc_server.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1055,6 +1055,14 @@ server.o: ../../ADEPO/server/server.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtC
 		../../ADEPO/server/dip_error_handler.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
+		../../ADEPO/log4cpp/include/log4cpp/PropertyConfigurator.hh \
+		../../ADEPO/log4cpp/include/log4cpp/Portability.hh \
+		../../ADEPO/log4cpp/include/log4cpp/config-win32-stlport-boost.h \
+		../../ADEPO/log4cpp/include/log4cpp/config-win32.h \
+		../../ADEPO/log4cpp/include/log4cpp/config-openvms.h \
+		../../ADEPO/log4cpp/include/log4cpp/config-MinGW32.h \
+		../../ADEPO/log4cpp/include/log4cpp/Export.hh \
+		../../ADEPO/log4cpp/include/log4cpp/Configurator.hh \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
