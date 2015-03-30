@@ -57,7 +57,6 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     setup.initBCAMs(run, config);
 
     std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
-    std::cout << "Configs read" << std::endl;
 
     helmert(config, data);
 
@@ -83,13 +82,16 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
     qDebug() << "Starting DIP";
     DipFactory *dip = Dip::create(dipServerName.toStdString().c_str());
+    qDebug() << "Changing DIP NS";
     dip->setDNSNode("localhost");
 
+    qDebug() << "Publishing DIP Information";
     QString dipPubName = "testService";
     DipDouble dipValue = 0.02;
     DipPublication *dipPublication = dip->createDipPublication(dipPubName.toStdString().c_str(), &dipErrorHandler);
 
     try {
+        qDebug() << "Sending DIP Information";
         DipTimestamp dipTime;
         dipPublication->send(dipValue, dipTime);
     } catch (DipException e) {
