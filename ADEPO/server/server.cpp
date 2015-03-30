@@ -76,6 +76,8 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
 
 #ifdef USE_DIP
+    log4cpp::PropertyConfigurator::configure(Util::workPath().append("log4cpp.properties").toStdString());
+
     QString dipNameRoot = "dip/test/API/";
     QString dipServerName = "ADEPO-Server";
     DipErrorHandler dipErrorHandler;
