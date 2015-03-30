@@ -66,14 +66,20 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
     //lecture du fichier de calibration
     calibration.read(Util::inputPath().append(CALIBRATION_FILE));
+    std::cout << "Configs read" << std::endl;
 
     // read files
     offset.read(Util::workPath().append(OFFSET_FILE));
+    std::cout << "Configs read" << std::endl;
+
     reference.read(Util::workPath().append(REFERENCE_FILE));
+    std::cout << "Configs read" << std::endl;
+
     output.read(Util::workPath().append(OUTPUT_FILE));
+    std::cout << "Configs read" << std::endl;
 
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
-    qDebug() << "Configs read";
+    std::cout << "Configs read" << std::endl;
 
     QString dipNameRoot = "dip/test/API/";
     QString dipServerName = "ADEPO-Server";
