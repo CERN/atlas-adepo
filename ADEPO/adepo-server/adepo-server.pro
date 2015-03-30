@@ -25,6 +25,7 @@ unix:!mac{
   QMAKE_RPATH=
 }
 
+unix: LIBS += -L$$OUT_PWD/../lib64 $$OUT_PWD/../dip/lib64/libdip.so
 
 unix: LIBS += -L$$OUT_PWD/../server/ -lserver
 
