@@ -128,7 +128,7 @@ public:
 
 		Client * theClient = new Client(argc,argv);
 
-		Sleep(lifeTime);
+//		Sleep(lifeTime);
 
 		cout<<"Client's lifetime has expired, leaving... "<<endl;
 
