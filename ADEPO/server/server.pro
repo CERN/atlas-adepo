@@ -8,6 +8,10 @@ CONFIG   -= app_bundle
 TEMPLATE = lib
 CONFIG += staticlib
 
+unix:!mac{
+  QMAKE_CXXFLAGS += -DUSE_DIP
+}
+
 INCLUDEPATH += ../eigen-eigen
 INCLUDEPATH += ../dip/include
 

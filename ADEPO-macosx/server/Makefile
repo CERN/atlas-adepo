@@ -1039,6 +1039,22 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen/Eigen/Core \
 
 server.o: ../../ADEPO/server/server.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDir \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdir.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/server/dip_error_handler.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
@@ -1126,15 +1142,6 @@ server.o: ../../ADEPO/server/server.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtC
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/common/util.h \
-		../../ADEPO/server/dip_error_handler.h \
-		../../ADEPO/dip/include/DipPublication.h \
-		../../ADEPO/dip-5.5.2/include/DipQuality.h \
-		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
-		../../ADEPO/dip-5.5.2/include/Options.h \
-		../../ADEPO/dip-5.5.2/include/StdTypes.h \
-		../../ADEPO/dip-5.5.2/include/DipData.h \
-		../../ADEPO/dip-5.5.2/include/DipDataType.h \
-		../../ADEPO/dip-5.5.2/include/DipException.h \
 		../../ADEPO/eigen-eigen/Eigen/Core \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/DisableStupidWarnings.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/Macros.h \
