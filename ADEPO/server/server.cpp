@@ -1,9 +1,12 @@
 #include <QDir>
 
+#include "Dip.h"
+
 #include "bridge.h"
 #include "server.h"
 #include "bcam_config.h"
 #include "util.h"
+#include "dip_error_handler.h"
 
 #include "Eigen/Core"
 #include "Eigen/LU"
@@ -70,6 +73,24 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     output.read(Util::workPath().append(OUTPUT_FILE));
 
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
+
+    QString dipNameRoot = "dip/test/API/";
+    QString dipServerName = "ADEPO-Server";
+    DipErrorHandler dipErrorHandler;
+
+    DipFactory *dip = Dip::create(dipServerName.toStdString().c_str());
+    dip->setDNSNode("localhost");
+
+    QString dipPubName = "testService";
+    DipDouble dipValue = 0.02;
+    DipPublication *dipPublication = dip->createDipPublication(dipPubName.toStdString().c_str(), &dipErrorHandler);
+
+    try {
+        DipTimestamp dipTime;
+        dipPublication->send(dipValue, dipTime);
+    } catch (DipException e) {
+        qWarning() << "DIP failed to send: " << e.what();
+    }
 
     lwdaq_client->init();
 }
