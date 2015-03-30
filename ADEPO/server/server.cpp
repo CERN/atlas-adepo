@@ -82,8 +82,6 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
     qDebug() << "Starting DIP";
     DipFactory *dip = Dip::create(dipServerName.toStdString().c_str());
-    qDebug() << "Changing DIP NS";
-    dip->setDNSNode("localhost");
 
     qDebug() << "Publishing DIP Information";
     QString dipPubName = dipNameRoot + "testService";
