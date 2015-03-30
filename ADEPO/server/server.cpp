@@ -3,6 +3,7 @@
 #ifdef USE_DIP
 #include "Dip.h"
 #include "dip_error_handler.h"
+#include "log4cpp/PropertyConfigurator.hh"
 #endif // USE_DIP
 
 #include "bridge.h"
