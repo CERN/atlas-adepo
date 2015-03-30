@@ -86,11 +86,12 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     dip->setDNSNode("localhost");
 
     qDebug() << "Publishing DIP Information";
-    QString dipPubName = "testService";
-    DipDouble dipValue = 0.02;
+    QString dipPubName = dipNameRoot + "testService";
     DipPublication *dipPublication = dip->createDipPublication(dipPubName.toStdString().c_str(), &dipErrorHandler);
 
     try {
+        DipDouble dipValue = 0.02;
+
         qDebug() << "Sending DIP Information";
         DipTimestamp dipTime;
         dipPublication->send(dipValue, dipTime);
