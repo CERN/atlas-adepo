@@ -16,6 +16,7 @@ unix:!mac{
   QMAKE_RPATH=
 }
 
+unix: LIBS += -L$$PWD/../dip/lib64 -ldip -llog4cplus
 
 unix: LIBS += -L$$OUT_PWD/../client/ -lclient
 
