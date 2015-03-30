@@ -5,13 +5,13 @@
 CC = g++
 CFLAGS = -Wall -ansi -I ../include
 
-DLIB = ../lib/libdip.so -lpthread -ldl
+DLIB = ../lib64/libdip.so -lpthread -ldl
 
 all:	Server Client
 
-Client:	Client.cpp ../lib/libdip.so
-	$(CC) $(CFLAGS) Client.cpp -L../lib $(DLIB) -o Client $(LIBS) 
+Client:	Client.cpp ../lib64/libdip.so
+	$(CC) $(CFLAGS) Client.cpp -L../lib64 $(DLIB) -o Client $(LIBS) 
 	
-Server:	Server.cpp ../lib/libdip.so
-	$(CC) $(CFLAGS) Server.cpp -L../lib $(DLIB) -o Server $(LIBS) 
+Server:	Server.cpp ../lib64/libdip.so
+	$(CC) $(CFLAGS) Server.cpp -L../lib64 $(DLIB) -o Server $(LIBS) 
 	
