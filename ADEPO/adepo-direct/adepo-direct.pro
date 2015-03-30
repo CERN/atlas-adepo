@@ -15,9 +15,8 @@ unix:!mac{
   QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib
   QMAKE_LFLAGS += -Wl,--rpath=$$PWD/../dip/lib64
   QMAKE_RPATH=
+  LIBS += -L$$PWD/../dip/lib64 -ldip -llog4cplus
 }
-
-unix: LIBS += -L$$PWD/../dip/lib64 -ldip -llog4cplus
 
 unix: LIBS += -L$$OUT_PWD/../client/ -lclient
 

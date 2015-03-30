@@ -21,12 +21,12 @@ HEADERS += \
     socket_server.h
 
 unix:!mac{
+  QMAKE_CXXFLAGS += -DUSE_DIP
   QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib
   QMAKE_LFLAGS += -Wl,--rpath=$$PWD/../dip/lib64
   QMAKE_RPATH=
+  LIBS += -L$$PWD/../dip/lib64 -ldip -llog4cplus
 }
-
-unix: LIBS += -L$$PWD/../dip/lib64 -ldip -llog4cplus
 
 unix: LIBS += -L$$OUT_PWD/../server/ -lserver
 
