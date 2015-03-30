@@ -12,7 +12,7 @@ class DipErrorHandler:public DipPublicationErrorHandler {
     void handleException(DipPublication* publication, DipException& ex) {
         Q_UNUSED(publication)
         qDebug() << "Error DIP Information";
-
+printf("Error because %s", ex.what());
         qWarning() << "DIP Error because " << ex.what();
     }
 
