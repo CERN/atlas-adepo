@@ -73,6 +73,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     output.read(Util::workPath().append(OUTPUT_FILE));
 
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
+    qDebug() << "Configs read";
 
     QString dipNameRoot = "dip/test/API/";
     QString dipServerName = "ADEPO-Server";
