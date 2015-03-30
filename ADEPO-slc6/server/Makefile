@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -fPIC -Wall -W -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -pipe -O2 -fPIC -Wall -W -D_REENTRANT $(DEFINES)
-INCPATH       = -I../../ADEPO/server -I. -I../../ADEPO/eigen-eigen-ffa86ffb5570 -I../../ADEPO/bridge -I../../ADEPO/common -I../../../../Qt5.4.1/include -I../../../../Qt5.4.1/include/QtGui -I../../../../Qt5.4.1/include/QtNetwork -I../../../../Qt5.4.1/include/QtCore -I. -I../../../../Qt5.4.1/mkspecs/linux-g++
+INCPATH       = -I../../ADEPO/server -I. -I../../ADEPO/eigen-eigen -I../../ADEPO/dip/include -I../../ADEPO/bridge -I../../ADEPO/common -I../../../../Qt5.4.1/include -I../../../../Qt5.4.1/include/QtGui -I../../../../Qt5.4.1/include/QtNetwork -I../../../../Qt5.4.1/include/QtCore -I. -I../../../../Qt5.4.1/mkspecs/linux-g++
 QMAKE         = /det/ti/PosMov/Qt5.4.1/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = server1.0.0
-DISTDIR = /det/ti/PosMov/git/atlas-adepo/ADEPO/server/.tmp/server1.0.0
+DISTDIR = /det/ti/PosMov/git/adepo-test/ADEPO/server/.tmp/server1.0.0
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -179,7 +179,8 @@ DIST          = ../../../../Qt5.4.1/mkspecs/features/spec_pre.prf \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/spot.h \
-		../../ADEPO/server/server.h ../../ADEPO/server/lwdaq_client.cpp \
+		../../ADEPO/server/server.h \
+		../../ADEPO/server/dip_error_handler.h ../../ADEPO/server/lwdaq_client.cpp \
 		../../ADEPO/server/helmert.cpp \
 		../../ADEPO/server/server.cpp \
 		../../ADEPO/server/server_call.cpp \
@@ -217,7 +218,7 @@ first: all
 
 staticlib: $(TARGET)
 
-$(TARGET): /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/server/../common/libcommon.a $(OBJECTS) $(OBJCOMP) 
+$(TARGET): /det/ti/PosMov/git/adepo-test/ADEPO-slc6/server/../common/libcommon.a $(OBJECTS) $(OBJCOMP) 
 	-$(DEL_FILE) $(TARGET)
 	$(AR) $(TARGET) $(OBJECTS)
 
@@ -453,7 +454,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/data.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/spot.h ../../ADEPO/server/server.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/data.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/spot.h ../../ADEPO/server/server.h ../../ADEPO/server/dip_error_handler.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/helmert.cpp ../../ADEPO/server/server.cpp ../../ADEPO/server/server_call.cpp ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server/calculate_results.cpp $(DISTDIR)/
 
 
@@ -713,7 +714,7 @@ moc_lwdaq_client.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtNetwork/qtnetworkversion.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/lwdaq_client.h
-	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/atlas-adepo/ADEPO/server -I/det/ti/PosMov/git/atlas-adepo/ADEPO/eigen-eigen-ffa86ffb5570 -I/det/ti/PosMov/git/atlas-adepo/ADEPO/bridge -I/det/ti/PosMov/git/atlas-adepo/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
+	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/adepo-test/ADEPO/server -I/det/ti/PosMov/git/adepo-test/ADEPO/eigen-eigen -I/det/ti/PosMov/git/adepo-test/ADEPO/dip/include -I/det/ti/PosMov/git/adepo-test/ADEPO/bridge -I/det/ti/PosMov/git/adepo-test/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
 
 moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtCore/qobject.h \
@@ -984,7 +985,7 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/server/server.h
-	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/atlas-adepo/ADEPO/server -I/det/ti/PosMov/git/atlas-adepo/ADEPO/eigen-eigen-ffa86ffb5570 -I/det/ti/PosMov/git/atlas-adepo/ADEPO/bridge -I/det/ti/PosMov/git/atlas-adepo/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/server.h -o moc_server.cpp
+	/det/ti/PosMov/Qt5.4.1/bin/moc $(DEFINES) -I/det/ti/PosMov/Qt5.4.1/mkspecs/linux-g++ -I/det/ti/PosMov/git/adepo-test/ADEPO/server -I/det/ti/PosMov/git/adepo-test/ADEPO/eigen-eigen -I/det/ti/PosMov/git/adepo-test/ADEPO/dip/include -I/det/ti/PosMov/git/adepo-test/ADEPO/bridge -I/det/ti/PosMov/git/adepo-test/ADEPO/common -I/det/ti/PosMov/Qt5.4.1/include -I/det/ti/PosMov/Qt5.4.1/include/QtGui -I/det/ti/PosMov/Qt5.4.1/include/QtNetwork -I/det/ti/PosMov/Qt5.4.1/include/QtCore -I. -I/usr/include/c++/4.4.7 -I/usr/include/c++/4.4.7/x86_64-redhat-linux -I/usr/include/c++/4.4.7/backward -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include -I/usr/include ../../ADEPO/server/server.h -o moc_server.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1233,7 +1234,7 @@ lwdaq_client.o: ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/lwdaq_cli
 		../../ADEPO/bridge/bridge.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o lwdaq_client.o ../../ADEPO/server/lwdaq_client.cpp
 
-helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Core \
+helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen/Eigen/Core \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/DisableStupidWarnings.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/Macros.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/MKL_support.h \
@@ -1354,28 +1355,31 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/VectorBlock.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Minor.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/MathFunctions.h \
-		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/LU \
+		../../ADEPO/eigen-eigen/Eigen/LU \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Core \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/misc/Solve.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/misc/Kernel.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/misc/Image.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/FullPivLU.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/PartialPivLU.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/PartialPivLU_MKL.h \
+		../../ADEPO/eigen-eigen/Eigen/src/Core/util/MKL_support.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/Determinant.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/Inverse.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/arch/Inverse_SSE.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/LU.h \
-		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Householder \
+		../../ADEPO/eigen-eigen/Eigen/Householder \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Householder/Householder.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Householder/HouseholderSequence.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Householder/BlockHouseholder.h \
-		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/QR \
+		../../ADEPO/eigen-eigen/Eigen/QR \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Cholesky \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Cholesky/LLT.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Cholesky/LDLT.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Cholesky/LLT_MKL.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Jacobi \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Jacobi/Jacobi.h \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Householder \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/QR/HouseholderQR.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/QR/FullPivHouseholderQR.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/QR/ColPivHouseholderQR.h \
@@ -1383,8 +1387,10 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen-ffa86ffb5570/E
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/QR/ColPivHouseholderQR_MKL.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/QR.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Eigenvalues \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/LU \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Geometry \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/SVD \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/QR \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/SVD/JacobiSVD.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/SVD/JacobiSVD_MKL.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/SVD/UpperBidiagonalization.h \
@@ -1763,6 +1769,19 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../../../Qt5.4.1/include/QtCore/qdatastream.h \
 		../../../../Qt5.4.1/include/QtCore/qregexp.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/QObject \
@@ -1973,7 +1992,9 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/common/util.h \
 		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
-		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Core \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../ADEPO/eigen-eigen/Eigen/Core \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/DisableStupidWarnings.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/Macros.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/MKL_support.h \
@@ -2094,13 +2115,15 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/VectorBlock.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/Minor.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigen2Support/MathFunctions.h \
-		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/LU \
+		../../ADEPO/eigen-eigen/Eigen/LU \
+		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Core \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/misc/Solve.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/misc/Kernel.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/misc/Image.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/FullPivLU.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/PartialPivLU.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/PartialPivLU_MKL.h \
+		../../ADEPO/eigen-eigen/Eigen/src/Core/util/MKL_support.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/Determinant.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/Inverse.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/arch/Inverse_SSE.h \
@@ -3735,7 +3758,7 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/callback.h \
-		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Eigen \
+		../../ADEPO/eigen-eigen/Eigen/Eigen \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Dense \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/Core \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/DisableStupidWarnings.h \
@@ -3865,6 +3888,7 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/FullPivLU.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/PartialPivLU.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/PartialPivLU_MKL.h \
+		../../ADEPO/eigen-eigen/Eigen/src/Core/util/MKL_support.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/Determinant.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/Inverse.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/LU/arch/Inverse_SSE.h \

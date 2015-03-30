@@ -1,9 +1,12 @@
 #include <QDir>
 
+#include "Dip.h"
+
 #include "bridge.h"
 #include "server.h"
 #include "bcam_config.h"
 #include "util.h"
+#include "dip_error_handler.h"
 
 #include "Eigen/Core"
 #include "Eigen/LU"
@@ -52,6 +55,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     setup.initBCAMs(run, config);
 
     std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
+    std::cout << "Configs read" << std::endl;
 
     helmert(config, data);
 
@@ -63,13 +67,39 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
     //lecture du fichier de calibration
     calibration.read(Util::inputPath().append(CALIBRATION_FILE));
+    std::cout << "Configs read" << std::endl;
 
     // read files
     offset.read(Util::workPath().append(OFFSET_FILE));
+    std::cout << "Configs read" << std::endl;
+
     reference.read(Util::workPath().append(REFERENCE_FILE));
+    std::cout << "Configs read" << std::endl;
+
     output.read(Util::workPath().append(OUTPUT_FILE));
+    std::cout << "Configs read" << std::endl;
 
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
+    std::cout << "Configs read" << std::endl;
+
+    QString dipNameRoot = "dip/test/API/";
+    QString dipServerName = "ADEPO-Server";
+    DipErrorHandler dipErrorHandler;
+
+    qDebug() << "Starting DIP";
+    DipFactory *dip = Dip::create(dipServerName.toStdString().c_str());
+    dip->setDNSNode("localhost");
+
+    QString dipPubName = "testService";
+    DipDouble dipValue = 0.02;
+    DipPublication *dipPublication = dip->createDipPublication(dipPubName.toStdString().c_str(), &dipErrorHandler);
+
+    try {
+        DipTimestamp dipTime;
+        dipPublication->send(dipValue, dipTime);
+    } catch (DipException e) {
+        qWarning() << "DIP failed to send: " << e.what();
+    }
 
     lwdaq_client->init();
 }

@@ -8,7 +8,8 @@ CONFIG   -= app_bundle
 TEMPLATE = lib
 CONFIG += staticlib
 
-INCLUDEPATH += ../eigen-eigen-ffa86ffb5570
+INCLUDEPATH += ../eigen-eigen
+INCLUDEPATH += ../dip/include
 
 SOURCES += \
     lwdaq_client.cpp \
@@ -31,7 +32,8 @@ HEADERS += \
     mount_coord_prism.h \
     mount_coord_spots.h \
     spot.h \
-    server.h
+    server.h \
+    dip_error_handler.h
 
 
 INCLUDEPATH += $$PWD/../bridge
