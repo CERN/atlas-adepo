@@ -88,6 +88,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     qDebug() << "Publishing DIP Information";
     QString dipPubName = dipNameRoot + "testService";
     DipPublication *dipPublication = dip->createDipPublication(dipPubName.toStdString().c_str(), &dipErrorHandler);
+    qDebug() << "Setup DIP Information";
 
     try {
         DipDouble dipValue = 0.02;
