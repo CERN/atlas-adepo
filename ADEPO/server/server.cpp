@@ -1,12 +1,14 @@
 #include <QDir>
 
+#ifdef USE_DIP
 #include "Dip.h"
+#include "dip_error_handler.h"
+#endif // USE_DIP
 
 #include "bridge.h"
 #include "server.h"
 #include "bcam_config.h"
 #include "util.h"
-#include "dip_error_handler.h"
 
 #include "Eigen/Core"
 #include "Eigen/LU"
@@ -67,21 +69,14 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
 
     //lecture du fichier de calibration
     calibration.read(Util::inputPath().append(CALIBRATION_FILE));
-    std::cout << "Configs read" << std::endl;
 
     // read files
     offset.read(Util::workPath().append(OFFSET_FILE));
-    std::cout << "Configs read" << std::endl;
-
     reference.read(Util::workPath().append(REFERENCE_FILE));
-    std::cout << "Configs read" << std::endl;
-
     output.read(Util::workPath().append(OUTPUT_FILE));
-    std::cout << "Configs read" << std::endl;
-
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
-    std::cout << "Configs read" << std::endl;
 
+#ifdef USE_DIP
     QString dipNameRoot = "dip/test/API/";
     QString dipServerName = "ADEPO-Server";
     DipErrorHandler dipErrorHandler;
@@ -100,6 +95,7 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     } catch (DipException e) {
         qWarning() << "DIP failed to send: " << e.what();
     }
+#endif // USE_DIP
 
     lwdaq_client->init();
 }
