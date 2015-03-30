@@ -77,7 +77,9 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
 
 #ifdef USE_DIP
-    log4cplus::PropertyConfigurator::doConfigure(Util::workPath().append("log4cpp.properties").toStdString());
+    QString log4cplusProperties = Util::workPath().append("log4cplus.properties");
+    qDebug() << "Using " << log4cplusProperties;
+    log4cplus::PropertyConfigurator::doConfigure(LOG4CPLUS_STRING_TO_TSTRING(log4cplusProperties.toStdString()));
 
     QString dipNameRoot = "dip/test/API/";
     QString dipServerName = "ADEPO-Server";
