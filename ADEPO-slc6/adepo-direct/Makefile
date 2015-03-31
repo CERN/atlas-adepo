@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-INCPATH       = -I../../ADEPO/adepo-direct -I. -I../../ADEPO/log4cplus-slc6/include -I../../ADEPO/dip/include -I../../ADEPO/client -I../../ADEPO/server -I../../ADEPO/bridge -I../../ADEPO/common -I../../../../Qt5.4.1/include -I../../../../Qt5.4.1/include/QtWidgets -I../../../../Qt5.4.1/include/QtGui -I../../../../Qt5.4.1/include/QtNetwork -I../../../../Qt5.4.1/include/QtCore -I. -I../../../../Qt5.4.1/mkspecs/linux-g++
+INCPATH       = -I../../ADEPO/adepo-direct -I. -I../../ADEPO/log4cplus-slc6/include -I../../ADEPO/client -I../../ADEPO/server -I../../ADEPO/bridge -I../../ADEPO/common -I../../ADEPO/dip/include -I../../../../Qt5.4.1/include -I../../../../Qt5.4.1/include/QtWidgets -I../../../../Qt5.4.1/include/QtGui -I../../../../Qt5.4.1/include/QtNetwork -I../../../../Qt5.4.1/include/QtCore -I. -I../../../../Qt5.4.1/mkspecs/linux-g++
 QMAKE         = /det/ti/PosMov/Qt5.4.1/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,8 +35,8 @@ COMPRESS      = gzip -9f
 DISTNAME      = adepo-direct1.0.0
 DISTDIR = /det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-direct/.tmp/adepo-direct1.0.0
 LINK          = g++
-LFLAGS        = -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib -Wl,--rpath=/det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-direct/../dip/lib64 -Wl,-O1
-LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-direct/../dip/lib64 -ldip -llog4cplus -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../client/ -lclient -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../server/ -lserver -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../common/ -lcommon -L/det/ti/PosMov/Qt5.4.1/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
+LFLAGS        = -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib -Wl,-O1
+LIBS          = $(SUBLIBS) -L/det/ti/PosMov/git/atlas-adepo/ADEPO/adepo-direct/../log4cplus-slc6/lib -llog4cplus -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../client/ -lclient -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../server/ -lserver -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../common/ -lcommon -L/det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../dip-dummy/ -ldip-dummy -L/det/ti/PosMov/Qt5.4.1/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -183,7 +183,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../client/libclient.a /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../server/libserver.a /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../common/libcommon.a $(OBJECTS)  
+$(TARGET): /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../client/libclient.a /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../server/libserver.a /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../common/libcommon.a /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/adepo-direct/../dip-dummy/libdip-dummy.a $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../../ADEPO/adepo-direct/adepo-direct.pro ../../../../Qt5.4.1/mkspecs/linux-g++/qmake.conf ../../../../Qt5.4.1/mkspecs/features/spec_pre.prf \

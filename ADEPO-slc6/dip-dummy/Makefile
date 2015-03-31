@@ -45,10 +45,8 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../../ADEPO/dip-dummy/dip_dummy.cpp \
-		../../ADEPO/dip-dummy/dip_dummy.cpp 
-OBJECTS       = dip_dummy.o \
-		dip_dummy.o
+SOURCES       = ../../ADEPO/dip-dummy/dip_dummy.cpp 
+OBJECTS       = dip_dummy.o
 DIST          = ../../../../Qt5.4.1/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.4.1/mkspecs/common/shell-unix.conf \
 		../../../../Qt5.4.1/mkspecs/common/unix.conf \
@@ -152,8 +150,7 @@ DIST          = ../../../../Qt5.4.1/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.4.1/mkspecs/features/exceptions.prf \
 		../../../../Qt5.4.1/mkspecs/features/yacc.prf \
 		../../../../Qt5.4.1/mkspecs/features/lex.prf \
-		../../ADEPO/dip-dummy/dip-dummy.pro  ../../ADEPO/dip-dummy/dip_dummy.cpp \
-		../../ADEPO/dip-dummy/dip_dummy.cpp
+		../../ADEPO/dip-dummy/dip-dummy.pro  ../../ADEPO/dip-dummy/dip_dummy.cpp
 QMAKE_TARGET  = dip-dummy
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = libdip-dummy.a
@@ -413,7 +410,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/dip-dummy/dip_dummy.cpp ../../ADEPO/dip-dummy/dip_dummy.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/dip-dummy/dip_dummy.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -449,50 +446,6 @@ compiler_lex_clean:
 compiler_clean: 
 
 ####### Compile
-
-dip_dummy.o: ../../ADEPO/dip-dummy/dip_dummy.cpp ../../../../Qt5.4.1/include/QtCore/QtGlobal \
-		../../../../Qt5.4.1/include/QtCore/qglobal.h \
-		../../../../Qt5.4.1/include/QtCore/qconfig.h \
-		../../../../Qt5.4.1/include/QtCore/qfeatures.h \
-		../../../../Qt5.4.1/include/QtCore/qsystemdetection.h \
-		../../../../Qt5.4.1/include/QtCore/qprocessordetection.h \
-		../../../../Qt5.4.1/include/QtCore/qcompilerdetection.h \
-		../../../../Qt5.4.1/include/QtCore/qtypeinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qtypetraits.h \
-		../../../../Qt5.4.1/include/QtCore/qsysinfo.h \
-		../../../../Qt5.4.1/include/QtCore/qlogging.h \
-		../../../../Qt5.4.1/include/QtCore/qflags.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic.h \
-		../../../../Qt5.4.1/include/QtCore/qbasicatomic.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_bootstrap.h \
-		../../../../Qt5.4.1/include/QtCore/qgenericatomic.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_msvc.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_armv7.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_armv6.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_armv5.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_ia64.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_mips.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_x86.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_cxx11.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_gcc.h \
-		../../../../Qt5.4.1/include/QtCore/qatomic_unix.h \
-		../../../../Qt5.4.1/include/QtCore/qglobalstatic.h \
-		../../../../Qt5.4.1/include/QtCore/qmutex.h \
-		../../../../Qt5.4.1/include/QtCore/qnumeric.h \
-		../../ADEPO/dip/include/Dip.h \
-		../../ADEPO/dip-5.5.2/include/Options.h \
-		../../ADEPO/dip-5.5.2/include/DipException.h \
-		../../ADEPO/dip-5.5.2/include/StdTypes.h \
-		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
-		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
-		../../ADEPO/dip-5.5.2/include/DipPublication.h \
-		../../ADEPO/dip-5.5.2/include/DipQuality.h \
-		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
-		../../ADEPO/dip-5.5.2/include/DipData.h \
-		../../ADEPO/dip-5.5.2/include/DipDataType.h \
-		../../ADEPO/dip-5.5.2/include/DipFactory.h \
-		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dip_dummy.o ../../ADEPO/dip-dummy/dip_dummy.cpp
 
 dip_dummy.o: ../../ADEPO/dip-dummy/dip_dummy.cpp ../../../../Qt5.4.1/include/QtCore/QtGlobal \
 		../../../../Qt5.4.1/include/QtCore/qglobal.h \
