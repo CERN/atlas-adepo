@@ -16,8 +16,8 @@ unix:mac{
   INCLUDEPATH += $$PWD/../log4cplus-macosx/include
 }
 
-INCLUDEPATH += ../eigen-eigen
-INCLUDEPATH += ../dip/include
+INCLUDEPATH += $$PWD/../eigen-eigen
+INCLUDEPATH += $$PWD/../dip/include
 DEPENDPATH += $$PWD/../dip-dummy
 
 SOURCES += \

@@ -13,7 +13,7 @@ CONFIG   -= app_bundle
 TEMPLATE = lib
 CONFIG += staticlib
 
-INCLUDEPATH += ../dip/include
+INCLUDEPATH += $$PWD/../dip/include
 
 SOURCES += dip_dummy.cpp \
     dip_dummy.cpp
