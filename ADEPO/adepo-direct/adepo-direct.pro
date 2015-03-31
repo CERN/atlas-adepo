@@ -16,17 +16,17 @@ unix:!mac{
   QMAKE_LFLAGS += -Wl,--rpath=$$PWD/../dip/lib64
   QMAKE_RPATH=
   INCLUDEPATH += $$PWD/../log4cplus-slc6/include
-  LIBS += -L$$PWD/../dip/lib64 -ldip -llog4cplus
+  LIBS += -L$$PWD/../log4cplus-slc6/lib -llog4cplus
 }
 
 unix:mac{
   INCLUDEPATH += $$PWD/../log4cplus-macosx/include
-  LIBS += -L$$OUT_PWD/../dip-dummy/ -ldip-dummy
   LIBS += -L$$PWD/../log4cplus-macosx/lib -llog4cplus
 }
 
 INCLUDEPATH += $$PWD/../dip/include
 DEPENDPATH += $$PWD/../dip-dummy
+LIBS += -L$$OUT_PWD/../dip-dummy/ -ldip-dummy
 
 unix: LIBS += -L$$OUT_PWD/../client/ -lclient
 
