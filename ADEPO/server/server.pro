@@ -9,11 +9,11 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 unix:!mac{
-  INCLUDEPATH += ../log4cplus-slc6/include
+  INCLUDEPATH += $$PWD/../log4cplus-slc6/include
 }
 
 unix:mac{
-  INCLUDEPATH += ../log4cplus-macosx/include
+  INCLUDEPATH += $$PWD/../log4cplus-macosx/include
 }
 
 INCLUDEPATH += ../eigen-eigen
