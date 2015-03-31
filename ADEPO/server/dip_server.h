@@ -28,8 +28,13 @@ public:
         rootName = "dip/ATLAS/BCAM/";
         QString dipServerName = "ATLAS-ADEPO";
 
-        qDebug() << "Starting DIP";
         dip = Dip::create(dipServerName.toStdString().c_str());
+
+        if (dip == NULL) {
+            qDebug() << "Ignoring DIP";
+        } else {
+            qDebug() << "Started DIP";
+        }
     }
 
     void createPublishers(Setup& setup) {
