@@ -25,7 +25,8 @@ void Server::updateRun(Run run) {
     // write run file
     run.write();
 
-    setup.initBCAMs(run, config);
+    setup.init(run, config);
+    dipServer.createPublishers(setup);
 
     callback.changedRun(run);
 }
@@ -35,7 +36,8 @@ void Server::updateConfiguration() {
 
     config.read(config.getFilename());
 
-    setup.initBCAMs(run, config);
+    setup.init(run, config);
+    dipServer.createPublishers(setup);
 
     callback.changedConfiguration(config.getFilename());
 }

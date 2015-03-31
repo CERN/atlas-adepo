@@ -15,7 +15,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W -fPIE $(DEFINES)
-INCPATH       = -I../../ADEPO/adepo-server -I. -I../../ADEPO/server -I../../ADEPO/bridge -I../../ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -F/Users/duns/Qt5.4.1/5.4/clang_64/lib
+INCPATH       = -I../../ADEPO/adepo-server -I. -I../../ADEPO/dip/include -I../../ADEPO/log4cplus/include -I../../ADEPO/server -I../../ADEPO/bridge -I../../ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -F/Users/duns/Qt5.4.1/5.4/clang_64/lib
 QMAKE         = /Users/duns/Qt5.4.1/5.4/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -574,18 +574,56 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
 		../../ADEPO/common/results.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
 		../../ADEPO/common/result.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDateTime \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/setup.h \
+		../../ADEPO/common/util.h \
 		../../ADEPO/server/lwdaq_client.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QtNetwork \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractnetworkcache.h \
@@ -629,8 +667,7 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/QWebSocket \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/qwebsocket.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/QWebSocketServer \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/qwebsocketserver.h \
-		../../ADEPO/common/util.h
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers/qwebsocketserver.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../ADEPO/adepo-server/main.cpp
 
 socket_server.o: ../../ADEPO/adepo-server/socket_server.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
@@ -663,9 +700,9 @@ socket_server.o: ../../ADEPO/adepo-server/socket_server.cpp /Users/duns/Qt5.4.1/
 		../../ADEPO/common/json_rpc.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/common/result.h \
-		../../ADEPO/common/point3d.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDateTime \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
+		../../ADEPO/common/point3d.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_server.o ../../ADEPO/adepo-server/socket_server.cpp
 
 ####### Install

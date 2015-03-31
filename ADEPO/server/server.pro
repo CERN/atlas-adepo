@@ -38,7 +38,8 @@ HEADERS += \
     mount_coord_spots.h \
     spot.h \
     server.h \
-    dip_error_handler.h
+    dip_error_handler.h \
+    dip_server.h
 
 
 INCLUDEPATH += $$PWD/../bridge

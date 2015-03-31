@@ -1,11 +1,5 @@
 #include <QDir>
 
-#ifdef USE_DIP
-#include "Dip.h"
-#include "dip_error_handler.h"
-#include "log4cplus/configurator.h"
-#endif // USE_DIP
-
 #include "bridge.h"
 #include "server.h"
 #include "bcam_config.h"
@@ -52,12 +46,12 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     updateTimer->setSingleShot(false);
     connect(updateTimer, &QTimer::timeout, this, &Server::timeChanged);
 
+    // connect to dip
+    dipServer.connect();
+
     // read files
     config.read(Util::inputPath().append(CONFIGURATION_FILE));
     run.read(Util::workPath().append(RUN_FILE));
-    setup.initBCAMs(run, config);
-
-    std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
 
     helmert(config, data);
 
@@ -76,34 +70,10 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     output.read(Util::workPath().append(OUTPUT_FILE));
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
 
-#ifdef USE_DIP
-    // NOTE: does not seem to work... we still get an information message...
-    QString log4cplusProperties = Util::workPath().append("log4cplus.properties");
-    qDebug() << "Using " << log4cplusProperties;
-    log4cplus::PropertyConfigurator::doConfigure(LOG4CPLUS_STRING_TO_TSTRING(log4cplusProperties.toStdString()));
+    setup.init(run, config);
+    dipServer.createPublishers(setup);
 
-    QString dipNameRoot = "dip/test/API/";
-    QString dipServerName = "ADEPO-Server";
-    DipErrorHandler dipErrorHandler;
-
-    qDebug() << "Starting DIP";
-    DipFactory *dip = Dip::create(dipServerName.toStdString().c_str());
-
-    qDebug() << "Publishing DIP Information";
-    QString dipPubName = dipNameRoot + "testService";
-    DipPublication *dipPublication = dip->createDipPublication(dipPubName.toStdString().c_str(), &dipErrorHandler);
-    qDebug() << "Setup DIP Information";
-
-    try {
-        DipDouble dipValue = 0.02;
-
-        qDebug() << "Sending DIP Information";
-        DipTimestamp dipTime;
-        dipPublication->send(dipValue, dipTime);
-    } catch (DipException e) {
-        qWarning() << "DIP failed to send: " << e.what();
-    }
-#endif // USE_DIP
+    std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
 
     lwdaq_client->init();
 }

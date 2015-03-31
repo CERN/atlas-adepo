@@ -13,6 +13,7 @@
 #include "calibration.h"
 #include "configuration.h"
 #include "data.h"
+#include "dip_server.h"
 #include "results.h"
 #include "run.h"
 #include "setup.h"
@@ -93,6 +94,7 @@ private:
     Results reference;
     Results output;
     QString resultFile;
+    DipServer dipServer;
 };
 
 #endif // SERVER_H

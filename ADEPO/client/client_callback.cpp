@@ -19,7 +19,7 @@ void Client::changedRun(Run run) {
         }
     }
 
-    setup.initBCAMs(run, config);
+    setup.init(run, config);
 
     fillBCAMandResultTable();
 

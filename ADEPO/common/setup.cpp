@@ -2,7 +2,7 @@
 
 #include "setup.h"
 
-void Setup::initBCAMs(Run &run, Configuration &config) {
+void Setup::init(Run &run, Configuration &config) {
     bcams.clear();
 
     QList<int> detectors = run.getDetectors();
@@ -13,6 +13,11 @@ void Setup::initBCAMs(Run &run, Configuration &config) {
         for (int j=0; j<b.size(); j++) {
             bcams.push_back(b.at(j));
         }
+    }
+
+    names.clear();
+    for (int i=0; i<bcams.size(); i++) {
+        names.push_back(config.getName(bcams[i].getPrism().getName()));
     }
 }
 

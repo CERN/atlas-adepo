@@ -1,12 +1,13 @@
 #ifndef RESULT_H
 #define RESULT_H
 
-#include "ctime"
-#include "point3d.h"
+#include <ctime>
 
 #include <QString>
 #include <QJsonObject>
 #include <QDateTime>
+
+#include "point3d.h"
 
 class Result
 {

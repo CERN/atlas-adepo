@@ -18,6 +18,9 @@ unix:!mac{
   LIBS += -L$$PWD/../dip/lib64 -ldip -llog4cplus
 }
 
+INCLUDEPATH += ../dip/include
+INCLUDEPATH += ../log4cplus/include
+
 unix: LIBS += -L$$OUT_PWD/../client/ -lclient
 
 INCLUDEPATH += $$PWD/../client
