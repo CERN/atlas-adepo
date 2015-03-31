@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -DUSE_DIP -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-INCPATH       = -I../../ADEPO/adepo-server -I. -I../../ADEPO/server -I../../ADEPO/bridge -I../../ADEPO/common -I../../../../Qt5.4.1/include -I../../../../Qt5.4.1/include/QtWebSockets -I../../../../Qt5.4.1/include/QtNetwork -I../../../../Qt5.4.1/include/QtCore -I. -I../../../../Qt5.4.1/mkspecs/linux-g++
+INCPATH       = -I../../ADEPO/adepo-server -I. -I../../ADEPO/dip/include -I../../ADEPO/log4cplus/include -I../../ADEPO/server -I../../ADEPO/bridge -I../../ADEPO/common -I../../../../Qt5.4.1/include -I../../../../Qt5.4.1/include/QtWebSockets -I../../../../Qt5.4.1/include/QtNetwork -I../../../../Qt5.4.1/include/QtCore -I. -I../../../../Qt5.4.1/mkspecs/linux-g++
 QMAKE         = /det/ti/PosMov/Qt5.4.1/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -548,19 +548,65 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../../../Qt5.4.1/include/QtCore/QCo
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
 		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/setup.h \
+		../../ADEPO/common/util.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -573,15 +619,6 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../../../Qt5.4.1/include/QtCore/QCo
 		../../../../Qt5.4.1/include/QtCore/qpropertyanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qvariantanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qeasingcurve.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
@@ -734,8 +771,7 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../../../Qt5.4.1/include/QtCore/QCo
 		../../../../Qt5.4.1/include/QtWebSockets/qwebsocketprotocol.h \
 		../../../../Qt5.4.1/include/QtWebSockets/QWebSocketServer \
 		../../../../Qt5.4.1/include/QtWebSockets/qwebsocketserver.h \
-		../../../../Qt5.4.1/include/QtNetwork/QHostAddress \
-		../../ADEPO/common/util.h
+		../../../../Qt5.4.1/include/QtNetwork/QHostAddress
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../ADEPO/adepo-server/main.cpp
 
 socket_server.o: ../../ADEPO/adepo-server/socket_server.cpp ../../../../Qt5.4.1/include/QtCore/QJsonDocument \
@@ -856,8 +892,8 @@ socket_server.o: ../../ADEPO/adepo-server/socket_server.cpp ../../../../Qt5.4.1/
 		../../ADEPO/common/json_rpc.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/common/result.h \
-		../../ADEPO/common/point3d.h \
-		../../../../Qt5.4.1/include/QtCore/QDateTime
+		../../../../Qt5.4.1/include/QtCore/QDateTime \
+		../../ADEPO/common/point3d.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_server.o ../../ADEPO/adepo-server/socket_server.cpp
 
 ####### Install

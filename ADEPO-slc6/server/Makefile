@@ -180,7 +180,8 @@ DIST          = ../../../../Qt5.4.1/mkspecs/features/spec_pre.prf \
 		../../ADEPO/server/mount_coord_spots.h \
 		../../ADEPO/server/spot.h \
 		../../ADEPO/server/server.h \
-		../../ADEPO/server/dip_error_handler.h ../../ADEPO/server/lwdaq_client.cpp \
+		../../ADEPO/server/dip_error_handler.h \
+		../../ADEPO/server/dip_server.h ../../ADEPO/server/lwdaq_client.cpp \
 		../../ADEPO/server/helmert.cpp \
 		../../ADEPO/server/server.cpp \
 		../../ADEPO/server/server_call.cpp \
@@ -454,7 +455,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/data.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/spot.h ../../ADEPO/server/server.h ../../ADEPO/server/dip_error_handler.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/data.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/spot.h ../../ADEPO/server/server.h ../../ADEPO/server/dip_error_handler.h ../../ADEPO/server/dip_server.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/helmert.cpp ../../ADEPO/server/server.cpp ../../ADEPO/server/server_call.cpp ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server/calculate_results.cpp $(DISTDIR)/
 
 
@@ -806,19 +807,68 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
 		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/setup.h \
+		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -831,15 +881,6 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtCore/qpropertyanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qvariantanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qeasingcurve.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
@@ -870,9 +911,7 @@ moc_server.cpp: ../../../../Qt5.4.1/include/QtCore/QObject \
 		../../../../Qt5.4.1/include/QtCore/qsortfilterproxymodel.h \
 		../../../../Qt5.4.1/include/QtCore/qstringlistmodel.h \
 		../../../../Qt5.4.1/include/QtCore/qabstracteventdispatcher.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../../../Qt5.4.1/include/QtCore/qabstractnativeeventfilter.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qmath.h \
 		../../../../Qt5.4.1/include/QtCore/qmetaobject.h \
 		../../../../Qt5.4.1/include/QtCore/qmimedata.h \
@@ -1527,19 +1566,68 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen/Eigen/Core \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
 		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/setup.h \
+		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -1552,15 +1640,6 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen/Eigen/Core \
 		../../../../Qt5.4.1/include/QtCore/qpropertyanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qvariantanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qeasingcurve.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
@@ -1591,9 +1670,7 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen/Eigen/Core \
 		../../../../Qt5.4.1/include/QtCore/qsortfilterproxymodel.h \
 		../../../../Qt5.4.1/include/QtCore/qstringlistmodel.h \
 		../../../../Qt5.4.1/include/QtCore/qabstracteventdispatcher.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../../../Qt5.4.1/include/QtCore/qabstractnativeeventfilter.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qmath.h \
 		../../../../Qt5.4.1/include/QtCore/qmetaobject.h \
 		../../../../Qt5.4.1/include/QtCore/qmimedata.h \
@@ -1769,49 +1846,6 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../../../Qt5.4.1/include/QtCore/qdatastream.h \
 		../../../../Qt5.4.1/include/QtCore/qregexp.h \
 		../../../../Qt5.4.1/include/QtCore/qstringmatcher.h \
-		../../ADEPO/dip/include/Dip.h \
-		../../ADEPO/dip-5.5.2/include/Options.h \
-		../../ADEPO/dip-5.5.2/include/DipException.h \
-		../../ADEPO/dip-5.5.2/include/StdTypes.h \
-		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
-		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
-		../../ADEPO/dip-5.5.2/include/DipPublication.h \
-		../../ADEPO/dip-5.5.2/include/DipQuality.h \
-		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
-		../../ADEPO/dip-5.5.2/include/DipData.h \
-		../../ADEPO/dip-5.5.2/include/DipDataType.h \
-		../../ADEPO/dip-5.5.2/include/DipFactory.h \
-		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
-		../../ADEPO/server/dip_error_handler.h \
-		../../../../Qt5.4.1/include/QtCore/QDebug \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
-		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
-		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
-		../../ADEPO/log4cplus/include/log4cplus/appender.h \
-		../../ADEPO/log4cplus/include/log4cplus/layout.h \
-		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
-		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
-		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
-		../../ADEPO/log4cplus/include/log4cplus/streams.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
-		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
-		../../ADEPO/log4cplus/include/log4cplus/logger.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/QObject \
@@ -1846,18 +1880,67 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
 		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/setup.h \
+		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -1898,9 +1981,7 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../../../Qt5.4.1/include/QtCore/qsortfilterproxymodel.h \
 		../../../../Qt5.4.1/include/QtCore/qstringlistmodel.h \
 		../../../../Qt5.4.1/include/QtCore/qabstracteventdispatcher.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../../../Qt5.4.1/include/QtCore/qabstractnativeeventfilter.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qmath.h \
 		../../../../Qt5.4.1/include/QtCore/qmetaobject.h \
 		../../../../Qt5.4.1/include/QtCore/qmimedata.h \
@@ -2011,8 +2092,6 @@ server.o: ../../ADEPO/server/server.cpp ../../../../Qt5.4.1/include/QtCore/QDir 
 		../../../../Qt5.4.1/include/QtNetwork/qtnetworkversion.h \
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/callback.h \
-		../../ADEPO/common/util.h \
-		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
 		../../ADEPO/eigen-eigen/Eigen/Core \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/DisableStupidWarnings.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Core/util/Macros.h \
@@ -2240,19 +2319,68 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
 		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/setup.h \
+		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -2265,15 +2393,6 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/qpropertyanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qvariantanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qeasingcurve.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
@@ -2304,9 +2423,7 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtCore/qsortfilterproxymodel.h \
 		../../../../Qt5.4.1/include/QtCore/qstringlistmodel.h \
 		../../../../Qt5.4.1/include/QtCore/qabstracteventdispatcher.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../../../Qt5.4.1/include/QtCore/qabstractnativeeventfilter.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qmath.h \
 		../../../../Qt5.4.1/include/QtCore/qmetaobject.h \
 		../../../../Qt5.4.1/include/QtCore/qmimedata.h \
@@ -2417,9 +2534,7 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../../../Qt5.4.1/include/QtNetwork/qtnetworkversion.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/call.h \
-		../../ADEPO/bridge/callback.h \
-		../../ADEPO/common/util.h \
-		../../../../Qt5.4.1/include/QtCore/QCoreApplication
+		../../ADEPO/bridge/callback.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server_call.o ../../ADEPO/server/server_call.cpp
 
 write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server/server.h \
@@ -2513,19 +2628,68 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
 		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/setup.h \
+		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -2538,15 +2702,6 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qpropertyanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qvariantanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qeasingcurve.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
@@ -2577,9 +2732,7 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qsortfilterproxymodel.h \
 		../../../../Qt5.4.1/include/QtCore/qstringlistmodel.h \
 		../../../../Qt5.4.1/include/QtCore/qabstracteventdispatcher.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../../../Qt5.4.1/include/QtCore/qabstractnativeeventfilter.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qmath.h \
 		../../../../Qt5.4.1/include/QtCore/qmetaobject.h \
 		../../../../Qt5.4.1/include/QtCore/qmimedata.h \
@@ -2784,19 +2937,68 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
 		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/setup.h \
+		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -2809,15 +3011,6 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../../../Qt5.4.1/include/QtCore/qpropertyanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qvariantanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qeasingcurve.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
@@ -2848,9 +3041,7 @@ write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/
 		../../../../Qt5.4.1/include/QtCore/qsortfilterproxymodel.h \
 		../../../../Qt5.4.1/include/QtCore/qstringlistmodel.h \
 		../../../../Qt5.4.1/include/QtCore/qabstracteventdispatcher.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../../../Qt5.4.1/include/QtCore/qabstractnativeeventfilter.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qmath.h \
 		../../../../Qt5.4.1/include/QtCore/qmetaobject.h \
 		../../../../Qt5.4.1/include/QtCore/qmimedata.h \
@@ -3055,19 +3246,68 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
 		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/setup.h \
+		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -3080,15 +3320,6 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qpropertyanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qvariantanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qeasingcurve.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
@@ -3119,9 +3350,7 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qsortfilterproxymodel.h \
 		../../../../Qt5.4.1/include/QtCore/qstringlistmodel.h \
 		../../../../Qt5.4.1/include/QtCore/qabstracteventdispatcher.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../../../Qt5.4.1/include/QtCore/qabstractnativeeventfilter.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qmath.h \
 		../../../../Qt5.4.1/include/QtCore/qmetaobject.h \
 		../../../../Qt5.4.1/include/QtCore/qmimedata.h \
@@ -3232,9 +3461,7 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtNetwork/qtnetworkversion.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/bridge/call.h \
-		../../ADEPO/bridge/callback.h \
-		../../ADEPO/common/util.h \
-		../../../../Qt5.4.1/include/QtCore/QCoreApplication
+		../../ADEPO/bridge/callback.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o write_script_file.o ../../ADEPO/server/write_script_file.cpp
 
 read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server/server.h \
@@ -3328,19 +3555,68 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
 		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/setup.h \
+		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -3353,15 +3629,6 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qpropertyanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qvariantanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qeasingcurve.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
@@ -3392,9 +3659,7 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qsortfilterproxymodel.h \
 		../../../../Qt5.4.1/include/QtCore/qstringlistmodel.h \
 		../../../../Qt5.4.1/include/QtCore/qabstracteventdispatcher.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../../../Qt5.4.1/include/QtCore/qabstractnativeeventfilter.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qmath.h \
 		../../../../Qt5.4.1/include/QtCore/qmetaobject.h \
 		../../../../Qt5.4.1/include/QtCore/qmimedata.h \
@@ -3599,19 +3864,68 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../ADEPO/server/mount_coord_prism.h \
 		../../ADEPO/server/global_coord_prism.h \
 		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		../../../../Qt5.4.1/include/QtCore/QDebug \
+		../../../../Qt5.4.1/include/QtCore/qdebug.h \
+		../../../../Qt5.4.1/include/QtCore/qmap.h \
+		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
+		../../../../Qt5.4.1/include/QtCore/qlocale.h \
+		../../../../Qt5.4.1/include/QtCore/qvariant.h \
+		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../../../Qt5.4.1/include/QtCore/qvector.h \
+		../../../../Qt5.4.1/include/QtCore/qpoint.h \
+		../../../../Qt5.4.1/include/QtCore/qset.h \
+		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../ADEPO/common/results.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonDocument \
 		../../../../Qt5.4.1/include/QtCore/qjsondocument.h \
 		../../ADEPO/common/result.h \
 		../../../../Qt5.4.1/include/QtCore/QDateTime \
 		../../../../Qt5.4.1/include/QtCore/qdatetime.h \
-		../../../../Qt5.4.1/include/QtCore/qshareddata.h \
+		../../ADEPO/common/setup.h \
 		../../ADEPO/common/run.h \
 		../../ADEPO/common/json_util.h \
 		../../../../Qt5.4.1/include/QtCore/QJsonArray \
 		../../../../Qt5.4.1/include/QtCore/qjsonarray.h \
 		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/setup.h \
+		../../ADEPO/common/util.h \
+		../../../../Qt5.4.1/include/QtCore/QCoreApplication \
+		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../ADEPO/server/lwdaq_client.h \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetwork \
 		../../../../Qt5.4.1/include/QtNetwork/QtNetworkDepends \
@@ -3624,15 +3938,6 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qpropertyanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qvariantanimation.h \
 		../../../../Qt5.4.1/include/QtCore/qeasingcurve.h \
-		../../../../Qt5.4.1/include/QtCore/qvector.h \
-		../../../../Qt5.4.1/include/QtCore/qpoint.h \
-		../../../../Qt5.4.1/include/QtCore/qvariant.h \
-		../../../../Qt5.4.1/include/QtCore/qmap.h \
-		../../../../Qt5.4.1/include/QtCore/qdebug.h \
-		../../../../Qt5.4.1/include/QtCore/qtextstream.h \
-		../../../../Qt5.4.1/include/QtCore/qlocale.h \
-		../../../../Qt5.4.1/include/QtCore/qset.h \
-		../../../../Qt5.4.1/include/QtCore/qcontiguouscache.h \
 		../../../../Qt5.4.1/include/QtCore/qsequentialanimationgroup.h \
 		../../../../Qt5.4.1/include/QtCore/qtextcodec.h \
 		../../../../Qt5.4.1/include/QtCore/qendian.h \
@@ -3663,9 +3968,7 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../../../Qt5.4.1/include/QtCore/qsortfilterproxymodel.h \
 		../../../../Qt5.4.1/include/QtCore/qstringlistmodel.h \
 		../../../../Qt5.4.1/include/QtCore/qabstracteventdispatcher.h \
-		../../../../Qt5.4.1/include/QtCore/qeventloop.h \
 		../../../../Qt5.4.1/include/QtCore/qabstractnativeeventfilter.h \
-		../../../../Qt5.4.1/include/QtCore/qcoreapplication.h \
 		../../../../Qt5.4.1/include/QtCore/qmath.h \
 		../../../../Qt5.4.1/include/QtCore/qmetaobject.h \
 		../../../../Qt5.4.1/include/QtCore/qmimedata.h \
