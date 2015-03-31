@@ -45,10 +45,8 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../../ADEPO/dip-dummy/dip_dummy.cpp \
-		../../ADEPO/dip-dummy/dip_dummy.cpp 
-OBJECTS       = dip_dummy.o \
-		dip_dummy.o
+SOURCES       = ../../ADEPO/dip-dummy/dip_dummy.cpp 
+OBJECTS       = dip_dummy.o
 DIST          = /Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/qdevice.pri \
 		/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/device_config.prf \
@@ -175,8 +173,7 @@ DIST          = /Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/exceptions.prf \
 		/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/yacc.prf \
 		/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/lex.prf \
-		../../ADEPO/dip-dummy/dip-dummy.pro  ../../ADEPO/dip-dummy/dip_dummy.cpp \
-		../../ADEPO/dip-dummy/dip_dummy.cpp
+		../../ADEPO/dip-dummy/dip-dummy.pro  ../../ADEPO/dip-dummy/dip_dummy.cpp
 QMAKE_TARGET  = dip-dummy
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = libdip-dummy.a
@@ -493,7 +490,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/dip-dummy/dip_dummy.cpp ../../ADEPO/dip-dummy/dip_dummy.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/dip-dummy/dip_dummy.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -533,23 +530,6 @@ compiler_lex_clean:
 compiler_clean: 
 
 ####### Compile
-
-dip_dummy.o: ../../ADEPO/dip-dummy/dip_dummy.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QtGlobal \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qglobal.h \
-		../../ADEPO/dip/include/Dip.h \
-		../../ADEPO/dip-5.5.2/include/Options.h \
-		../../ADEPO/dip-5.5.2/include/DipException.h \
-		../../ADEPO/dip-5.5.2/include/StdTypes.h \
-		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
-		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
-		../../ADEPO/dip-5.5.2/include/DipPublication.h \
-		../../ADEPO/dip-5.5.2/include/DipQuality.h \
-		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
-		../../ADEPO/dip-5.5.2/include/DipData.h \
-		../../ADEPO/dip-5.5.2/include/DipDataType.h \
-		../../ADEPO/dip-5.5.2/include/DipFactory.h \
-		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dip_dummy.o ../../ADEPO/dip-dummy/dip_dummy.cpp
 
 dip_dummy.o: ../../ADEPO/dip-dummy/dip_dummy.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QtGlobal \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qglobal.h \

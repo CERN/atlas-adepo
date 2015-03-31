@@ -15,7 +15,4 @@ CONFIG += staticlib
 
 INCLUDEPATH += $$PWD/../dip/include
 
-HEADERS =
-
-SOURCES += dip_dummy.cpp \
-    dip_dummy.cpp
+SOURCES += dip_dummy.cpp
