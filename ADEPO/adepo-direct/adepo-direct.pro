@@ -23,10 +23,6 @@ unix:mac{
   LIBS += -L$$PWD/../log4cplus-macosx/lib -llog4cplus
 }
 
-INCLUDEPATH += $$PWD/../dip/include
-DEPENDPATH += $$PWD/../dip-dummy
-LIBS += -L$$OUT_PWD/../dip-dummy/ -ldip-dummy
-
 unix: LIBS += -L$$OUT_PWD/../client/ -lclient
 
 INCLUDEPATH += $$PWD/../client
@@ -54,4 +50,11 @@ DEPENDPATH += $$PWD/../common
 
 unix: PRE_TARGETDEPS += $$OUT_PWD/../common/libcommon.a
 
+
+unix: LIBS += -L$$OUT_PWD/../dip-dummy/ -ldip-dummy
+
+INCLUDEPATH += $$PWD/../dip/include
+DEPENDPATH += $$PWD/../dip-dummy
+
+unix: PRE_TARGETDEPS += $$OUT_PWD/../dip-dummy/libdip-dummy.a
 
