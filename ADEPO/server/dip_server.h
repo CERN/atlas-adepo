@@ -37,8 +37,9 @@ public:
 
         QList<QString> names = setup.getNames();
         for (int i=0; i<names.size(); i++) {
-            qDebug() << "DIP created: " << names[i];
-            createPublishers(names[i]);
+            QString dipName = names[i].replace('-','_');
+            qDebug() << "DIP created: " << dipName;
+            createPublishers(dipName);
         }
     }
 
