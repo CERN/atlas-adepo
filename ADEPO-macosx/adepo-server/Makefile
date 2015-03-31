@@ -15,7 +15,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W -fPIE $(DEFINES)
-INCPATH       = -I../../ADEPO/adepo-server -I. -I../../ADEPO/dip/include -I../../ADEPO/log4cplus/include -I../../ADEPO/server -I../../ADEPO/bridge -I../../ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -F/Users/duns/Qt5.4.1/5.4/clang_64/lib
+INCPATH       = -I../../ADEPO/adepo-server -I. -I../../ADEPO/log4cplus-macosx/include -I../../ADEPO/dip/include -I../../ADEPO/server -I../../ADEPO/bridge -I../../ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtWebSockets.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -F/Users/duns/Qt5.4.1/5.4/clang_64/lib
 QMAKE         = /Users/duns/Qt5.4.1/5.4/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = adepo-server1.0.0
 DISTDIR = /Users/duns/cern/git/atlas-adepo/ADEPO/adepo-server/.tmp/adepo-server1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -headerpad_max_install_names -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wl,-rpath,/Users/duns/Qt5.4.1/5.4/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/duns/Qt5.4.1/5.4/clang_64/lib -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo-server/../server/ -lserver -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo-server/../common/ -lcommon -framework QtWebSockets -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit 
+LIBS          = $(SUBLIBS) -F/Users/duns/Qt5.4.1/5.4/clang_64/lib -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo-server/../dip-dummy/ -ldip-dummy -L/Users/duns/cern/git/atlas-adepo/ADEPO/adepo-server/../log4cplus-macosx/lib -llog4cplus -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo-server/../server/ -lserver -L/Users/duns/cern/git/atlas-adepo/ADEPO-macosx/adepo-server/../common/ -lcommon -framework QtWebSockets -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -588,26 +588,26 @@ main.o: ../../ADEPO/adepo-server/main.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/dip-5.5.2/include/DipDataType.h \
 		../../ADEPO/dip-5.5.2/include/DipFactory.h \
 		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
-		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
-		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
-		../../ADEPO/log4cplus/include/log4cplus/appender.h \
-		../../ADEPO/log4cplus/include/log4cplus/layout.h \
-		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
-		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
-		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
-		../../ADEPO/log4cplus/include/log4cplus/streams.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
-		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
-		../../ADEPO/log4cplus/include/log4cplus/logger.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/property.h \
 		../../ADEPO/server/dip_error_handler.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \

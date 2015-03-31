@@ -23,7 +23,7 @@ public:
         // NOTE: does not seem to work... we still get an information message...
         QString log4cplusProperties = Util::workPath().append("log4cplus.properties");
         qDebug() << "Using " << log4cplusProperties;
-        log4cplus::PropertyConfigurator::doConfigure(LOG4CPLUS_STRING_TO_TSTRING(log4cplusProperties.toStdString()));
+//        log4cplus::PropertyConfigurator::doConfigure(LOG4CPLUS_STRING_TO_TSTRING(log4cplusProperties.toStdString()));
 
         rootName = "dip/ATLAS/BCAM/";
         QString dipServerName = "ATLAS-ADEPO";
@@ -33,35 +33,20 @@ public:
     }
 
     void createPublishers(Setup& setup) {
+        if (dip == NULL) return;
+
         QList<QString> names = setup.getNames();
         for (int i=0; i<names.size(); i++) {
             qDebug() << "DIP created: " << names[i];
-//            createPublishers(names[i]);
-
+            createPublishers(names[i]);
         }
-    }
-
-    void createPublishers(QString name) {
-        QList<DipPublication*>& list = map[name];
-        for (int i=0; i<list.size(); i++) {
-            dip->destroyDipPublication(list[i]);
-        }
-        list.clear();
-
-        // 8 items
-        list.append(dip->createDipPublication((rootName+name+"/X_COORDINATE").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+name+"/Y_COORDINATE").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+name+"/Z_COORDINATE").toStdString().c_str(), &dipErrorHandler));
-
-        list.append(dip->createDipPublication((rootName+name+"/X_STD").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+name+"/Y_STD").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+name+"/Z_STD").toStdString().c_str(), &dipErrorHandler));
-
-        list.append(dip->createDipPublication((rootName+name+"/COMMENT").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+name+"/DATA_QUALITY").toStdString().c_str(), &dipErrorHandler));
     }
 
     void sendResults(Results& results) {
+        if (dip == NULL) return;
+
+        qDebug() << "Updating DIP";
+
         DipTimestamp time;
         foreach(const QString &name, map.keys()) {
             const QList<DipPublication*>& list = map.value(name);
@@ -89,6 +74,26 @@ private:
     QString rootName;
 
     QHash<QString, QList<DipPublication*> > map;
+
+    void createPublishers(QString name) {
+        QList<DipPublication*>& list = map[name];
+        for (int i=0; i<list.size(); i++) {
+            dip->destroyDipPublication(list[i]);
+        }
+        list.clear();
+
+        // 8 items
+        list.append(dip->createDipPublication((rootName+name+"/X_COORDINATE").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+name+"/Y_COORDINATE").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+name+"/Z_COORDINATE").toStdString().c_str(), &dipErrorHandler));
+
+        list.append(dip->createDipPublication((rootName+name+"/X_STD").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+name+"/Y_STD").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+name+"/Z_STD").toStdString().c_str(), &dipErrorHandler));
+
+        list.append(dip->createDipPublication((rootName+name+"/COMMENT").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+name+"/DATA_QUALITY").toStdString().c_str(), &dipErrorHandler));
+    }
 };
 
 #endif // DIPSERVER_H

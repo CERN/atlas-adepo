@@ -1,5 +1,6 @@
 TEMPLATE = subdirs
 SUBDIRS = \
+    dip-dummy \
     common \
     bridge \
     server \

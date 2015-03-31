@@ -9,12 +9,16 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 unix:!mac{
-  QMAKE_CXXFLAGS += -DUSE_DIP
+  INCLUDEPATH += ../log4cplus-slc6/include
+}
+
+unix:mac{
+  INCLUDEPATH += ../log4cplus-macosx/include
 }
 
 INCLUDEPATH += ../eigen-eigen
 INCLUDEPATH += ../dip/include
-INCLUDEPATH += ../log4cplus/include
+DEPENDPATH += $$PWD/../dip-dummy
 
 SOURCES += \
     lwdaq_client.cpp \
@@ -22,10 +26,10 @@ SOURCES += \
     server.cpp \
     server_call.cpp \
     write_params_file.cpp \
-    write_setttings_file.cpp \
     write_script_file.cpp \
     read_lwdaq_output.cpp \
-    calculate_results.cpp
+    calculate_results.cpp \
+    write_settings_file.cpp
 
 HEADERS += \
     adepo.h \

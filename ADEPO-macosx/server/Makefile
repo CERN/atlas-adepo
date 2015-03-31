@@ -15,7 +15,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -fPIC -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W $(DEFINES)
 CXXFLAGS      = -pipe -g -fPIC -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -mmacosx-version-min=10.7 -Wall -W $(DEFINES)
-INCPATH       = -I../../ADEPO/server -I. -I../../ADEPO/eigen-eigen -I../../ADEPO/dip/include -I../../ADEPO/log4cplus/include -I../../ADEPO/bridge -I../../ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AGL.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -F/Users/duns/Qt5.4.1/5.4/clang_64/lib
+INCPATH       = -I../../ADEPO/server -I. -I../../ADEPO/log4cplus-macosx/include -I../../ADEPO/eigen-eigen -I../../ADEPO/dip/include -I../../ADEPO/bridge -I../../ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/AGL.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -F/Users/duns/Qt5.4.1/5.4/clang_64/lib
 QMAKE         = /Users/duns/Qt5.4.1/5.4/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -50,20 +50,20 @@ SOURCES       = ../../ADEPO/server/lwdaq_client.cpp \
 		../../ADEPO/server/server.cpp \
 		../../ADEPO/server/server_call.cpp \
 		../../ADEPO/server/write_params_file.cpp \
-		../../ADEPO/server/write_setttings_file.cpp \
 		../../ADEPO/server/write_script_file.cpp \
 		../../ADEPO/server/read_lwdaq_output.cpp \
-		../../ADEPO/server/calculate_results.cpp moc_lwdaq_client.cpp \
+		../../ADEPO/server/calculate_results.cpp \
+		../../ADEPO/server/write_settings_file.cpp moc_lwdaq_client.cpp \
 		moc_server.cpp
 OBJECTS       = lwdaq_client.o \
 		helmert.o \
 		server.o \
 		server_call.o \
 		write_params_file.o \
-		write_setttings_file.o \
 		write_script_file.o \
 		read_lwdaq_output.o \
 		calculate_results.o \
+		write_settings_file.o \
 		moc_lwdaq_client.o \
 		moc_server.o
 DIST          = /Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/spec_pre.prf \
@@ -209,10 +209,10 @@ DIST          = /Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../ADEPO/server/server.cpp \
 		../../ADEPO/server/server_call.cpp \
 		../../ADEPO/server/write_params_file.cpp \
-		../../ADEPO/server/write_setttings_file.cpp \
 		../../ADEPO/server/write_script_file.cpp \
 		../../ADEPO/server/read_lwdaq_output.cpp \
-		../../ADEPO/server/calculate_results.cpp
+		../../ADEPO/server/calculate_results.cpp \
+		../../ADEPO/server/write_settings_file.cpp
 QMAKE_TARGET  = server
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = libserver.a
@@ -536,7 +536,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ADEPO/server/adepo.h ../../ADEPO/server/bcam_params.h ../../ADEPO/server/data.h ../../ADEPO/server/dual_spot.h ../../ADEPO/server/global_coord_prism.h ../../ADEPO/server/lwdaq_client.h ../../ADEPO/server/mount_coord_prism.h ../../ADEPO/server/mount_coord_spots.h ../../ADEPO/server/spot.h ../../ADEPO/server/server.h ../../ADEPO/server/dip_error_handler.h ../../ADEPO/server/dip_server.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/helmert.cpp ../../ADEPO/server/server.cpp ../../ADEPO/server/server_call.cpp ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server/calculate_results.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ADEPO/server/lwdaq_client.cpp ../../ADEPO/server/helmert.cpp ../../ADEPO/server/server.cpp ../../ADEPO/server/server_call.cpp ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server/write_settings_file.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -603,7 +603,7 @@ moc_lwdaq_client.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Vers
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../ADEPO/bridge/bridge.h \
 		../../ADEPO/server/lwdaq_client.h
-	/Users/duns/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/cern/git/atlas-adepo/ADEPO/eigen-eigen -I/Users/duns/cern/git/atlas-adepo/ADEPO/dip/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/log4cplus/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.1/5.4/clang_64/lib ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
+	/Users/duns/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/cern/git/atlas-adepo/ADEPO/log4cplus-macosx/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/eigen-eigen -I/Users/duns/cern/git/atlas-adepo/ADEPO/dip/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.1/5.4/clang_64/lib ../../ADEPO/server/lwdaq_client.h -o moc_lwdaq_client.cpp
 
 moc_server.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
@@ -655,26 +655,26 @@ moc_server.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5
 		../../ADEPO/dip-5.5.2/include/DipDataType.h \
 		../../ADEPO/dip-5.5.2/include/DipFactory.h \
 		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
-		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
-		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
-		../../ADEPO/log4cplus/include/log4cplus/appender.h \
-		../../ADEPO/log4cplus/include/log4cplus/layout.h \
-		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
-		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
-		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
-		../../ADEPO/log4cplus/include/log4cplus/streams.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
-		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
-		../../ADEPO/log4cplus/include/log4cplus/logger.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/property.h \
 		../../ADEPO/server/dip_error_handler.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
@@ -729,7 +729,7 @@ moc_server.cpp: /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5
 		../../ADEPO/bridge/call.h \
 		../../ADEPO/bridge/callback.h \
 		../../ADEPO/server/server.h
-	/Users/duns/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/cern/git/atlas-adepo/ADEPO/eigen-eigen -I/Users/duns/cern/git/atlas-adepo/ADEPO/dip/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/log4cplus/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.1/5.4/clang_64/lib ../../ADEPO/server/server.h -o moc_server.cpp
+	/Users/duns/Qt5.4.1/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/duns/Qt5.4.1/5.4/clang_64/mkspecs/macx-clang -I/Users/duns/cern/git/atlas-adepo/ADEPO/server -I/Users/duns/cern/git/atlas-adepo/ADEPO/log4cplus-macosx/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/eigen-eigen -I/Users/duns/cern/git/atlas-adepo/ADEPO/dip/include -I/Users/duns/cern/git/atlas-adepo/ADEPO/bridge -I/Users/duns/cern/git/atlas-adepo/ADEPO/common -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/duns/Qt5.4.1/5.4/clang_64/lib ../../ADEPO/server/server.h -o moc_server.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1039,26 +1039,26 @@ helmert.o: ../../ADEPO/server/helmert.cpp ../../ADEPO/eigen-eigen/Eigen/Core \
 		../../ADEPO/dip-5.5.2/include/DipDataType.h \
 		../../ADEPO/dip-5.5.2/include/DipFactory.h \
 		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
-		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
-		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
-		../../ADEPO/log4cplus/include/log4cplus/appender.h \
-		../../ADEPO/log4cplus/include/log4cplus/layout.h \
-		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
-		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
-		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
-		../../ADEPO/log4cplus/include/log4cplus/streams.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
-		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
-		../../ADEPO/log4cplus/include/log4cplus/logger.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/property.h \
 		../../ADEPO/server/dip_error_handler.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
@@ -1168,26 +1168,26 @@ server.o: ../../ADEPO/server/server.cpp /Users/duns/Qt5.4.1/5.4/clang_64/lib/QtC
 		../../ADEPO/dip-5.5.2/include/DipDataType.h \
 		../../ADEPO/dip-5.5.2/include/DipFactory.h \
 		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
-		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
-		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
-		../../ADEPO/log4cplus/include/log4cplus/appender.h \
-		../../ADEPO/log4cplus/include/log4cplus/layout.h \
-		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
-		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
-		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
-		../../ADEPO/log4cplus/include/log4cplus/streams.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
-		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
-		../../ADEPO/log4cplus/include/log4cplus/logger.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/property.h \
 		../../ADEPO/server/dip_error_handler.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
@@ -1427,26 +1427,26 @@ server_call.o: ../../ADEPO/server/server_call.cpp ../../ADEPO/server/server.h \
 		../../ADEPO/dip-5.5.2/include/DipDataType.h \
 		../../ADEPO/dip-5.5.2/include/DipFactory.h \
 		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
-		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
-		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
-		../../ADEPO/log4cplus/include/log4cplus/appender.h \
-		../../ADEPO/log4cplus/include/log4cplus/layout.h \
-		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
-		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
-		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
-		../../ADEPO/log4cplus/include/log4cplus/streams.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
-		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
-		../../ADEPO/log4cplus/include/log4cplus/logger.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/property.h \
 		../../ADEPO/server/dip_error_handler.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
@@ -1553,26 +1553,26 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../ADEPO/dip-5.5.2/include/DipDataType.h \
 		../../ADEPO/dip-5.5.2/include/DipFactory.h \
 		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
-		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
-		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
-		../../ADEPO/log4cplus/include/log4cplus/appender.h \
-		../../ADEPO/log4cplus/include/log4cplus/layout.h \
-		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
-		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
-		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
-		../../ADEPO/log4cplus/include/log4cplus/streams.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
-		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
-		../../ADEPO/log4cplus/include/log4cplus/logger.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/property.h \
 		../../ADEPO/server/dip_error_handler.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
@@ -1628,132 +1628,6 @@ write_params_file.o: ../../ADEPO/server/write_params_file.cpp ../../ADEPO/server
 		../../ADEPO/bridge/callback.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o write_params_file.o ../../ADEPO/server/write_params_file.cpp
 
-write_setttings_file.o: ../../ADEPO/server/write_setttings_file.cpp ../../ADEPO/server/server.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
-		../../ADEPO/common/bcam.h \
-		../../ADEPO/common/prism.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
-		../../ADEPO/common/calibration.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QList \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qlist.h \
-		../../ADEPO/common/calib1.h \
-		../../ADEPO/common/point3d.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
-		../../ADEPO/common/calib2.h \
-		../../ADEPO/common/configuration.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QHash \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qhash.h \
-		../../ADEPO/common/detector.h \
-		../../ADEPO/common/bcam_adapter.h \
-		../../ADEPO/common/bcam_config.h \
-		../../ADEPO/common/absolute_distances.h \
-		../../ADEPO/common/atlas_coordinates.h \
-		../../ADEPO/common/prism_correction.h \
-		../../ADEPO/server/data.h \
-		../../ADEPO/server/dual_spot.h \
-		../../ADEPO/server/spot.h \
-		../../ADEPO/server/mount_coord_spots.h \
-		../../ADEPO/server/mount_coord_prism.h \
-		../../ADEPO/server/global_coord_prism.h \
-		../../ADEPO/server/bcam_params.h \
-		../../ADEPO/server/dip_server.h \
-		../../ADEPO/dip/include/Dip.h \
-		../../ADEPO/dip-5.5.2/include/Options.h \
-		../../ADEPO/dip-5.5.2/include/DipException.h \
-		../../ADEPO/dip-5.5.2/include/StdTypes.h \
-		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
-		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
-		../../ADEPO/dip-5.5.2/include/DipPublication.h \
-		../../ADEPO/dip-5.5.2/include/DipQuality.h \
-		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
-		../../ADEPO/dip-5.5.2/include/DipData.h \
-		../../ADEPO/dip-5.5.2/include/DipDataType.h \
-		../../ADEPO/dip-5.5.2/include/DipFactory.h \
-		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
-		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
-		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
-		../../ADEPO/log4cplus/include/log4cplus/appender.h \
-		../../ADEPO/log4cplus/include/log4cplus/layout.h \
-		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
-		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
-		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
-		../../ADEPO/log4cplus/include/log4cplus/streams.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
-		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
-		../../ADEPO/log4cplus/include/log4cplus/logger.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
-		../../ADEPO/server/dip_error_handler.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
-		../../ADEPO/common/results.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
-		../../ADEPO/common/result.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDateTime \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
-		../../ADEPO/common/setup.h \
-		../../ADEPO/common/run.h \
-		../../ADEPO/common/json_util.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
-		../../ADEPO/common/json_rpc.h \
-		../../ADEPO/common/util.h \
-		../../ADEPO/server/lwdaq_client.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QtNetwork \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractnetworkcache.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhttpmultipart.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkaccessmanager.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkcookie.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkcookiejar.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkdiskcache.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkreply.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkrequest.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkconfigmanager.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkconfiguration.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworksession.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qauthenticator.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qdnslookup.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhostaddress.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhostinfo.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkinterface.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkproxy.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractsocket.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qlocalserver.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qlocalsocket.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpserver.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpsocket.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qudpsocket.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qssl.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcertificate.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcertificateextension.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcipher.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslconfiguration.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslerror.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslkey.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
-		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
-		../../ADEPO/bridge/bridge.h \
-		../../ADEPO/bridge/call.h \
-		../../ADEPO/bridge/callback.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o write_setttings_file.o ../../ADEPO/server/write_setttings_file.cpp
-
 write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server/server.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
@@ -1805,26 +1679,26 @@ write_script_file.o: ../../ADEPO/server/write_script_file.cpp ../../ADEPO/server
 		../../ADEPO/dip-5.5.2/include/DipDataType.h \
 		../../ADEPO/dip-5.5.2/include/DipFactory.h \
 		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
-		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
-		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
-		../../ADEPO/log4cplus/include/log4cplus/appender.h \
-		../../ADEPO/log4cplus/include/log4cplus/layout.h \
-		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
-		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
-		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
-		../../ADEPO/log4cplus/include/log4cplus/streams.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
-		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
-		../../ADEPO/log4cplus/include/log4cplus/logger.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/property.h \
 		../../ADEPO/server/dip_error_handler.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
@@ -1931,26 +1805,26 @@ read_lwdaq_output.o: ../../ADEPO/server/read_lwdaq_output.cpp ../../ADEPO/server
 		../../ADEPO/dip-5.5.2/include/DipDataType.h \
 		../../ADEPO/dip-5.5.2/include/DipFactory.h \
 		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
-		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
-		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
-		../../ADEPO/log4cplus/include/log4cplus/appender.h \
-		../../ADEPO/log4cplus/include/log4cplus/layout.h \
-		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
-		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
-		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
-		../../ADEPO/log4cplus/include/log4cplus/streams.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
-		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
-		../../ADEPO/log4cplus/include/log4cplus/logger.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/property.h \
 		../../ADEPO/server/dip_error_handler.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
@@ -2057,26 +1931,26 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../ADEPO/dip-5.5.2/include/DipDataType.h \
 		../../ADEPO/dip-5.5.2/include/DipFactory.h \
 		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
-		../../ADEPO/log4cplus/include/log4cplus/configurator.h \
-		../../ADEPO/log4cplus/include/log4cplus/config.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/config/win32.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/macosx.h \
-		../../ADEPO/log4cplus/include/log4cplus/config/defines.hxx \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/thread-config.h \
-		../../ADEPO/log4cplus/include/log4cplus/appender.h \
-		../../ADEPO/log4cplus/include/log4cplus/layout.h \
-		../../ADEPO/log4cplus/include/log4cplus/loglevel.h \
-		../../ADEPO/log4cplus/include/log4cplus/tstring.h \
-		../../ADEPO/log4cplus/include/log4cplus/tchar.h \
-		../../ADEPO/log4cplus/include/log4cplus/streams.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/pointer.h \
-		../../ADEPO/log4cplus/include/log4cplus/thread/syncprims.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/filter.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/lockfile.h \
-		../../ADEPO/log4cplus/include/log4cplus/logger.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/appenderattachable.h \
-		../../ADEPO/log4cplus/include/log4cplus/spi/loggerfactory.h \
-		../../ADEPO/log4cplus/include/log4cplus/helpers/property.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/property.h \
 		../../ADEPO/server/dip_error_handler.h \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
 		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
@@ -2330,6 +2204,132 @@ calculate_results.o: ../../ADEPO/server/calculate_results.cpp ../../ADEPO/server
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/ComplexSchur_MKL.h \
 		../../ADEPO/eigen-eigen-ffa86ffb5570/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculate_results.o ../../ADEPO/server/calculate_results.cpp
+
+write_settings_file.o: ../../ADEPO/server/write_settings_file.cpp ../../ADEPO/server/server.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QFile \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qfile.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		../../ADEPO/common/bcam.h \
+		../../ADEPO/common/prism.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QStringList \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstringlist.h \
+		../../ADEPO/common/calibration.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QList \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qlist.h \
+		../../ADEPO/common/calib1.h \
+		../../ADEPO/common/point3d.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonObject \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonobject.h \
+		../../ADEPO/common/calib2.h \
+		../../ADEPO/common/configuration.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QHash \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qhash.h \
+		../../ADEPO/common/detector.h \
+		../../ADEPO/common/bcam_adapter.h \
+		../../ADEPO/common/bcam_config.h \
+		../../ADEPO/common/absolute_distances.h \
+		../../ADEPO/common/atlas_coordinates.h \
+		../../ADEPO/common/prism_correction.h \
+		../../ADEPO/server/data.h \
+		../../ADEPO/server/dual_spot.h \
+		../../ADEPO/server/spot.h \
+		../../ADEPO/server/mount_coord_spots.h \
+		../../ADEPO/server/mount_coord_prism.h \
+		../../ADEPO/server/global_coord_prism.h \
+		../../ADEPO/server/bcam_params.h \
+		../../ADEPO/server/dip_server.h \
+		../../ADEPO/dip/include/Dip.h \
+		../../ADEPO/dip-5.5.2/include/Options.h \
+		../../ADEPO/dip-5.5.2/include/DipException.h \
+		../../ADEPO/dip-5.5.2/include/StdTypes.h \
+		../../ADEPO/dip-5.5.2/include/DipSubscriptionListener.h \
+		../../ADEPO/dip-5.5.2/include/DipPublicationErrorHandler.h \
+		../../ADEPO/dip-5.5.2/include/DipPublication.h \
+		../../ADEPO/dip-5.5.2/include/DipQuality.h \
+		../../ADEPO/dip-5.5.2/include/DipTimestamp.h \
+		../../ADEPO/dip-5.5.2/include/DipData.h \
+		../../ADEPO/dip-5.5.2/include/DipDataType.h \
+		../../ADEPO/dip-5.5.2/include/DipFactory.h \
+		../../ADEPO/dip-5.5.2/include/DipDimErrorHandler.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/configurator.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/win32.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/macosx.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/config/defines.hxx \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/thread-config.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/appender.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/layout.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/loglevel.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tstring.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/tchar.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/streams.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/pointer.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/thread/syncprims.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/filter.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/lockfile.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/logger.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/appenderattachable.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/spi/loggerfactory.h \
+		../../ADEPO/log4cplus-macosx/include/log4cplus/helpers/property.h \
+		../../ADEPO/server/dip_error_handler.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
+		../../ADEPO/common/results.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonDocument \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsondocument.h \
+		../../ADEPO/common/result.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QDateTime \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
+		../../ADEPO/common/setup.h \
+		../../ADEPO/common/run.h \
+		../../ADEPO/common/json_util.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QJsonArray \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qjsonarray.h \
+		../../ADEPO/common/json_rpc.h \
+		../../ADEPO/common/util.h \
+		../../ADEPO/server/lwdaq_client.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QtNetwork \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractnetworkcache.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhttpmultipart.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkaccessmanager.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkcookie.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkcookiejar.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkdiskcache.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkreply.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkrequest.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkconfigmanager.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkconfiguration.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworksession.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qauthenticator.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qdnslookup.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhostaddress.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qhostinfo.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkinterface.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qnetworkproxy.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractsocket.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qlocalserver.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qlocalsocket.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpserver.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpsocket.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qudpsocket.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qssl.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcertificate.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcertificateextension.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslcipher.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslconfiguration.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslerror.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslkey.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qsslsocket.h \
+		/Users/duns/Qt5.4.1/5.4/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtnetworkversion.h \
+		../../ADEPO/bridge/bridge.h \
+		../../ADEPO/bridge/call.h \
+		../../ADEPO/bridge/callback.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o write_settings_file.o ../../ADEPO/server/write_settings_file.cpp
 
 moc_lwdaq_client.o: moc_lwdaq_client.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_lwdaq_client.o moc_lwdaq_client.cpp

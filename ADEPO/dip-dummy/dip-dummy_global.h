@@ -1,0 +1,12 @@
+#ifndef DIPDUMMY_GLOBAL_H
+#define DIPDUMMY_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(DIPDUMMY_LIBRARY)
+#  define DIPDUMMYSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define DIPDUMMYSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // DIPDUMMY_GLOBAL_H
