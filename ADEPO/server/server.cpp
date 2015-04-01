@@ -201,6 +201,9 @@ void Server::calculateCoordinates()
    mountPrismToGlobalPrism();
 
    calculateResults();
+
+   dipServer.sendResults(output);
+
    output.write();
 
    qDebug() << "Updating Output...";
