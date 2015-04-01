@@ -13,6 +13,8 @@
 #include "setup.h"
 #include "util.h"
 
+#define m2mm 1000
+
 class DipServer
 {
 public:
@@ -70,17 +72,17 @@ public:
 
             Point3d p = result.getValue();
             qDebug() << p.x() << " " << name;
-            list[0]->send((DipFloat)p.x(), time);
-            list[1]->send((DipFloat)p.y(), time);
-            list[2]->send((DipFloat)p.z(), time);
+            list[0]->send((DipFloat)p.x()*m2mm, time);
+            list[1]->send((DipFloat)p.y()*m2mm, time);
+            list[2]->send((DipFloat)p.z()*m2mm, time);
 
             p = result.getStd();
-            list[3]->send((DipFloat)p.x(), time);
-            list[4]->send((DipFloat)p.y(), time);
-            list[5]->send((DipFloat)p.z(), time);
+            list[3]->send((DipFloat)p.x()*m2mm, time);
+            list[4]->send((DipFloat)p.y()*m2mm, time);
+            list[5]->send((DipFloat)p.z()*m2mm, time);
 
             list[6]->send((DipInt)0, time);  // Not Used
-            list[7]->send((DipBool)result.isVerified() > 0, time);
+            list[7]->send((DipBool)result.isVerified() > 1, time);
         }
     }
 
