@@ -63,6 +63,7 @@ public:
             Result result = results.getResult(name);
 
             Point3d p = result.getValue();
+            qDebug() << p.x() << " " << name;
             list[0]->send((DipFloat)p.x(), time);
             list[1]->send((DipFloat)p.y(), time);
             list[2]->send((DipFloat)p.z(), time);
