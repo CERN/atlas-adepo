@@ -43,11 +43,17 @@ public:
     void createPublishers(Setup& setup) {
         if (dip == NULL) return;
 
-        QList<QString> names = setup.getNames();
-        for (int i=0; i<names.size(); i++) {
-            QString dipName = names[i].replace('-','_');
-            qDebug() << "DIP created: " << dipName;
-            createPublishers(dipName);
+        QSet<QString> add = setup.getNames() - map.keys().toSet();
+        QSet<QString> remove = map.keys().toSet() - setup.getNames();
+
+        for (QSet<QString>::iterator i = remove.begin(); i != remove.end(); i++) {
+            qDebug() << "DIP destroyed: " << *i;
+//            removePublishers(*i);
+        }
+
+        for (QSet<QString>::iterator i = add.begin(); i != add.end(); i++) {
+            qDebug() << "DIP created: " << *i;
+//            addPublishers(*i);
         }
     }
 
@@ -85,24 +91,32 @@ private:
 
     QHash<QString, QList<DipPublication*> > map;
 
-    void createPublishers(QString name) {
+    void removePublishers(QString name) {
         QList<DipPublication*>& list = map[name];
         for (int i=0; i<list.size(); i++) {
             dip->destroyDipPublication(list[i]);
         }
         list.clear();
 
+        map.remove(name);
+    }
+
+    void addPublishers(QString name) {
+        QString dipName = name.replace('-','_');
+        QList<DipPublication*>& list = map[name];
+        list.clear();
+
         // 8 items
-        list.append(dip->createDipPublication((rootName+name+"/X_COORDINATE").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+name+"/Y_COORDINATE").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+name+"/Z_COORDINATE").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+dipName+"/X_COORDINATE").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+dipName+"/Y_COORDINATE").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+dipName+"/Z_COORDINATE").toStdString().c_str(), &dipErrorHandler));
 
-        list.append(dip->createDipPublication((rootName+name+"/X_STD").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+name+"/Y_STD").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+name+"/Z_STD").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+dipName+"/X_STD").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+dipName+"/Y_STD").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+dipName+"/Z_STD").toStdString().c_str(), &dipErrorHandler));
 
-        list.append(dip->createDipPublication((rootName+name+"/COMMENT").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+name+"/DATA_QUALITY").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+dipName+"/COMMENT").toStdString().c_str(), &dipErrorHandler));
+        list.append(dip->createDipPublication((rootName+dipName+"/DATA_QUALITY").toStdString().c_str(), &dipErrorHandler));
     }
 };
 

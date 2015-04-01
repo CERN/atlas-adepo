@@ -17,7 +17,7 @@ void Setup::init(Run &run, Configuration &config) {
 
     names.clear();
     for (int i=0; i<bcams.size(); i++) {
-        names.push_back(config.getName(bcams[i].getPrism().getName()));
+        names.insert(config.getName(bcams[i].getPrism().getName()));
     }
 }
 

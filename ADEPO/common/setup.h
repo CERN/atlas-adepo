@@ -1,6 +1,7 @@
 #ifndef SETUP_H
 #define SETUP_H
 
+#include <QSet>
 #include <QList>
 #include <QString>
 
@@ -20,13 +21,13 @@ public:
     QList<BCAM> getBCAMs() {
         return bcams;
     }
-    QList<QString> getNames() {
+    QSet<QString> getNames() {
         return names;
     }
 
 private:
     QList<BCAM> bcams;
-    QList<QString> names;
+    QSet<QString> names;
 };
 
 #endif // SETUP_H
