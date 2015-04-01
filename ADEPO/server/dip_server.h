@@ -23,7 +23,7 @@ public:
         // NOTE: does not seem to work... we still get an information message...
         QString log4cplusProperties = Util::workPath().append("log4cplus.properties");
         qDebug() << "Using " << log4cplusProperties;
-//        log4cplus::PropertyConfigurator::doConfigure(LOG4CPLUS_STRING_TO_TSTRING(log4cplusProperties.toStdString()));
+        log4cplus::PropertyConfigurator::doConfigure(log4cplusProperties.toStdString());
 
         rootName = "dip/ATLAS/BCAM/";
         QString dipServerName = "ATLAS-ADEPO";
