@@ -20,10 +20,13 @@ public:
     ~DipServer() {};
 
     void connect() {
+#ifndef __APPLE__
         // NOTE: does not seem to work... we still get an information message...
         QString log4cplusProperties = Util::workPath().append("log4cplus.properties");
         qDebug() << "Using " << log4cplusProperties;
+        // NOTE: cannot seem to find this at link time in OSX
         log4cplus::PropertyConfigurator::doConfigure(log4cplusProperties.toStdString());
+#endif
 
         rootName = "dip/ATLAS/BCAM/";
         QString dipServerName = "ATLAS-ADEPO";
