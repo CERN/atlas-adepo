@@ -102,7 +102,8 @@ private:
     }
 
     void addPublishers(QString name) {
-        QString dipName = name.replace('-','_');
+        QString dipName = name;
+        dipName.replace('-','_');
         QList<DipPublication*>& list = map[name];
         list.clear();
 
