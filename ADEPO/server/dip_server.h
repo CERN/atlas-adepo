@@ -48,12 +48,12 @@ public:
 
         for (QSet<QString>::iterator i = remove.begin(); i != remove.end(); i++) {
             qDebug() << "DIP destroyed: " << *i;
-//            removePublishers(*i);
+            removePublishers(*i);
         }
 
         for (QSet<QString>::iterator i = add.begin(); i != add.end(); i++) {
             qDebug() << "DIP created: " << *i;
-//            addPublishers(*i);
+            addPublishers(*i);
         }
     }
 
@@ -94,7 +94,7 @@ private:
     void removePublishers(QString name) {
         QList<DipPublication*>& list = map[name];
         for (int i=0; i<list.size(); i++) {
-            dip->destroyDipPublication(list[i]);
+ //           dip->destroyDipPublication(list[i]);
         }
         list.clear();
 
@@ -105,6 +105,8 @@ private:
         QString dipName = name.replace('-','_');
         QList<DipPublication*>& list = map[name];
         list.clear();
+
+        return;
 
         // 8 items
         list.append(dip->createDipPublication((rootName+dipName+"/X_COORDINATE").toStdString().c_str(), &dipErrorHandler));
