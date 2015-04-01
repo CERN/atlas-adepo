@@ -94,7 +94,7 @@ private:
     void removePublishers(QString name) {
         QList<DipPublication*>& list = map[name];
         for (int i=0; i<list.size(); i++) {
- //           dip->destroyDipPublication(list[i]);
+            dip->destroyDipPublication(list[i]);
         }
         list.clear();
 
@@ -106,8 +106,6 @@ private:
         dipName.replace('-','_');
         QList<DipPublication*>& list = map[name];
         list.clear();
-
-        return;
 
         // 8 items
         list.append(dip->createDipPublication((rootName+dipName+"/X_COORDINATE").toStdString().c_str(), &dipErrorHandler));
