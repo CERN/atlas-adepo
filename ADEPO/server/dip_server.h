@@ -6,6 +6,7 @@
 #include <QString>
 
 #include "Dip.h"
+#include "DipData.h"
 #include "log4cplus/configurator.h"
 
 #include "dip_error_handler.h"
@@ -45,8 +46,8 @@ public:
     void createPublishers(Setup& setup) {
         if (dip == NULL) return;
 
-        QSet<QString> add = setup.getNames() - map.keys().toSet();
-        QSet<QString> remove = map.keys().toSet() - setup.getNames();
+        QSet<QString> add = setup.getNames() - publications.keys().toSet();
+        QSet<QString> remove = publications.keys().toSet() - setup.getNames();
 
         for (QSet<QString>::iterator i = remove.begin(); i != remove.end(); i++) {
             qDebug() << "DIP destroyed: " << *i;
@@ -64,25 +65,28 @@ public:
 
         qDebug() << "Updating DIP";
 
-        DipTimestamp time;
-        foreach(const QString &name, map.keys()) {
-            const QList<DipPublication*>& list = map.value(name);
+        foreach(const QString &name, publications.keys()) {
+            DipPublication* pub = publications.value(name);
 
             Result result = results.getResult(name);
 
+            DipData* d = data.value(name);
+
             Point3d p = result.getValue();
-            qDebug() << p.x() << " " << name;
-            list[0]->send((DipFloat)p.x()*m2mm, time);
-            list[1]->send((DipFloat)p.y()*m2mm, time);
-            list[2]->send((DipFloat)p.z()*m2mm, time);
+            d->insert((DipFloat)p.x()*m2mm, "X_COORDINATE");
+            d->insert((DipFloat)p.y()*m2mm, "Y_COORDINATE");
+            d->insert((DipFloat)p.z()*m2mm, "Z_COORDINATE");
 
             p = result.getStd();
-            list[3]->send((DipFloat)p.x()*m2mm, time);
-            list[4]->send((DipFloat)p.y()*m2mm, time);
-            list[5]->send((DipFloat)p.z()*m2mm, time);
+            d->insert((DipFloat)p.x()*m2mm, "X_STD");
+            d->insert((DipFloat)p.y()*m2mm, "Y_STD");
+            d->insert((DipFloat)p.z()*m2mm, "Z_STD");
 
-            list[6]->send((DipInt)0, time);  // Not Used
-            list[7]->send((DipBool)result.isVerified() > 1, time);
+            d->insert((DipInt)0, "COMMENT");  // Not Used
+            d->insert((DipBool)result.isVerified() > 1, "DATA_QUALITY");
+
+            DipTimestamp time;
+            pub->send(d, time);
         }
     }
 
@@ -91,35 +95,24 @@ private:
     DipFactory *dip;
     QString rootName;
 
-    QHash<QString, QList<DipPublication*> > map;
+    QHash<QString, DipPublication*> publications;
+    QHash<QString, DipData*> data;
 
     void removePublishers(QString name) {
-        QList<DipPublication*>& list = map[name];
-        for (int i=0; i<list.size(); i++) {
-            dip->destroyDipPublication(list[i]);
+        DipPublication* pub = publications[name];
+        if (pub != NULL) {
+            dip->destroyDipPublication(pub);
         }
-        list.clear();
-
-        map.remove(name);
+        publications.remove(name);
+        data.remove(name);
     }
 
     void addPublishers(QString name) {
         QString dipName = name;
         dipName.replace('-','_');
-        QList<DipPublication*>& list = map[name];
-        list.clear();
 
-        // 8 items
-        list.append(dip->createDipPublication((rootName+dipName+"/X_COORDINATE").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+dipName+"/Y_COORDINATE").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+dipName+"/Z_COORDINATE").toStdString().c_str(), &dipErrorHandler));
-
-        list.append(dip->createDipPublication((rootName+dipName+"/X_STD").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+dipName+"/Y_STD").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+dipName+"/Z_STD").toStdString().c_str(), &dipErrorHandler));
-
-        list.append(dip->createDipPublication((rootName+dipName+"/COMMENT").toStdString().c_str(), &dipErrorHandler));
-        list.append(dip->createDipPublication((rootName+dipName+"/DATA_QUALITY").toStdString().c_str(), &dipErrorHandler));
+        publications[name] = dip->createDipPublication((rootName+dipName).toStdString().c_str(), &dipErrorHandler);
+        data[name] = dip->createDipData();
     }
 };
 
