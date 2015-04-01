@@ -36,7 +36,7 @@ public:
         if (dip == NULL) {
             qDebug() << "Ignoring DIP";
         } else {
-            qDebug() << "Started DIP";
+            qDebug() << "Started DIP with prefix '" << rootName << "'";
         }
     }
 
