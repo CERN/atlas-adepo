@@ -1,0 +1,3 @@
+#!/bin/sh
+qmake -d -spec linux-g++ -o Makefile ../ADEPO/ADEPO.pro
+
