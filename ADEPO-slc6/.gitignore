@@ -1,4 +1,5 @@
 .qmake.stash
+Makefile
 *.o
 *.a
 /Acquisifier_Params.tcl
