@@ -12,13 +12,13 @@ class Point3d
         //constructeurs et destructeurs
         Point3d() : mValid(true),mX(0),mY(0),mZ(0) {};
 
-        Point3d(float X,float Y,float Z) : mValid(true),mX(X),mY(Y),mZ(Z) {};
-        Point3d(bool valid, float X,float Y,float Z) : mValid(valid),mX(X),mY(Y),mZ(Z) {};
+        Point3d(double X, double Y, double Z) : mValid(true),mX(X),mY(Y),mZ(Z) {};
+        Point3d(bool valid, double X, double Y, double Z) : mValid(valid),mX(X),mY(Y),mZ(Z) {};
         Point3d(bool valid) : mValid(valid),mX(0),mY(0),mZ(0) {};
         virtual ~Point3d() {};
         Point3d(const Point3d& copie) : mValid(copie.mValid),mX(copie.mX),mY(copie.mY),mZ(copie.mZ) {};
         Point3d(const Point3d& value, const Point3d& ref) : mValid(value.mValid && ref.mValid),mX(value.mX-ref.mX),mY(value.mY-ref.mY),mZ(value.mZ-ref.mZ) {};
-        Point3d(const Point3d& value, float multiplier) : mValid(value.mValid),mX(value.mX*multiplier),mY(value.mY*multiplier),mZ(value.mZ*multiplier) {};
+        Point3d(const Point3d& value, double multiplier) : mValid(value.mValid),mX(value.mX*multiplier),mY(value.mY*multiplier),mZ(value.mZ*multiplier) {};
 
         //setter et getter
         bool isValid() { return mValid; }
