@@ -86,7 +86,7 @@ public:
             d->insert((DipBool)result.isVerified() > 1, "DATA_QUALITY");
 
             DipTimestamp time;
-            pub->send(d, time);
+            pub->send(*d, time);
         }
     }
 
