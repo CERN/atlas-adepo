@@ -82,8 +82,6 @@ void Client::changedOutput(QString filename) {
     output.read(filename);
 
     updateResults();
-
-    display(ui->refFileLabel, ui->refFile, filename);
 }
 
 void Client::changedResult(QString filename) {
