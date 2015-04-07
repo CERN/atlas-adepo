@@ -1,0 +1,7 @@
+#!/bin/sh
+cd /det/ti/PosMov/git/atlas-adepo/ADEPO-slc6/Archive
+git add *.txt
+git commit -a -m "Added Results"
+git push origin master
+
+

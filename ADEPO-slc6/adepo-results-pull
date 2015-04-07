@@ -1,0 +1,4 @@
+#!/bin/sh
+cd /www/ALL/data/pictures/adepo
+git pull origin master
+

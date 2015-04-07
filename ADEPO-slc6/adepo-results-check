@@ -1,0 +1,9 @@
+#!/bin/sh
+cd /www/ALL/data/pictures/adepo
+ls | sha1sum > sha1latest
+if diff sha1latest sha1; then
+   echo "Hourly check, no longer updating results" | mailx -s "ADEPO Problem" duns@cern.ch
+else 
+   cp sha1latest sha1
+fi 
+
