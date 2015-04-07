@@ -2,6 +2,7 @@
 Makefile
 *.o
 *.a
+/Archive
 /Acquisifier_Params.tcl
 /Acquisifier_Results.txt
 /Acquisifier_Script.tcl
