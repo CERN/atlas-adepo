@@ -40,20 +40,4 @@ Refer to https://atd-sysadmins.cern.ch/redmine/issues/2443 and https://atd-sysad
 Mark Donszelmann (duns@cern.ch)
 
 
-Version 1.0 du logiciel ADEPO
-
-2 dossiers :
-
----> ADEPO : contient la librairie eigen-eigen + les sources (header and src) + input_folder
------------> input_folder : contient le logiciel LWDAQ (telecharger la derniere version puis decompreser le dossier) : http://alignment.hep.brandeis.edu/Software/
------------> le fichier de configuration (description en annexe A du rapport du TFE)
------------> le fichier de calibration des BCAMs (garder dans le fichier que les calibrations des 28 BCAMs) : http://alignment.hep.brandeis.edu/Devices/Calibration/BCAM_Parameters.txt
------------> fichiers .pro et .pro.user pour le projet Qt Creator. Le fichier .ui pour l'interface graphique. Le fichier main.ccp qui lance le programme. 
-
----> ADEPO-slc6-32 : contient les fichiers de la compilation + le dossier Archive + le dossier scripts_lwdaq
------------> Archive : contient les fichiers de sauvegarde et de resultats (datation du fichier)
------------> scripts_lwdaq : contient les scripts pour la communication ADEPO<==>lwdaq
------------> l'executable "ADEPO" qui lance le programme
-
-Pour une recompilation, le fichier "Makefile" se trouve dans le second dossier : ADEPO-slc6-32.
 
