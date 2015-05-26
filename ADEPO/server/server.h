@@ -9,11 +9,11 @@
 #include <QFile>
 #include <QTimer>
 
+#include "adepo.h"
 #include "bcam.h"
 #include "calibration.h"
 #include "configuration.h"
 #include "data.h"
-#include "dip_server.h"
 #include "results.h"
 #include "run.h"
 #include "setup.h"
@@ -22,6 +22,10 @@
 #include "point3d.h"
 #include "call.h"
 #include "callback.h"
+
+#ifdef USE_DIP
+#include "dip_server.h"
+#endif
 
 class Server : public QObject, public Call
 {
@@ -94,7 +98,9 @@ private:
     Results reference;
     Results output;
     QString resultFile;
+#ifdef USE_DIP
     DipServer dipServer;
+#endif
 };
 
 #endif // SERVER_H

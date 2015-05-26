@@ -26,7 +26,10 @@ void Server::updateRun(Run run) {
     run.write();
 
     setup.init(run, config);
+
+#ifdef USE_DIP
     dipServer.createPublishers(setup);
+#endif
 
     callback.changedRun(run);
 }
@@ -37,7 +40,10 @@ void Server::updateConfiguration() {
     config.read(config.getFilename());
 
     setup.init(run, config);
+
+#ifdef USE_DIP
     dipServer.createPublishers(setup);
+#endif
 
     callback.changedConfiguration(config.getFilename());
 }

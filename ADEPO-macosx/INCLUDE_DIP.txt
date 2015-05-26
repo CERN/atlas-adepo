@@ -1,0 +1,8 @@
+- Add module in ADEPO.pro
+
+- Uncomment all dip and log4cpath
+	adepo-server.pro
+	server.pro
+
+- define USE_DIP in adepo.h
+

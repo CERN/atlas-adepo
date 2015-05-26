@@ -46,8 +46,10 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     updateTimer->setSingleShot(false);
     connect(updateTimer, &QTimer::timeout, this, &Server::timeChanged);
 
+#ifdef USE_DIP
     // connect to dip
     dipServer.connect();
+#endif
 
     // read files
     config.read(Util::inputPath().append(CONFIGURATION_FILE));
@@ -71,7 +73,10 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     resultFile = Util::workPath().append(DEFAULT_RESULT_FILE);
 
     setup.init(run, config);
+
+#ifdef USE_DIP
     dipServer.createPublishers(setup);
+#endif
 
     std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
 
@@ -202,7 +207,9 @@ void Server::calculateCoordinates()
 
    calculateResults();
 
+#ifdef USE_DIP
    dipServer.sendResults(output);
+#endif
 
    output.write();
 
