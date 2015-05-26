@@ -1,5 +1,10 @@
 #!/bin/sh
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
-$SCRIPTPATH/../ADEPO-slc6/adepo-server/adepo-server &> $SCRIPTPATH/../ADEPO-slc6/server.log &
-
+while [ 1 ]
+do
+    echo "ADEPO Server Started" | mailx -s "ADEPO Started" duns@cern.ch
+    $SCRIPTPATH/../ADEPO-slc6/adepo-server/adepo-server &> $SCRIPTPATH/../ADEPO-slc6/server.log
+    echo "ADEPO Server Crashed, restart in 5 mins" | mailx -s "ADEPO Crashed" duns@cern.ch
+    sleep 5m
+done
