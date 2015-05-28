@@ -4,7 +4,7 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 while [ 1 ]
 do
     echo "ADEPO Server Started" | mailx -s "ADEPO Started" duns@cern.ch
-    $SCRIPTPATH/../ADEPO-slc6/adepo-server/adepo-server &> $SCRIPTPATH/../ADEPO-slc6/server.log
+    $SCRIPTPATH/../ADEPO-slc6/adepo-server/adepo-server >> $SCRIPTPATH/../ADEPO-slc6/server.log 2>&1
     echo "ADEPO Server Crashed, restart in 5 mins" | mailx -s "ADEPO Crashed" duns@cern.ch
     sleep 5m
 done
