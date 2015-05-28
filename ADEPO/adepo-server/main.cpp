@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     Util::setApplicationInfo("ADEPO server");
     Util::handleDebug(app);
 
+    std::cout << QDateTime::currentDateTime().toString().toStdString() << std::endl;
     std::cout << app.applicationName().toStdString() << " " << app.applicationVersion().toStdString() << std::endl;
 
     SocketServer webSocketServer(5687);
