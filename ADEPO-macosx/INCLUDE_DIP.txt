@@ -1,4 +1,4 @@
-- Add module in ADEPO.pro
+- Add module dip-dummy in ADEPO.pro
 
 - Uncomment all dip and log4cpath
 	adepo-server.pro

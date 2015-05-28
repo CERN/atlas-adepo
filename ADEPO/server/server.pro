@@ -17,8 +17,8 @@ unix:mac{
 }
 
 INCLUDEPATH += $$PWD/../eigen-eigen
-#INCLUDEPATH += $$PWD/../dip/include
-#DEPENDPATH += $$PWD/../dip-dummy
+INCLUDEPATH += $$PWD/../dip/include
+DEPENDPATH += $$PWD/../dip-dummy
 
 SOURCES += \
     lwdaq_client.cpp \
@@ -42,8 +42,8 @@ HEADERS += \
     mount_coord_spots.h \
     spot.h \
     server.h \
-#    dip_error_handler.h \
-#    dip_server.h
+    dip_error_handler.h \
+    dip_server.h
 
 
 INCLUDEPATH += $$PWD/../bridge
