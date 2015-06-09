@@ -21,7 +21,7 @@ HEADERS += \
     socket_server.h
 
 unix:!mac{
-  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib
+  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.2/lib
   QMAKE_LFLAGS += -Wl,--rpath=$$PWD/../dip/lib64
   QMAKE_RPATH=
   INCLUDEPATH += $$PWD/../log4cplus-slc6/include

@@ -12,7 +12,7 @@ TEMPLATE = app
 SOURCES += main.cpp
 
 unix:!mac{
-  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib
+  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.2/lib
   QMAKE_LFLAGS += -Wl,--rpath=$$PWD/../log4cplus-slc6/lib
   QMAKE_RPATH=
   INCLUDEPATH += $$PWD/../log4cplus-slc6/include

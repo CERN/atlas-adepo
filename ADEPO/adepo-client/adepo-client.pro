@@ -16,7 +16,7 @@ HEADERS += \
     socket_client.h
 
 unix:!mac{
-  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.1/lib
+  QMAKE_LFLAGS += -Wl,--rpath=/det/ti/PosMov/Qt5.4.2/lib
   QMAKE_RPATH=
 }
 
