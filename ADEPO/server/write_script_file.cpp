@@ -36,7 +36,7 @@ int Server::writeScriptFile(QString fileName)
            <<" regsub -all \" \" $suffix \"-\" suffix \n"
            <<" set systemTime [clock seconds] \n"
            <<" set datetime [clock format $systemTime -format %Y.%m.%d.%H.%M.%S] \n"
-           <<" set flash $iconfig(daq_adjust_flash) \n"
+           <<" set flash $iconfig(daq_flash_seconds) \n"
            <<" set fn [file join [file dirname $config(run_results)] images/$name-$suffix-$datetime-$flash.gif] \n"
            <<" LWDAQ_write_image_file $iconfig(memory_name) $fn \n"
            <<" LWDAQ_print $info(text) \"Saved raw image to $fn\" blue ; \n"
