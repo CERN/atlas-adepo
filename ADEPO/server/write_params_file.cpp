@@ -43,7 +43,7 @@ int Server::writeParamsFile(QString params_file)
            <<"set LWDAQ_info_BCAM(delete_old_images) \"1\" \n"
            <<"set LWDAQ_info_BCAM(daq_device_type) \"2\" \n"
            <<"set LWDAQ_info_BCAM(file_try_header) \"1\" \n"
-           <<"set LWDAQ_info_BCAM(peak_max) \"180\" \n"
+           <<"set LWDAQ_info_BCAM(peak_max) \"160\" \n"
            <<"set LWDAQ_info_BCAM(flash_seconds_transition) \"0.000030\" \n"
            <<"set LWDAQ_info_BCAM(daq_extended) \"0\" \n"
            <<"set LWDAQ_config_BCAM(analysis_threshold) \"10 #\" \n"
