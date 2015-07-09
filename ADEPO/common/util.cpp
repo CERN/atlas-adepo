@@ -42,6 +42,11 @@ void Util::messageHandler(QtMsgType type, const QMessageLogContext &context, con
     Q_UNUSED(context);
 
     switch (type) {
+        case QtInfoMsg:
+            if (debug) {
+                std::cerr << "Info: " << msg.toStdString() << std::endl;
+            }
+            break;
         case QtDebugMsg:
             if (debug) {
                 std::cerr << "Debug: " << msg.toStdString() << std::endl;
