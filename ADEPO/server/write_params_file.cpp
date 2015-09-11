@@ -37,13 +37,13 @@ int Server::writeParamsFile(QString params_file)
            <<"set LWDAQ_info_BCAM(flash_num_tries) \"0\" \n"
            <<"set LWDAQ_info_BCAM(flash_seconds_reduce) \"0.1\" \n"
            <<"set LWDAQ_info_BCAM(file_use_daq_bounds) \"0\" \n"
-           <<"set LWDAQ_info_BCAM(peak_min) \"100\" \n"
+           <<"set LWDAQ_info_BCAM(peak_min) \"90\" \n"
            <<"set LWDAQ_info_BCAM(zoom) \"1\" \n"
            <<"set LWDAQ_info_BCAM(analysis_return_bounds) \"0\" \n"
            <<"set LWDAQ_info_BCAM(delete_old_images) \"1\" \n"
            <<"set LWDAQ_info_BCAM(daq_device_type) \"2\" \n"
            <<"set LWDAQ_info_BCAM(file_try_header) \"1\" \n"
-           <<"set LWDAQ_info_BCAM(peak_max) \"160\" \n"
+           <<"set LWDAQ_info_BCAM(peak_max) \"130\" \n"
            <<"set LWDAQ_info_BCAM(flash_seconds_transition) \"0.000030\" \n"
            <<"set LWDAQ_info_BCAM(daq_extended) \"0\" \n"
            <<"set LWDAQ_config_BCAM(analysis_threshold) \"10 #\" \n"
@@ -68,4 +68,3 @@ int Server::writeParamsFile(QString params_file)
     fichier.close();
     return 1;
 }
-
