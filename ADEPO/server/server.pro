@@ -13,6 +13,8 @@ unix:!mac{
 }
 
 unix:mac{
+  QMAKE_MAC_SDK = macosx10.11
+
   INCLUDEPATH += $$PWD/../log4cplus-macosx/include
 }
 

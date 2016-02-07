@@ -3,6 +3,7 @@
 # Project created by QtCreator 2015-01-19T22:02:41
 #
 #-------------------------------------------------
+QMAKE_MAC_SDK = macosx10.11
 
 QT       += core gui widgets network websockets
 

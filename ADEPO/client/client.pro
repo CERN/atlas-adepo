@@ -1,3 +1,5 @@
+QMAKE_MAC_SDK = macosx10.11
+
 QT       += core gui widgets testlib network
 
 TARGET = client

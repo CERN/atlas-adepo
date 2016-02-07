@@ -18,4 +18,3 @@ OTHER_FILES = \
     input_folder/Acquisifier_Params.tcl \
     input_folder/Acquisifier_Script.tcl \
     input_folder/Acquisifier_Settings.tcl
-

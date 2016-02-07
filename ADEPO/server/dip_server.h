@@ -83,7 +83,7 @@ public:
             d->insert((DipFloat)p.z()*m2mm, "Z_STD");
 
             d->insert((DipInt)0, "COMMENT");  // Not Used
-            d->insert((DipBool)result.isVerified() > 1, "DATA_QUALITY");
+            d->insert((DipBool)result.isVerified(), "DATA_QUALITY");
 
             DipTimestamp time;
             pub->send(*d, time);
