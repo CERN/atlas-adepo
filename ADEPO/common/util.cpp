@@ -27,7 +27,7 @@ void Util::setApplicationInfo(QString name) {
     QCoreApplication::setOrganizationName("ATLAS CERN");
     QCoreApplication::setOrganizationDomain("atlas.cern.ch");
     QCoreApplication::setApplicationName(name);
-    QCoreApplication::setApplicationVersion("1.4");
+    QCoreApplication::setApplicationVersion("1.8");
 }
 
 bool Util::debug;

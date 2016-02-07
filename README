@@ -1,5 +1,7 @@
 Version 1.4+
 
+-- 
+NOTE: verion is coded in common/Util.cpp
 --
 For compilation and installation on SLC6, 64 bits virtual machine and 32 bits compilation on vm-atlas-posmov-01 (64 bits vm) 
 the following packages are needed:
