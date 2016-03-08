@@ -1,17 +1,17 @@
 Version 1.4+
 
--- 
-NOTE: verion is coded in common/Util.cpp
 --
-For compilation and installation on SLC6, 64 bits virtual machine and 32 bits compilation on vm-atlas-posmov-01 (64 bits vm) 
+NOTE: version is coded in common/Util.cpp
+--
+For compilation and installation on SLC6, 64 bits virtual machine and 32 bits compilation on vm-atlas-posmov-01 (64 bits vm)
 the following packages are needed:
 
 QT 5.4 x86 (32 bit version) in the /det/ti/PosMov directory
 setup the path to bin to make sure you have the correct qmake
 
-- the installation of qt 5.4 needs 1.2 Gbyte of /tmp space. vm-atlas-posmov-01 does not have that. 
-Use lxplus to install, then copy the resulting directory over. 
-It will generate Makefiles with references to afs, but you can edit those later. 
+- the installation of qt 5.4 needs 1.2 Gbyte of /tmp space. vm-atlas-posmov-01 does not have that.
+Use lxplus to install, then copy the resulting directory over.
+It will generate Makefiles with references to afs, but you can edit those later.
 
 - g++, gcc
 - glibc.i686
@@ -40,6 +40,3 @@ to create an executable for a new architecture:
 --
 Refer to https://atd-sysadmins.cern.ch/redmine/issues/2443 and https://atd-sysadmins.cern.ch/redmine/issues/2303 for more info.
 Mark Donszelmann (duns@cern.ch)
-
-
-
