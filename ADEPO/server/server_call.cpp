@@ -28,7 +28,9 @@ void Server::updateRun(Run run) {
     setup.init(run, config);
 
 #ifdef USE_DIP
-    dipServer.createPublishers(setup);
+    if (config.isDipEnabled()) {
+        dipServer.createPublishers(setup);
+    }
 #endif
 
     callback.changedRun(run);
@@ -42,7 +44,9 @@ void Server::updateConfiguration() {
     setup.init(run, config);
 
 #ifdef USE_DIP
-    dipServer.createPublishers(setup);
+    if (config.isDipEnabled()) {
+        dipServer.createPublishers(setup);
+    }
 #endif
 
     callback.changedConfiguration(config.getFilename());

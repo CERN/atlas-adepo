@@ -97,6 +97,13 @@ int Configuration::read(QString filename)
                 etape_calcul = 9;
             }
 
+            //dip_enabled
+            if(line.substr(0,13).compare("//DIP_ENABLED")==0)
+            {
+                    getline(file, line);
+                    etape_calcul = 10;
+            }
+
             // take ending off the line
             line.erase(line.find_last_not_of(" \n\r\t")+1);
 
@@ -156,6 +163,15 @@ int Configuration::read(QString filename)
                         //recuperation de l'adresse ip du driver
                         QString driver_ip_adress = QString::fromStdString(strtok(buffer," "));
                         setDriverIpAddress(driver_ip_adress);
+                    }
+                    break;
+
+                    case 10:
+                    {
+                        char *buffer = strdup((char*)line.c_str());
+                        //Dip Enabled
+                        bool enabled = (QString::fromStdString(strtok(buffer," "))).toLower() != "false";
+                        setDipEnabled(enabled);
                     }
                     break;
 

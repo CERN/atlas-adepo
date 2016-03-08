@@ -4,6 +4,7 @@
 #include "server.h"
 #include "bcam_config.h"
 #include "util.h"
+#include "configuration.h"
 
 #include "Eigen/Core"
 #include "Eigen/LU"
@@ -46,13 +47,19 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     updateTimer->setSingleShot(false);
     connect(updateTimer, &QTimer::timeout, this, &Server::timeChanged);
 
+    // read files
+    config.read(Util::inputPath().append(CONFIGURATION_FILE));
+
 #ifdef USE_DIP
-    // connect to dip
-    dipServer.connect();
+    if (config.isDipEnabled()) {
+        // connect to dip
+        dipServer.connect();
+    } else {
+        qDebug() << "DIP is disabled";
+    }
 #endif
 
     // read files
-    config.read(Util::inputPath().append(CONFIGURATION_FILE));
     run.read(Util::workPath().append(RUN_FILE));
 
     helmert(config, data);
@@ -75,7 +82,9 @@ Server::Server(Callback &callback, QObject *parent) : QObject(parent), callback(
     setup.init(run, config);
 
 #ifdef USE_DIP
-    dipServer.createPublishers(setup);
+    if (config.isDipEnabled()) {
+        dipServer.createPublishers(setup);
+    }
 #endif
 
     std::cout << "SERVER Using " << run.getFileName().toStdString() << std::endl;
@@ -208,7 +217,9 @@ void Server::calculateCoordinates()
    calculateResults();
 
 #ifdef USE_DIP
-   dipServer.sendResults(output);
+   if (config.isDipEnabled()) {
+      dipServer.sendResults(output);
+   }
 #endif
 
    output.write();

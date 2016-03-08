@@ -58,6 +58,7 @@ public:
 
     QString getName(QString id) { return names[id]; }
     QString getDriverIpAddress() const {return mDriverIpAddress;}
+    bool isDipEnabled() const {return mDipEnabled;}
 
     void clear() {
         mDetectors.clear();
@@ -68,6 +69,7 @@ public:
         mATLASCoordinates.clear();
         names.clear();
         mDriverIpAddress.clear();
+        mDipEnabled = true;
     }
 
 private:
@@ -79,11 +81,13 @@ private:
     void add(ATLASCoordinates val) {mATLASCoordinates.push_back(val);}
     void addName(QString id, QString name) { names[id] = name; }
     void setDriverIpAddress(QString val) {mDriverIpAddress = val;}
+    void setDipEnabled(bool enabled) {mDipEnabled = enabled;}
 
     QString filename;
     QList<Detector> mDetectors;
     QList<BCAMAdapter> mBCAMAdapters;
     QString mDriverIpAddress;
+    bool mDipEnabled;
     QList<BCAMConfig> mBCAMConfigs;
     QList<AbsoluteDistances> mAbsoluteDistances;
     QList<PrismCorrection> mPrismCorrections;
