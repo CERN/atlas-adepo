@@ -11,6 +11,6 @@
         2
     ],
     "FullPrecisionFormat": false,
-    "Mode": "Closure",
+    "Mode": "Monitoring",
     "WaitingTime": 1800
 }
