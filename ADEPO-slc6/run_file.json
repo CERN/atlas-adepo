@@ -1,9 +1,16 @@
 {
-    "AcquisitionTime": 180,
+    "AcquisitionTime": 300,
     "Detectors": [
-        8
+        8,
+        1,
+        7,
+        6,
+        5,
+        4,
+        3,
+        2
     ],
     "FullPrecisionFormat": false,
     "Mode": "Closure",
-    "WaitingTime": 300
+    "WaitingTime": 1800
 }
